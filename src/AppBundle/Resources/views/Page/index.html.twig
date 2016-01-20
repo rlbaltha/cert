@@ -1,0 +1,32 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Pages</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-default" href="{{ path('page_new') }}">
+            New Page
+        </a>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Body</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+                <td>{{ entity.body|slice(0, 100)| raw }}. . .</td>
+                <td>
+                    <a href="{{ path('page_edit', { 'id': entity.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>{{ entity.title }}</h1>
+    <div class="col-sm-3 well">
+        <ul class="list-unstyled">
+            {%  for page in pages %}
+            <li><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-sm-9 well">
+
+        {{ entity.body|raw }}
+    </div>
+{% endblock %}

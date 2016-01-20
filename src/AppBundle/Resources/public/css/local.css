@@ -1,0 +1,43 @@
+
+/**********  Accessibility **********/
+#skip a, #skip a:hover, #skip a:visited
+{
+    position:absolute;
+    left:0;
+    top:-500px;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+}
+
+#skip a:active, #skip a:focus {
+    position: static;
+    display: inline-block;
+    width: auto;
+    height: auto;
+}
+
+/**********  Navbar **********/
+
+.navbar-default {
+    background-color: #6c9336;
+}
+
+header .navbar-default .navbar-nav li a {
+    color: #fff;
+}
+
+/**********  Forms **********/
+a.navbar-brand {
+    color: #fff !important;
+}
+
+div.radio > label {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.radio input[type="radio"] {
+    position: inherit;
+    margin-left: 10px;
+}
