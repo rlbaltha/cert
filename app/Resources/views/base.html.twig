@@ -9,6 +9,8 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/css/theme.bootstrap.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/local.css') }}">
     {% endblock %}
 
@@ -36,12 +38,12 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <a class="navbar-brand" href="{{ path('homepage') }}">Certificate</a>
+                <a class="navbar-brand" href="{{ path('homepage') }}">Sustainability Certificate</a>
                 <ul class="nav navbar-nav">
                     <li id="skip">
                         <a id="main_nav" href="#main_content">Skip Navigation</a>
                     </li>
-                    <li><a href="{{ path('page') }}">Requirements</a></li>
+                    <li><a href="{{ path('page_show', { 'id': '1' }) }}">Requirements</a></li>
                     <li><a href="{{ path('course') }}">Courses</a></li>
                     <li><a href="{{ path('faculty') }}">Faculty</a></li>
                 </ul>

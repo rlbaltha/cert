@@ -1,3 +1,10 @@
+body {
+    font-family: 'Open Sans', 'Arial', 'sans-serif';
+}
+
+.navbar-brand, h1, h2, h3 {
+    font-family: 'Josefin Sans', 'Arial', 'sans-serif';
+}
 
 /**********  Accessibility **********/
 #skip a, #skip a:hover, #skip a:visited
@@ -18,6 +25,8 @@
 }
 
 /**********  Navbar **********/
+
+
 
 .navbar-default {
     background-color: #6c9336;

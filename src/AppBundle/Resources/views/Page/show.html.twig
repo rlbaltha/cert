@@ -26,6 +26,7 @@
             </div>
         </div>
         <div class="col-sm-9">
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-default pull-right" href="{{ path('page_edit', { 'id': entity.id }) }}">Edit</a>{% endif %}
             <h1>{{ entity.title }}</h1>
             {{ entity.body|raw }}
         </div>
