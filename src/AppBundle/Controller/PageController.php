@@ -195,7 +195,7 @@ class PageController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('page_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('page_show', array('id' => $id)));
         }
 
         return array(

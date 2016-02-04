@@ -193,7 +193,7 @@ class FacultyController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('faculty_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('faculty_show', array('id' => $id)));
         }
 
         return array(
