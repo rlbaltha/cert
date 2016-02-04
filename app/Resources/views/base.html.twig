@@ -16,6 +16,8 @@
 </head>
 
 <body>
+
+<div class="container-fluid">
 <header>
 
         <nav class="navbar navbar-default">
@@ -29,7 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="" href="#" class="pull-left"><img class="img-responsive navbar-logo" src="{{ asset('bundles/app/images/sustainabilitynavlogo.jpg') }}"></a>
+                <a class="" href="{{ path('homepage') }}" class="pull-left"><img class="img-responsive navbar-logo" src="{{ asset('bundles/app/images/sustainabilitynavlogo.jpg') }}"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -73,7 +75,6 @@
 </header>
 
 <section class="main-content">
-    <div class="container">
         <div class="col-xs-12 col-sm-12">
             {% block body %}{% endblock %}
             {% block javascripts %}
@@ -85,8 +86,8 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/js/jquery.tablesorter.widgets.min.js"></script>
             {% endblock %}
         </div>
-    </div>
-</section>
 
+</section>
+</div>
 </body>
 </html>
