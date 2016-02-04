@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="initial-scale=1">
-    <title>{% block title %}Certificate{% endblock %}</title>
+    <title>{% block title %}Sustainability Certificate{% endblock %}</title>
 
     {% block stylesheets %}
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -29,16 +29,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ path('homepage') }}">Certificate</a>
+                <a class="" href="#" class="pull-left"><img class="img-responsive navbar-logo" src="{{ asset('bundles/app/images/sustainabilitynavlogo.jpg') }}"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <a class="navbar-brand" href="{{ path('homepage') }}">Certificate</a>
                 <ul class="nav navbar-nav">
                     <li id="skip">
                         <a id="main_nav" href="#main_content">Skip Navigation</a>
                     </li>
-                    <li><a href="{{ path('page') }}">Pages</a></li>
+                    <li><a href="{{ path('page') }}">Requirements</a></li>
                     <li><a href="{{ path('course') }}">Courses</a></li>
                     <li><a href="{{ path('faculty') }}">Faculty</a></li>
                 </ul>
@@ -53,6 +54,12 @@
                         </li>
                     {% else %}
                         <li>
+                            <a title="Login" href="http://cicr.uga.edu/">CICR</a>
+                        </li>
+                        <li>
+                            <a title="Login" href="http://sustainability.uga.edu/">Office of Sustainability</a>
+                        </li>
+                        <li>
                             <a title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
                         </li>
                     {% endif %}
@@ -63,10 +70,6 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-    <div class="col-sm-offset-2 col-sm-10">
-        <img class="img-responsive inline" alt="Franklin College of Arts and Sciences - Course Evaluation"  src="{{ asset
-        ('bundles/app/images/sustainabilitylogo.jpg') }}"/>
-    </div>
 </header>
 
 <section class="main-content">
