@@ -21,15 +21,21 @@ class CourseController extends Controller
     /**
      * Lists all Course entities.
      *
-     * @Route("/", name="course")
+     * @Route("/{pillar}", name="course", defaults={"pillar" = "all"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($pillar)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Course')->findAll();
+        if ($pillar=='all') {
+            $entities = $em->getRepository('AppBundle:Course')->findAll();
+        }
+        else {
+            $entities = $em->getRepository('AppBundle:Course')->findByPillar($pillar);
+        }
+
 
         return array(
             'entities' => $entities,

@@ -10,4 +10,18 @@ namespace AppBundle\Entity;
  */
 class CourseRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * find course by pillar
+     *
+     * @return Course
+     */
+    public function findByPillar($pillar) {
+        $courses = $this->createQueryBuilder('c')
+            ->andWhere('c.pillar = :pillar')
+            ->setParameter('pillar', $pillar)
+            ->orderBy('c.name ')
+            ->getQuery()
+            ->getResult();
+        return $courses;
+    }
 }
