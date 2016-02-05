@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class FacultyType extends AbstractType
+class EventType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,10 @@ class FacultyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('name','text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Name'),))
-          ->add('dept','text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Dept'),))
+            ->add('title', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),))
+            ->add('body', 'ckeditor', array('config_name' => 'editor_default',))
+            ->add('datetime','datetime', array('attr' => array('class' => ''),))
+
         ;
     }
     
@@ -26,7 +28,7 @@ class FacultyType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Faculty'
+            'data_class' => 'AppBundle\Entity\Event'
         ));
     }
 
@@ -35,6 +37,6 @@ class FacultyType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_faculty';
+        return 'appbundle_event';
     }
 }

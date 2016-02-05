@@ -21,19 +21,20 @@ class CourseType extends AbstractType
             ->add('prereqs', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Prereqs'),))
             ->add('instructor', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' =>
                 'Instructor'),))
-            ->add('school', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'School'),))
-            ->add('pillar', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Name'),))
-            ->add('pillar', 'choice', array('choices' => array('Social' => 'Social', 'Economoic' => 'Economoic',
-                'Ecological' => 'Ecological'),
-                'required' =>
-                    true,
-                'expanded' => true, 'multiple' => false, 'label' => 'Pillar',
+            ->add('school', 'text', array('required' => false, 'attr' => array('class' => 'text form-control',
+              'placeholder' => 'School'),))
+            ->add('pillar', 'choice', array('choices' => array('Anchor' => 'Anchor','Social' => 'Social', 'Economoic'
+                 => 'Economoic', 'Ecological' => 'Ecological'),
+                'required' =>  true,
+                'expanded' => true,
+                'multiple' => false,
+                'label' => 'Pillar',
                 'attr' => array('class' => 'radio'),))
             ->add('level', 'choice', array('choices' => array('Grad' => 'Grad', 'Undergrad' => 'Undergrad'), 'required' =>
                 true,
                 'expanded' => true, 'multiple' => false, 'label' => 'Level',
                 'attr' => array('class' => 'radio'),))
-            ->add('description', 'ckeditor', array('config_name' => 'editor_page',));
+            ->add('description', 'ckeditor', array('config_name' => 'editor_default',));
     }
 
     /**

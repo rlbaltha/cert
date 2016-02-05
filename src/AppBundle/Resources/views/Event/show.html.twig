@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Event</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Body</th>
+            <td>{{ entity.body | raw }}</td>
+        </tr>
+        <tr>
+            <th>Datetime</th>
+            <td>{{ entity.datetime|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul class="">
+        <li>
+            <a href="{{ path('event') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('event_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}

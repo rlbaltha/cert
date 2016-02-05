@@ -7,50 +7,44 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Course;
-use AppBundle\Form\CourseType;
+use AppBundle\Entity\Event;
+use AppBundle\Form\EventType;
 
 /**
- * Course controller.
+ * Event controller.
  *
- * @Route("/course")
+ * @Route("/event")
  */
-class CourseController extends Controller
+class EventController extends Controller
 {
 
     /**
-     * Lists all Course entities.
+     * Lists all Event entities.
      *
-     * @Route("/list/{level}/{pillar}", name="course", defaults={"pillar" = "all", "level" = "all"})
+     * @Route("/", name="event")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction($pillar, $level)
+    public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        if ($pillar=='all') {
-            $entities = $em->getRepository('AppBundle:Course')->findAll();
-        }
-        else {
-            $entities = $em->getRepository('AppBundle:Course')->findByPillar($pillar, $level);
-        }
-
+        $entities = $em->getRepository('AppBundle:Event')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Course entity.
+     * Creates a new Event entity.
      *
-     * @Route("/", name="course_create")
+     * @Route("/", name="event_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Course();
+        $entity = new Event();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -59,7 +53,7 @@ class CourseController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('course_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('event_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -69,16 +63,16 @@ class CourseController extends Controller
     }
 
     /**
-     * Creates a form to create a Course entity.
+     * Creates a form to create a Event entity.
      *
-     * @param Course $entity The entity
+     * @param Event $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Course $entity)
+    private function createCreateForm(Event $entity)
     {
-        $form = $this->createForm(new CourseType(), $entity, array(
-            'action' => $this->generateUrl('course_create'),
+        $form = $this->createForm(new EventType(), $entity, array(
+            'action' => $this->generateUrl('event_create'),
             'method' => 'POST',
         ));
 
@@ -88,15 +82,15 @@ class CourseController extends Controller
     }
 
     /**
-     * Displays a form to create a new Course entity.
+     * Displays a form to create a new Event entity.
      *
-     * @Route("/new", name="course_new")
+     * @Route("/new", name="event_new")
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
-        $entity = new Course();
+        $entity = new Event();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -106,9 +100,9 @@ class CourseController extends Controller
     }
 
     /**
-     * Finds and displays a Course entity.
+     * Finds and displays a Event entity.
      *
-     * @Route("/{id}", name="course_show")
+     * @Route("/{id}", name="event_show")
      * @Method("GET")
      * @Template()
      */
@@ -116,10 +110,10 @@ class CourseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Course')->find($id);
+        $entity = $em->getRepository('AppBundle:Event')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Course entity.');
+            throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -131,9 +125,9 @@ class CourseController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Course entity.
+     * Displays a form to edit an existing Event entity.
      *
-     * @Route("/{id}/edit", name="course_edit")
+     * @Route("/{id}/edit", name="event_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -141,10 +135,10 @@ class CourseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Course')->find($id);
+        $entity = $em->getRepository('AppBundle:Event')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Course entity.');
+            throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -158,16 +152,16 @@ class CourseController extends Controller
     }
 
     /**
-    * Creates a form to edit a Course entity.
+    * Creates a form to edit a Event entity.
     *
-    * @param Course $entity The entity
+    * @param Event $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Course $entity)
+    private function createEditForm(Event $entity)
     {
-        $form = $this->createForm(new CourseType(), $entity, array(
-            'action' => $this->generateUrl('course_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new EventType(), $entity, array(
+            'action' => $this->generateUrl('event_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -176,9 +170,9 @@ class CourseController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Course entity.
+     * Edits an existing Event entity.
      *
-     * @Route("/{id}", name="course_update")
+     * @Route("/{id}", name="event_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -186,10 +180,10 @@ class CourseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Course')->find($id);
+        $entity = $em->getRepository('AppBundle:Event')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Course entity.');
+            throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -199,7 +193,7 @@ class CourseController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('course'));
+            return $this->redirect($this->generateUrl('event_show', array('id' => $id)));
         }
 
         return array(
@@ -209,9 +203,9 @@ class CourseController extends Controller
         );
     }
     /**
-     * Deletes a Course entity.
+     * Deletes a Event entity.
      *
-     * @Route("/{id}", name="course_delete")
+     * @Route("/{id}", name="event_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -221,21 +215,21 @@ class CourseController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Course')->find($id);
+            $entity = $em->getRepository('AppBundle:Event')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Course entity.');
+                throw $this->createNotFoundException('Unable to find Event entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('course'));
+        return $this->redirect($this->generateUrl('event'));
     }
 
     /**
-     * Creates a form to delete a Course entity by id.
+     * Creates a form to delete a Event entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -244,7 +238,7 @@ class CourseController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('course_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('event_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
