@@ -18,9 +18,8 @@ class CourseType extends AbstractType
             ->add('name', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Name'),))
             ->add('title', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),))
             ->add('offered', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Offered'),))
-            ->add('prereqs', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Prereqs'),))
-            ->add('instructor', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' =>
-                'Instructor'),))
+            ->add('prereqs', 'text', array('required' => false, 'attr' => array('class' => 'text form-control',
+              'placeholder' => 'Prereqs'),))
             ->add('school', 'text', array('required' => false, 'attr' => array('class' => 'text form-control',
               'placeholder' => 'School'),))
             ->add('pillar', 'choice', array('choices' => array('Anchor' => 'Anchor','Social' => 'Social', 'Economoic'
