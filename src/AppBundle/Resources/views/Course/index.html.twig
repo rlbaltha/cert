@@ -89,7 +89,6 @@
                 <th>Title</th>
                 <th>Offered</th>
                 <th>Prereqs</th>
-                <th>School/College</th>
                 <th>Pillar</th>
                 <th>Level</th>
                 {% if is_granted('ROLE_ADMIN') %}
@@ -104,7 +103,6 @@
                     <td>{{ entity.title }}</td>
                     <td>{{ entity.offered }}</td>
                     <td>{{ entity.prereqs }}</td>
-                    <td>{{ entity.school }}</td>
                     <td>{{ entity.pillar }}</td>
                     <td>{{ entity.level }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
