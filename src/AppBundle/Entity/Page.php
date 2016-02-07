@@ -35,6 +35,24 @@ class Page
      */
     private $body;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="link", type="string", length=255, nullable=true)
+     */
+    private $link;
+
+    /**
+     * @var integer $sortOrder
+     *
+     * @ORM\Column(name="sortorder", type="integer", nullable=true)
+     */
+    private $sortorder;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Section", inversedBy="pages")
+     */
+    protected $section;
 
     /**
      * Get id
@@ -93,5 +111,76 @@ class Page
     {
         return $this->body;
     }
-}
 
+    /**
+     * Set sortorder
+     *
+     * @param integer $sortorder
+     *
+     * @return Page
+     */
+    public function setSortorder($sortorder)
+    {
+        $this->sortorder = $sortorder;
+
+        return $this;
+    }
+
+    /**
+     * Get sortorder
+     *
+     * @return integer
+     */
+    public function getSortorder()
+    {
+        return $this->sortorder;
+    }
+
+    /**
+     * Set section
+     *
+     * @param \AppBundle\Entity\Section $section
+     *
+     * @return Page
+     */
+    public function setSection(\AppBundle\Entity\Section $section = null)
+    {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * Get section
+     *
+     * @return \AppBundle\Entity\Section
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     *
+     * @return Page
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+}

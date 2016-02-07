@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PageType extends AbstractType
+class SectionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,12 +16,12 @@ class PageType extends AbstractType
     {
         $builder
             ->add('title','text', array('attr' => array('class' => 'text form-control'),))
-            ->add('body', 'ckeditor', array('config_name' => 'editor_page',))
-            ->add('link','text', array('required' => false,'attr' => array('class' => 'text form-control'),))
-            ->add('sortOrder','number', array('required' => false,'attr' => array('class' => 'text form-control'),))
-            ->add('section', 'entity', array('class' => 'AppBundle\Entity\Section',
-            'property' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Section', 'attr' => array('class' =>
-                'form-control'),))
+            ->add('header', 'ckeditor', array('required' => false, 'config_name' => 'editor_simple',))
+            ->add('masthead','text', array('required' => false,'attr' => array('class' => 'text form-control'),))
+            ->add('on_nav', 'checkbox', array(
+            'label'    => 'On Main Nav?',
+            'required' => false,
+          ))
         ;
     }
     
@@ -31,7 +31,7 @@ class PageType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Page'
+            'data_class' => 'AppBundle\Entity\Section'
         ));
     }
 
@@ -40,6 +40,6 @@ class PageType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_page';
+        return 'appbundle_section';
     }
 }

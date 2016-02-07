@@ -7,21 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Page;
-use AppBundle\Form\PageType;
+use AppBundle\Entity\Section;
+use AppBundle\Form\SectionType;
 
 /**
- * Page controller.
+ * Section controller.
  *
- * @Route("/page")
+ * @Route("/section")
  */
-class PageController extends Controller
+class SectionController extends Controller
 {
 
     /**
-     * Lists all Page entities.
+     * Lists all Section entities.
      *
-     * @Route("/", name="page")
+     * @Route("/", name="section")
      * @Method("GET")
      * @Template()
      */
@@ -29,22 +29,22 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Page')->findAll();
+        $entities = $em->getRepository('AppBundle:Section')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Page entity.
+     * Creates a new Section entity.
      *
-     * @Route("/", name="page_create")
+     * @Route("/", name="section_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Page();
+        $entity = new Section();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -53,7 +53,7 @@ class PageController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('page_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('section_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -63,16 +63,16 @@ class PageController extends Controller
     }
 
     /**
-     * Creates a form to create a Page entity.
+     * Creates a form to create a Section entity.
      *
-     * @param Page $entity The entity
+     * @param Section $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Page $entity)
+    private function createCreateForm(Section $entity)
     {
-        $form = $this->createForm(new PageType(), $entity, array(
-            'action' => $this->generateUrl('page_create'),
+        $form = $this->createForm(new SectionType(), $entity, array(
+            'action' => $this->generateUrl('section_create'),
             'method' => 'POST',
         ));
 
@@ -82,15 +82,15 @@ class PageController extends Controller
     }
 
     /**
-     * Displays a form to create a new Page entity.
+     * Displays a form to create a new Section entity.
      *
-     * @Route("/new", name="page_new")
+     * @Route("/new", name="section_new")
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
-        $entity = new Page();
+        $entity = new Section();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -100,9 +100,9 @@ class PageController extends Controller
     }
 
     /**
-     * Finds and displays a Page entity.
+     * Finds and displays a Section entity.
      *
-     * @Route("/{id}", name="page_show")
+     * @Route("/{id}", name="section_show")
      * @Method("GET")
      * @Template()
      */
@@ -110,10 +110,10 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Page')->find($id);
+        $entity = $em->getRepository('AppBundle:Section')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
+            throw $this->createNotFoundException('Unable to find Section entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -125,9 +125,9 @@ class PageController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Page entity.
+     * Displays a form to edit an existing Section entity.
      *
-     * @Route("/{id}/edit", name="page_edit")
+     * @Route("/{id}/edit", name="section_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -135,10 +135,10 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Page')->find($id);
+        $entity = $em->getRepository('AppBundle:Section')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
+            throw $this->createNotFoundException('Unable to find Section entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -152,16 +152,16 @@ class PageController extends Controller
     }
 
     /**
-    * Creates a form to edit a Page entity.
+    * Creates a form to edit a Section entity.
     *
-    * @param Page $entity The entity
+    * @param Section $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Page $entity)
+    private function createEditForm(Section $entity)
     {
-        $form = $this->createForm(new PageType(), $entity, array(
-            'action' => $this->generateUrl('page_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new SectionType(), $entity, array(
+            'action' => $this->generateUrl('section_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -170,9 +170,9 @@ class PageController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Page entity.
+     * Edits an existing Section entity.
      *
-     * @Route("/{id}", name="page_update")
+     * @Route("/{id}", name="section_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -180,10 +180,10 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Page')->find($id);
+        $entity = $em->getRepository('AppBundle:Section')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
+            throw $this->createNotFoundException('Unable to find Section entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -193,7 +193,7 @@ class PageController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('page_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('section'));
         }
 
         return array(
@@ -203,9 +203,9 @@ class PageController extends Controller
         );
     }
     /**
-     * Deletes a Page entity.
+     * Deletes a Section entity.
      *
-     * @Route("/{id}", name="page_delete")
+     * @Route("/{id}", name="section_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -215,21 +215,21 @@ class PageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Page')->find($id);
+            $entity = $em->getRepository('AppBundle:Section')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Page entity.');
+                throw $this->createNotFoundException('Unable to find Section entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('page'));
+        return $this->redirect($this->generateUrl('section'));
     }
 
     /**
-     * Creates a form to delete a Page entity by id.
+     * Creates a form to delete a Section entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -238,7 +238,7 @@ class PageController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('page_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('section_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
