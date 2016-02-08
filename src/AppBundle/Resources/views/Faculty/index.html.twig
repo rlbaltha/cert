@@ -33,36 +33,76 @@
 
 
 {% block body -%}
-    <h1>Affiliate Faculty</h1>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-default" href="{{ path('faculty_new') }}">
-            New Listing
-        </a>
-    {% endif %}
-    <table class="table sort">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Dept</th>
+
+
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="sidebar-nav">
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <span class="visible-xs navbar-brand">Menu</span>
+                    </div>
+                    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            {% if section is defined %}
+                            {% for page in section.pages %}
+                                {% if (page.link is null or page.link == '') %}
+                                    <li><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></li>
+                                {% else %}
+                                    <li><a   href="{{ page.link }}">{{ page.title }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <h1>Affliate Faculty</h1>
+
+
             {% if is_granted('ROLE_ADMIN') %}
-                <th>Actions</th>
+                <a class="btn btn-default" href="{{ path('faculty_new') }}">
+                    New Listing
+                </a>
             {% endif %}
-        </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.dept }}</td>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <td>
-                        <a href="{{ path('faculty_edit', { 'id': entity.id }) }}">edit</a>
-                    </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
+            <table class="table sort">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Dept</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Actions</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.name }}</td>
+                        <td>{{ entity.dept }}</td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td>
+                                <a href="{{ path('faculty_edit', { 'id': entity.id }) }}">edit</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+
+
+
 
 
 

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Faculty;
 use AppBundle\Form\FacultyType;
+use AppBundle\Entity\Section;
 
 /**
  * Faculty controller.
@@ -30,9 +31,11 @@ class FacultyController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Faculty')->findAll();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Faculty');
 
         return array(
-            'entities' => $entities,
+          'entities' => $entities,
+          'section' => $section
         );
     }
     /**
