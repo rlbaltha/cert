@@ -46,18 +46,18 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <span class="visible-xs navbar-brand">Menu</span>
+                        <span class="visible-xs navbar-brand">Faculty</span>
                     </div>
                     <div class="navbar-collapse collapse sidebar-navbar-collapse">
                         <ul class="nav navbar-nav">
                             {% if section is defined %}
-                            {% for page in section.pages %}
-                                {% if (page.link is null or page.link == '') %}
-                                    <li><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></li>
-                                {% else %}
-                                    <li><a   href="{{ page.link }}">{{ page.title }}</a></li>
-                                {% endif %}
-                            {% endfor %}
+                                {% for page in section.pages %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></li>
+                                    {% else %}
+                                        <li><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
                             {% endif %}
                         </ul>
                     </div><!--/.nav-collapse -->
@@ -67,6 +67,14 @@
         <div class="col-sm-9">
             <h1>Affliate Faculty</h1>
 
+            <p>Membership in the Affiliate Faculty of the Certificate shall be determined by the Advisory Board, following these guidelines:  
+            <ul>
+                <li>a member of this Faculty shall be a regular teacher of an approved course in the Certificate Program, or</li>
+                <li> shall have within the past two years directed a capstone project for the Certificate or</li>
+                <li>shall be engaged in research or publication in the area of the Certificate.</li>
+            </ul>
+             
+            </p>
 
             {% if is_granted('ROLE_ADMIN') %}
                 <a class="btn btn-default" href="{{ path('faculty_new') }}">
@@ -99,7 +107,7 @@
                 </tbody>
             </table>
         </div>
-        </div>
+    </div>
 
 
 

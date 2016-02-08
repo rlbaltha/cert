@@ -30,7 +30,7 @@ class CourseController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($pillar=='all') {
-            $entities = $em->getRepository('AppBundle:Course')->findAll();
+            $entities = $em->getRepository('AppBundle:Course')->findAllSorted();
         }
         else {
             $entities = $em->getRepository('AppBundle:Course')->findByPillar($pillar, $level);

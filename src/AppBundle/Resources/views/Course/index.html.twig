@@ -1,35 +1,5 @@
 {% extends '::base.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script language="javascript">
-        $(document).ready(function () {
-            $.tablesorter.themes.bootstrap = {
-                table: 'table table-bordered table-striped',
-                caption: 'caption',
-                header: 'bootstrap-header',
-                iconSortNone: 'bootstrap-icon-unsorted',
-                iconSortAsc: 'glyphicon glyphicon-chevron-up',
-                iconSortDesc: 'glyphicon glyphicon-chevron-down',
-            };
-            $("table.sort").tablesorter({
-                theme: "bootstrap",
-                widthFixed: true,
-                headerTemplate: '{content} {icon}',
-                widgets: ["uitheme", "filter", "zebra"],
-                widgetOptions: {
-                    zebra: ["even", "odd"],
-                    filter_reset: ".reset",
-                    filter_cssFilter: "form-control",
-                },
-                headers: {
-                    8: {sorter: false, filter: false}
-                }
-            });
-        });
-    </script>
-{% endblock %}
-
 {% block body -%}
 <div class="row">
     <div class="col-sm-2">
@@ -43,7 +13,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <span class="visible-xs navbar-brand">Sidebar menu</span>
+                    <span class="visible-xs navbar-brand">Courses</span>
                 </div>
                 <div class="navbar-collapse collapse sidebar-navbar-collapse">
                     <ul class="nav navbar-nav">
@@ -81,18 +51,17 @@
         </ol>
         </p>
 
-        <p>Click heading title to sort or type in the heading form to filter.</p>
         <table class="table sort">
             <thead>
             <tr>
                 <th>Name</th>
                 <th>Title</th>
-                <th>Offered</th>
-                <th>Prereqs</th>
-                <th>Pillar</th>
-                <th>Level</th>
+                <th class="hidden-xs">Offered</th>
+                <th class="hidden-xs">Prereqs</th>
+                <th class="hidden-xs">Pillar</th>
+                <th class="hidden-xs">Level</th>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <th>Actions</th>
+                    <th class="hidden-xs">Actions</th>
                 {% endif %}
             </tr>
             </thead>
@@ -101,12 +70,12 @@
                 <tr>
                     <td><a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
                     <td>{{ entity.title }}</td>
-                    <td>{{ entity.offered }}</td>
-                    <td>{{ entity.prereqs }}</td>
-                    <td>{{ entity.pillar }}</td>
-                    <td>{{ entity.level }}</td>
+                    <td class="hidden-xs">{{ entity.offered }}</td>
+                    <td class="hidden-xs">{{ entity.prereqs }}</td>
+                    <td class="hidden-xs">{{ entity.pillar }}</td>
+                    <td class="hidden-xs">{{ entity.level }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td>
+                        <td class="hidden-xs">
                             <a href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
                         </td>
                     {% endif %}

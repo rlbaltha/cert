@@ -26,4 +26,17 @@ class CourseRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $courses;
     }
+
+    /**
+     * find course by pillar
+     *
+     * @return Course
+     */
+    public function findAllSorted() {
+        $courses = $this->createQueryBuilder('c')
+          ->orderBy('c.name')
+          ->getQuery()
+          ->getResult();
+        return $courses;
+    }
 }
