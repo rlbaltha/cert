@@ -32,6 +32,10 @@ security:
         - { path: delete$, role: ROLE_ADMIN }
         - { path: create$, role: ROLE_ADMIN }
         - { path: update$, role: ROLE_ADMIN }
+        - { path: ^/user/, role: ROLE_USER }
         - { path: ^/course/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/page/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/section/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/faculty/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/event/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/upload/, role: ROLE_ADMIN }
