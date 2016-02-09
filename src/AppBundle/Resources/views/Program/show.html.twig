@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Application</h1>
+
+    <a class="btn btn-default pull-right" href="{{ path('program_edit', { 'id': entity.id }) }}">
+        Edit
+    </a>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ entity.user.firstname }} {{ entity.user.lastname }}</td>
+        </tr>
+
+        <tr>
+            <th>School</th>
+            <td>{{ entity.school }}</td>
+        </tr>
+        <tr>
+            <th>Major</th>
+            <td>{{ entity.major }}</td>
+        </tr>
+        <tr>
+            <th>Graddate</th>
+            <td>{{ entity.graddate }}</td>
+        </tr>
+        <tr>
+            <th>Interest</th>
+            <td>{{ entity.interest | raw }}</td>
+        </tr>
+        <tr>
+            <th>Notes</th>
+            <td>{{ entity.notes | raw }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+{% endblock %}

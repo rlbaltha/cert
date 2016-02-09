@@ -61,6 +61,11 @@ class User extends BaseUser
      */
     private $firstname;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Program", inversedBy="user")
+     */
+    private $program;
+
 
     /**
      * Get id
@@ -119,5 +124,28 @@ class User extends BaseUser
     {
         return $this->firstname;
     }
-}
 
+    /**
+     * Set program
+     *
+     * @param \AppBundle\Entity\Program $program
+     *
+     * @return User
+     */
+    public function setProgram(\AppBundle\Entity\Program $program = null)
+    {
+        $this->program = $program;
+
+        return $this;
+    }
+
+    /**
+     * Get program
+     *
+     * @return \AppBundle\Entity\Program
+     */
+    public function getProgram()
+    {
+        return $this->program;
+    }
+}
