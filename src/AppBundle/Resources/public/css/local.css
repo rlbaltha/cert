@@ -6,6 +6,11 @@ body {
     font-family: 'Josefin Sans', 'Arial', 'sans-serif';
 }
 
+.padding {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 /**********  Accessibility **********/
 #skip a, #skip a:hover, #skip a:visited
 {
