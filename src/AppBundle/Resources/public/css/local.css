@@ -131,7 +131,7 @@ div.radio > label {
     background-image: url(../images/jumbotron.jpg);
     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
     min-height: 100vh; /* These two lines are counted as one :-)       */
-    padding-top: 20vh;
+    padding-top: 40vh;
 }
 
 
