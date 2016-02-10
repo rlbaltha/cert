@@ -35,7 +35,7 @@
 <div class="container-fluid">
 <header>
 
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-fixed-top">
 
 
             <div class="navbar-header">
@@ -46,8 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="pull-left hidden-xs" href="{{ path('homepage') }}" class="pull-left"><img class="img-responsive navbar-logo" src="{{ asset('bundles/app/images/sustainabilitynavlogo.jpg') }}"></a>
-                <a class="navbar-brand" href="{{ path('homepage') }}">Sustainability Certificate</a>
+                <a class="pull-left hidden-xs" href="{{ path('homepage') }}" class="pull-left"><img alt="Sustainability logo" class="img-responsive navbar-logo" src="{{ asset('bundles/app/images/sustainabilitynavlogowhite.png') }}"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,7 +55,7 @@
                     <li id="skip">
                         <a id="main_nav" href="#main_content">Skip Navigation</a>
                     </li>
-                    <li><a href="{{ path('page_show', { 'id': '1' }) }}">Requirements</a></li>
+                    <li><a href="{{ path('page_show', { 'id': '1' }) }}">About</a></li>
                     <li><a href="{{ path('course') }}">Courses</a></li>
                     <li><a href="{{ path('faculty') }}">Faculty</a></li>
                 </ul>
@@ -70,12 +69,6 @@
                             <a title="Logout" href="{{ path('fos_user_security_logout') }}">Logout</a>
                         </li>
                     {% else %}
-                        <li>
-                            <a title="Login" href="http://cicr.uga.edu/">CICR</a>
-                        </li>
-                        <li>
-                            <a title="Login" href="http://sustainability.uga.edu/">Office of Sustainability</a>
-                        </li>
                         <li>
                             <a title="Login" href="{{ path('fos_user_security_login') }}">Login</a>
                         </li>

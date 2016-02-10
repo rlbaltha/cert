@@ -2,6 +2,10 @@ body {
     font-family: 'Open Sans', 'Arial', 'sans-serif';
 }
 
+.main-content {
+    margin-top: 5vh;
+}
+
 .navbar-brand, h1, h2, h3 {
     font-family: 'Josefin Sans', 'Arial', 'sans-serif';
 }
@@ -31,10 +35,14 @@ body {
 
 /**********  Navbar **********/
 
-
-
+.navbar {
+    margin-bottom: 0;
+    margin-left: 2%;
+    margin-right: 2%;
+}
 .navbar-default {
-    background-color: #6c9336;
+    background-image: url(../images/jumbotron.jpg);
+
 }
 
 header .navbar-default .navbar-nav li a {
@@ -102,3 +110,37 @@ div.radio > label {
     position: inherit;
     margin-left: 10px;
 }
+
+.btn-primary {
+    background-color: #6c9336;
+    color: #fff;
+    border: #fff;
+}
+
+/********** homepage ***********/
+
+.landing {
+    margin-top: -5vh;
+}
+
+.landing-section {
+    height: 50vh;
+}
+.jumbotron {
+    color: #fff;
+    background-image: url(../images/jumbotron.jpg);
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+    padding-top: 20vh;
+}
+
+
+
+h1.header {
+    font-weight: bold;
+}
+span.header {
+    color: #fff;
+}
+
+
