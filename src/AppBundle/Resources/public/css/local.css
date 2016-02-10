@@ -121,10 +121,21 @@ div.radio > label {
 
 .landing {
     margin-top: -5vh;
+    margin-bottom: 0;
 }
 
 .landing-section {
     height: 50vh;
+    padding: 10vh;
+
+}
+.landing-section-image {
+    background-image: url(../images/landing.jpg);
+}
+
+.landing-footer {
+    background-color: #2f2f2f;
+    color: #fff;
 }
 .jumbotron {
     color: #fff;

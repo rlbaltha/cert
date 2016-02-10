@@ -8,56 +8,41 @@
         <p>The Sustainability Certificate is a 17-hour certificate that requires students to take a three-hour anchor course,
             one three-hour course under each pillar of sustainability, two one-hour seminars, as well as complete a four-hour capstone course.</p>
 
-        <p>Through the process of obtaining the sustainability certificate, students gain knowledge about the myriad of issues pertaining to sustainability,
-            achieve enlightened perspectives about what sustainability means for individuals, communities, and the world, and acquire experience applying
-            this understanding to meaningful, real-world situations. The sustainability certificate equips students with the skills to make significant,
-            systemic changes in their communities, paving the way for a more sustainable future. </p>
+
         <a class="btn btn-lg btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
     </div>
 
-    <div class="col-sm-6 landing-section">
-        <div class="padding">
-            <img class="img-responsive" src="{{ asset('bundles/app/images/sustainabilitylogo.jpg') }}"></a>
-            <h1><span>Welcome to</span> the Sustainability Certificate </h1>
 
-            <p>The Sustainability Certificate will go before the Univeristy Council for final approval on February
-                17.</p>
-
-            <p>We are currently developing this site to support the certificate. Please check back for updates.</p>
-
-            <p>To apply to participate in the certificate or to propose a course for one of the pillars, please
-                email the director (scdirector@uga.edu).</p>
-            <hr/>
-
-        </div>
-    </div>
 
     <div class="col-sm-6  landing-section">
-        <div class="padding">
-            <h2>Sustainability Events</h2>
+            <p>About the Certificate</p>
+            <h2>Want to Learn More?</h2>
+            <p>Through the process of obtaining the sustainability certificate, students gain knowledge about the myriad of issues pertaining to sustainability,
+                achieve enlightened perspectives about what sustainability means for individuals, communities, and the world, and acquire experience applying
+                this understanding to meaningful, real-world situations. The sustainability certificate equips students with the skills to make significant,
+                systemic changes in their communities, paving the way for a more sustainable future. </p>
 
-            {% for event in entities %}
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-
-                        {{ event.datetime|date("l, F d") }} {% if event.datetime|date("g:i A") == "12:00 AM" %}{% else %}{{ event.datetime|date("g:i A") }}{% endif %}
-                    </div>
-                    <div class="panel-body">
-                        <h3>{{ event.title }}</h3>
-
-                        <p>{{ event.body|raw }}</p>
-                    </div>
-                </div>
-            {% else %}
-                <div class="panel-body">
-                    <p>There are no events at this time. Please check back soon.</p>
-                </div>
-            {% endfor %}
+            <a class="btn btn-lg btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
         </div>
+
+    <div class="col-sm-6 landing-section landing-section-image">
 
     </div>
 
-    <div class="col-sm-12 jumbotron">
+        <div class="col-sm-6 landing-section landing-section-image">
+
+        </div>
+
+    <div class="col-sm-6  landing-section">
+        <p>About the Certificate</p>
+        <h2>How can I apply?</h2>
+        <p>The application is available on our website.
+            Students must be in good standing with the university at the time of applying. </p>
+
+        <a class="btn btn-lg btn-primary" href="{{ path('page_show', { 'id': '10' }) }}">Learn More</a>
+    </div>
+
+    <div class="col-sm-12 landing-footer">
         <h2>Contact Us</h2>
         <p>Ron Balthazor, Director</p>
         <p>Talley Vodicka, Administrative Specialist</p>
