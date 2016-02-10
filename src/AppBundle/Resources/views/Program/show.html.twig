@@ -1,33 +1,76 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Application</h1>
-
-    <a class="btn btn-default pull-right" href="{{ path('program_edit', { 'id': entity.id }) }}">
+    <a class="btn btn-default" href="{{ path('program_edit', { 'id': entity.id }) }}">
         Edit
     </a>
+    <h1>Program for {{ entity.user.firstname }} {{ entity.user.lastname }}</h1>
+
     <table class="table">
         <tbody>
         <tr>
-            <th>Name</th>
-            <td>{{ entity.user.firstname }} {{ entity.user.lastname }}</td>
+            <th>Email</th>
+            <td>{{ entity.user.email }}</td>
         </tr>
-
         <tr>
             <th>School</th>
             <td>{{ entity.school }}</td>
         </tr>
         <tr>
-            <th>Major</th>
-            <td>{{ entity.major }}</td>
+            <th>Program</th>
+            <td>{{ entity.program }}</td>
         </tr>
         <tr>
-            <th>Graddate</th>
+            <th>Uga Id</th>
+            <td>{{ entity.ugaid }}</td>
+        </tr>
+        <tr>
+            <th>Level</th>
+            <td>{{ entity.level }}</td>
+        </tr>
+        <tr>
+            <th>Previous Degree(s)</th>
+            <td>{{ entity.degree }}</td>
+        </tr>
+        <tr>
+            <th>Previous Institution(s)</th>
+            <td>{{ entity.institution }}</td>
+        </tr>
+        <tr>
+            <th>Graduation Date</th>
             <td>{{ entity.graddate }}</td>
         </tr>
         <tr>
-            <th>Interest</th>
+            <th>Address</th>
+            <td>{{ entity.address }}</td>
+        </tr>
+        <tr>
+            <th>City State Zip</th>
+            <td>{{ entity.cityst }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ entity.country }}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{ entity.phone }}</td>
+        </tr>
+        <tr>
+            <th>Area of Interest</th>
+            <td>{{ entity.area }}</td>
+        </tr>
+        <tr>
+            <th>Interest in Sustainability</th>
             <td>{{ entity.interest | raw }}</td>
+        </tr>
+        <tr>
+            <th>Experience</th>
+            <td>{{ entity.experience | raw }}</td>
+        </tr>
+        <tr>
+            <th>Goals</th>
+            <td>{{ entity.goals | raw }}</td>
         </tr>
         <tr>
             <th>Notes</th>

@@ -62,7 +62,7 @@ class User extends BaseUser
     private $firstname;
 
     /**
-     * @ORM\OneToOne(targetEntity="Program", inversedBy="user")
+     * @ORM\OneToOne(targetEntity="Program", mappedBy="user")
      */
     private $program;
 
@@ -124,6 +124,8 @@ class User extends BaseUser
     {
         return $this->firstname;
     }
+
+
 
     /**
      * Set program
