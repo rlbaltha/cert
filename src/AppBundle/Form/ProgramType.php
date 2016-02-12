@@ -18,7 +18,7 @@ class ProgramType extends AbstractType
           ->add('school', 'text', array('label' => 'School/College','attr' => array('class' => 'form-control'),))
           ->add('program', 'text', array('label' => 'Major/Degree Program','attr' => array('class' => 'form-control'),))
           ->add('ugaid', 'text', array('label' => 'UGA ID ','attr' => array('class' => 'form-control',
-            'placeholder'=>'81xxxxxxxx'),))
+            'placeholder'=>'811000000'),))
           ->add('level', 'text', array('label' => 'Grad or Undergrad','attr' => array('class' => 'form-control'),))
           ->add('level', 'choice', array(
             'choices'  => array(
@@ -29,15 +29,17 @@ class ProgramType extends AbstractType
             'choices_as_values' => true,
             'expanded' => true,
           ))
-          ->add('degree', 'text', array('label' => 'Previous degree(s)','attr' => array('class' => 'form-control'),))
-          ->add('institution', 'text', array('label' => 'Previous Institution(s)','attr' => array('class' => 'form-control'),))
-          ->add('graddate', 'text', array('label' => 'Expected Graduation Date','attr' => array('class' => 'form-control'),))
-          ->add('address', 'text', array('label' => 'Street','attr' => array('class' => 'form-control'),))
-          ->add('cityst', 'text', array('label' => 'City, State, Zip','attr' => array('class' => 'form-control'),))
-          ->add('country', 'text', array('label' => 'County','attr' => array('class' => 'form-control'),))
-          ->add('phone', 'text', array('label' => 'Phone','attr' => array('class' => 'form-control'),))
-          ->add('area', 'text', array('label' => 'Area of Interest','attr' => array('class' => 'form-control'),))
+          ->add('degree', 'text', array('required'=> false, 'label' => 'Previous degree(s)','attr' => array('class' =>
+      'form-control'),))
+          ->add('institution', 'text', array('required'=> false,'label' => 'Previous Institution(s)','attr' => array('class' => 'form-control'),))
+          ->add('graddate', 'text', array('required'=> false,'label' => 'Expected Graduation Date','attr' => array('class' => 'form-control'),))
+          ->add('address', 'text', array('required'=> false,'label' => 'Street','attr' => array('class' => 'form-control'),))
+          ->add('cityst', 'text', array('required'=> false,'label' => 'City, State, Zip','attr' => array('class' => 'form-control'),))
+          ->add('country', 'text', array('required'=> false,'label' => 'Country','attr' => array('class' =>
+            'form-control'),))
+          ->add('phone', 'text', array('required'=> false,'label' => 'Phone','attr' => array('class' => 'form-control'),))
           ->add('area', 'choice', array(
+            'required'=> false,
             'label' => 'Area of Interest',
             'choices'  => array(
               'Energy' => 'Energy',
@@ -50,13 +52,13 @@ class ProgramType extends AbstractType
             'choices_as_values' => true,
             'expanded' => true,
           ))
-          ->add('interest', 'ckeditor', array('label' => 'Details on your interesting in Sustainability','config_name'
+          ->add('interest', 'ckeditor', array('required'=> false,'label' => 'Details on your interesting in Sustainability','config_name'
           =>
             'editor_simple',))
-          ->add('experience', 'ckeditor', array('label' => 'Experience in Sustainability','config_name'
+          ->add('experience', 'ckeditor', array('required'=> false,'label' => 'Experience in Sustainability','config_name'
           =>
             'editor_simple',))
-          ->add('goals', 'ckeditor', array('label' => 'What are your goals','config_name'
+          ->add('goals', 'ckeditor', array('required'=> false,'label' => 'What are your goals','config_name'
           =>
             'editor_simple',))
         ;

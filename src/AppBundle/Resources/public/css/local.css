@@ -25,7 +25,8 @@ body {
 }
 
 .row .col-sm-12 {
-    padding: 35px;
+    padding: 100px;
+    padding-top: 20px;
 }
 
 /**********  Accessibility **********/
