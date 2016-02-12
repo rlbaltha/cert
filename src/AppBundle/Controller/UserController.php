@@ -17,6 +17,29 @@ use AppBundle\Form\UserType;
  */
 class UserController extends Controller
 {
+    /**
+     * Finds and displays a User entity.
+     *
+     * @Route("/profile", name="user_profile")
+     * @Method("GET")
+     * @Template("AppBundle:User:show.html.twig")
+     */
+    public function profileAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user=$this->getUser();
+
+        $entity = $em->getRepository('AppBundle:User')->find($user);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
+
+        return array(
+          'entity' => $entity,
+        );
+    }
 
     /**
      * Lists all User entities.

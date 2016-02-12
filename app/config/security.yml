@@ -17,25 +17,27 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-                default_target_path: /
+                default_target_path: /user/profile
             logout:
                 path:   /logout
-                target: /login
+                target: /
             anonymous:    true
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/user/profile, role: ROLE_USER }
+        - { path: ^/program/, role: ROLE_USER }
+        - { path: ^/upload/, role: ROLE_ADMIN }
+        - { path: ^/user/, role: ROLE_ADMIN }
         - { path: edit$, role: ROLE_ADMIN }
         - { path: new$, role: ROLE_ADMIN }
         - { path: delete$, role: ROLE_ADMIN }
         - { path: create$, role: ROLE_ADMIN }
         - { path: update$, role: ROLE_ADMIN }
-        - { path: ^/user/, role: ROLE_USER }
         - { path: ^/course/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/page/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/section/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/faculty/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/event/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/upload/, role: ROLE_ADMIN }

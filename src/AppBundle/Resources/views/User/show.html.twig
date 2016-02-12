@@ -3,38 +3,98 @@
 {% block body -%}
     <div class="row">
         <div class="col-sm-12">
-            <h1>User</h1>
+            <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
 
-            <table class="table">
-                <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ entity.id }}</td>
-                </tr>
-                <tr>
-                    <th>Lastname</th>
-                    <td>{{ entity.lastname }}</td>
-                </tr>
-                <tr>
-                    <th>Firstname</th>
-                    <td>{{ entity.firstname }}</td>
-                </tr>
-                </tbody>
-            </table>
 
-            <ul class="record_actions">
-                <li>
-                    <a href="{{ path('user') }}">
-                        Back to the list
-                    </a>
-                </li>
-                <li>
+                    <h3>Application</h3>
+
+                    {% if entity.program %}
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ entity.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>School</th>
+                            <td>{{ entity.program.school }}</td>
+                        </tr>
+                        <tr>
+                            <th>Program</th>
+                            <td>{{ entity.program.program }}</td>
+                        </tr>
+                        <tr>
+                            <th>Uga Id</th>
+                            <td>{{ entity.program.ugaid }}</td>
+                        </tr>
+                        <tr>
+                            <th>Level</th>
+                            <td>{{ entity.program.level }}</td>
+                        </tr>
+                        <tr>
+                            <th>Previous Degree(s)</th>
+                            <td>{{ entity.program.degree }}</td>
+                        </tr>
+                        <tr>
+                            <th>Previous Institution(s)</th>
+                            <td>{{ entity.program.institution }}</td>
+                        </tr>
+                        <tr>
+                            <th>Graduation Date</th>
+                            <td>{{ entity.program.graddate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ entity.program.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>City State Zip</th>
+                            <td>{{ entity.program.cityst }}</td>
+                        </tr>
+                        <tr>
+                            <th>Country</th>
+                            <td>{{ entity.program.country }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ entity.program.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Area of Interest</th>
+                            <td>{{ entity.program.area }}</td>
+                        </tr>
+                        <tr>
+                            <th>Interest in Sustainability</th>
+                            <td>{{ entity.program.interest | raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Experience</th>
+                            <td>{{ entity.program.experience | raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Goals</th>
+                            <td>{{ entity.program.goals | raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Notes</th>
+                            <td>{{ entity.program.notes | raw }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                        <a class="btn btn-primary" href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
+                            Update Application
+                        </a>
+                        {% else %}
+                            <a class="btn btn-primary" href="{{ path('program_new') }}">
+                                Start Application
+                            </a>
+                    {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('user_edit', { 'id': entity.id }) }}">
                         Edit
                     </a>
-                </li>
-                <li>{{ form(delete_form) }}</li>
-            </ul>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -4,6 +4,9 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    cert_user_registration:
+        class: AppBundle\Form\UserType
+        arguments: ["fos_user.model.user.class"]
+        tags:
+                    - { name: form.type }
+
