@@ -9,7 +9,6 @@ body {
 
 .main-content {
     width:100%;
-    padding-top:4vh;
 }
 
 .navbar-brand, h1, h2, h3 {
@@ -63,7 +62,7 @@ header .navbar-default .navbar-nav li a {
 }
 
 .navbar-logo {
-    padding: 5px;
+    padding: 7px;
 }
 
 .navbar-brand  {
@@ -125,13 +124,13 @@ div.radio > label {
 }
 
 .btn-primary, .btn-primary:visited {
-    background-color: #6c9336;
+    background-color: #971c1e;
     color: #fff;
     border: #fff;
 }
 
-.btn-primary:hover, .btn-primary:active, .btn-primary:visited{
-    background-color: #42612e;
+.btn-primary:hover, .btn-primary:active {
+    background-color: #771b1d;
 
 }
 
@@ -140,17 +139,15 @@ div.radio > label {
 .landing {
     margin: 0;
     color: #fff;
-    font-size: 16pt;
     background-image: url(../images/jumbotron.jpg);
     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
     min-height: 100vh; /* These two lines are counted as one :-)       */
-    padding: 20%;
-    padding-top: 10%;
+    padding: 7vh;
 }
 
 .landing-section {
     height: 50vh;
-    padding: 10vh;
+    padding: 7vh;
 
 }
 
@@ -170,16 +167,15 @@ div.radio > label {
 
 h1.header {
     font-weight: bold;
-    font-size: 40pt;
 }
 span.header {
     color: #fff;
 }
 
-#scrollbtn {
+.scrollbtn {
     position: absolute;
     bottom:2%;
-    left: 45%;
+    right: 2%;
 }
 
 

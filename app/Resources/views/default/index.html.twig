@@ -1,16 +1,21 @@
 {% extends '::base.html.twig' %}
 
 {% block javascripts %}
-{{ parent() }}
-<script language="javascript">
-            $(document).ready(function () {
-                $("#scrollbtn").click(function() {
-                    $('html, body').animate({
-                        scrollTop: $("#page2").offset().top
-                    }, 2000);
-                });
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $("#scroll1").click(function () {
+                $('html, body').animate({
+                    scrollTop: $("#page2").offset().top
+                }, 1000);
             });
-</script>
+            $("#scroll2").click(function () {
+                $('html, body').animate({
+                    scrollTop: $("#page3").offset().top
+                }, 1000);
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -19,25 +24,30 @@
         <p>The University of Georgia's </p>
 
         <h1 class="header"><span class="header">Sustainability</span> Certificate</h1>
-
-        <p>The Sustainability Certificate is a 17-hour certificate that requires students to take a three-hour anchor course,
-            one three-hour course under each pillar of sustainability, two one-hour seminars, as well as complete a four-hour capstone course.</p>
-
-        <a class="btn btn-lg btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
-        <a id="scrollbtn" class="btn btn-lg btn-primary" href="javascript:void(0);">Scroll Down</a>
+        <p>
+            The sustainability certificate equips students with the skills to make significant,
+            systemic changes in their communities, paving the way for a more sustainable future.
+        </p>
+        <p class="hidden-xs">Through the process of obtaining the sustainability certificate, students gain knowledge about the myriad of issues pertaining to sustainability,
+            achieve enlightened perspectives about what sustainability means for individuals, communities, and the world, and acquire experience applying
+            this understanding to meaningful, real-world situations.
+        </p>
+        <a class="btn btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
+        <a id="scroll1" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Down</a>
     </div>
 
     <div id="page2" class="col-sm-6  landing-section inverse">
-        <p>About the Certificate</p>
 
-        <h2>Want to Learn More?</h2>
 
-        <p>Through the process of obtaining the sustainability certificate, students gain knowledge about the myriad of issues pertaining to sustainability,
-            achieve enlightened perspectives about what sustainability means for individuals, communities, and the world, and acquire experience applying
-            this understanding to meaningful, real-world situations. The sustainability certificate equips students with the skills to make significant,
-            systemic changes in their communities, paving the way for a more sustainable future. </p>
+        <p class="hidden-xs">About the Certificate</p>
 
-        <a class="btn btn-lg btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
+        <h2>How can I apply?</h2>
+
+        <p class="hidden-xs">The application is available on our website.</p>
+
+        <p class="hidden-xs">Students must be in good standing with the university at the time of applying. </p>
+        <a class="btn btn-primary" href="{{ path('page_show', { 'id': '10' }) }}">Learn More <span class="sr-only">about applying</span> </a>
+
     </div>
 
     <div class="col-sm-6 landing-section landing-section-image hidden-xs">
@@ -49,19 +59,21 @@
     </div>
 
     <div class="col-sm-6  landing-section ">
-        <p>About the Certificate</p>
+        <p class="hidden-xs">About the Certificate</p>
 
-        <h2>How can I apply?</h2>
+        <h2>What are the requirements?</h2>
 
-        <p>The application is available on our website.
-            Students must be in good standing with the university at the time of applying. </p>
+        <p class="hidden-xs">The Sustainability Certificate is a 17-hour certificate that requires students to take a three-hour anchor course,
+            one three-hour course under each pillar of sustainability, two one-hour seminars, as well as complete a four-hour capstone course.</p>
 
-        <a class="btn btn-lg btn-primary" href="{{ path('page_show', { 'id': '10' }) }}">Learn More</a>
+        <a class="btn btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More <span class="sr-only">about the certficate</span></a>
+        <a id="scroll2" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Down</a>
     </div>
 
-    <div class="col-sm-12 landing-footer">
+    <div id="page3" class="col-sm-12 landing-footer">
         <img alt="Sustainability logo" class="img-responsive
                 navbar-logo hidden-xs" src="{{ asset('bundles/app/images/sustainabilitynavlogowhite.png') }}">
+
         <h2>Contact Us</h2>
 
         <p>Ron Balthazor, Director</p>
