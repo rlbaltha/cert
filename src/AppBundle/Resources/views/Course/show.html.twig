@@ -1,19 +1,21 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>{{ entity.name }}</h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Offered</th>
-            <th>Prereqs</th>
-            <th>Instructor</th>
-            <th>School</th>
-            <th>Pillar</th>
-        </tr>
-        </thead>
-        <tbody>
+<div class="row">
+    <div class="col-sm-12">
+        <h1>{{ entity.name }}</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Offered</th>
+                <th>Prereqs</th>
+                <th>Instructor</th>
+                <th>School</th>
+                <th>Pillar</th>
+            </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td>{{ entity.title }}</td>
                 <td>{{ entity.offered }}</td>
@@ -22,7 +24,8 @@
                 <td>{{ entity.school }}</td>
                 <td>{{ entity.pillar }}</td>
             </tr>
-        </tbody>
-    </table>
-    <div class="well">{{ entity.description|raw }}</div>
-{% endblock %}
+            </tbody>
+        </table>
+        <div class="well">{{ entity.description|raw }}</div>
+    </div>
+    {% endblock %}

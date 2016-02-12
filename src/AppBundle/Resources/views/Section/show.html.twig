@@ -1,56 +1,57 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
+    <div class="row">
+        <div class="col-sm-12">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-default pull-right" href="{{ path('section') }}">
+                    List Sections
+                </a>
+                <a class="btn btn-default pull-right" href="{{ path('section_edit', { 'id': entity.id }) }}">
+                    Edit Section
+                </a>
+                <a class="btn btn-default  pull-right" href="{{ path('page_new') }}">
+                    New Page
+                </a>
+            {% endif %}
+            <h1>Section</h1>
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-default pull-right" href="{{ path('section') }}">
-            List Sections
-        </a>
-        <a class="btn btn-default pull-right" href="{{ path('section_edit', { 'id': entity.id }) }}">
-            Edit Section
-        </a>
-        <a class="btn btn-default  pull-right" href="{{ path('page_new') }}">
-            New Page
-        </a>
-    {% endif %}
-    <h1>Section</h1>
-
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Title</th>
-            <td>{{ entity.title }}</td>
-        </tr>
-        <tr>
-            <th>Header</th>
-            <td>{{ entity.header }}</td>
-        </tr>
-        <tr>
-            <th>Masthead</th>
-            <td>{{ entity.masthead }}</td>
-        </tr>
-        </tbody>
-    </table>
-
-
-
-    <h2>Pages</h2>
-    <table class="table">
-        <thead>
-        <tr class="sr-only">
-            <th>Title</th>
-            <th>Body</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for page in entity.pages %}
-            <tr>
-                <td><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></td>
-                <td>{{ page.body|slice(0, 100)| raw }}. . .{% if is_granted('ROLE_ADMIN') %}<a  class="btn btn-default pull-right" href="{{ path('page_edit', { 'id': page.id }) }}">Edit</a>{% endif %}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ entity.title }}</td>
+                </tr>
+                <tr>
+                    <th>Header</th>
+                    <td>{{ entity.header }}</td>
+                </tr>
+                <tr>
+                    <th>Masthead</th>
+                    <td>{{ entity.masthead }}</td>
+                </tr>
+                </tbody>
+            </table>
 
 
+            <h2>Pages</h2>
+            <table class="table">
+                <thead>
+                <tr class="sr-only">
+                    <th>Title</th>
+                    <th>Body</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for page in entity.pages %}
+                    <tr>
+                        <td><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></td>
+                        <td>{{ page.body|slice(0, 100)| raw }}. . .{% if is_granted('ROLE_ADMIN') %}<a class="btn btn-default pull-right" href="{{ path('page_edit', { 'id': page.id }) }}">Edit</a>{% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
 {% endblock %}

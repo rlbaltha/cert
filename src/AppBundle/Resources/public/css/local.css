@@ -25,6 +25,10 @@ body {
     padding: 35px;
 }
 
+.row .col-sm-12 {
+    padding: 35px;
+}
+
 /**********  Accessibility **********/
 #skip a, #skip a:hover, #skip a:visited
 {
