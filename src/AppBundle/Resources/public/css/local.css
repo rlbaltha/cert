@@ -136,6 +136,7 @@ div.radio > label {
 .landing {
     margin: 0;
     color: #fff;
+    font-size: 16pt;
     background-image: url(../images/jumbotron.jpg);
     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
     min-height: 100vh; /* These two lines are counted as one :-)       */
@@ -165,6 +166,7 @@ div.radio > label {
 
 h1.header {
     font-weight: bold;
+    font-size: 40pt;
 }
 span.header {
     color: #fff;
