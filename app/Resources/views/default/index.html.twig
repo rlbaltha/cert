@@ -1,41 +1,58 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+{{ parent() }}
+<script language="javascript">
+            $(document).ready(function () {
+                $("#scrollbtn").click(function() {
+                    $('html, body').animate({
+                        scrollTop: $("#page2").offset().top
+                    }, 2000);
+                });
+            });
+</script>
+{% endblock %}
+
 {% block body %}
 
-    <div class="jumbotron landing">
+    <div class="landing">
         <p>The University of Georgia's </p>
+
         <h1 class="header"><span class="header">Sustainability</span> Certificate</h1>
+
         <p>The Sustainability Certificate is a 17-hour certificate that requires students to take a three-hour anchor course,
             one three-hour course under each pillar of sustainability, two one-hour seminars, as well as complete a four-hour capstone course.</p>
 
+        <a class="btn btn-lg btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
+        <a id="scrollbtn" class="btn btn-lg btn-primary" href="javascript:void(0);">Scroll Down</a>
+    </div>
+
+    <div id="page2" class="col-sm-6  landing-section inverse">
+        <p>About the Certificate</p>
+
+        <h2>Want to Learn More?</h2>
+
+        <p>Through the process of obtaining the sustainability certificate, students gain knowledge about the myriad of issues pertaining to sustainability,
+            achieve enlightened perspectives about what sustainability means for individuals, communities, and the world, and acquire experience applying
+            this understanding to meaningful, real-world situations. The sustainability certificate equips students with the skills to make significant,
+            systemic changes in their communities, paving the way for a more sustainable future. </p>
 
         <a class="btn btn-lg btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
     </div>
 
-
-
-    <div class="col-sm-6  landing-section">
-            <p>About the Certificate</p>
-            <h2>Want to Learn More?</h2>
-            <p>Through the process of obtaining the sustainability certificate, students gain knowledge about the myriad of issues pertaining to sustainability,
-                achieve enlightened perspectives about what sustainability means for individuals, communities, and the world, and acquire experience applying
-                this understanding to meaningful, real-world situations. The sustainability certificate equips students with the skills to make significant,
-                systemic changes in their communities, paving the way for a more sustainable future. </p>
-
-            <a class="btn btn-lg btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
-        </div>
-
-    <div class="col-sm-6 landing-section landing-section-image">
+    <div class="col-sm-6 landing-section landing-section-image hidden-xs">
 
     </div>
 
-        <div class="col-sm-6 landing-section landing-section-image">
+    <div class="col-sm-6 landing-section landing-section-image hidden-xs">
 
-        </div>
+    </div>
 
-    <div class="col-sm-6  landing-section">
+    <div class="col-sm-6  landing-section ">
         <p>About the Certificate</p>
+
         <h2>How can I apply?</h2>
+
         <p>The application is available on our website.
             Students must be in good standing with the university at the time of applying. </p>
 
@@ -44,9 +61,13 @@
 
     <div class="col-sm-12 landing-footer">
         <h2>Contact Us</h2>
+
         <p>Ron Balthazor, Director</p>
+
         <p>Talley Vodicka, Administrative Specialist</p>
+
         <p>Lindsey Bineau, Intern</p>
+
         <p>Email: scdirector@uga.edu </p>
     </div>
 
