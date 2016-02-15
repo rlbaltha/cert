@@ -15,11 +15,11 @@ class ProgramType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
           ->add('school', 'text', array('label' => 'School/College','attr' => array('class' => 'form-control'),))
           ->add('program', 'text', array('label' => 'Major/Degree Program','attr' => array('class' => 'form-control'),))
           ->add('ugaid', 'text', array('label' => 'UGA ID ','attr' => array('class' => 'form-control',
             'placeholder'=>'811000000'),))
-          ->add('level', 'text', array('label' => 'Grad or Undergrad','attr' => array('class' => 'form-control'),))
           ->add('level', 'choice', array(
             'choices'  => array(
               'Undergrad' => 'Undergrad',

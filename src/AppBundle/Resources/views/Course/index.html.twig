@@ -109,7 +109,7 @@
                         <td class="hidden-xs">{{ entity.level }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td class="hidden-xs">
-                                <a href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
+                                <a class="btn btn-primary" href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
                             </td>
                         {% endif %}
                     </tr>

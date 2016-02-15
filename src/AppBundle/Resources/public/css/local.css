@@ -21,12 +21,12 @@ body {
 }
 
 .row .col-sm-9 {
-    padding: 35px;
+    padding: 8vw;
 }
 
 .row .col-sm-12 {
-    padding: 100px;
-    padding-top: 20px;
+    padding: 8vw;
+    padding-top: 4vw;
 }
 
 /**********  Accessibility **********/
@@ -107,6 +107,9 @@ header .navbar-default .navbar-nav li a {
         padding-bottom: 12px;
         color: #fff !important;
     }
+    .row .col-sm-9 {
+        padding: 2vw;
+    }
 
 }
 
@@ -135,6 +138,13 @@ div.radio > label {
 
 }
 
+form div div {
+    margin-bottom: 20px;
+}
+
+input + label {
+    margin-right: 15px;
+}
 /********** homepage ***********/
 
 .landing {
