@@ -1,6 +1,34 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
+<div class="row">
+    <div class="col-sm-2">
+        <div class="sidebar-nav">
+            <div class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".sidebar-navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="visible-xs navbar-brand">Events</span>
+                </div>
+                <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ path('event') }}">Certificate Events</a></li>
+                        <li><a target="_blank" href="http://sustainability.uga.edu/what-were-doing/calendar/">Sustainability Events</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('event_new') }}">New Event</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-9">
     <h1>Sustainability Events</h1>
 
     {% for event in entities %}
