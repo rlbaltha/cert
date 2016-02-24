@@ -45,12 +45,14 @@
                 New Course
             </a>
         {% endif %}
-        <h1>Courses {% if entities|length != 0 %}({{ app.request.get('level') }}: {{ app.request.get('pillar') }}){% endif %}</h1>
+        <h1>
+            Courses {% if entities|length != 0 %}({{ app.request.get('level') }}: {{ app.request.get('pillar') }}){% endif %}</h1>
+        <p>Select listings on the left menu to list courses.</p>
         <p>Students are required to take a minimum of 17 credit hours to earn the Sustainability Certificate. The
             Certificate consists of the following components:
         <ol>
             <li>Anchor course (3 credit hours)</li>
-            <li>One course from each of 3 pillars (9 credit hours)</li>
+            <li>One course from each of 3 spheres (9 credit hours)</li>
             <li>Seminar (2 credit hours)</li>
             <li>Capstone project (3 credit hours)</li>
         </ol>
@@ -73,6 +75,24 @@
                 entire UGA Community as a means of connecting and communicating across disciplines. The seminar will
                 also allow students the opportunity to present their capstone course project and receive feedback from
                 their peers.
+            </p>
+            <p>
+                Spheres of Sustainability
+            <ul>
+
+                <li>Ecological Sustainability: Courses in the ecological sustainability sphere will build upon a
+                    baseline understanding of ecology and address issues concerning ecosystem services, environmental
+                    degradation, and climate change.
+                </li>
+                <li>Economic Sustainability: Courses in this sphere will build upon a baseline understanding of
+                    economics and address bottom-line.
+                </li>
+                <li>Social Sustainability:Courses in the social sustainability sphere will build upon a basic
+                    understanding of social science and will address the social aspects of sustainability, including
+                    issues of cultural diversity, social justice, equality, participation, the built environment, and
+                    community
+                </li>
+            </ul>
             </p>
             <p>Capstone Course/Project – This course will provide students with an opportunity to apply what they have
                 learned to hands-on sustainability challenges. Through this course they will work on interdisciplinary
@@ -109,7 +129,8 @@
                         <td class="hidden-xs">{{ entity.level }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td class="hidden-xs">
-                                <a class="btn btn-primary" href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
+                                <a class="btn btn-primary"
+                                   href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
                             </td>
                         {% endif %}
                     </tr>
