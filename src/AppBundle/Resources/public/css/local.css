@@ -54,7 +54,7 @@ body {
 
 }
 .navbar-default {
-    background-image: url(../images/jumbotron.jpg);
+    background-image: url(../images/landing1.jpg);
 
 }
 
@@ -150,7 +150,7 @@ input + label {
 .landing {
     margin: 0;
     color: #fff;
-    background-image: url(../images/jumbotron.jpg);
+    background-image: url(../images/landing1.jpg);
     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
     min-height: 100vh; /* These two lines are counted as one :-)       */
     padding: 7vh;
@@ -171,8 +171,12 @@ input + label {
     color: #971c1e;
 }
 
-.landing-section-image {
-    background-image: url(../images/landing.jpg);
+.landing-section-image1 {
+    background-image: url(../images/landing2.jpg);
+}
+
+.landing-section-image2 {
+    background-image: url(../images/landing6.jpg);
 }
 
 .landing-footer {
