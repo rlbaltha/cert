@@ -15,8 +15,8 @@
 
 
             {% if entity.program %}
-                <a href="#collapse_application" class="" data-toggle="collapse"><h3 class="inline">Application</h3> (click to toggle)</a>
-                <p>Please fill out the Application form completely (you may return to edit it at any time).</p>
+                <a href="#collapse_application" class="" data-toggle="collapse"><h3>Application</h3></a>
+
                 <div id="collapse_application" class="collapse {% if not entity.checklist %}in{% endif %}">
                     <a class="btn btn-primary"
                        href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
@@ -100,14 +100,15 @@
 
 
             {% else %}
+                <p>Please fill out the Application form completely (you may return to edit it at any time).</p>
                 <a class="btn btn-primary" href="{{ path('program_new') }}">
                     Start Application
                 </a>
             {% endif %}
 
             {% if entity.checklist %}
-                <a href="#collapse_checklist" class="" data-toggle="collapse"><h3 class="inline">Checklist</h3> (click to toggle)</a>
-                <p>The checklist allow you to track your progress through the program.  Please update regularly.</p>
+                <a href="#collapse_checklist" class="" data-toggle="collapse"><h3>Checklist</h3></a>
+
                 <div id="collapse_checklist" class="collapse {% if not entity.capstone %}in{% endif %}">
                     <a class="btn btn-primary"
                        href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
@@ -154,6 +155,7 @@
 
 
             {% elseif  entity.program %}
+                <p>The checklist allow you to track your progress through the program.  Please update regularly.</p>
                 <a class="btn btn-primary" href="{{ path('checklist_new') }}">
                     Start Checklist
                 </a>
@@ -161,22 +163,8 @@
 
 
             {% if entity.capstone %}
-                <a href="#collapse_capstone" class="" data-toggle="collapse"><h3 class="inline">Capstone</h3> (click to toggle)</a>
-                <p>Capstone projects provide an opportunity for students to apply classroom learning to hands on sustainability challenges.
+                <a href="#collapse_capstone" class="" data-toggle="collapse"><h3>Capstone</h3></a>
 
-                    Through the capstone, students will demonstrate leadership and the
-
-                    ability to work successfully with organizations promoting sustainability.   A Capstone can take
-
-                    the form of an applied project in the student’s given area of interest (i.e. exhibition, research,
-
-                    community-based programs, public policy development, social entrepreneurship, or an
-
-                    internship).  Once accepted students will develop a capstone work plan.  At the culmination of
-
-                    the capstone, students will submit a reflective paper that summarizes the student’s application
-
-                    of the core concepts of sustainability to the project.</p>
                 <div id="collapse_capstone" class="collapse in">
                     <a class="btn btn-primary"
                        href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
@@ -220,6 +208,21 @@
 
 
             {% elseif  entity.checklist %}
+                <p>Capstone projects provide an opportunity for students to apply classroom learning to hands on sustainability challenges.
+
+                    Through the capstone, students will demonstrate leadership and the
+
+                    ability to work successfully with organizations promoting sustainability.   A Capstone can take
+
+                    the form of an applied project in the student’s given area of interest (i.e. exhibition, research,
+
+                    community-based programs, public policy development, social entrepreneurship, or an
+
+                    internship).  Once accepted students will develop a capstone work plan.  At the culmination of
+
+                    the capstone, students will submit a reflective paper that summarizes the student’s application
+
+                    of the core concepts of sustainability to the project.</p>
                 <a class="btn btn-primary" href="{{ path('capstone_new') }}">
                     Start Capstone
                 </a>
