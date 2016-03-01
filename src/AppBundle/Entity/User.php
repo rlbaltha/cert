@@ -69,6 +69,11 @@ class User extends BaseUser
      */
     private $program;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Checklist", mappedBy="user")
+     */
+    private $checklist;
+
 
     /**
      * Get id
@@ -152,5 +157,29 @@ class User extends BaseUser
     public function getProgram()
     {
         return $this->program;
+    }
+
+    /**
+     * Set checklist
+     *
+     * @param \AppBundle\Entity\Checklist $checklist
+     *
+     * @return User
+     */
+    public function setChecklist(\AppBundle\Entity\Checklist $checklist = null)
+    {
+        $this->checklist = $checklist;
+
+        return $this;
+    }
+
+    /**
+     * Get checklist
+     *
+     * @return \AppBundle\Entity\Checklist
+     */
+    public function getChecklist()
+    {
+        return $this->checklist;
     }
 }

@@ -103,7 +103,57 @@
                 </a>
             {% endif %}
 
+            {% if entity.checklist %}
+                <a href="#collapse_checklist" class="" data-toggle="collapse"><h3>Checklist</h3></a>
+                <div id="collapse_checklist" class="collapse in">
+                    <a class="btn btn-primary pull-right" href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
+                        Update Checklist
+                    </a>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Anchor</th>
+                            <td>{% if entity.checklist.anchor %}{{ entity.checklist.anchor.name }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Ecological Sphere</th>
+                            <td>{% if entity.checklist.sphere1 %}{{ entity.checklist.sphere1.name }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Economic Sphere</th>
+                            <td>{% if entity.checklist.sphere2 %}{{ entity.checklist.sphere2.name }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Social Sphere</th>
+                            <td>{% if entity.checklist.sphere3 %}{{ entity.checklist.sphere3.name }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Seminar</th>
+                            <td>{% if entity.checklist.seminar %}{{ entity.checklist.seminar.name }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Capstone</th>
+                            <td>{% if entity.checklist.capstone %}{{ entity.checklist.capstone.name }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Portfolio</th>
+                            <td>{{ entity.checklist.portfolio }}</td>
+                        </tr>
+                        <tr>
+                            <th>Exceptions</th>
+                            <td>{{ entity.checklist.exceptions | raw}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
+
+
+            {% else %}
+                <a class="btn btn-primary" href="{{ path('checklist_new') }}">
+                    Start Checklist
+                </a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

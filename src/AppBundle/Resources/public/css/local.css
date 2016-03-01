@@ -55,6 +55,7 @@ body {
 }
 .navbar-default {
     background-image: url(../images/landing1.jpg);
+    background-size: 100%;
 
 }
 
@@ -87,6 +88,7 @@ header .navbar-default .navbar-nav li a {
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
     .sidebar-nav .navbar .navbar-collapse {
+        background-color: #2f2f2f ;
         padding: 12px;
         padding-bottom: 20px;
         padding-top: 20px;
@@ -150,7 +152,9 @@ input + label {
 .landing {
     margin: 0;
     color: #fff;
-    background-image: url(../images/landing1.jpg);
+    font-weight: 600;
+    background: url(../images/landing1.jpg);
+    background-size: 100% 100%;
     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
     min-height: 100vh; /* These two lines are counted as one :-)       */
     padding: 7vh;
@@ -173,10 +177,12 @@ input + label {
 
 .landing-section-image1 {
     background-image: url(../images/landing2.jpg);
+    background-size: 100% 100%;
 }
 
 .landing-section-image2 {
     background-image: url(../images/landing6.jpg);
+    background-size: 100% 100%;
 }
 
 .landing-footer {
