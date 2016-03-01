@@ -15,7 +15,7 @@
 
 
             {% if entity.program %}
-                <a href="#collapse_application" class="" data-toggle="collapse"><h3>Application</h3> (click to toggle)</a>
+                <a href="#collapse_application" class="" data-toggle="collapse"><h3 class="inline">Application</h3> (click to toggle)</a>
                 <p>Please fill out the Application form completely (you may return to edit it at any time).</p>
                 <div id="collapse_application" class="collapse {% if not entity.checklist %}in{% endif %}">
                     <a class="btn btn-primary"
@@ -106,7 +106,7 @@
             {% endif %}
 
             {% if entity.checklist %}
-                <a href="#collapse_checklist" class="" data-toggle="collapse"><h3>Checklist</h3> (click to toggle)</a>
+                <a href="#collapse_checklist" class="" data-toggle="collapse"><h3 class="inline">Checklist</h3> (click to toggle)</a>
                 <p>The checklist allow you to track your progress through the program.  Please update regularly.</p>
                 <div id="collapse_checklist" class="collapse {% if not entity.capstone %}in{% endif %}">
                     <a class="btn btn-primary"
@@ -161,7 +161,7 @@
 
 
             {% if entity.capstone %}
-                <a href="#collapse_capstone" class="" data-toggle="collapse"><h3>Capstone</h3> (click to toggle)</a>
+                <a href="#collapse_capstone" class="" data-toggle="collapse"><h3 class="inline">Capstone</h3> (click to toggle)</a>
                 <p>Capstone projects provide an opportunity for students to apply classroom learning to hands on sustainability challenges.
 
                     Through the capstone, students will demonstrate leadership and the

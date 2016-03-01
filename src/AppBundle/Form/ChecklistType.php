@@ -72,7 +72,7 @@ class ChecklistType extends AbstractType
             ('class' => 'form-control'),))
           ->add('portfolio', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' =>
             'https://uga.digication.com/'),))
-            ->add('exceptions', 'ckeditor', array('config_name' => 'editor_default',))
+            ->add('exceptions', 'ckeditor', array('config_name' => 'editor_simple',))
 
         ;
     }

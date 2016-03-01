@@ -29,6 +29,10 @@ body {
     padding-top: 4vw;
 }
 
+.inline {
+    display: inline-block;
+}
+
 /**********  Accessibility **********/
 #skip a, #skip a:hover, #skip a:visited
 {
