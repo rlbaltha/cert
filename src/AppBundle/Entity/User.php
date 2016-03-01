@@ -74,6 +74,10 @@ class User extends BaseUser
      */
     private $checklist;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Capstone", mappedBy="user")
+     */
+    private $capstone;
 
     /**
      * Get id
@@ -181,5 +185,29 @@ class User extends BaseUser
     public function getChecklist()
     {
         return $this->checklist;
+    }
+
+    /**
+     * Set capstone
+     *
+     * @param \AppBundle\Entity\Capstone $capstone
+     *
+     * @return User
+     */
+    public function setCapstone(\AppBundle\Entity\Capstone $capstone = null)
+    {
+        $this->capstone = $capstone;
+
+        return $this;
+    }
+
+    /**
+     * Get capstone
+     *
+     * @return \AppBundle\Entity\Capstone
+     */
+    public function getCapstone()
+    {
+        return $this->capstone;
     }
 }

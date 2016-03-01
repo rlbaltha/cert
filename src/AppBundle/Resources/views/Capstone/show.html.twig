@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Capstone</h1>
+<p>Capstones projects provide an opportunity for students to apply classroom learning to hands on sustainability challenges.
+
+    Through the capstone, students will demonstrate leadership and the
+
+    ability to work successfully with organizations promoting sustainability.   A Capstone can take
+
+    the form of an applied project in the student’s given area of interest (i.e. exhibition, research,
+
+    community-based programs, public policy development, social entrepreneurship, or an
+
+    internship).  Once accepted students will develop a capstone work plan.  At the culmination of
+
+    the capstone, students will submit a reflective paper that summarizes the student’s application
+
+    of the core concepts of sustainability to the project.</p>
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ entity.type }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description |raw }}</td>
+            </tr>
+            <tr>
+                <th>Steps</th>
+                <td>{{ entity.steps|raw }}</td>
+            </tr>
+            <tr>
+                <th>Application</th>
+                <td>{{ entity.application|raw }}</td>
+            </tr>
+            <tr>
+                <th>Mentor</th>
+                <td>{{ entity.mentor }}</td>
+            </tr>
+            <tr>
+                <th>Timeframe</th>
+                <td>{{ entity.timeframe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('capstone') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('capstone_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
