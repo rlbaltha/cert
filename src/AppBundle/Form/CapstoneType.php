@@ -27,7 +27,7 @@ class CapstoneType extends AbstractType
                 'label'=>'Type of Project', 'attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),))
             ->add('description', 'ckeditor', array('label'=>'Please give a brief description of your project, including its main goals and objectives and how they relate to sustainability:', 'config_name' => 'editor_simple',))
             ->add('steps', 'ckeditor', array('label'=>'What are the specific steps you will take to complete your capstone project?', 'config_name' => 'editor_simple',))
-            ->add('application', 'ckeditor', array('label'=>'How will this project apply your course of study to a hands on sustainability challenge?', 'config_name' => 'editor_simple',))
+            ->add('application', 'ckeditor', array('label'=>'How will this project apply to and extend your course of study?', 'config_name' => 'editor_simple',))
             ->add('mentor', 'text', array('label'=>'Faculty/Community mentor', 'attr' => array('class' => 'text form-control'),))
             ->add('timeframe', 'text', array('label'=>'Projected completion date', 'attr' => array('class' => 'text form-control'),))
         ;

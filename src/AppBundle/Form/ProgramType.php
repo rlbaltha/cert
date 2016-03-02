@@ -52,7 +52,7 @@ class ProgramType extends AbstractType
             'choices_as_values' => true,
             'expanded' => true,
           ))
-          ->add('interest', 'ckeditor', array('required'=> false,'label' => 'Details on your interesting in Sustainability','config_name'
+          ->add('interest', 'ckeditor', array('required'=> false,'label' => 'Details on your interest in Sustainability','config_name'
           =>
             'editor_simple',))
           ->add('experience', 'ckeditor', array('required'=> false,'label' => 'Experience in Sustainability','config_name'
