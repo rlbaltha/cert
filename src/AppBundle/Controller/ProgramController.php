@@ -58,6 +58,7 @@ class ProgramController extends Controller
 
             $user = $em->getRepository('AppBundle:User')->find($user);
             $name = $user->getFirstname().' '.$user->getLastname();
+            $text = ' has created an application.';
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Certificate Application')
@@ -67,7 +68,8 @@ class ProgramController extends Controller
                     $this->renderView(
 
                         'AppBundle:Email:apply.html.twig',
-                        array('name' => $name)
+                        array('name' => $name,
+                            'text' => $text)
                     ),
                     'text/html'
                 )
@@ -216,6 +218,7 @@ class ProgramController extends Controller
             $user=$this->getUser();
             $user = $em->getRepository('AppBundle:User')->find($user);
             $name = $user->getFirstname().' '.$user->getLastname();
+            $text = ' has updated an application.';
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Certificate Application')
@@ -225,7 +228,8 @@ class ProgramController extends Controller
                     $this->renderView(
 
                         'AppBundle:Email:apply.html.twig',
-                        array('name' => $name)
+                        array('name' => $name,
+                              'text' => $text)
                     ),
                     'text/html'
                 )
