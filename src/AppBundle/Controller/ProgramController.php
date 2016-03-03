@@ -60,7 +60,7 @@ class ProgramController extends Controller
             $name = $user->getFirstname().' '.$user->getLastname();
 
             $message = \Swift_Message::newInstance()
-                ->setSubject('Certfiicate Application')
+                ->setSubject('Certificate Application')
                 ->setFrom('scdirector@uga.edu')
                 ->setTo('scdirector@uga.edu')
                 ->setBody(
@@ -218,7 +218,7 @@ class ProgramController extends Controller
             $name = $user->getFirstname().' '.$user->getLastname();
 
             $message = \Swift_Message::newInstance()
-                ->setSubject('Certfiicate Application')
+                ->setSubject('Certificate Application')
                 ->setFrom('scdirector@uga.edu')
                 ->setTo('scdirector@uga.edu')
                 ->setBody(
