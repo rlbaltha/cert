@@ -160,7 +160,7 @@ input + label {
     background: url(../images/landing3.jpg);
     min-height: 100vh; /* These two lines are counted as one :-)       */
     padding: 7vh;
-    padding-top: 40vh;
+    padding-top: 25vh;
 }
 
 .landing p {
@@ -185,11 +185,13 @@ input + label {
 .landing-section-image1 {
     background-image: url(../images/landing2.jpg);
     background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 .landing-section-image2 {
     background-image: url(../images/landing6.jpg);
     background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 .landing-footer {
