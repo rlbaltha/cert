@@ -10,4 +10,20 @@ namespace AppBundle\Entity;
  */
 class EventRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+     * Find all upcoming events sorted by start
+     *
+     * @return Event
+     */
+    public function findCurrent() {
+        $today = date("Y-m-d");
+        $events = $this->createQueryBuilder('e')
+          ->andWhere('e.datetime >= :today')
+          ->orderBy('e.datetime', 'ASC')
+          ->setParameter('today',$today)
+          ->getQuery()
+          ->getResult();
+        return $events;
+    }
 }
