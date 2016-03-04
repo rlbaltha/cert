@@ -14,6 +14,11 @@
                     scrollTop: $("#page3").offset().top
                 }, 1000);
             });
+            $("#scroll3").click(function () {
+                $('html, body').animate({
+                    scrollTop: $("body").offset().top
+                }, 1000);
+            });
         });
     </script>
 {% endblock %}
@@ -21,7 +26,7 @@
 {% block body %}
 
     <div class="landing">
-        <a class="btn btn-primary officebtn" href="http://sustainability.uga.edu/">Looking for the Office of Sustainability</a>
+        <a class="btn btn-primary officebtn" href="http://sustainability.uga.edu/">Looking for the Office of Sustainability?</a>
         <p>The University of Georgia's </p>
 
         <h1 class="header"><span class="header">Sustainability</span> Certificate</h1>
@@ -98,6 +103,7 @@
             <p><a class="inverse" href="http://www.foresty.uga.edu/" target="_blank">Warnell School of Forestry and Natural Resources</a></p>
             <p><a class="inverse" href="http://ssw.uga.edu/" target="_blank">School of Social Work</a></p>
         </div>
+        <a id="scroll3" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Up</a>
     </div>
 
 {% endblock %}

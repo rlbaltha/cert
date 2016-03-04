@@ -213,12 +213,12 @@ span.header {
 
 .scrollbtn {
     position: absolute;
-    bottom:2%;
-    right: 2%;
+    bottom:20px;
+    right: 10px;
 }
 
 .officebtn {
     position: absolute;
-    top:8%;
-    right: 2%;
+    top:70px;
+    right: 10px;
 }
