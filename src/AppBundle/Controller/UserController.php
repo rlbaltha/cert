@@ -45,7 +45,7 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/list/{type}", name="user", defaults={"type" = "student"})
+     * @Route("/list/{type}", name="user", defaults={"type" = "Student"})
      * @Method("GET")
      * @Template()
      */
