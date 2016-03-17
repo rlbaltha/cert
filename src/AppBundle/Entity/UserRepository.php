@@ -10,4 +10,29 @@ namespace AppBundle\Entity;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Find users by type
+     *
+     * @return User
+     */
+    public function findFaculty() {
+        $course = $this->createQueryBuilder('u')
+            ->andWhere("u.status = 'Administration' or u.status = 'Faculty'")
+            ->getQuery()
+            ->getResult();
+        return $course;
+    }
+
+    /**
+     * Find users by type
+     *
+     * @return User
+     */
+    public function findStudents() {
+        $course = $this->createQueryBuilder('u')
+            ->andWhere("u.status != 'Administration' and u.status != 'Faculty'")
+            ->getQuery()
+            ->getResult();
+        return $course;
+    }
 }

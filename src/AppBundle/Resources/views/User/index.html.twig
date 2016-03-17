@@ -3,7 +3,10 @@
 {% block body -%}
     <div class="row">
         <div class="col-sm-12">
-            <h1>User list</h1>
+            <a class="btn btn-primary pull-right" href="{{ path('user', { 'type': 'Faculty' }) }}">Faculty</a>
+            <a class="btn btn-primary pull-right" href="{{ path('user', { 'type': 'Students' }) }}">Students</a>
+            <h1>{{ app.request.get('type') }} list</h1>
+
 
             <table class="table">
                 <thead>

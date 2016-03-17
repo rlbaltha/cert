@@ -45,15 +45,19 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/", name="user")
+     * @Route("/list/{type}", name="user", defaults={"type" = "student"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($type)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AppBundle:User')->findAll();
+        if ($type == 'Faculty') {
+            $entities = $em->getRepository('AppBundle:User')->findFaculty();
+        }
+        else {
+            $entities = $em->getRepository('AppBundle:User')->findStudents();
+        }
 
         return array(
             'entities' => $entities,
