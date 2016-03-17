@@ -19,6 +19,8 @@ class ProfileType extends AbstractType
           ->add('lastname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),))
             ->add('status', 'choice', array('attr' => array('class' => 'form-control',),
                 'choices'  => array(
+                    'Administration' => 'Administration',
+                    'Faculty' => 'Faculty',
                     'Account Created' => 'Account Created',
                     'Application Submitted' => 'Application Submitted',
                     'Application Approved' => 'Application Approved',
