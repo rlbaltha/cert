@@ -38,35 +38,35 @@ class Capstone
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="steps", type="text")
+     * @ORM\Column(name="steps", type="text", nullable=true)
      */
     private $steps;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="application", type="text")
+     * @ORM\Column(name="application", type="text", nullable=true)
      */
     private $application;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mentor", type="string", length=255)
+     * @ORM\Column(name="mentor", type="string", length=255, nullable=true)
      */
     private $mentor;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="timeframe", type="string", length=255)
+     * @ORM\Column(name="timeframe", type="string", length=255, nullable=true)
      */
     private $timeframe;
 

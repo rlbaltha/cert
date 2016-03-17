@@ -24,14 +24,14 @@ class Checklist
     /**
      * @var string
      *
-     * @ORM\Column(name="exceptions", type="text")
+     * @ORM\Column(name="exceptions", type="text", nullable=true)
      */
     private $exceptions;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="portfolio", type="string", length=255)
+     * @ORM\Column(name="portfolio", type="string", length=255, nullable=true)
      */
     private $portfolio;
 

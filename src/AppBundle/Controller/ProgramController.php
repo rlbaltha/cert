@@ -53,7 +53,10 @@ class ProgramController extends Controller
             $em = $this->getDoctrine()->getManager();
             $user=$this->getUser();
             $entity->setUser($user);
+            $user_entity = $em->getRepository('AppBundle:User')->find($user);
+            $user_entity->setStatus('Application Created');
             $em->persist($entity);
+            $em->persist($user_entity);
             $em->flush();
 
             $user = $em->getRepository('AppBundle:User')->find($user);

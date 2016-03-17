@@ -17,6 +17,20 @@ class ProfileType extends AbstractType
         $builder
           ->add('firstname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Firstname'),))
           ->add('lastname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),))
+            ->add('status', 'choice', array('attr' => array('class' => 'form-control',),
+                'choices'  => array(
+                    'Account Created' => 'Account Created',
+                    'Application Submitted' => 'Application Submitted',
+                    'Application Approved' => 'Application Approved',
+                    'Checklist Created' => 'Checklist Created',
+                    'Capstone Created' => 'Capstone Created',
+                    'Capstone Approved' => 'Capstone Approved',
+                    'Portfolio Approved' => 'Portfolio Approved',
+                    'Certificate Complete' => 'Certificate Complete' ,
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+            ))
         ;
     }
     

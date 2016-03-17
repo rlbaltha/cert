@@ -65,6 +65,13 @@ class User extends BaseUser
     private $firstname;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     */
+    private $status='Account Created';
+
+    /**
      * @ORM\OneToOne(targetEntity="Program", mappedBy="user")
      */
     private $program;
@@ -209,5 +216,29 @@ class User extends BaseUser
     public function getCapstone()
     {
         return $this->capstone;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return User
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

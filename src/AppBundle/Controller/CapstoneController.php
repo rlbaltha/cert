@@ -51,8 +51,11 @@ class CapstoneController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $user=$this->getUser();
+            $user_entity = $em->getRepository('AppBundle:User')->find($user);
+            $user_entity->setStatus('Capstone Created');
             $entity->setUser($user);
             $em->persist($entity);
+            $em->persist($user_entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('user_profile'));
