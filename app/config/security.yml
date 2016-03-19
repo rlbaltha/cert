@@ -30,6 +30,8 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/user/profile, role: ROLE_USER }
         - { path: ^/program/, role: ROLE_USER }
+        - { path: ^/checklist/, role: ROLE_USER }
+        - { path: ^/capstone/, role: ROLE_USER }
         - { path: ^/upload/, role: ROLE_ADMIN }
         - { path: ^/user/, role: ROLE_ADMIN }
         - { path: edit$, role: ROLE_ADMIN }
