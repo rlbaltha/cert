@@ -13,11 +13,17 @@
         {% endif %}
         <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
         <p>Certificate Progress: {{ entity.status }} </p>
-        {% if is_granted('ROLE_ADMIN') %}<p>Director notes:  {{ entity.notes |raw }}</p>{% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="#collapse_notes" class="" data-toggle="collapse"><h3>Director notes</h3></a>
+            <div id="collapse_notes" class="collapse in">
+                <p>{{ entity.notes |raw }}</p>
+            </div>
+        {% endif %}
 
         <div class="col-sm-4">
             <a href="#collapse_application" class="" data-toggle="collapse"><h3>Application</h3></a>
-            <p>Please fill out the Application form completely. You may return to edit it at any time.  You will be notified by the Director when your application is approved.</p>
+            <p>Please fill out the Application form completely. You may return to edit it at any time. You will be
+                notified by the Director when your application is approved.</p>
 
             {% if entity.program %}
                 <a class="btn btn-primary"
@@ -33,79 +39,79 @@
 
             <div id="collapse_application" class="collapse in">
                 {% if entity.program %}
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th>Email</th>
-                        <td>{{ entity.email }}</td>
-                    </tr>
-                    <tr>
-                        <th>School</th>
-                        <td>{{ entity.program.school }}</td>
-                    </tr>
-                    <tr>
-                        <th>Program</th>
-                        <td>{{ entity.program.program }}</td>
-                    </tr>
-                    <tr>
-                        <th>Uga Id</th>
-                        <td>{{ entity.program.ugaid }}</td>
-                    </tr>
-                    <tr>
-                        <th>Level</th>
-                        <td>{{ entity.program.level }}</td>
-                    </tr>
-                    <tr>
-                        <th>Previous Degree(s)</th>
-                        <td>{{ entity.program.degree }}</td>
-                    </tr>
-                    <tr>
-                        <th>Previous Institution(s)</th>
-                        <td>{{ entity.program.institution }}</td>
-                    </tr>
-                    <tr>
-                        <th>Graduation Date</th>
-                        <td>{{ entity.program.graddate }}</td>
-                    </tr>
-                    <tr>
-                        <th>Address</th>
-                        <td>{{ entity.program.address }}</td>
-                    </tr>
-                    <tr>
-                        <th>City State Zip</th>
-                        <td>{{ entity.program.cityst }}</td>
-                    </tr>
-                    <tr>
-                        <th>Country</th>
-                        <td>{{ entity.program.country }}</td>
-                    </tr>
-                    <tr>
-                        <th>Phone</th>
-                        <td>{{ entity.program.phone }}</td>
-                    </tr>
-                    <tr>
-                        <th>Area of Interest</th>
-                        <td>{{ entity.program.area }}</td>
-                    </tr>
-                    <tr>
-                        <th>Interest in Sustainability</th>
-                        <td>{{ entity.program.interest | raw }}</td>
-                    </tr>
-                    <tr>
-                        <th>Experience</th>
-                        <td>{{ entity.program.experience | raw }}</td>
-                    </tr>
-                    <tr>
-                        <th>Goals</th>
-                        <td>{{ entity.program.goals | raw }}</td>
-                    </tr>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ entity.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>School</th>
+                            <td>{{ entity.program.school }}</td>
+                        </tr>
+                        <tr>
+                            <th>Program</th>
+                            <td>{{ entity.program.program }}</td>
+                        </tr>
+                        <tr>
+                            <th>Uga Id</th>
+                            <td>{{ entity.program.ugaid }}</td>
+                        </tr>
+                        <tr>
+                            <th>Level</th>
+                            <td>{{ entity.program.level }}</td>
+                        </tr>
+                        <tr>
+                            <th>Previous Degree(s)</th>
+                            <td>{{ entity.program.degree }}</td>
+                        </tr>
+                        <tr>
+                            <th>Previous Institution(s)</th>
+                            <td>{{ entity.program.institution }}</td>
+                        </tr>
+                        <tr>
+                            <th>Graduation Date</th>
+                            <td>{{ entity.program.graddate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ entity.program.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>City State Zip</th>
+                            <td>{{ entity.program.cityst }}</td>
+                        </tr>
+                        <tr>
+                            <th>Country</th>
+                            <td>{{ entity.program.country }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{ entity.program.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Areas of Interest</th>
+                            <td>{% for area in entity.program.area %}{{ area }} {% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Interest in Sustainability</th>
+                            <td>{{ entity.program.interest | raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Experience</th>
+                            <td>{{ entity.program.experience | raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Goals</th>
+                            <td>{{ entity.program.goals | raw }}</td>
+                        </tr>
 
-                    <tr>
-                        <th>Notes</th>
-                        <td>{{ entity.program.notes | raw }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <tr>
+                            <th>Notes</th>
+                            <td>{{ entity.program.notes | raw }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 {% endif %}
             </div>
         </div>
@@ -159,7 +165,8 @@
                         </tr>
                         <tr>
                             <th>Portfolio</th>
-                            <td>{{ entity.checklist.portfolio }}</td>
+                            <td><a href="{{ entity.checklist.portfolio }}"
+                                   target="_blank">{{ entity.checklist.portfolio }}</a></td>
                         </tr>
                         <tr>
                             <th>Exceptions</th>
@@ -176,7 +183,8 @@
             <a href="#collapse_capstone" class="" data-toggle="collapse"><h3>Capstone</h3></a>
 
             <p>Capstone projects provide an opportunity for students to apply classroom learning to hands on
-                sustainability challenges. For details, please review the information on the Capstone under the Student heading of the website.
+                sustainability challenges. For details, please review the information on the Capstone under the Student
+                heading of the website.
                 You will be notified by the Director when your application is approved.</p>
 
             {% if entity.capstone %}
@@ -186,7 +194,8 @@
                 </a>
 
             {% else %}
-                <a class="btn btn-primary {% if not entity.checklist %}disabled{% endif %}" href="{{ path('capstone_new') }}">
+                <a class="btn btn-primary {% if not entity.checklist %}disabled{% endif %}"
+                   href="{{ path('capstone_new') }}">
                     Start Capstone
                 </a>
             {% endif %}

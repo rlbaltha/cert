@@ -43,7 +43,7 @@ class FacultyController extends Controller
      *
      * @Route("/", name="faculty_create")
      * @Method("POST")
-     * @Template("AppBundle:Faculty:new.html.twig")
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -89,7 +89,7 @@ class FacultyController extends Controller
      *
      * @Route("/new", name="faculty_new")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
@@ -132,7 +132,7 @@ class FacultyController extends Controller
      *
      * @Route("/{id}/edit", name="faculty_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -177,7 +177,7 @@ class FacultyController extends Controller
      *
      * @Route("/{id}", name="faculty_update")
      * @Method("PUT")
-     * @Template("AppBundle:Faculty:edit.html.twig")
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

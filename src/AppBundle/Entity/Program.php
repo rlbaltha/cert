@@ -105,7 +105,7 @@ class Program
     /**
      * @var string
      *
-     * @ORM\Column(name="area", type="string", length=255, nullable=true)
+     * @ORM\Column(name="area", type="array", length=255, nullable=true)
      */
     private $area;
 
@@ -419,53 +419,6 @@ class Program
         return $this->phone;
     }
 
-    /**
-     * Set area
-     *
-     * @param string $area
-     *
-     * @return Program
-     */
-    public function setArea($area)
-    {
-        $this->area = $area;
-
-        return $this;
-    }
-
-    /**
-     * Get area
-     *
-     * @return string
-     */
-    public function getArea()
-    {
-        return $this->area;
-    }
-
-    /**
-     * Set interest
-     *
-     * @param string $interest
-     *
-     * @return Program
-     */
-    public function setInterest($interest)
-    {
-        $this->interest = $interest;
-
-        return $this;
-    }
-
-    /**
-     * Get interest
-     *
-     * @return string
-     */
-    public function getInterest()
-    {
-        return $this->interest;
-    }
 
     /**
      * Set experience
@@ -561,5 +514,55 @@ class Program
     public function getUser()
     {
         return $this->user;
+    }
+
+
+
+    /**
+     * Set area
+     *
+     * @param array $area
+     *
+     * @return Program
+     */
+    public function setArea($area)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return array
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
+     * Set interest
+     *
+     * @param string $interest
+     *
+     * @return Program
+     */
+    public function setInterest($interest)
+    {
+        $this->interest = $interest;
+
+        return $this;
+    }
+
+    /**
+     * Get interest
+     *
+     * @return string
+     */
+    public function getInterest()
+    {
+        return $this->interest;
     }
 }

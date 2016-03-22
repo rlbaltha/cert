@@ -40,7 +40,8 @@ class ProgramType extends AbstractType
           ->add('phone', 'text', array('required'=> false,'label' => 'Phone','attr' => array('class' => 'form-control'),))
           ->add('area', 'choice', array(
             'required'=> false,
-            'label' => 'Area of Interest',
+              'multiple'=> true,
+            'label' => 'Areas of Interest',
             'choices'  => array(
               'Energy' => 'Energy',
               'Water' => 'Water',
