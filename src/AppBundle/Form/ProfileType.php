@@ -33,6 +33,7 @@ class ProfileType extends AbstractType
                 // *this line is important*
                 'choices_as_values' => true,
             ))
+            ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
         ;
     }
     

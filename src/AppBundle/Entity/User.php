@@ -72,6 +72,13 @@ class User extends BaseUser
     private $status='Account Created';
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="notes", type="text", nullable=true)
+     */
+    private $notes;
+
+    /**
      * @ORM\OneToOne(targetEntity="Program", mappedBy="user")
      */
     private $program;
@@ -240,5 +247,29 @@ class User extends BaseUser
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set notes
+     *
+     * @param string $notes
+     *
+     * @return User
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Get notes
+     *
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
     }
 }

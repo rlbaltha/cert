@@ -1,120 +1,136 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <div class="row">
-        <div class="col-sm-12">
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-default pull-right" href="{{ path('user_edit', { 'id': entity.id }) }}">
-                    User Edit
-                </a>
-                <a class="btn btn-default pull-right" href="{{ path('user') }}">
-                    List Users
-                </a>
-            {% endif %}
-            <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
-            <p>Certificate Progress: {{ entity.status }} </p>
+<div class="row">
+    <div class="col-sm-12">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-default pull-right" href="{{ path('user_edit', { 'id': entity.id }) }}">
+                User Edit
+            </a>
+            <a class="btn btn-default pull-right" href="{{ path('user') }}">
+                List Users
+            </a>
+        {% endif %}
+        <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
+        <p>Certificate Progress: {{ entity.status }} </p>
+        {% if is_granted('ROLE_ADMIN') %}<p>Director notes:  {{ entity.notes |raw }}</p>{% endif %}
 
+        <div class="col-sm-4">
+            <a href="#collapse_application" class="" data-toggle="collapse"><h3>Application</h3></a>
+            <p>Please fill out the Application form completely. You may return to edit it at any time.  You will be notified by the Director when your application is approved.</p>
 
             {% if entity.program %}
-                <a href="#collapse_application" class="" data-toggle="collapse"><h3>Application</h3></a>
-
-                <div id="collapse_application" class="collapse {% if not entity.checklist %}in{% endif %}">
-                    <a class="btn btn-primary"
-                       href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
-                        Update Application
-                    </a>
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <th>Email</th>
-                            <td>{{ entity.email }}</td>
-                        </tr>
-                        <tr>
-                            <th>School</th>
-                            <td>{{ entity.program.school }}</td>
-                        </tr>
-                        <tr>
-                            <th>Program</th>
-                            <td>{{ entity.program.program }}</td>
-                        </tr>
-                        <tr>
-                            <th>Uga Id</th>
-                            <td>{{ entity.program.ugaid }}</td>
-                        </tr>
-                        <tr>
-                            <th>Level</th>
-                            <td>{{ entity.program.level }}</td>
-                        </tr>
-                        <tr>
-                            <th>Previous Degree(s)</th>
-                            <td>{{ entity.program.degree }}</td>
-                        </tr>
-                        <tr>
-                            <th>Previous Institution(s)</th>
-                            <td>{{ entity.program.institution }}</td>
-                        </tr>
-                        <tr>
-                            <th>Graduation Date</th>
-                            <td>{{ entity.program.graddate }}</td>
-                        </tr>
-                        <tr>
-                            <th>Address</th>
-                            <td>{{ entity.program.address }}</td>
-                        </tr>
-                        <tr>
-                            <th>City State Zip</th>
-                            <td>{{ entity.program.cityst }}</td>
-                        </tr>
-                        <tr>
-                            <th>Country</th>
-                            <td>{{ entity.program.country }}</td>
-                        </tr>
-                        <tr>
-                            <th>Phone</th>
-                            <td>{{ entity.program.phone }}</td>
-                        </tr>
-                        <tr>
-                            <th>Area of Interest</th>
-                            <td>{{ entity.program.area }}</td>
-                        </tr>
-                        <tr>
-                            <th>Interest in Sustainability</th>
-                            <td>{{ entity.program.interest | raw }}</td>
-                        </tr>
-                        <tr>
-                            <th>Experience</th>
-                            <td>{{ entity.program.experience | raw }}</td>
-                        </tr>
-                        <tr>
-                            <th>Goals</th>
-                            <td>{{ entity.program.goals | raw }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Notes</th>
-                            <td>{{ entity.program.notes | raw }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-
-
+                <a class="btn btn-primary"
+                   href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
+                    Update Application
+                </a>
             {% else %}
-                <p>Please fill out the Application form completely (you may return to edit it at any time).</p>
+
                 <a class="btn btn-primary" href="{{ path('program_new') }}">
                     Start Application
                 </a>
             {% endif %}
 
-            {% if entity.checklist %}
-                <a href="#collapse_checklist" class="" data-toggle="collapse"><h3>Checklist</h3></a>
+            <div id="collapse_application" class="collapse in">
+                {% if entity.program %}
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ entity.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>School</th>
+                        <td>{{ entity.program.school }}</td>
+                    </tr>
+                    <tr>
+                        <th>Program</th>
+                        <td>{{ entity.program.program }}</td>
+                    </tr>
+                    <tr>
+                        <th>Uga Id</th>
+                        <td>{{ entity.program.ugaid }}</td>
+                    </tr>
+                    <tr>
+                        <th>Level</th>
+                        <td>{{ entity.program.level }}</td>
+                    </tr>
+                    <tr>
+                        <th>Previous Degree(s)</th>
+                        <td>{{ entity.program.degree }}</td>
+                    </tr>
+                    <tr>
+                        <th>Previous Institution(s)</th>
+                        <td>{{ entity.program.institution }}</td>
+                    </tr>
+                    <tr>
+                        <th>Graduation Date</th>
+                        <td>{{ entity.program.graddate }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ entity.program.address }}</td>
+                    </tr>
+                    <tr>
+                        <th>City State Zip</th>
+                        <td>{{ entity.program.cityst }}</td>
+                    </tr>
+                    <tr>
+                        <th>Country</th>
+                        <td>{{ entity.program.country }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{ entity.program.phone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Area of Interest</th>
+                        <td>{{ entity.program.area }}</td>
+                    </tr>
+                    <tr>
+                        <th>Interest in Sustainability</th>
+                        <td>{{ entity.program.interest | raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Experience</th>
+                        <td>{{ entity.program.experience | raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Goals</th>
+                        <td>{{ entity.program.goals | raw }}</td>
+                    </tr>
 
-                <div id="collapse_checklist" class="collapse {% if not entity.capstone %}in{% endif %}">
-                    <a class="btn btn-primary"
-                       href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
-                        Update Checklist
-                    </a>
+                    <tr>
+                        <th>Notes</th>
+                        <td>{{ entity.program.notes | raw }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+
+
+        <div class="col-sm-4">
+            <a href="#collapse_checklist" class="" data-toggle="collapse"><h3>Checklist</h3></a>
+            <p>The checklist allow you to track your progress through the program. Please update regularly.</p>
+
+            {% if entity.checklist %}
+                <a class="btn btn-primary"
+                   href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
+                    Update Checklist
+                </a>
+            {% else %}
+
+                <a class="btn btn-primary {% if not entity.program %}disabled{% endif %}"
+                   href="{{ path('checklist_new') }}">
+                    Start Checklist
+                </a>
+            {% endif %}
+
+
+            <div id="collapse_checklist" class="collapse in ">
+                {% if entity.checklist %}
                     <table class="table">
                         <tbody>
                         <tr>
@@ -151,26 +167,34 @@
                         </tr>
                         </tbody>
                     </table>
-                </div>
+                {% endif %}
+            </div>
+        </div>
 
 
+        <div class="col-sm-4">
+            <a href="#collapse_capstone" class="" data-toggle="collapse"><h3>Capstone</h3></a>
 
-            {% elseif  entity.program %}
-                <p>The checklist allow you to track your progress through the program.  Please update regularly.</p>
-                <a class="btn btn-primary" href="{{ path('checklist_new') }}">
-                    Start Checklist
+            <p>Capstone projects provide an opportunity for students to apply classroom learning to hands on
+                sustainability challenges. For details, please review the information on the Capstone under the Student heading of the website.
+                You will be notified by the Director when your application is approved.</p>
+
+            {% if entity.capstone %}
+                <a class="btn btn-primary"
+                   href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
+                    Update Capstone
+                </a>
+
+            {% else %}
+                <a class="btn btn-primary {% if not entity.checklist %}disabled{% endif %}" href="{{ path('capstone_new') }}">
+                    Start Capstone
                 </a>
             {% endif %}
 
 
-            {% if entity.capstone %}
-                <a href="#collapse_capstone" class="" data-toggle="collapse"><h3>Capstone</h3></a>
+            <div id="collapse_capstone" class="collapse in">
 
-                <div id="collapse_capstone" class="collapse in">
-                    <a class="btn btn-primary"
-                       href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
-                        Update Capstone
-                    </a>
+                {% if entity.capstone %}
                     <table class="table">
                         <tbody>
                         <tr>
@@ -204,32 +228,10 @@
 
                         </tbody>
                     </table>
-                </div>
-
-
-
-            {% elseif  entity.checklist %}
-                <p>Capstone projects provide an opportunity for students to apply classroom learning to hands on sustainability challenges.
-
-                    Through the capstone, students will demonstrate leadership and the
-
-                    ability to work successfully with organizations promoting sustainability.   A Capstone can take
-
-                    the form of an applied project in the student’s given area of interest (i.e. exhibition, research,
-
-                    community-based programs, public policy development, social entrepreneurship, or an
-
-                    internship).  Once accepted students will develop a capstone work plan.  At the culmination of
-
-                    the capstone, students will submit a reflective paper that summarizes the student’s application
-
-                    of the core concepts of sustainability to the project.</p>
-                <a class="btn btn-primary" href="{{ path('capstone_new') }}">
-                    Start Capstone
-                </a>
-            {% endif %}
+                {% endif %}
+            </div>
 
 
         </div>
     </div>
-{% endblock %}
+    {% endblock %}
