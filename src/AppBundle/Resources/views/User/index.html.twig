@@ -66,6 +66,8 @@
                 </tbody>
             </table>
 
+            <p>Email list: {% for entity in entities %}{{ entity.email }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+
         </div>
     </div>
 {% endblock %}
