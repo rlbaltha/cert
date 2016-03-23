@@ -72,6 +72,14 @@ class Program
      */
     private $graddate;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gradterm", type="string", length=255, nullable=true)
+     */
+    private $gradterm;
+
     /**
      * @var string
      *
@@ -564,5 +572,29 @@ class Program
     public function getInterest()
     {
         return $this->interest;
+    }
+
+    /**
+     * Set gradterm
+     *
+     * @param string $gradterm
+     *
+     * @return Program
+     */
+    public function setGradterm($gradterm)
+    {
+        $this->gradterm = $gradterm;
+
+        return $this;
+    }
+
+    /**
+     * Get gradterm
+     *
+     * @return string
+     */
+    public function getGradterm()
+    {
+        return $this->gradterm;
     }
 }

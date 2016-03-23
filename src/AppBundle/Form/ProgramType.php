@@ -32,7 +32,21 @@ class ProgramType extends AbstractType
           ->add('degree', 'text', array('required'=> false, 'label' => 'Previous degree(s)','attr' => array('class' =>
       'form-control'),))
           ->add('institution', 'text', array('required'=> false,'label' => 'Previous Institution(s)','attr' => array('class' => 'form-control'),))
-          ->add('graddate', 'text', array('required'=> false,'label' => 'Expected Graduation Date','attr' => array('class' => 'form-control'),))
+          ->add('graddate', 'text', array('required'=> false,'label' => 'Expected Graduation Year','attr' => array
+          ('class' => 'form-control'),))
+          ->add('gradterm', 'choice', array(
+            'required'=> true,
+            'multiple'=> false,
+            'label' => 'Expected Graduation Term',
+            'choices'  => array(
+              'Spring' => 'Spring',
+              'Summer' => 'Summer',
+              'Fall' => 'Fall',
+            ),
+              // *this line is important*
+            'choices_as_values' => true,
+            'expanded' => true,
+          ))
           ->add('address', 'text', array('required'=> false,'label' => 'Street','attr' => array('class' => 'form-control'),))
           ->add('cityst', 'text', array('required'=> false,'label' => 'City, State, Zip','attr' => array('class' => 'form-control'),))
           ->add('country', 'text', array('required'=> false,'label' => 'Country','attr' => array('class' =>

@@ -44,7 +44,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Status</th>
-                    <th>Graduation Date</th>
+                    <th>Expected Graduation</th>
                     <th>Role(s)</th>
                     <th>Actions</th>
                 </tr>
@@ -56,7 +56,7 @@
 
                         <td>{{ entity.email }}</td>
                         <td>{{ entity.status }}</td>
-                        <td>{% if entity.program %}{{ entity.program.graddate }}{% endif %}</td>
+                        <td>{% if entity.program %}{{ entity.program.graddate }} {{ entity.program.gradterm }}{% endif %}</td>
                         <td>{% for role in entity.roles %} {{ role }} {% endfor %}</td>
                         <td>
                                     <a class="btn btn-primary" href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>

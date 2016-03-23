@@ -14,9 +14,12 @@
         <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
         <p>Certificate Progress: {{ entity.status }} </p>
         {% if is_granted('ROLE_ADMIN') %}
+
             <a href="#collapse_notes" class="" data-toggle="collapse"><h3>Director notes</h3></a>
             <div id="collapse_notes" class="collapse in">
-                <p>{{ entity.notes |raw }}</p>
+                <p>{{ entity.notes |raw }}
+                {% if entity.notes|length < 1 %}No notes yet.{% endif %}
+                </p>
             </div>
         {% endif %}
 
