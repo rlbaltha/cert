@@ -15,12 +15,14 @@ class CourseRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Course
      */
-    public function findByPillar($pillar, $level) {
+    public function findByPillar($pillar, $level, $status) {
         $courses = $this->createQueryBuilder('c')
             ->andWhere('c.pillar = :pillar')
             ->andWhere('c.level = :level')
+            ->andWhere('c.status = :status')
             ->setParameter('pillar', $pillar)
             ->setParameter('level', $level)
+            ->setParameter('status', $status)
             ->orderBy('c.name ')
             ->getQuery()
             ->getResult();
@@ -28,7 +30,22 @@ class CourseRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * find course by pillar
+     * find course by status
+     *
+     * @return Course
+     */
+    public function findByStatus($status) {
+        $courses = $this->createQueryBuilder('c')
+          ->andWhere('c.status = :status')
+          ->setParameter('status', $status)
+          ->orderBy('c.name ')
+          ->getQuery()
+          ->getResult();
+        return $courses;
+    }
+
+    /**
+     * find all courses
      *
      * @return Course
      */

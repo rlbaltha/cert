@@ -21,11 +21,12 @@ class CourseController extends Controller
     /**
      * Lists all Course entities.
      *
-     * @Route("/list/{level}/{pillar}", name="course", defaults={"pillar" = "all", "level" = "all"})
+     * @Route("/list/{level}/{pillar}/{status}", name="course", defaults={"pillar" = "all", "level" = "all", "status" =
+     *     "approved"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction($pillar, $level)
+    public function indexAction($pillar, $level, $status)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -33,7 +34,7 @@ class CourseController extends Controller
             $entities = '';
         }
         else {
-            $entities = $em->getRepository('AppBundle:Course')->findByPillar($pillar, $level);
+            $entities = $em->getRepository('AppBundle:Course')->findByPillar($pillar, $level, $status);
         }
 
 
@@ -41,6 +42,26 @@ class CourseController extends Controller
             'entities' => $entities,
         );
     }
+
+    /**
+     * Lists all Course entities.
+     *
+     * @Route("/listbystatus/{status}", name="course_listbystatus")
+     * @Method("GET")
+     * @Template("AppBundle:Course:index.html.twig")
+     */
+    public function listbystatusAction($status)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+            $entities = $em->getRepository('AppBundle:Course')->findByStatus($status);
+
+
+        return array(
+          'entities' => $entities,
+        );
+    }
+
     /**
      * Creates a new Course entity.
      *

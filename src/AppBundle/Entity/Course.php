@@ -86,6 +86,12 @@ class Course
      */
     private $level;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     */
+    private $status='pending';
 
     /**
      * Get id
@@ -313,5 +319,29 @@ class Course
     public function getSchool()
     {
         return $this->school;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Course
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

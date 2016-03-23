@@ -33,6 +33,12 @@ class CourseType extends AbstractType
                 true,
                 'expanded' => true, 'multiple' => false, 'label' => 'Level',
                 'attr' => array('class' => 'radio'),))
+            ->add('status', 'choice', array('choices' => array('pending' => 'pending', 'approved' => 'approved',
+              'exception' => 'exception'),
+             'required' =>
+            true,
+            'expanded' => true, 'multiple' => false, 'label' => 'Status',
+            'attr' => array('class' => 'radio'),))
             ->add('description', 'ckeditor', array('config_name' => 'editor_default',));
     }
 

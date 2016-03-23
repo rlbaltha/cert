@@ -33,6 +33,11 @@ body {
     display: inline-block;
 }
 
+.align-right {
+    float:right;
+    margin-top: 20px;
+    
+}
 /**********  Accessibility **********/
 #skip a, #skip a:hover, #skip a:visited
 {
