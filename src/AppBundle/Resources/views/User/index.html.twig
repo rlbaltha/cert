@@ -35,7 +35,7 @@
         <div class="col-sm-12">
             <a class="btn btn-primary pull-right" href="{{ path('user', { 'type': 'Faculty' }) }}">Faculty</a>
             <a class="btn btn-primary pull-right" href="{{ path('user', { 'type': 'Students' }) }}">Students</a>
-            <h1>{{ app.request.get('type') }} list</h1>
+            <h1>{{ app.request.get('type') }} list ({{ entities|length }})</h1>
 
 
             <table class="table">

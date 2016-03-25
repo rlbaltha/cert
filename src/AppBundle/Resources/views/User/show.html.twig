@@ -20,6 +20,7 @@
                 <p>{{ entity.notes |raw }}
                 {% if entity.notes|length < 1 %}No notes yet.{% endif %}
                 </p>
+                Updated:  {{ entity.updated|date("m/d/Y g:ia") }}
             </div>
         {% endif %}
 
@@ -109,6 +110,10 @@
                             <th>Goals</th>
                             <td>{{ entity.program.goals | raw }}</td>
                         </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td>{{ entity.program.updated |date("m/d/Y g:ia")}}</td>
+                        </tr>
                         </tbody>
                     </table>
                 {% endif %}
@@ -131,7 +136,7 @@
                     </a>
                 {% endif %}
 
-            <p>The checklist allow you to track your progress through the program. Please update regularly.</p>
+            <p>The checklist allows you to track your progress through the program. Please update regularly.</p>
 
 
 
@@ -172,6 +177,10 @@
                             <th>Exceptions</th>
                             <td>{{ entity.checklist.exceptions | raw }}</td>
                         </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td>{{ entity.checklist.updated | date("m/d/Y g:ia") }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 {% endif %}
@@ -194,8 +203,8 @@
                 </a>
             {% endif %}
 
-            <p>Capstone projects provide an opportunity for students to apply classroom learning to hands on
-                sustainability challenges. For details, please review the information on the Capstone under the Student
+            <p>The capstone projects provides an opportunity for you to apply your classroom learning to hands-on
+                sustainability challenges. For details, please review the information under the <strong>Student</strong>
                 heading of the website.
                 You will be notified by the Director when your application is approved.</p>
 
@@ -235,7 +244,10 @@
                             <th>Timeframe</th>
                             <td>{{ entity.capstone.timeframe }}</td>
                         </tr>
-
+                        <tr>
+                            <th>Updated</th>
+                            <td>{{ entity.capstone.updated |date("m/d/Y g:ia") }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 {% endif %}
