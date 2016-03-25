@@ -55,7 +55,7 @@
                         <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}, {{ entity.firstname }}</a></td>
 
                         <td>{{ entity.email }}</td>
-                        <td>{{ entity.status }} <span class="pull-right">{{ entity.statusChanged|date("m/d/Y g:ia") }}</span> </td>
+                        <td>{{ entity.status }}</td>
                         <td>{% if entity.program %}{{ entity.program.graddate }} {{ entity.program.gradterm }}{% endif %}</td>
                         <td>{% for role in entity.roles %} {{ role }} {% endfor %}</td>
                         <td>
