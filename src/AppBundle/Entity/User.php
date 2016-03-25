@@ -102,13 +102,14 @@ class User extends BaseUser
      */
     private $created;
 
+
     /**
-     * @var \DateTime $updated
+     * @var \DateTime $contentChanged
      *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="change", field={"notes"})
      */
-    private $updated;
+    private $notesChanged;
 
     /**
      * Get id
@@ -314,27 +315,28 @@ class User extends BaseUser
         return $this->created;
     }
 
+
     /**
-     * Set updated
+     * Set notesChanged
      *
-     * @param \DateTime $updated
+     * @param \DateTime $notesChanged
      *
      * @return User
      */
-    public function setUpdated($updated)
+    public function setNotesChanged($notesChanged)
     {
-        $this->updated = $updated;
+        $this->notesChanged = $notesChanged;
 
         return $this;
     }
 
     /**
-     * Get updated
+     * Get notesChanged
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getNotesChanged()
     {
-        return $this->updated;
+        return $this->notesChanged;
     }
 }

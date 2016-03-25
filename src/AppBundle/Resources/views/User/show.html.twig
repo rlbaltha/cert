@@ -12,7 +12,8 @@
             </a>
         {% endif %}
         <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
-        <p>Certificate Progress: {{ entity.status }} </p>
+        <p>Certificate Progress: {{ entity.status }}</p>
+        <p>Last login:  {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
         {% if is_granted('ROLE_ADMIN') %}
 
             <a href="#collapse_notes" class="" data-toggle="collapse"><h3>Director notes</h3></a>
@@ -20,7 +21,7 @@
                 <p>{{ entity.notes |raw }}
                 {% if entity.notes|length < 1 %}No notes yet.{% endif %}
                 </p>
-                Updated:  {{ entity.updated|date("m/d/Y g:ia") }}
+                <p>Updated:  {{ entity.notesChanged|date("m/d/Y g:ia") }}</p>
             </div>
         {% endif %}
 
