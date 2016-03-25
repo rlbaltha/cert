@@ -112,6 +112,14 @@ class User extends BaseUser
     private $notesChanged;
 
     /**
+     * @var \DateTime $statusChanged
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="change", field={"status"})
+     */
+    private $statusChanged;
+
+    /**
      * Get id
      *
      * @return integer
@@ -338,5 +346,29 @@ class User extends BaseUser
     public function getNotesChanged()
     {
         return $this->notesChanged;
+    }
+
+    /**
+     * Set statusChanged
+     *
+     * @param \DateTime $statusChanged
+     *
+     * @return User
+     */
+    public function setStatusChanged($statusChanged)
+    {
+        $this->statusChanged = $statusChanged;
+
+        return $this;
+    }
+
+    /**
+     * Get statusChanged
+     *
+     * @return \DateTime
+     */
+    public function getStatusChanged()
+    {
+        return $this->statusChanged;
     }
 }
