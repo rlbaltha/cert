@@ -12,7 +12,7 @@
             </a>
         {% endif %}
         <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
-        <p>Certificate Progress: {{ entity.status }}</p>
+        {% if entity.progress %}<p>Certificate Progress: {{ entity.progress.name }}</p>{% endif %}
         <p>Last login:  {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
         {% if is_granted('ROLE_ADMIN') %}
 
@@ -28,12 +28,17 @@
         <div class="col-sm-4">
             <a href="#collapse_application" class="" data-toggle="collapse"><h3 class="inline">Application</h3></a>
             {% if entity.program %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a title="Approve this application" class="btn btn-primary  align-right"
+                       href="{{ path('program_approve',  { 'id': entity.program.id }) }}">
+                        Approve App
+                    </a>
+                {% endif %}
                 <a title="Update your application" class="btn btn-primary  align-right"
                    href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
                     Update
                 </a>
             {% else %}
-
                 <a title="Get started on your application" class="btn btn-primary  align-right" href="{{ path('program_new') }}">
                     Get Started
                 </a>
@@ -110,6 +115,10 @@
                         <tr>
                             <th>Goals</th>
                             <td>{{ entity.program.goals | raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Application Status</th>
+                            <td>{{ entity.program.status }}</td>
                         </tr>
                         <tr>
                             <th>Updated</th>

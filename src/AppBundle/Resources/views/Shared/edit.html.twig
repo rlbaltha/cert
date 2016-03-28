@@ -1,11 +1,30 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $('#delete_form').toggle();
+            $("#confirm_btn, #cancel_btn").click(function () {
+                $('#edit_form').toggle();
+                $('#delete_form').toggle();
+            });
+            $("form:not(.filter) :input:visible:enabled:first").focus();
+        });
+    </script>
+{% endblock %}
+
 {% block body -%}
     <div class="row">
         <div class="col-sm-12">
-            {{ form(edit_form) }}
-
-            {{ form(delete_form) }}
+            <div id="edit_form">
+                {{ form(edit_form) }}
+                <a class="btn btn-danger" href="javascript:void(0)" id="confirm_btn">Delete</a>
+            </div>
+            <div id="delete_form">
+                {{ form(delete_form) }}
+                <a class="btn btn-default" href="javascript:void(0)" id="cancel_btn">Cancel</a>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -243,7 +243,7 @@ class FacultyController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('faculty_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete','attr' => array('class' => 'btn btn-default pull-right'),))
+            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

@@ -51,9 +51,12 @@ class ChecklistController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $user=$this->getUser();
-            $user_entity = $em->getRepository('AppBundle:User')->find($user);
-            $user_entity->setStatus('Checklist Created');
             $entity->setUser($user);
+
+            $user_entity = $em->getRepository('AppBundle:User')->find($user);
+            $status = $em->getRepository('AppBundle:Status')->findByName('Checklist Created');
+            $user_entity->setProgress($status);
+
             $em->persist($entity);
             $em->persist($user_entity);
             $em->flush();
@@ -245,7 +248,7 @@ class ChecklistController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('checklist_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

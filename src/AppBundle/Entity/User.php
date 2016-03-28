@@ -95,6 +95,11 @@ class User extends BaseUser
     private $capstone;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Status")
+     */
+    protected $progress;
+
+    /**
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -110,14 +115,6 @@ class User extends BaseUser
      * @Gedmo\Timestampable(on="change", field={"notes"})
      */
     private $notesChanged;
-
-    /**
-     * @var \DateTime $statusChanged
-     *
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="change", field={"status"})
-     */
-    private $statusChanged;
 
     /**
      * Get id
@@ -348,27 +345,28 @@ class User extends BaseUser
         return $this->notesChanged;
     }
 
+
     /**
-     * Set statusChanged
+     * Set progress
      *
-     * @param \DateTime $statusChanged
+     * @param \AppBundle\Entity\Status $progress
      *
      * @return User
      */
-    public function setStatusChanged($statusChanged)
+    public function setProgress(\AppBundle\Entity\Status $progress = null)
     {
-        $this->statusChanged = $statusChanged;
+        $this->progress = $progress;
 
         return $this;
     }
 
     /**
-     * Get statusChanged
+     * Get progress
      *
-     * @return \DateTime
+     * @return \AppBundle\Entity\Status
      */
-    public function getStatusChanged()
+    public function getProgress()
     {
-        return $this->statusChanged;
+        return $this->progress;
     }
 }

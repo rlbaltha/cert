@@ -53,8 +53,11 @@ class ProgramController extends Controller
             $em = $this->getDoctrine()->getManager();
             $user=$this->getUser();
             $entity->setUser($user);
+
             $user_entity = $em->getRepository('AppBundle:User')->find($user);
-            $user_entity->setStatus('Application Created');
+            $status = $em->getRepository('AppBundle:Status')->findByName('Application Created');
+            $user_entity->setProgress($status);
+
             $em->persist($entity);
             $em->persist($user_entity);
             $em->flush();
@@ -248,6 +251,62 @@ class ProgramController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Approve Application and send email.
+     *
+     * @Route("/approve/{id}", name="program_approve")
+     * @Method("GET")
+     * @Template("AppBundle:User:show.html.twig")
+     */
+    public function approveAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Program')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Program entity.');
+        }
+
+        $user = $entity->getUser();
+        $user_entity = $em->getRepository('AppBundle:User')->find($user);
+        $status = $em->getRepository('AppBundle:Status')->findByName('Application Approved');
+        $user_entity->setProgress($status);
+        $timestamp = date('m/d/Y h:i:s A');
+        $notes = $user_entity->getNotes();
+        $user_entity->setNotes($notes.'<p> Application approved '.$timestamp.'</p>');
+        $entity->setStatus('Approved');
+
+        $em->persist($entity);
+        $em->persist($user_entity);
+        $em->flush();
+
+        $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
+        $email = $user_entity->getEmail();
+        $text = ', your application for the Sustainability Certficate has been approved.  Congrats.  Continue, if you have not already, by filling in the Checklist.';
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Certificate Application Approved')
+                ->setFrom('scdirector@uga.edu')
+                ->setTo($email)
+                ->setBody(
+                    $this->renderView(
+
+                        'AppBundle:Email:apply.html.twig',
+                        array('name' => $name,
+                            'text' => $text)
+                    ),
+                    'text/html'
+                )
+            ;
+            $this->get('mailer')->send($message);
+
+        return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
+        }
+
+
+
     /**
      * Deletes a Program entity.
      *
@@ -286,7 +345,7 @@ class ProgramController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('program_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete','attr' => array('class' => 'btn btn-default pull-right'),))
+            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

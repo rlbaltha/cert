@@ -148,6 +148,14 @@ class Program
 
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     */
+    private $status='Created';
+
+
+    /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="program")
      */
     private $user;
@@ -661,5 +669,29 @@ class Program
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Program
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

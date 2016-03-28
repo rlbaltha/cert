@@ -15,28 +15,14 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('firstname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Firstname'),))
-          ->add('lastname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),))
-            ->add('status', 'choice', array('attr' => array('class' => 'form-control',),
-                'choices'  => array(
-                    'Administration' => 'Administration',
-                    'Faculty' => 'Faculty',
-                    'Account Created' => 'Account Created',
-                    'Application Submitted' => 'Application Submitted',
-                    'Application Approved' => 'Application Approved',
-                    'Checklist Created' => 'Checklist Created',
-                    'Capstone Created' => 'Capstone Created',
-                    'Capstone Approved' => 'Capstone Approved',
-                    'Portfolio Approved' => 'Portfolio Approved',
-                    'Certificate Complete' => 'Certificate Complete' ,
-                ),
-                // *this line is important*
-                'choices_as_values' => true,
-            ))
-            ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
-        ;
+            ->add('firstname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Firstname'),))
+            ->add('lastname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),))
+            ->add('progress', 'entity', array('class' => 'AppBundle\Entity\Status',
+                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Progress', 'attr' => array('class' =>
+                    'form-control'),))
+            ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',));
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
