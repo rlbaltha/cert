@@ -39,6 +39,7 @@ security:
         - { path: delete$, role: ROLE_ADMIN }
         - { path: create$, role: ROLE_ADMIN }
         - { path: update$, role: ROLE_ADMIN }
+        - { path: approve$, role: ROLE_ADMIN }
         - { path: ^/status/, role: ROLE_ADMIN }
         - { path: ^/course/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/page/, role: IS_AUTHENTICATED_ANONYMOUSLY }
