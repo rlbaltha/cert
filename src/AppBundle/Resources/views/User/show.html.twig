@@ -28,7 +28,7 @@
         <div class="col-sm-4">
             <a href="#collapse_application" class="" data-toggle="collapse"><h3 class="inline">Application</h3></a>
             {% if entity.program %}
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') and entity.program.status != 'Approved' %}
                     <a title="Approve this application" class="btn btn-primary  align-right"
                        href="{{ path('program_approve',  { 'id': entity.program.id }) }}">
                         Approve App
