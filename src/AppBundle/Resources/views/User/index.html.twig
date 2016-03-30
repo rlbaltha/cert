@@ -51,7 +51,8 @@
                                     {% for status in status %}
                                             <li><a href="{{ path('user', { 'type': status.id }) }}">{{ status.name }}</a></li>
                                     {% endfor %}
-                                <li><a href="{{ path('user', { 'type': '0' }) }}">All students</a></li>
+                                <li><a href="{{ path('user', { 'type': '0' }) }}">All Students</a></li>
+                                <li><a href="{{ path('user') }}">All Accounts</a></li>
                             </ul>
                         </div><!--/.nav-collapse -->
                     </div>

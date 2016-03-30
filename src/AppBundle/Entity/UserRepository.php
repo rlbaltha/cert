@@ -34,7 +34,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function findStudents()
     {
         $course = $this->createQueryBuilder('u')
-            ->leftJoin('u.progress', 'p')
+            ->join('u.progress', 'p')
             ->andWhere("p.name != 'Administration' and p.name != 'Faculty'")
             ->getQuery()
             ->getResult();
