@@ -140,7 +140,7 @@
                     </a>
                 {% else %}
 
-                    <a title="Get started on your checklist" class="btn btn-primary  align-right {% if not entity.program %}disabled{% endif %}"
+                    <a title="Get started on your checklist" class="btn btn-primary  align-right {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
                        href="{{ path('checklist_new') }}">
                         Get Started
                     </a>
