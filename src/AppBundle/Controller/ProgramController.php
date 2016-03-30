@@ -285,7 +285,7 @@ class ProgramController extends Controller
         $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
         $email = $user_entity->getEmail();
         $text = ', your application for the Sustainability Certficate has been approved.  Congrats.  Continue by filling in the Checklist.
-        We will have an orienation at the beginning of each semester, but you are welcome to contact the director at any time:  scdirector@uga.edu.';
+        We will have an orientation at the beginning of each semester, but you are welcome to contact the director at any time:  scdirector@uga.edu.';
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Certificate Application Approved')
