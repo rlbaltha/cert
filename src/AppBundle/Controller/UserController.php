@@ -52,15 +52,17 @@ class UserController extends Controller
     public function indexAction($type)
     {
         $em = $this->getDoctrine()->getManager();
-        if ($type == 'Faculty') {
-            $entities = $em->getRepository('AppBundle:User')->findFaculty();
-        }
-        else {
+        if ($type == 0) {
             $entities = $em->getRepository('AppBundle:User')->findStudents();
         }
-
+        else {
+            $type = $em->getRepository('AppBundle:Status')->find($type);
+            $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
+        }
+        $status = $em->getRepository('AppBundle:Status')->findAll();
         return array(
             'entities' => $entities,
+            'status' => $status,
         );
     }
 

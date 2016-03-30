@@ -18,7 +18,7 @@ class ProfileType extends AbstractType
             ->add('firstname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Firstname'),))
             ->add('lastname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),))
             ->add('progress', 'entity', array('class' => 'AppBundle\Entity\Status',
-                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Progress', 'attr' => array('class' =>
+                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Status', 'attr' => array('class' =>
                     'form-control'),))
             ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',));
     }

@@ -32,10 +32,37 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-12">
-            <a class="btn btn-primary pull-right" href="{{ path('user', { 'type': 'Faculty' }) }}">Faculty</a>
-            <a class="btn btn-primary pull-right" href="{{ path('user', { 'type': 'Students' }) }}">Students</a>
-            <h1>{{ app.request.get('type') }} list ({{ entities|length }})</h1>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="sidebar-nav">
+                    <div class="navbar navbar-default" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <span class="visible-xs navbar-brand">Faculty</span>
+                        </div>
+                        <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                    {% for status in status %}
+                                            <li><a href="{{ path('user', { 'type': status.id }) }}">{{ status.name }}</a></li>
+                                    {% endfor %}
+                                <li><a href="{{ path('user', { 'type': '0' }) }}">All students</a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+
+            <h1>{% if app.request.get('type')==0 %}All Students ({{ entities|length }}){% else %}
+                    {% if entities %}{{ entities[0].progress.name }} ({{ entities|length }}){% else %}Nothing found{% endif %}
+                {% endif %}
+            </h1>
 
 
             <table class="table">
@@ -43,6 +70,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Application Process</th>
                     <th>Progress</th>
                     <th>Expected Graduation</th>
                     <th>Role(s)</th>
@@ -55,6 +83,7 @@
                         <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}, {{ entity.firstname }}</a></td>
 
                         <td>{{ entity.email }}</td>
+                        <td>{% if entity.program %}{{ entity.program.status }}{% else %}NA{% endif %}</td>
                         <td>{% if entity.progress %}{{ entity.progress.name }}{% else %}Account Created{% endif %}</td>
                         <td>{% if entity.program %}{{ entity.program.graddate }} {{ entity.program.gradterm }}{% endif %}</td>
                         <td>{% for role in entity.roles %} {{ role }} {% endfor %}</td>
