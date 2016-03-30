@@ -3,15 +3,13 @@
 {% block body -%}
 <div class="row">
     <div class="col-sm-12">
+
+        <h1 class="inline">{{ entity.firstname }} {{ entity.lastname }}</h1>
         {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-default pull-right" href="{{ path('user_edit', { 'id': entity.id }) }}">
-                User Edit
-            </a>
-            <a class="btn btn-default pull-right" href="{{ path('user') }}">
-                List Users
+            <a class="btn btn-primary" style="margin-left: 10px;" href="{{ path('user_edit', { 'id': entity.id }) }}">
+                Update
             </a>
         {% endif %}
-        <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
         {% if entity.progress %}<p>Certificate Progress: {{ entity.progress.name }}</p>{% endif %}
         <p>Last login:  {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
         {% if is_granted('ROLE_ADMIN') %}

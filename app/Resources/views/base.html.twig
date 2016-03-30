@@ -8,7 +8,8 @@
     {% block stylesheets %}
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/css/theme.bootstrap.min.css">
+        <link type="text/css" rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/css/theme.bootstrap.min.css">
         <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/local.css') }}">
@@ -33,7 +34,7 @@
 <body>
 
 <div class="container-fluid">
-<header>
+    <header>
 
         <nav class="navbar navbar-default ">
 
@@ -65,9 +66,16 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="padding-right: 20px;">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <li>
-                            <a class="" href="{{ path('user_profile') }}">My Profile</a>
-                        </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a class="" href="{{ path('user', {'type': 'students'}) }}">List Students</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a class="" href="{{ path('user_profile') }}">My Profile</a>
+                            </li>
+                        {% endif %}
+
 
                         <li>
                             <a title="Logout" href="{{ path('fos_user_security_logout') }}">Logout</a>
@@ -84,20 +92,20 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-</header>
+    </header>
 
-<section class="main-content">
-            {% block body %}{% endblock %}
-            {% block javascripts %}
-                <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-                <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/tinysort/2.2.2/tinysort.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/js/jquery.tablesorter.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/js/jquery.tablesorter.widgets.min.js"></script>
-            {% endblock %}
+    <section class="main-content">
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+            <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/tinysort/2.2.2/tinysort.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/js/jquery.tablesorter.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/js/jquery.tablesorter.widgets.min.js"></script>
+        {% endblock %}
 
-</section>
+    </section>
 </div>
 </body>
 </html>
