@@ -8,6 +8,7 @@
             {% if entity.photo != '' %}
                         <img class="img-rounded img-responsive pull-right" style="max-width: 30%; margin: 20px;" alt="{{ entity.firstname }} {{ entity.firstname }}" src="{{ entity.photo }}"/>
             {% endif %}
+            <p>{{ entity.dept }}</p>
             <p>{{ entity.email }}</p>
             <p>{{ entity.detail|raw }}</p>
         </div>
