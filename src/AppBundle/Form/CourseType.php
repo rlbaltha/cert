@@ -39,7 +39,8 @@ class CourseType extends AbstractType
             true,
             'expanded' => true, 'multiple' => false, 'label' => 'Status',
             'attr' => array('class' => 'radio'),))
-            ->add('description', 'ckeditor', array('config_name' => 'editor_default',));
+            ->add('description', 'ckeditor', array('config_name' => 'editor_simple',))
+            ->add('syllabus', 'ckeditor', array('config_name' => 'editor_simple',));
     }
 
     /**

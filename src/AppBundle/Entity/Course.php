@@ -68,6 +68,13 @@ class Course
     /**
      * @var string
      *
+     * @ORM\Column(name="syllabus", type="text", nullable=true)
+     */
+    private $syllabus;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="pillar", type="string", length=255, nullable=true)
      */
     private $pillar;
@@ -343,5 +350,29 @@ class Course
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set syllabus
+     *
+     * @param string $syllabus
+     *
+     * @return Course
+     */
+    public function setSyllabus($syllabus)
+    {
+        $this->syllabus = $syllabus;
+
+        return $this;
+    }
+
+    /**
+     * Get syllabus
+     *
+     * @return string
+     */
+    public function getSyllabus()
+    {
+        return $this->syllabus;
     }
 }
