@@ -220,7 +220,7 @@ class CourseController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('course'));
+            return $this->redirect($this->generateUrl('course_show', array('id' => $entity->getId())));
         }
 
         return array(

@@ -1,35 +1,38 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-<div class="row">
-    <div class="col-sm-12">
-        {% if is_granted('ROLE_ADMIN') %}
-            <td class="hidden-xs">
-                <a class="btn btn-primary pull-right" href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
-            </td>
-        {% endif %}
-        <h1>{{ entity.name }}</h1>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Offered</th>
-                <th>Prereqs</th>
-                <th class=" hidden-xs">School</th>
-                <th class=" hidden-xs">Requirement</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>{{ entity.title }}</td>
-                <td>{{ entity.offered }}</td>
-                <td>{{ entity.prereqs }}</td>
-                <td class=" hidden-xs">{{ entity.school }}</td>
-                <td class=" hidden-xs">{{ entity.pillar }}</td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="well">{{ entity.description|raw }}</div>
-        <div class="well">{{ entity.syllabus|raw }}</div>
+    <div class="row">
+        <div class="col-sm-12">
+            {% if is_granted('ROLE_ADMIN') %}
+                <td class="hidden-xs">
+                    <a class="btn btn-primary pull-right" href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
+                </td>
+            {% endif %}
+            <h1>{{ entity.name }}</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Offered</th>
+                    <th>Prereqs</th>
+                    <th class=" hidden-xs">School</th>
+                    <th class=" hidden-xs">Requirement</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ entity.title }}</td>
+                    <td>{{ entity.offered }}</td>
+                    <td>{{ entity.prereqs }}</td>
+                    <td class=" hidden-xs">{{ entity.school }}</td>
+                    <td class=" hidden-xs">{{ entity.pillar }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="well">{{ entity.description|raw }}</div>
+            {% if entity.syllabus|length > 10 %}
+                <div class="well">{{ entity.syllabus|raw }}</div>
+            {% endif %}
+        </div>
     </div>
-    {% endblock %}
+{% endblock %}
