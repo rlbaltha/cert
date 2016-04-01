@@ -35,12 +35,13 @@ class CourseType extends AbstractType
                 'attr' => array('class' => 'radio'),))
             ->add('status', 'choice', array('choices' => array('pending' => 'pending', 'approved' => 'approved',
               'exception' => 'exception'),
-             'required' =>
-            true,
+             'required' =>true,
             'expanded' => true, 'multiple' => false, 'label' => 'Status',
             'attr' => array('class' => 'radio'),))
             ->add('description', 'ckeditor', array('config_name' => 'editor_simple',))
-            ->add('syllabus', 'ckeditor', array('config_name' => 'editor_simple',));
+            ->add('syllabus', 'ckeditor', array('config_name' => 'editor_simple',))
+            ->add('contact', 'text', array('required' =>false, 'attr' => array('label' => 'Contact', 'class' => 'text
+            form-control'),));
     }
 
     /**

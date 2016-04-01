@@ -31,7 +31,9 @@
             </table>
             <div class="well">{{ entity.description|raw }}</div>
             {% if entity.syllabus|length > 10 and is_granted('ROLE_ADMIN') %}
-                <div class="well">{{ entity.syllabus|raw }}</div>
+                <div class="well">
+                    <p>Contact:  {{ entity.contact }}</p>
+                    {{ entity.syllabus|raw }}</div>
             {% endif %}
         </div>
     </div>

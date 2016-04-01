@@ -75,6 +75,13 @@ class Course
     /**
      * @var string
      *
+     * @ORM\Column(name="contact", type="string", length=255)
+     */
+    private $contact;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="pillar", type="string", length=255, nullable=true)
      */
     private $pillar;
@@ -374,5 +381,29 @@ class Course
     public function getSyllabus()
     {
         return $this->syllabus;
+    }
+
+    /**
+     * Set contact
+     *
+     * @param string $contact
+     *
+     * @return Course
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    /**
+     * Get contact
+     *
+     * @return string
+     */
+    public function getContact()
+    {
+        return $this->contact;
     }
 }
