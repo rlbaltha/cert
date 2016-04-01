@@ -73,7 +73,7 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td>{{ entity.name }}</td>
+                        <td><a href="{{ path('faculty_show', { 'id': entity.id }) }}">{{ entity.firstname }} {{ entity.lastname }}</a></td>
                         <td>{{ entity.dept }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>

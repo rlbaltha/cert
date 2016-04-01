@@ -15,8 +15,15 @@ class FacultyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('name','text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Name'),))
-          ->add('dept','text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Dept'),))
+          ->add('firstname','text', array('attr' => array('label'=> 'Firstname','class' => 'text form-control'),))
+          ->add('lastname','text', array('attr' => array('label'=> 'Lastname','class' => 'text form-control'),))
+          ->add('dept','text', array('attr' => array('label'=> 'Department','class' => 'text form-control',
+            'placeholder' => 'Dept'),'required'=>false))
+          ->add('email','text', array('attr' => array('label'=> 'Email','class' => 'text form-control', 'placeholder'
+          => 'email@uga.edu','required'=>false),'required'=>false))
+          ->add('photo','text', array('label'=> 'Photo URL', 'attr' => array('class' => 'text form-control',
+            'placeholder'=>'https://dept.uga.edu/photo.jpg'),'required'=>false))
+          ->add('detail', 'ckeditor', array('label'=> 'Bio and Reseach','config_name' => 'editor_default','required'=>false))
         ;
     }
     
