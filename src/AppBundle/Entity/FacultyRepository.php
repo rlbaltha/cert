@@ -10,5 +10,17 @@ namespace AppBundle\Entity;
  */
 class FacultyRepository extends \Doctrine\ORM\EntityRepository
 {
-
+    /**
+     * Find faculty
+     *
+     * @return Faculty
+     */
+    public function findAllSorted()
+    {
+        $faculty = $this->createQueryBuilder('f')
+          ->addOrderBy('f.lastname')
+          ->getQuery()
+          ->getResult();
+        return $faculty;
+    }
 }

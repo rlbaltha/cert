@@ -30,7 +30,7 @@ class FacultyController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Faculty')->findAll();
+        $entities = $em->getRepository('AppBundle:Faculty')->findAllSorted();
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Faculty');
 
         return array(
