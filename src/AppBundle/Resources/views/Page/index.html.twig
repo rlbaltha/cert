@@ -1,28 +1,50 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Requirements</h1>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-default" href="{{ path('page_new') }}">
-            New Page
-        </a>
-    {% endif %}
+<div class="row">
+    <div class="col-sm-2">
+        <div class="sidebar-nav">
+            <div class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".sidebar-navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="visible-xs navbar-brand">Pages</span>
+                </div>
+                <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>    {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('page_new') }}">New Page</a>
+                            {% endif %}</li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-        <tr class="sr-only">
-            <th>Title</th>
-            <th>Body</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                <td>{{ entity.body|slice(0, 100)| raw }}. . .{% if is_granted('ROLE_ADMIN') %}<a href="{{ path('page_edit', { 'id': entity.id }) }}">edit</a>{% endif %}</td>
+    <div class="col-sm-9">
+        <h1>Pages</h1>
+
+
+        <table class="table">
+            <thead>
+            <tr class="sr-only">
+                <th>Title</th>
+                <th>Body</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-{% endblock %}
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+                    <td>{% if is_granted('ROLE_ADMIN') %}<a href="{{ path('page_edit', { 'id': entity.id }) }}">edit</a>{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}

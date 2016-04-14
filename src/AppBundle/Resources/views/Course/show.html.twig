@@ -30,7 +30,7 @@
                 </tbody>
             </table>
             <div class="well">{{ entity.description|raw }}</div>
-            {% if entity.syllabus|length > 10 and is_granted('ROLE_ADMIN') %}
+            {% if entity.syllabus|length > 10 %}
                 <div class="well">
                     <p>Contact:  {{ entity.contact }}</p>
                     {{ entity.syllabus|raw }}</div>
