@@ -129,6 +129,15 @@ class CapstoneType extends AbstractType
             )
           )
           ->add(
+            'mentor_email',
+            'text',
+            array(
+              'required' => false,
+              'label' => 'Mentor email',
+              'attr' => array('class' => 'text form-control'),
+            )
+          )
+          ->add(
             'timeframe',
             'text',
             array(

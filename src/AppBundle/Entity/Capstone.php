@@ -111,6 +111,13 @@ class Capstone
     /**
      * @var string
      *
+     * @ORM\Column(name="mentor_email", type="string", length=255, nullable=true)
+     */
+    private $mentor_email;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="timeframe", type="string", length=255, nullable=true)
      */
     private $timeframe;
@@ -528,5 +535,29 @@ class Capstone
     public function getSuccessMetrics()
     {
         return $this->success_metrics;
+    }
+
+    /**
+     * Set mentorEmail
+     *
+     * @param string $mentorEmail
+     *
+     * @return Capstone
+     */
+    public function setMentorEmail($mentorEmail)
+    {
+        $this->mentor_email = $mentorEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get mentorEmail
+     *
+     * @return string
+     */
+    public function getMentorEmail()
+    {
+        return $this->mentor_email;
     }
 }
