@@ -60,7 +60,7 @@
             </div>
             <div class="col-sm-9">
 
-            <h1>{% if app.request.get('type')=='all' %}All Accounts{% elseif app.request.get('type')=='students' %}All Students ({{ entities|length }}){% else %}
+            <h1>{% if app.request.get('type')=='all' %}All Accounts ({{ entities|length }}){% elseif app.request.get('type')=='students' %}All Students ({{ entities|length }}){% else %}
                     {% if entities %}{{ entities[0].progress.name }} ({{ entities|length }}){% else %}Nothing found{% endif %}
                 {% endif %}
             </h1>
@@ -74,7 +74,6 @@
                     <th>Application Process</th>
                     <th>Progress</th>
                     <th>Expected Graduation</th>
-                    <th>Role(s)</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -87,7 +86,6 @@
                         <td>{% if entity.program %}{{ entity.program.status }}{% if entity.program.status!= 'Approved'%}Approval Needed{% endif %}{% else %}No Application{% endif %}</td>
                         <td>{% if entity.progress %}{{ entity.progress.name }}{% else %}Account Created{% endif %}</td>
                         <td>{% if entity.program %}{{ entity.program.graddate }} {{ entity.program.gradterm }}{% endif %}</td>
-                        <td>{% for role in entity.roles %} {{ role }} {% endfor %}</td>
                         <td>
                                     <a class="btn btn-primary" href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
                          </td>
