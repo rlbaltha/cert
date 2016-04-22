@@ -7,8 +7,12 @@ body {
     padding: 0;
 }
 
-.main-content {
-    width:100%;
+.col-sm-10 {
+    padding: 3rem;
+}
+
+.col-sm-12 {
+    padding: 3rem;
 }
 
 .navbar-brand, h1, h2, h3 {
@@ -20,24 +24,7 @@ body {
     padding-right: 10px;
 }
 
-.row .col-sm-9 {
-    padding: 8vw;
-}
 
-.row .col-sm-12 {
-    padding: 8vw;
-    padding-top: 4vw;
-}
-
-.inline {
-    display: inline-block;
-}
-
-.align-right {
-    float:right;
-    margin-top: 20px;
-    
-}
 /**********  Accessibility **********/
 #skip a, #skip a:hover, #skip a:visited
 {
@@ -59,69 +46,47 @@ body {
 /**********  Navbar **********/
 
 .navbar {
-    margin-bottom: 0;
-
+    padding: .9rem;
 }
-.navbar-default {
-    background-color: #2f2f2f ;
-
-}
-
-header .navbar-default .navbar-nav li a {
+.navbar-nav li a {
     color: #fff;
+    font-size: 11pt;
 }
 
 .navbar-logo {
-    padding: 7px;
+    padding: 0;
+    margin: 0;
+    height: 2rem;
 }
 
-.navbar-brand  {
-    color: #fff !important;
-}
+.nav-header {
 
-.navbar li a {
-    color: #fff !important;
-}
-
-.navbar-left {
-    background-color: #6c9336;
-}
-
-.navbar-header {
-    padding-left: 5px;
-    color: #fff !important;
 }
 
 
-/* make sidebar nav vertical */
+/* Creates a vertical nav starting at 768px (sm) */
 @media (min-width: 768px) {
-    .sidebar-nav .navbar .navbar-collapse {
-        background-color: #2f2f2f ;
-        padding: 12px;
-        padding-bottom: 20px;
-        padding-top: 20px;
+    .bootstrap-vertical-nav .navbar .navbar-collapse {
+        padding: 0;
         max-height: none;
     }
-    .sidebar-nav .navbar ul {
+    .bootstrap-vertical-nav .navbar ul {
         float: none;
     }
-    .sidebar-nav .navbar ul:not {
+    .bootstrap-vertical-nav .navbar ul:not {
         display: block;
     }
-    .sidebar-nav .navbar li {
+    .bootstrap-vertical-nav .navbar li {
         float: none;
         display: block;
+        padding-left: .5rem;
     }
-    .sidebar-nav .navbar li a {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        color: #fff !important;
+    .bootstrap-vertical-nav .navbar li.nav-header {
+        padding-left: 0;
     }
-    .row .col-sm-9 {
-        padding: 2vw;
+    .bootstrap-vertical-nav .navbar-nav .nav-item+.nav-item {
+        margin-left: 0;
     }
-
-
 }
 
 

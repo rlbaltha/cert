@@ -3,7 +3,7 @@
 {% block body -%}
 <div class="row">
     <div class="col-sm-12">
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-default pull-right" href="{{ path('faculty_edit', { 'id': entity.id }) }}">Edit</a>{% endif %}
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-primary pull-xs-right" href="{{ path('faculty_edit', { 'id': entity.id }) }}">Edit</a>{% endif %}
             <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
             {% if entity.photo != '' %}
                         <img class="img-rounded img-responsive pull-right" style="max-width: 30%; margin: 20px;" alt="{{ entity.firstname }} {{ entity.firstname }}" src="{{ entity.photo }}"/>

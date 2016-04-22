@@ -14,7 +14,7 @@
         <p>Last login:  {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
         {% if is_granted('ROLE_ADMIN') %}
 
-            <a href="#collapse_notes" class="" data-toggle="collapse"><h3>Director notes</h3></a>
+            <a href="#collapse_notes" class="" data-toggle="collapse"><h2>Director notes</h2></a>
             <div id="collapse_notes" class="collapse in">
                 <p>{{ entity.notes |raw }}
                 {% if entity.notes|length < 1 %}No notes yet.{% endif %}
@@ -24,7 +24,7 @@
         {% endif %}
 
         <div class="col-sm-4">
-            <a href="#collapse_application" class="" data-toggle="collapse"><h3 class="inline">Application</h3></a>
+            <a href="#collapse_application" class="" data-toggle="collapse"><h2 class="inline">Application</h2></a>
             {% if entity.program %}
                 {% if is_granted('ROLE_ADMIN') and entity.program.status != 'Approved' %}
                     <a title="Approve this application" class="btn btn-primary  align-right"
@@ -130,7 +130,7 @@
 
 
         <div class="col-sm-4">
-                <a href="#collapse_checklist" class="" data-toggle="collapse"><h3 class="inline">Checklist</h3></a>
+                <a href="#collapse_checklist" class="" data-toggle="collapse"><h2 class="inline">Checklist</h2></a>
                 {% if entity.checklist %}
                     <a title="Update your checklist" class="btn btn-primary align-right "
                        href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
@@ -197,7 +197,7 @@
 
 
         <div class="col-sm-4">
-            <a href="#collapse_capstone" class="" data-toggle="collapse"><h3 class="inline">Capstone</h3></a>
+            <a href="#collapse_capstone" class="" data-toggle="collapse"><h2 class="inline">Capstone</h2></a>
             {% if entity.capstone %}
                 <a title="Update your capstone" class="btn btn-primary align-right"
                    href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">

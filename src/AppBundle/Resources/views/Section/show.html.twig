@@ -4,10 +4,10 @@
     <div class="row">
         <div class="col-sm-12">
             {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-default pull-right" href="{{ path('section') }}">
+                <a class="btn btn-primary pull-xs-right" href="{{ path('section') }}">
                     List Sections
                 </a>
-                <a class="btn btn-default pull-right" href="{{ path('section_edit', { 'id': entity.id }) }}">
+                <a class="btn btn-primary pull-xs-right" href="{{ path('section_edit', { 'id': entity.id }) }}">
                     Edit Section
                 </a>
                 <a class="btn btn-default  pull-right" href="{{ path('page_new') }}">
@@ -46,7 +46,7 @@
                 {% for page in entity.pages %}
                     <tr>
                         <td><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></td>
-                        <td>{{ page.body|slice(0, 100)| raw }}. . .{% if is_granted('ROLE_ADMIN') %}<a class="btn btn-default pull-right" href="{{ path('page_edit', { 'id': page.id }) }}">Edit</a>{% endif %}</td>
+                        <td>{{ page.body|slice(0, 100)| raw }}. . .{% if is_granted('ROLE_ADMIN') %}<a class="btn btn-primary pull-xs-right" href="{{ path('page_edit', { 'id': page.id }) }}">Edit</a>{% endif %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
