@@ -53,14 +53,16 @@ body {
     font-size: 11pt;
 }
 
+
 .navbar-logo {
     padding: 0;
     margin: 0;
-    height: 2rem;
 }
 
-.nav-header {
-
+.navbar-brand {
+    padding: 0;
+    margin: -.6rem;
+    margin-right: 0;
 }
 
 
@@ -89,7 +91,9 @@ body {
     }
 }
 
-
+.bootstrap-vertical-nav .navbar li.nav-item {
+    padding: .5rem;
+}
 /**********  Forms **********/
 
 

@@ -18,23 +18,7 @@ use AppBundle\Form\ChecklistType;
 class ChecklistController extends Controller
 {
 
-    /**
-     * Lists all Checklist entities.
-     *
-     * @Route("/", name="checklist")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Checklist')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
     /**
      * Creates a new Checklist entity.
      *
@@ -84,7 +68,7 @@ class ChecklistController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -107,30 +91,6 @@ class ChecklistController extends Controller
         );
     }
 
-    /**
-     * Finds and displays a Checklist entity.
-     *
-     * @Route("/{id}", name="checklist_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Checklist')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Checklist entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
 
     /**
      * Displays a form to edit an existing Checklist entity.
@@ -173,7 +133,7 @@ class ChecklistController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
