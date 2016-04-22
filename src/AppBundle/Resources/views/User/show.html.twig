@@ -1,5 +1,17 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $( "#togglecol" ).click(function() {
+                $( ".col-sm-4" ).toggleClass( "col-sm-12" );
+            });
+        });
+    </script>
+{% endblock %}
+
+
 {% block body -%}
 <div class="row">
     <div class="col-sm-12">
@@ -9,6 +21,7 @@
             <a class="btn btn-primary" style="margin-left: 10px;" href="{{ path('user_edit', { 'id': entity.id }) }}">
                 Update
             </a>
+
         {% endif %}
         {% if entity.progress %}<p>Certificate Progress: {{ entity.progress.name }}</p>{% endif %}
         <p>Last login:  {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
@@ -23,6 +36,10 @@
             </div>
         {% endif %}
 
+        <a id="togglecol" class="btn btn-secondary pull-xs-right"  href="javascript:void(0);">
+            1/3 Column Display
+        </a>
+        </div>
         <div class="col-sm-4">
             <a href="#collapse_application" class="" data-toggle="collapse"><h2 class="inline">Application</h2></a>
             {% if entity.program %}

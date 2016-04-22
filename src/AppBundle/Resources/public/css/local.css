@@ -15,6 +15,10 @@ body {
     padding: 3rem;
 }
 
+.col-sm-4 {
+    padding: 3rem;
+}
+
 .navbar-brand, h1, h2, h3 {
     font-family: 'Nixie One', cursive;
 }
