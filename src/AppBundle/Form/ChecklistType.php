@@ -16,7 +16,7 @@ class ChecklistType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pre_assess','date', array('attr' => array('class' => ''), 'label'  => 'Pre-Assessment Survey 
+            ->add('pre_assess','date', array('attr' => array('class' => ''), 'label'  => 'Pre-Certificate Survey 
             Completed', 'required' => false,))
             ->add('anchor', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
               'query_builder' => function (EntityRepository $er) {
@@ -86,7 +86,7 @@ class ChecklistType extends AbstractType
             ('class' => 'form-control'),))
           ->add('portfolio', 'text', array('required'=> false,'attr' => array('class' => 'text form-control', 'placeholder' =>
             'https://uga.digication.com/'),))
-          ->add('post_assess','date', array('attr' => array('class' => ''), 'label'  => 'Post-Assessment Survey 
+          ->add('post_assess','date', array('attr' => array('class' => ''), 'label'  => 'Post-Certificate Survey 
             Completed', 'required' => false,))
             ->add('exceptions', 'ckeditor', array('config_name' => 'editor_simple',))
 
