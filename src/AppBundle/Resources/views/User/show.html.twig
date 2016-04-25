@@ -170,6 +170,10 @@
                     <table class="table">
                         <tbody>
                         <tr>
+                            <th>Pre-Assessment Survey Completed</th>
+                            <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}{% endif %}</td>
+                        </tr>
+                        <tr>
                             <th>Anchor</th>
                             <td>{% if entity.checklist.anchor %}{{ entity.checklist.anchor.name }}{% endif %}</td>
                         </tr>
@@ -197,6 +201,10 @@
                             <th>Portfolio</th>
                             <td><a href="{{ entity.checklist.portfolio }}"
                                    target="_blank">{{ entity.checklist.portfolio }}</a></td>
+                        </tr>
+                        <tr>
+                            <th>Post-Assessment Survey Completed</th>
+                            <td>{% if entity.checklist.postAssess %}{{ entity.checklist.postAssess|date('m/d/Y') }}{% endif %}</td>
                         </tr>
                         <tr>
                             <th>Exceptions</th>
