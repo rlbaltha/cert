@@ -42,6 +42,20 @@ class Checklist
     private $user;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="pre_assess", type="datetime", nullable=true)
+     */
+    private $pre_assess;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ost_assess", type="datetime", nullable=true)
+     */
+    private $post_assess;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Course")
      */
     protected $anchor;
@@ -359,5 +373,53 @@ class Checklist
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set preAssess
+     *
+     * @param \DateTime $preAssess
+     *
+     * @return Checklist
+     */
+    public function setPreAssess($preAssess)
+    {
+        $this->pre_assess = $preAssess;
+
+        return $this;
+    }
+
+    /**
+     * Get preAssess
+     *
+     * @return \DateTime
+     */
+    public function getPreAssess()
+    {
+        return $this->pre_assess;
+    }
+
+    /**
+     * Set postAssess
+     *
+     * @param \DateTime $postAssess
+     *
+     * @return Checklist
+     */
+    public function setPostAssess($postAssess)
+    {
+        $this->post_assess = $postAssess;
+
+        return $this;
+    }
+
+    /**
+     * Get postAssess
+     *
+     * @return \DateTime
+     */
+    public function getPostAssess()
+    {
+        return $this->post_assess;
     }
 }
