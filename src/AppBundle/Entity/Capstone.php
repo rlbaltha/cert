@@ -46,6 +46,50 @@ class Capstone
     /**
      * @var string
      *
+     * @ORM\Column(name="goals", type="text", nullable=true)
+     */
+    private $goals;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="objectives", type="text", nullable=true)
+     */
+    private $objectives;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="timeline", type="text", nullable=true)
+     */
+    private $timeline;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="partners", type="text", nullable=true)
+     */
+    private $partners;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="personal_objectives", type="text", nullable=true)
+     */
+    private $personal_objectives;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="success_metrics", type="text", nullable=true)
+     */
+    private $success_metrics;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="steps", type="text", nullable=true)
      */
     private $steps;
@@ -63,6 +107,13 @@ class Capstone
      * @ORM\Column(name="mentor", type="string", length=255, nullable=true)
      */
     private $mentor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mentor_email", type="string", length=255, nullable=true)
+     */
+    private $mentor_email;
 
     /**
      * @var string
@@ -340,5 +391,173 @@ class Capstone
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set goals
+     *
+     * @param string $goals
+     *
+     * @return Capstone
+     */
+    public function setGoals($goals)
+    {
+        $this->goals = $goals;
+
+        return $this;
+    }
+
+    /**
+     * Get goals
+     *
+     * @return string
+     */
+    public function getGoals()
+    {
+        return $this->goals;
+    }
+
+    /**
+     * Set objectives
+     *
+     * @param string $objectives
+     *
+     * @return Capstone
+     */
+    public function setObjectives($objectives)
+    {
+        $this->objectives = $objectives;
+
+        return $this;
+    }
+
+    /**
+     * Get objectives
+     *
+     * @return string
+     */
+    public function getObjectives()
+    {
+        return $this->objectives;
+    }
+
+    /**
+     * Set timeline
+     *
+     * @param string $timeline
+     *
+     * @return Capstone
+     */
+    public function setTimeline($timeline)
+    {
+        $this->timeline = $timeline;
+
+        return $this;
+    }
+
+    /**
+     * Get timeline
+     *
+     * @return string
+     */
+    public function getTimeline()
+    {
+        return $this->timeline;
+    }
+
+    /**
+     * Set partners
+     *
+     * @param string $partners
+     *
+     * @return Capstone
+     */
+    public function setPartners($partners)
+    {
+        $this->partners = $partners;
+
+        return $this;
+    }
+
+    /**
+     * Get partners
+     *
+     * @return string
+     */
+    public function getPartners()
+    {
+        return $this->partners;
+    }
+
+    /**
+     * Set personalObjectives
+     *
+     * @param string $personalObjectives
+     *
+     * @return Capstone
+     */
+    public function setPersonalObjectives($personalObjectives)
+    {
+        $this->personal_objectives = $personalObjectives;
+
+        return $this;
+    }
+
+    /**
+     * Get personalObjectives
+     *
+     * @return string
+     */
+    public function getPersonalObjectives()
+    {
+        return $this->personal_objectives;
+    }
+
+    /**
+     * Set successMetrics
+     *
+     * @param string $successMetrics
+     *
+     * @return Capstone
+     */
+    public function setSuccessMetrics($successMetrics)
+    {
+        $this->success_metrics = $successMetrics;
+
+        return $this;
+    }
+
+    /**
+     * Get successMetrics
+     *
+     * @return string
+     */
+    public function getSuccessMetrics()
+    {
+        return $this->success_metrics;
+    }
+
+    /**
+     * Set mentorEmail
+     *
+     * @param string $mentorEmail
+     *
+     * @return Capstone
+     */
+    public function setMentorEmail($mentorEmail)
+    {
+        $this->mentor_email = $mentorEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get mentorEmail
+     *
+     * @return string
+     */
+    public function getMentorEmail()
+    {
+        return $this->mentor_email;
     }
 }

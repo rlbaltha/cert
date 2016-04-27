@@ -18,23 +18,7 @@ use AppBundle\Form\ProgramType;
 class ProgramController extends Controller
 {
 
-    /**
-     * Lists all Program entities.
-     *
-     * @Route("/", name="program")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Program')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
     /**
      * Creates a new Program entity.
      *
@@ -128,30 +112,6 @@ class ProgramController extends Controller
         );
     }
 
-    /**
-     * Finds and displays a Program entity.
-     *
-     * @Route("/{id}", name="program_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Program')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Program entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
 
     /**
      * Displays a form to edit an existing Program entity.

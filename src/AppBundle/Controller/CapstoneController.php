@@ -18,23 +18,7 @@ use AppBundle\Form\CapstoneType;
 class CapstoneController extends Controller
 {
 
-    /**
-     * Lists all Capstone entities.
-     *
-     * @Route("/", name="capstone")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Capstone')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
     /**
      * Creates a new Capstone entity.
      *
@@ -84,7 +68,7 @@ class CapstoneController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -107,30 +91,6 @@ class CapstoneController extends Controller
         );
     }
 
-    /**
-     * Finds and displays a Capstone entity.
-     *
-     * @Route("/{id}", name="capstone_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Capstone')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Capstone entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
 
     /**
      * Displays a form to edit an existing Capstone entity.
@@ -173,7 +133,7 @@ class CapstoneController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }

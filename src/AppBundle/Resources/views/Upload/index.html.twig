@@ -1,39 +1,41 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Files Uploaded</h1>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-default" href="{{ path('upload_new') }}">
-            Upload New
-        </a>
-    {% endif %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Files Uploaded</h1>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-primary" href="{{ path('upload_new') }}">
+                    Upload New
+                </a>
+            {% endif %}
 
-    <table class="table well">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Created</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.type }}</td>
-                <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td class="btn-group">
-                    <a class="btn btn-default" href="{{ path('import_upload', {  'id': entity.id, 'filetype': entity.ext, 'entity': entity.type }) }}">Import to
-                        {{ entity.type }}</a>
-                    <a class="btn btn-default" href="{{ path('upload_edit', { 'id': entity.id }) }}">Delete</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <table class="table well">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.name }}</td>
+                        <td>{{ entity.type }}</td>
+                        <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td class="btn-group">
+                            <a class="btn btn-secondary" href="{{ path('import_upload', {  'id': entity.id, 'filetype': entity.ext, 'entity': entity.type }) }}">Import to
+                                {{ entity.type }}</a>
+                            <a class="btn btn-secondary" href="{{ path('upload_edit', { 'id': entity.id }) }}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-
-
+        </div>
+    </div>
 
 {% endblock %}
