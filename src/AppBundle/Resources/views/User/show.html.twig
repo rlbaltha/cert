@@ -10,6 +10,10 @@
                 Update
             </a>
         {% endif %}
+        <a class="btn btn-primary"
+           href="{{ path('pdf',  { 'id': entity.id }) }}">
+            Create PDF
+        </a>
         {% if entity.progress %}<p>Certificate Progress: {{ entity.progress.name }}</p>{% endif %}
         <p>Last login:  {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
         {% if is_granted('ROLE_ADMIN') %}
@@ -41,6 +45,7 @@
                     Get Started
                 </a>
             {% endif %}
+
             <p>Please fill out the Application form completely. You may return to edit it at any time. You will be
                 notified by the Director when your application is approved.</p>
 

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="initial-scale=1">
+    <title>{% block title %}Sustainability Certificate{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link type="text/css" rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/css/theme.bootstrap.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/local.css') }}">
+    {% endblock %}
+
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('apple-touch-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('apple-touch-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('apple-touch-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('apple-touch-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('apple-touch-icon-120x120.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('favicon-96x96.png') }}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{{ asset('favicon-16x16.png') }}" sizes="16x16">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <link rel="mask-icon" href="{{ asset('safari-pinned-tab.svg') }}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <h1 class="inline">{{ entity.firstname }} {{ entity.lastname }}</h1>
+
+            {% if entity.progress %}<p>Certificate Progress: {{ entity.progress.name }}</p>{% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+
+                <a href="#collapse_notes" class="" data-toggle="collapse"><h3>Director notes</h3></a>
+                <div id="collapse_notes" class="collapse in">
+                    <p>{{ entity.notes |raw }}
+                        {% if entity.notes|length < 1 %}No notes yet.{% endif %}
+                    </p>
+                </div>
+            {% endif %}
+
+            <div class="col-sm-12">
+                <h3 class="inline">Application</h3>
+
+
+                <div id="collapse_application" class="collapse in">
+                    {% if entity.program %}
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{ entity.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>School</th>
+                                <td>{{ entity.program.school }}</td>
+                            </tr>
+                            <tr>
+                                <th>Program</th>
+                                <td>{{ entity.program.program }}</td>
+                            </tr>
+                            <tr>
+                                <th>Uga Id</th>
+                                <td>{{ entity.program.ugaid }}</td>
+                            </tr>
+                            <tr>
+                                <th>Level</th>
+                                <td>{{ entity.program.level }}</td>
+                            </tr>
+                            <tr>
+                                <th>Previous Degree(s)</th>
+                                <td>{{ entity.program.degree }}</td>
+                            </tr>
+                            <tr>
+                                <th>Previous Institution(s)</th>
+                                <td>{{ entity.program.institution }}</td>
+                            </tr>
+                            <tr>
+                                <th>Expected Graduation</th>
+                                <td>{{ entity.program.graddate }} {{ entity.program.gradterm }}</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>{{ entity.program.address }}</td>
+                            </tr>
+                            <tr>
+                                <th>City State Zip</th>
+                                <td>{{ entity.program.cityst }}</td>
+                            </tr>
+                            <tr>
+                                <th>Country</th>
+                                <td>{{ entity.program.country }}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td>{{ entity.program.phone }}</td>
+                            </tr>
+                            <tr>
+                                <th>Areas of Interest</th>
+                                <td>{% for area in entity.program.area %}{{ area }} {% endfor %}</td>
+                            </tr>
+                            <tr>
+                                <th>Interest in Sustainability</th>
+                                <td>{{ entity.program.interest | raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Experience</th>
+                                <td>{{ entity.program.experience | raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Goals</th>
+                                <td>{{ entity.program.goals | raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Application Status</th>
+                                <td>{{ entity.program.status }}</td>
+                            </tr>
+                            <tr>
+                                <th>Updated</th>
+                                <td>{{ entity.program.updated |date("m/d/Y g:ia") }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="col-sm-12">
+                <h3 class="inline">Checklist</h3>
+
+                <div id="collapse_checklist" class="collapse in ">
+                    {% if entity.checklist %}
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Anchor</th>
+                                <td>{% if entity.checklist.anchor %}{{ entity.checklist.anchor.name }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Ecological Sphere</th>
+                                <td>{% if entity.checklist.sphere1 %}{{ entity.checklist.sphere1.name }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Economic Sphere</th>
+                                <td>{% if entity.checklist.sphere2 %}{{ entity.checklist.sphere2.name }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Social Sphere</th>
+                                <td>{% if entity.checklist.sphere3 %}{{ entity.checklist.sphere3.name }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Seminar</th>
+                                <td>{% if entity.checklist.seminar %}{{ entity.checklist.seminar.name }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Capstone</th>
+                                <td>{% if entity.checklist.capstone %}{{ entity.checklist.capstone.name }}{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th>Portfolio</th>
+                                <td><a href="{{ entity.checklist.portfolio }}"
+                                       target="_blank">{{ entity.checklist.portfolio }}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Exceptions</th>
+                                <td>{{ entity.checklist.exceptions | raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Updated</th>
+                                <td>{{ entity.checklist.updated | date("m/d/Y g:ia") }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="col-sm-12">
+
+                <h3 class="inline">Capstone</h3>
+                    {% if entity.capstone %}
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Title</th>
+                                <td>{{ entity.capstone.title }}</td>
+                            </tr>
+                            <tr>
+                                <th>Type</th>
+                                <td>{{ entity.capstone.type }}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{ entity.capstone.description |raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Steps</th>
+                                <td>{{ entity.capstone.steps|raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Application</th>
+                                <td>{{ entity.capstone.application|raw }}</td>
+                            </tr>
+                            <tr>
+                                <th>Mentor</th>
+                                <td>{{ entity.capstone.mentor }}</td>
+                            </tr>
+                            <tr>
+                                <th>Timeframe</th>
+                                <td>{{ entity.capstone.timeframe }}</td>
+                            </tr>
+                            <tr>
+                                <th>Updated</th>
+                                <td>{{ entity.capstone.updated |date("m/d/Y g:ia") }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

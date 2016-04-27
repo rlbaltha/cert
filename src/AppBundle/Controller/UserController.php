@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use AppBundle\Form\ProfileType;
@@ -93,6 +94,40 @@ class UserController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+
+    /**
+     * Creates a pdf of users work
+     *
+     * @Route("/{id}/pdf", name="pdf")
+     */
+    public function createPdfAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:User')->find($id);
+
+        $name = $entity->getLastname();
+        $filename = 'attachment; filename="'.$name.'.pdf"';
+
+
+        $html = $this->renderView('AppBundle:User:pdf.html.twig', array(
+            'entity' => $entity,
+        ));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => $filename
+            )
+        );
+
+    }
+
+
 
     /**
      * Displays a form to edit an existing User entity.

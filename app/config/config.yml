@@ -114,6 +114,12 @@ vich_uploader:
             uri_prefix:         /files
             upload_destination: %kernel.root_dir%/../uploads
 
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltopdf
+        options:    []
+
 ivory_ck_editor:
     configs:
         editor_default:
