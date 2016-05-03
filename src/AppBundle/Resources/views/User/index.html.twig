@@ -64,11 +64,11 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Application Process</th>
+                    <th class="hidden-xs-down">Email</th>
+                    <th class="hidden-xs-down">Application Process</th>
                     <th>Progress</th>
-                    <th>Expected Graduation</th>
-                    <th>Actions</th>
+                    <th class="hidden-xs-down">Expected Graduation</th>
+                    <th class="hidden-xs-down">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -76,11 +76,11 @@
                     <tr>
                         <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}, {{ entity.firstname }}</a></td>
 
-                        <td>{{ entity.email }}</td>
-                        <td>{% if entity.program %}{{ entity.program.status }}{% if entity.program.status!= 'Approved' %}Approval Needed{% endif %}{% else %}No Application{% endif %}</td>
+                        <td class="hidden-xs-down">{{ entity.email }}</td>
+                        <td class="hidden-xs-down">{% if entity.program %}{{ entity.program.status }}{% if entity.program.status!= 'Approved' %}Approval Needed{% endif %}{% else %}No Application{% endif %}</td>
                         <td>{% if entity.progress %}{{ entity.progress.name }}{% else %}Account Created{% endif %}</td>
-                        <td>{% if entity.program %}{{ entity.program.graddate }} {{ entity.program.gradterm }}{% endif %}</td>
-                        <td>
+                        <td class="hidden-xs-down">{% if entity.program %}{{ entity.program.graddate }} {{ entity.program.gradterm }}{% endif %}</td>
+                        <td class="hidden-xs-down">
                             <a class="btn btn-primary" href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
                         </td>
                     </tr>
