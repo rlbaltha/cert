@@ -121,12 +121,12 @@
                 <tr>
                     <th>Name</th>
                     <th>Title</th>
-                    <th class="hidden-xs">Offered</th>
-                    <th class="hidden-xs">Prereqs</th>
-                    <th class="hidden-xs">Requirement</th>
-                    <th class="hidden-xs">Level</th>
+                    <th class="hidden-xs-down">Offered</th>
+                    <th class="hidden-xs-down">Prereqs</th>
+                    <th class="hidden-xs-down">Requirement</th>
+                    <th class="hidden-xs-down">Level</th>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <th class="hidden-xs">Actions</th>
+                        <th class="hidden-xs-down">Actions</th>
                     {% endif %}
                 </tr>
                 </thead>
@@ -135,12 +135,12 @@
                     <tr>
                         <td><a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
                         <td>{{ entity.title }}</td>
-                        <td class="hidden-xs">{{ entity.offered }}</td>
-                        <td class="hidden-xs">{{ entity.prereqs }}</td>
-                        <td class="hidden-xs">{{ entity.pillar }}</td>
-                        <td class="hidden-xs">{{ entity.level }}</td>
+                        <td class="hidden-xs-down">{{ entity.offered }}</td>
+                        <td class="hidden-xs-down">{{ entity.prereqs }}</td>
+                        <td class="hidden-xs-down">{{ entity.pillar }}</td>
+                        <td class="hidden-xs-down">{{ entity.level }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <td class="hidden-xs">
+                            <td class="hidden-xs-down">
                                 <a class="btn btn-primary"
                                    href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
                             </td>

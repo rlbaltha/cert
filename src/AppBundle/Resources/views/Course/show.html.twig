@@ -50,7 +50,7 @@
 
         <div class="col-sm-10">
             {% if is_granted('ROLE_ADMIN') %}
-                <td class="hidden-xs">
+                <td class="hidden-xs-down">
                     <a class="btn btn-primary pull-xs-right" href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
                 </td>
             {% endif %}
@@ -60,18 +60,18 @@
                 <tr>
                     <th>Title</th>
                     <th>Offered</th>
-                    <th>Prereqs</th>
-                    <th class=" hidden-xs">School</th>
-                    <th class=" hidden-xs">Requirement</th>
+                    <th class=" hidden-xs-down">Prereqs</th>
+                    <th class=" hidden-xs-down">School</th>
+                    <th class=" hidden-xs-down">Requirement</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>{{ entity.title }}</td>
                     <td>{{ entity.offered }}</td>
-                    <td>{{ entity.prereqs }}</td>
-                    <td class=" hidden-xs">{{ entity.school }}</td>
-                    <td class=" hidden-xs">{{ entity.pillar }}</td>
+                    <td class=" hidden-xs-down">{{ entity.prereqs }}</td>
+                    <td class=" hidden-xs-down">{{ entity.school }}</td>
+                    <td class=" hidden-xs-down">{{ entity.pillar }}</td>
                 </tr>
                 </tbody>
             </table>
