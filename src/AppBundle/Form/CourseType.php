@@ -22,7 +22,7 @@ class CourseType extends AbstractType
               'placeholder' => 'Prereqs'),))
             ->add('school', 'text', array('required' => false, 'attr' => array('class' => 'text form-control',
               'placeholder' => 'School'),))
-            ->add('pillar', 'choice', array('choices' => array('Anchor' => 'Anchor','Social' => 'Social', 'Economic'
+            ->add('pillar', 'choice', array('choices' => array('Anchor' => 'Anchor','Seminar' => 'Seminar','Social' => 'Social', 'Economic'
                  => 'Economic', 'Ecological' => 'Ecological'),
                 'required' =>  true,
                 'expanded' => true,
