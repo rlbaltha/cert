@@ -170,6 +170,116 @@ class CapstoneController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+
+    /**
+     * Capstone Ready for review and send email.
+     *
+     * @Route("/ready/{id}", name="capstone_ready")
+     * @Method("GET")
+     * @Template("AppBundle:User:show.html.twig")
+     */
+    public function readyAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Capstone')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Capstone entity.');
+        }
+
+        $user = $entity->getUser();
+        $user_entity = $em->getRepository('AppBundle:User')->find($user);
+        $status = $em->getRepository('AppBundle:Status')->findByName('Ready for Review');
+        $user_entity->setProgress($status);
+        $timestamp = date('m/d/Y h:i:s A');
+        $notes = $user_entity->getNotes();
+        $user_entity->setNotes($notes.'<p> Capstone ready for review '.$timestamp.'</p>');
+        $entity->setStatus('Capstone Ready for Review');
+
+        $em->persist($entity);
+        $em->persist($user_entity);
+        $em->flush();
+
+        $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
+        $email = 'scdirector@uga.edu';
+        $text = 'has submitted an capstone that is ready for review.';
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Certificate Capstone Ready for Review')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo($email)
+            ->setBody(
+                $this->renderView(
+
+                    'AppBundle:Email:apply.html.twig',
+                    array('name' => $name,
+                        'text' => $text)
+                ),
+                'text/html'
+            )
+        ;
+        $this->get('mailer')->send($message);
+
+        return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
+    }
+
+    /**
+     * Approve Application and send email.
+     *
+     * @Route("/approve/{id}", name="capstone_approve")
+     * @Method("GET")
+     * @Template("AppBundle:User:show.html.twig")
+     */
+    public function approveAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Capstone')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Capstone entity.');
+        }
+
+        $user = $entity->getUser();
+        $user_entity = $em->getRepository('AppBundle:User')->find($user);
+        $status = $em->getRepository('AppBundle:Status')->findByName('Capstone Approved');
+        $user_entity->setProgress($status);
+        $timestamp = date('m/d/Y h:i:s A');
+        $notes = $user_entity->getNotes();
+        $user_entity->setNotes($notes.'<p> Capstone approved '.$timestamp.'</p>');
+        $entity->setStatus('Approved');
+
+        $em->persist($entity);
+        $em->persist($user_entity);
+        $em->flush();
+
+        $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
+        $email = $user_entity->getEmail();
+        $text = ', your capstone application for the Sustainability Certficate has been approved.  Congrats.';
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Certificate Capstone Approved')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo($email)
+            ->setBody(
+                $this->renderView(
+
+                    'AppBundle:Email:apply.html.twig',
+                    array('name' => $name,
+                        'text' => $text)
+                ),
+                'text/html'
+            )
+        ;
+        $this->get('mailer')->send($message);
+
+        return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
+    }
+
+
+
     /**
      * Deletes a Capstone entity.
      *

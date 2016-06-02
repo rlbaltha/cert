@@ -213,6 +213,59 @@ class ProgramController extends Controller
     }
 
     /**
+     * Application Ready for review and send email.
+     *
+     * @Route("/ready/{id}", name="program_ready")
+     * @Method("GET")
+     * @Template("AppBundle:User:show.html.twig")
+     */
+    public function readyAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Program')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Program entity.');
+        }
+
+        $user = $entity->getUser();
+        $user_entity = $em->getRepository('AppBundle:User')->find($user);
+        $status = $em->getRepository('AppBundle:Status')->findByName('Ready for Review');
+        $user_entity->setProgress($status);
+        $timestamp = date('m/d/Y h:i:s A');
+        $notes = $user_entity->getNotes();
+        $user_entity->setNotes($notes.'<p> Application ready for review '.$timestamp.'</p>');
+        $entity->setStatus('Ready for Review');
+
+        $em->persist($entity);
+        $em->persist($user_entity);
+        $em->flush();
+
+        $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
+        $email = 'scdirector@uga.edu';
+        $text = 'has submitted an application that is ready for review.';
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Certificate Application Ready for Review')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo($email)
+            ->setBody(
+                $this->renderView(
+
+                    'AppBundle:Email:apply.html.twig',
+                    array('name' => $name,
+                        'text' => $text)
+                ),
+                'text/html'
+            )
+        ;
+        $this->get('mailer')->send($message);
+
+        return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
+    }
+
+    /**
      * Approve Application and send email.
      *
      * @Route("/approve/{id}", name="program_approve")

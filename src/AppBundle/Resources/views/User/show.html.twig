@@ -4,8 +4,8 @@
     {{ parent() }}
     <script language="javascript">
         $(document).ready(function () {
-            $( "#togglecol" ).click(function() {
-                $( ".col-sm-4" ).toggleClass( "col-sm-12" );
+            $("#togglecol").click(function () {
+                $(".col-sm-4").toggleClass("col-sm-12");
             });
         });
     </script>
@@ -13,36 +13,42 @@
 
 
 {% block body -%}
-<div class="row">
-    <div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-12">
 
-        <h1 class="inline">{{ entity.firstname }} {{ entity.lastname }}</h1>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-primary" style="margin-left: 10px;" href="{{ path('user_edit', { 'id': entity.id }) }}">
-                Update
+            <h1 class="inline">{{ entity.firstname }} {{ entity.lastname }}</h1>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-primary" style="margin-left: 10px;"
+                   href="{{ path('user_edit', { 'id': entity.id }) }}">
+                    Update
+                </a>
+                <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
+                    As</a>
+            {% endif %}
+            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                <a class="btn btn-primary" href="{{ path('user',  { 'type': 'student' }) }}?_switch_user=_exit"> Exit
+                    login as</a>
+            {% endif %}
+            <a class="btn btn-primary"
+               href="{{ path('pdf',  { 'id': entity.id }) }}">
+                Create PDF
             </a>
+            {% if entity.progress %}<p>Certificate Progress: {{ entity.progress.name }}</p>{% endif %}
+            <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
+            {% if is_granted('ROLE_ADMIN') %}
 
-        {% endif %}
-        <a class="btn btn-primary"
-           href="{{ path('pdf',  { 'id': entity.id }) }}">
-            Create PDF
-        </a>
-        {% if entity.progress %}<p>Certificate Progress: {{ entity.progress.name }}</p>{% endif %}
-        <p>Last login:  {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
-        {% if is_granted('ROLE_ADMIN') %}
+                <a href="#collapse_notes" class="" data-toggle="collapse"><h2>Director notes</h2></a>
+                <div id="collapse_notes" class="collapse in">
+                    <p>{{ entity.notes |raw }}
+                        {% if entity.notes|length < 1 %}No notes yet.{% endif %}
+                    </p>
+                    <p>Updated: {{ entity.notesChanged|date("m/d/Y g:ia") }}</p>
+                </div>
+            {% endif %}
 
-            <a href="#collapse_notes" class="" data-toggle="collapse"><h2>Director notes</h2></a>
-            <div id="collapse_notes" class="collapse in">
-                <p>{{ entity.notes |raw }}
-                {% if entity.notes|length < 1 %}No notes yet.{% endif %}
-                </p>
-                <p>Updated:  {{ entity.notesChanged|date("m/d/Y g:ia") }}</p>
-            </div>
-        {% endif %}
-
-        <a id="togglecol" class="btn btn-secondary pull-xs-right"  href="javascript:void(0);">
-            1/3 Column Display
-        </a>
+            <a id="togglecol" class="btn btn-secondary pull-xs-right" href="javascript:void(0);">
+                1/3 Column Display
+            </a>
         </div>
         <div class="col-sm-4">
             <a href="#collapse_application" class="" data-toggle="collapse"><h2 class="inline">Application</h2></a>
@@ -53,19 +59,27 @@
                         Approve App
                     </a>
                 {% endif %}
-                <a title="Update your application" class="btn btn-primary  align-right"
-                   href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
-                    Update
-                </a>
+
+                {% if entity.program.status == 'Created' %}
+                    <a title="Update your application" class="btn btn-primary  align-right"
+                       href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
+                        Update
+                    </a>
+                    <a title="Application Ready for Review" class="btn btn-primary  align-right"
+                       href="{{ path('program_ready',  { 'id': entity.program.id }) }}">
+                        Ready for Review
+                    </a>
+                {% endif %}
             {% else %}
-                <a title="Get started on your application" class="btn btn-primary  align-right" href="{{ path('program_new') }}">
+                <a title="Get started on your application" class="btn btn-primary  align-right"
+                   href="{{ path('program_new') }}">
                     Get Started
                 </a>
             {% endif %}
 
-            <p>Please fill out the Application form completely. You may return to edit it at any time. You will be
+            <p>Please fill out the Application form completely. You may return to edit it at any time.</p>
+            <p>When you have completed the application, click the <em>Ready for Review</em> button. You will be
                 notified by the Director when your application is approved.</p>
-
 
 
             <div id="collapse_application" class="collapse in">
@@ -142,7 +156,7 @@
                         </tr>
                         <tr>
                             <th>Updated</th>
-                            <td>{{ entity.program.updated |date("m/d/Y g:ia")}}</td>
+                            <td>{{ entity.program.updated |date("m/d/Y g:ia") }}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -152,22 +166,22 @@
 
 
         <div class="col-sm-4">
-                <a href="#collapse_checklist" class="" data-toggle="collapse"><h2 class="inline">Checklist</h2></a>
-                {% if entity.checklist %}
-                    <a title="Update your checklist" class="btn btn-primary align-right "
-                       href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
-                        Update
-                    </a>
-                {% else %}
+            <a href="#collapse_checklist" class="" data-toggle="collapse"><h2 class="inline">Checklist</h2></a>
+            {% if entity.checklist %}
+                <a title="Update your checklist" class="btn btn-primary align-right "
+                   href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
+                    Update
+                </a>
+            {% else %}
 
-                    <a title="Get started on your checklist" class="btn btn-primary  align-right {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
-                       href="{{ path('checklist_new') }}">
-                        Get Started
-                    </a>
-                {% endif %}
+                <a title="Get started on your checklist"
+                   class="btn btn-primary  align-right {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
+                   href="{{ path('checklist_new') }}">
+                    Get Started
+                </a>
+            {% endif %}
 
             <p>The checklist allows you to track your progress through the program. Please update regularly.</p>
-
 
 
             <div id="collapse_checklist" class="collapse in ">
@@ -229,13 +243,27 @@
         <div class="col-sm-4">
             <a href="#collapse_capstone" class="" data-toggle="collapse"><h2 class="inline">Capstone</h2></a>
             {% if entity.capstone %}
-                <a title="Update your capstone" class="btn btn-primary align-right"
-                   href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
-                    Update
-                </a>
+                {% if is_granted('ROLE_ADMIN') and entity.capstone.status != 'Approved' %}
+                    <a title="Approve this capstone" class="btn btn-primary  align-right"
+                       href="{{ path('capstone_approve',  { 'id': entity.capstone.id }) }}">
+                        Approve Capstone
+                    </a>
+                {% endif %}
+
+                {% if entity.capstone.status == 'Created' %}
+                    <a title="Update your capstone" class="btn btn-primary  align-right"
+                       href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
+                        Update
+                    </a>
+                    <a title="Application Ready for Review" class="btn btn-primary  align-right"
+                       href="{{ path('capstone_ready',  { 'id': entity.capstone.id }) }}">
+                        Ready for Review
+                    </a>
+                {% endif %}
 
             {% else %}
-                <a title="Get started on your capstone" class="btn btn-primary align-right {% if not entity.checklist %}disabled{% endif %}"
+                <a title="Get started on your capstone"
+                   class="btn btn-primary align-right {% if not entity.checklist %}disabled{% endif %}"
                    href="{{ path('capstone_new') }}">
                     Get Started
                 </a>
@@ -245,8 +273,6 @@
                 sustainability challenges. For details, please review the information under the <strong>Student</strong>
                 heading of the website.
                 You will be notified by the Director when your application is approved.</p>
-
-
 
 
             <div id="collapse_capstone" class="collapse in">
@@ -307,6 +333,10 @@
                             <td>{{ entity.capstone.timeframe }}</td>
                         </tr>
                         <tr>
+                            <th>Status</th>
+                            <td>{{ entity.capstone.status }}</td>
+                        </tr>
+                        <tr>
                             <th>Updated</th>
                             <td>{{ entity.capstone.updated |date("m/d/Y g:ia") }}</td>
                         </tr>
@@ -318,4 +348,4 @@
 
         </div>
     </div>
-    {% endblock %}
+{% endblock %}

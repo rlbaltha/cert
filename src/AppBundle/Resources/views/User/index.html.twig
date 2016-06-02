@@ -77,7 +77,7 @@
                         <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}, {{ entity.firstname }}</a></td>
 
                         <td>{{ entity.email }}</td>
-                        <td>{% if entity.program %}{{ entity.program.status }}{% if entity.program.status!= 'Approved' %}Approval Needed{% endif %}{% else %}No Application{% endif %}</td>
+                        <td>{% if entity.program %}{{ entity.program.status }}{% else %}No Application{% endif %}</td>
                         <td>{% if entity.progress %}{{ entity.progress.name }}{% else %}Account Created{% endif %}</td>
                         <td>{% if entity.program %}{{ entity.program.graddate }} {{ entity.program.gradterm }}{% endif %}</td>
                         <td>

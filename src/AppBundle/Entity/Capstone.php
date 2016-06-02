@@ -123,6 +123,13 @@ class Capstone
     private $timeframe;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     */
+    private $status='Created';
+
+    /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="capstone")
      */
     private $user;
@@ -559,5 +566,29 @@ class Capstone
     public function getMentorEmail()
     {
         return $this->mentor_email;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Capstone
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
