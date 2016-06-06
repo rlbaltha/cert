@@ -77,7 +77,7 @@ class Course
      *
      * @ORM\Column(name="contact", type="string", length=255)
      */
-    private $contact;
+    private $contact='Certificate Director';
 
     /**
      * @var string
