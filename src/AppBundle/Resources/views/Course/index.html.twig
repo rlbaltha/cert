@@ -20,6 +20,7 @@
                         <li class="nav-item"><a href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>
                         </li>
                         <li class="nav-item"><a href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a></li>
+                        <li class="nav-item"><a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a></li>
                     </ul>
                     {#
                     <ul class="nav navbar-nav">
@@ -62,7 +63,8 @@
             {% endif %}
         </h1>
         <p>Select listings on the left menu to list courses.</p>
-        <p>Students are required to take a minimum of 17 credit hours to earn the Sustainability Certificate. The
+        <p>Students are required to take a minimum of 17 credit hours to earn the Sustainability Certificate.
+            <a href="{{ path('page_show', { 'id': '19' }) }}">See the Requirements page for details.</a> The
             Certificate consists of the following components:
         <ol>
             <li>Anchor course (3 credit hours)</li>
@@ -72,51 +74,6 @@
         </ol>
         </p>
 
-        {% if entities|length == 0 %}
-            <p>Anchor Course – These courses will provide a foundation in sustainability, including its history,
-                components and application. Courses which qualify as anchor courses for this certificate will challenge
-                students to evaluate their behavior as citizens and consumers and encourage them to think about the
-                interdisciplinary challenges associated with a sustainable future. There will be a minimal number of
-                courses from different departments from which students can choose that will serve as anchor courses.
-                Each of the courses selected to be on the anchor course list will be thoroughly vetted to ensure it
-                provides the breadth as a foundation in sustainability.
-            </p>
-            <p>Seminar – The seminar will introduce students to the many ways UGA faculty and the ACC community are
-                promoting sustainability. It will provide students with a foundational background in sustainability and
-                emphasize the interdisciplinary evaluation and solutions. Sustainability challenges, including climate
-                change, biodiversity, and the built environment, will be addressed. The seminar will be open to the
-                entire UGA Community as a means of connecting and communicating across disciplines. The seminar will
-                also allow students the opportunity to present their capstone course project and receive feedback from
-                their peers.
-            </p>
-            <p>
-                Spheres of Sustainability
-            <ul>
-
-                <li>Ecological Sustainability: Courses in the ecological sustainability sphere will build upon a
-                    baseline understanding of ecology and address issues concerning ecosystem services, environmental
-                    degradation, and climate change.
-                </li>
-                <li>Economic Sustainability: Courses in this sphere will build upon a baseline understanding of
-                    economics and address bottom-line.
-                </li>
-                <li>Social Sustainability: Courses in the social sustainability sphere will build upon a basic
-                    understanding of social science and will address the social aspects of sustainability, including
-                    issues of cultural diversity, social justice, equality, participation, the built environment, and
-                    community
-                </li>
-            </ul>
-            </p>
-            <p>Capstone Course/Project – This course will provide students with an opportunity to apply what they have
-                learned to hands-on sustainability challenges. Through this course they will work on interdisciplinary
-                teams on problems identified on campus and in the surrounding community.
-            </p>
-            <p>Portfolio – A collection of documents presented at the completion of the capstone project that ties
-                together the courses, seminar, and application project completed by the student. This portfolio will
-                provide students with an opportunity to reflect on the integration of disciplines, systems thinking,
-                analysis of complex problems, and ongoing commitment.
-            </p>
-        {% else %}
             <table class="table sort">
                 <thead>
                 <tr>
@@ -150,6 +107,5 @@
                 {% endfor %}
                 </tbody>
             </table>
-        {% endif %}
     </div>
     {% endblock %}
