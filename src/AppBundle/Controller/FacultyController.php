@@ -114,16 +114,15 @@ class FacultyController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Faculty')->find($id);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Faculty');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Faculty entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'section'      => $section,
         );
     }
 
