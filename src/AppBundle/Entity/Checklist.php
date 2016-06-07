@@ -51,9 +51,16 @@ class Checklist
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="ost_assess", type="datetime", nullable=true)
+     * @ORM\Column(name="post_assess", type="datetime", nullable=true)
      */
     private $post_assess;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="orientation", type="datetime", nullable=true)
+     */
+    private $orientation;
 
     /**
      * @ORM\ManyToOne(targetEntity="Course")
@@ -421,5 +428,29 @@ class Checklist
     public function getPostAssess()
     {
         return $this->post_assess;
+    }
+
+    /**
+     * Set orientation
+     *
+     * @param \DateTime $orientation
+     *
+     * @return Checklist
+     */
+    public function setOrientation($orientation)
+    {
+        $this->orientation = $orientation;
+
+        return $this;
+    }
+
+    /**
+     * Get orientation
+     *
+     * @return \DateTime
+     */
+    public function getOrientation()
+    {
+        return $this->orientation;
     }
 }

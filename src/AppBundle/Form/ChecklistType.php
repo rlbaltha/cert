@@ -18,6 +18,8 @@ class ChecklistType extends AbstractType
         $builder
             ->add('pre_assess','date', array('attr' => array('class' => ''), 'label'  => 'Pre-Certificate Survey 
             Completed', 'required' => false,))
+            ->add('orientation','date', array('attr' => array('class' => ''), 'label'  => 'Orientation 
+            Completed', 'required' => false,))
             ->add('anchor', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
               'query_builder' => function (EntityRepository $er) {
                   return $er->createQueryBuilder('c')

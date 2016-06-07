@@ -118,6 +118,20 @@ class Capstone
     /**
      * @var string
      *
+     * @ORM\Column(name="group_project", type="string", length=255, nullable=true)
+     */
+    private $group_project='No';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="group_members", type="text",  nullable=true)
+     */
+    private $group_members;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="timeframe", type="string", length=255, nullable=true)
      */
     private $timeframe;
@@ -590,5 +604,55 @@ class Capstone
     public function getStatus()
     {
         return $this->status;
+    }
+
+
+
+    /**
+     * Set groupMembers
+     *
+     * @param string $groupMembers
+     *
+     * @return Capstone
+     */
+    public function setGroupMembers($groupMembers)
+    {
+        $this->group_members = $groupMembers;
+
+        return $this;
+    }
+
+    /**
+     * Get groupMembers
+     *
+     * @return string
+     */
+    public function getGroupMembers()
+    {
+        return $this->group_members;
+    }
+
+    /**
+     * Set groupProject
+     *
+     * @param string $groupProject
+     *
+     * @return Capstone
+     */
+    public function setGroupProject($groupProject)
+    {
+        $this->group_project = $groupProject;
+
+        return $this;
+    }
+
+    /**
+     * Get groupProject
+     *
+     * @return string
+     */
+    public function getGroupProject()
+    {
+        return $this->group_project;
     }
 }

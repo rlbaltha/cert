@@ -32,8 +32,26 @@ class ProgramType extends AbstractType
           ->add('degree', 'text', array('required'=> false, 'label' => 'Previous degree(s)','attr' => array('class' =>
       'form-control'),))
           ->add('institution', 'text', array('required'=> false,'label' => 'Previous Institution(s)','attr' => array('class' => 'form-control'),))
-          ->add('graddate', 'text', array('required'=> false,'label' => 'Expected Graduation Year','attr' => array
-          ('class' => 'form-control'),))
+          ->add('graddate', 'choice', array(
+                'required'=> true,
+                'multiple'=> false,
+                'label' => 'Expected Graduation Year',
+                'choices'  => array(
+                    '2016' => '2016',
+                    '2017' => '2017',
+                    '2018' => '2018',
+                    '2019' => '2019',
+                    '2020' => '2020',
+                    '2021' => '2021',
+                    '2022' => '2022',
+                    '2023' => '2023',
+                    '2024' => '2024',
+                    '2025' => '2025',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => false,
+            ))
           ->add('gradterm', 'choice', array(
             'required'=> true,
             'multiple'=> false,

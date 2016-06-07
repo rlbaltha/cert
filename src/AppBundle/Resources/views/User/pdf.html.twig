@@ -149,6 +149,10 @@
                                 <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}{% endif %}</td>
                             </tr>
                             <tr>
+                                <th>Orientation Completed</th>
+                                <td>{% if entity.checklist.orientation %}{{ entity.checklist.orientation|date('m/d/Y') }}{% endif %}</td>
+                            </tr>
+                            <tr>
                                 <th>Anchor</th>
                                 <td>{% if entity.checklist.anchor %}{{ entity.checklist.anchor.name }}: {{ entity.checklist.anchor.title }}{% endif %}</td>
                             </tr>
@@ -211,6 +215,14 @@
                                 <td>{{ entity.capstone.type }}</td>
                             </tr>
                             <tr>
+                                <th>Group</th>
+                                <td>{{ entity.capstone.groupProject }}</td>
+                            </tr>
+                            <tr>
+                                <th>Group Members</th>
+                                <td>{{ entity.capstone.groupMembers|raw }}</td>
+                            </tr>
+                            <tr>
                                 <th>Description</th>
                                 <td>{{ entity.capstone.description |raw }}</td>
                             </tr>
@@ -253,6 +265,10 @@
                             <tr>
                                 <th>Timeframe</th>
                                 <td>{{ entity.capstone.timeframe }}</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>{{ entity.capstone.status }}</td>
                             </tr>
                             <tr>
                                 <th>Updated</th>

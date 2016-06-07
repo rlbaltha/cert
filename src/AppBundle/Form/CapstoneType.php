@@ -31,6 +31,29 @@ class CapstoneType extends AbstractType
               'attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),
             )
           )
+            ->add(
+                'group_project',
+                'choice',
+                array(
+                    'choices' => array(
+                        'Yes' => 'Yes',
+                        'No' => 'No',
+                    ),
+                    // *this line is important*
+                    'choices_as_values' => true,
+                    'label' => 'Are you working in a group?',
+                    'attr' => array('class' => 'text form-control'),
+                )
+            )
+            ->add(
+                'group_members',
+                'ckeditor',
+                array(
+                    'required' => false,
+                    'label' => 'If so, please list your group members.',
+                    'config_name' => 'editor_simple',
+                )
+            )
           ->add(
             'description',
             'ckeditor',
