@@ -1,16 +1,52 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-<div class="row">
-    <div class="col-sm-12">
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-primary pull-xs-right" href="{{ path('faculty_edit', { 'id': entity.id }) }}">Edit</a>{% endif %}
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="bootstrap-vertical-nav">
+
+                <nav class="navbar  navbar-dark bg-inverse">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-nav">
+                            {% if section is defined %}
+                                {% for page in section.pages %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item"><a href="{{ path('faculty_new') }}">
+                                        New Listing
+                                    </a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <div class="col-sm-10">
+            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-primary pull-xs-right"
+                                                href="{{ path('faculty_edit', { 'id': entity.id }) }}">
+                    Edit</a>{% endif %}
             <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
             {% if entity.photo != '' %}
-                        <img class="img-rounded img-responsive pull-right" style="max-width: 30%; margin: 20px;" alt="{{ entity.firstname }} {{ entity.firstname }}" src="{{ entity.photo }}"/>
+                <img class="img-rounded img-responsive pull-right" style="max-width: 30%; margin: 20px;"
+                     alt="{{ entity.firstname }} {{ entity.firstname }}" src="{{ entity.photo }}"/>
             {% endif %}
             <p>{{ entity.dept }}</p>
             <p>{{ entity.email }}</p>
             <p>{{ entity.detail|raw }}</p>
         </div>
-</div>
+    </div>
 {% endblock %}
