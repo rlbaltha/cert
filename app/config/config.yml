@@ -93,6 +93,17 @@ swiftmailer:
     encryption:  "%mailer_encryption%"
     spool:     { type: memory }
 
+be_simple_sso_auth:
+    admin_sso:
+        protocol:
+            id: cas
+            version: 2
+        server:
+            id: cas
+            login_url: https://cas.uga.edu/cas/login
+            logout_url: https://cas.uga.edu/cas/logout
+            validation_url: https://cas.uga.edu/cas/serviceValidate
+
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
