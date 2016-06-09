@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Ddeboer\DataImportBundle\DdeboerDataImportBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new BeSimple\SsoAuthBundle\BeSimpleSsoAuthBundle(),
             new AppBundle\AppBundle(),
         );
 
