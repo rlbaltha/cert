@@ -25,7 +25,7 @@ security:
                 providers: [fos_userbundle]
 
         fos_userbundle:
-            id: fos_user.user_provider.username
+            id: sso_user_provider
 
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt

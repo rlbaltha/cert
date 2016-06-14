@@ -10,3 +10,9 @@ services:
         tags:
                     - { name: form.type }
 
+
+    sso_user_provider:
+        class: AppBundle\Security\SSOUserProvider
+        arguments:
+            - '@fos_user.user_manager'
+            - '@doctrine.orm.entity_manager'
