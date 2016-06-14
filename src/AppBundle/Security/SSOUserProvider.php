@@ -26,6 +26,7 @@ class SSOUserProvider extends UserProvider implements UserFactoryInterface
         $user->setUsernameCanonical($username);
         $user->setEmail($email);
         $user->setEmailCanonical($email);
+        $user->setEnabled(true);
         $user->setPassword('123456');
         $this->em->persist($user);
         $this->em->flush();
