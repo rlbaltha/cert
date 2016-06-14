@@ -20,10 +20,12 @@ class SSOUserProvider extends UserProvider implements UserFactoryInterface
 
     public function createUser($username, array $roles, array $attributes)
     {
+        $email = $username.'@uga.edu';
         $user = new User();
         $user->setUsername($username);
-        // probably set some other fields, and maybe roles!
-
+        $user->setUsernameCanonical($username);
+        $user->setEmail($email);
+        $user->setEmailCanonical($email);
         $this->em->persist($user);
         $this->em->flush();
 
