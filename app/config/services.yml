@@ -16,3 +16,4 @@ services:
         arguments:
             - '@fos_user.user_manager'
             - '@doctrine.orm.entity_manager'
+            - '@fos_user.util.token_generator'
