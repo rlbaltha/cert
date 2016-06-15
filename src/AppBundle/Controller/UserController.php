@@ -82,7 +82,6 @@ class UserController extends Controller
      * @Route("/{id}", name="user_show")
      * @Method("GET")
      * @Template()
-     * @Security("has_role('ROLE_ADMIN')")
      */
     public function showAction($id)
     {
