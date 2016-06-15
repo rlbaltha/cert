@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use AppBundle\Form\ProfileType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * User controller.
@@ -38,6 +39,10 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
+        if ($entity->getLastname()==''){
+            return $this->redirect($this->generateUrl('user_edit', array('id' => $entity->getId())));
+        }
+
         return array(
           'entity' => $entity,
         );
@@ -49,6 +54,7 @@ class UserController extends Controller
      * @Route("/list/{type}", name="user", defaults={"type" = "all"})
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction($type)
     {
@@ -76,6 +82,7 @@ class UserController extends Controller
      * @Route("/{id}", name="user_show")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function showAction($id)
     {
@@ -100,6 +107,7 @@ class UserController extends Controller
      * Creates a pdf of users work
      *
      * @Route("/{id}/pdf", name="pdf")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function createPdfAction($id)
     {
@@ -212,6 +220,7 @@ class UserController extends Controller
      *
      * @Route("/{id}", name="user_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {
