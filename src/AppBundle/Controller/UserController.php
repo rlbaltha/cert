@@ -106,7 +106,6 @@ class UserController extends Controller
      * Creates a pdf of users work
      *
      * @Route("/{id}/pdf", name="pdf")
-     * @Security("has_role('ROLE_ADMIN')")
      */
     public function createPdfAction($id)
     {
