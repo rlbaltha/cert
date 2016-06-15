@@ -21,7 +21,6 @@ class SSOUserProvider extends UserProvider implements UserFactoryInterface
 
     public function createUser($username, array $roles, array $attributes)
     {
-        var_dump($attributes);die;
         $email = $username.'@uga.edu';
         $token = rtrim(strtr(base64_encode($this->getRandomNumber()), '+/', '-_'), '=');
         $password = substr($token, 0, 12);
