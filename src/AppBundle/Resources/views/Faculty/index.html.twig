@@ -6,7 +6,8 @@
             <div class="bootstrap-vertical-nav">
 
                 <nav class="navbar  navbar-dark bg-inverse">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
                         &#9776;
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
@@ -14,7 +15,9 @@
                             {% if section is defined %}
                                 {% for page in section.pages %}
                                     {% if (page.link is null or page.link == '') %}
-                                        <li class="nav-item"><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></li>
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
                                     {% else %}
                                         <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
                                     {% endif %}
@@ -33,16 +36,14 @@
         </div>
 
         <div class="col-sm-10">
-            <h1>Affliate Faculty</h1>
-
-            <p>Membership in the Affiliate Faculty of the Certificate shall be determined by the Advisory Board, following these guidelines:  
-            <ul>
-                <li>a member of this Faculty shall be a regular teacher of an approved course in the Certificate Program, or</li>
-                <li> shall have within the past two years directed a capstone project for the Certificate or</li>
-                <li>shall be engaged in research or publication in the area of the Certificate.</li>
-            </ul>
-             
-            </p>
+            <h1>
+                {% if entities %}
+                    {% if entities[0].status =='affliate' %}Affliate Faculty
+                    {% elseif entities[0].status =='advisory' %}Advisory Board
+                    {% else %}Emeritus
+                    {% endif %}
+                {% endif %}
+            </h1>
 
 
             <table class="table sort">
@@ -58,11 +59,14 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('faculty_show', { 'id': entity.id }) }}">{{ entity.firstname }} {{ entity.lastname }}</a></td>
+                        <td>
+                            <a href="{{ path('faculty_show', { 'id': entity.id }) }}">{{ entity.firstname }} {{ entity.lastname }}</a>
+                        </td>
                         <td>{{ entity.dept }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
-                                <a class="btn btn-primary" href="{{ path('faculty_edit', { 'id': entity.id }) }}">edit</a>
+                                <a class="btn btn-primary"
+                                   href="{{ path('faculty_edit', { 'id': entity.id }) }}">edit</a>
                             </td>
                         {% endif %}
                     </tr>

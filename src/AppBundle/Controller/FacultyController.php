@@ -22,15 +22,15 @@ class FacultyController extends Controller
     /**
      * Lists all Faculty entities.
      *
-     * @Route("/", name="faculty")
+     * @Route("/list/{status}", name="faculty")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($status)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Faculty')->findAllSorted();
+        $entities = $em->getRepository('AppBundle:Faculty')->findAllSorted($status);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Faculty');
 
         return array(
@@ -56,7 +56,7 @@ class FacultyController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('faculty'));
+            return $this->redirect($this->generateUrl('faculty', array('status' => 'all')));
         }
 
         return array(
@@ -227,7 +227,7 @@ class FacultyController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('faculty'));
+        return $this->redirect($this->generateUrl('faculty', array('status' => 'all')));
     }
 
     /**

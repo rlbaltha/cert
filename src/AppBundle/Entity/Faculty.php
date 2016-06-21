@@ -66,6 +66,19 @@ class Faculty
     /**
      * @var string
      *
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     */
+    private $status='Affliate Faculty';
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Course")
+     */
+    protected $courses;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="detail", type="text", nullable=true)
      */
     private $detail;
@@ -246,5 +259,70 @@ class Faculty
     public function getDetail()
     {
         return $this->detail;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Faculty
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Add course
+     *
+     * @param \AppBundle\Entity\Course $course
+     *
+     * @return Faculty
+     */
+    public function addCourse(\AppBundle\Entity\Course $course)
+    {
+        $this->courses[] = $course;
+
+        return $this;
+    }
+
+    /**
+     * Remove course
+     *
+     * @param \AppBundle\Entity\Course $course
+     */
+    public function removeCourse(\AppBundle\Entity\Course $course)
+    {
+        $this->courses->removeElement($course);
+    }
+
+    /**
+     * Get courses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCourses()
+    {
+        return $this->courses;
     }
 }

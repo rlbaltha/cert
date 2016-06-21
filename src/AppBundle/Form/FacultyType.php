@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class FacultyType extends AbstractType
 {
@@ -17,6 +18,19 @@ class FacultyType extends AbstractType
         $builder
           ->add('firstname','text', array('attr' => array('label'=> 'Firstname','class' => 'text form-control'),))
           ->add('lastname','text', array('attr' => array('label'=> 'Lastname','class' => 'text form-control'),))
+          ->add('status', 'choice', array(
+                'required'=> true,
+                'multiple'=> false,
+                'label' => 'Status',
+                'choices'  => array(
+                    'Affliate' => 'affliate',
+                    'Advisory Board' => 'advisory',
+                    'Emeritus' => 'emeritus',
+                ),
+              // *this line is important*
+              'choices_as_values' => true,
+              'expanded' => true,
+          ))
           ->add('dept','text', array('attr' => array('label'=> 'Department','class' => 'text form-control',
             'placeholder' => 'Dept'),'required'=>false))
           ->add('email','text', array('attr' => array('label'=> 'Email','class' => 'text form-control', 'placeholder'
@@ -24,6 +38,15 @@ class FacultyType extends AbstractType
           ->add('photo','text', array('label'=> 'Photo URL', 'attr' => array('class' => 'text form-control',
             'placeholder'=>'https://dept.uga.edu/photo.jpg'),'required'=>false))
           ->add('detail', 'ckeditor', array('label'=> 'Bio and Reseach','config_name' => 'editor_default','required'=>false))
+          ->add('courses', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.status = :status')
+                        ->setParameter('status', 'approved')
+                        ->orderBy('c.name ');
+                },
+              'property' => 'name','expanded'=>true,'multiple'=>true,'label'  => 'Courses', 'attr' => array
+              ('class' => 'checkbox'),))
         ;
     }
     

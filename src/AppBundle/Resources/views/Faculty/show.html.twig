@@ -47,6 +47,41 @@
             <p>{{ entity.dept }}</p>
             <p>{{ entity.email }}</p>
             <p>{{ entity.detail|raw }}</p>
+
+            {% if entity.courses|length > 0 %}
+                <table class="table sort">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th class="hidden-xs-down">Offered</th>
+                        <th class="hidden-xs-down">Prereqs</th>
+                        <th class="hidden-xs-down">Requirement</th>
+                        <th class="hidden-xs-down">Level</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entity.courses %}
+                        <tr>
+                            <td><a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                            <td>{{ entity.title }}</td>
+                            <td class="hidden-xs-down">{{ entity.offered }}</td>
+                            <td class="hidden-xs-down">{{ entity.prereqs }}</td>
+                            <td class="hidden-xs-down">{{ entity.pillar }}</td>
+                            <td class="hidden-xs-down">{{ entity.level }}</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td class="hidden-xs-down">
+                                    <a class="btn btn-primary"
+                                       href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+
+            {% endif %}
         </div>
     </div>
 {% endblock %}
