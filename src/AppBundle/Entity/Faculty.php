@@ -71,6 +71,13 @@ class Faculty
     private $status='Affliate Faculty';
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="mentor", type="string", length=255, nullable=true)
+     */
+    private $mentor='no';
+
+    /**
      * @ORM\ManyToMany(targetEntity="Course")
      */
     protected $courses;
@@ -324,5 +331,29 @@ class Faculty
     public function getCourses()
     {
         return $this->courses;
+    }
+
+    /**
+     * Set mentor
+     *
+     * @param string $mentor
+     *
+     * @return Faculty
+     */
+    public function setMentor($mentor)
+    {
+        $this->mentor = $mentor;
+
+        return $this;
+    }
+
+    /**
+     * Get mentor
+     *
+     * @return string
+     */
+    public function getMentor()
+    {
+        return $this->mentor;
     }
 }

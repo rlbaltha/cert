@@ -31,6 +31,18 @@ class FacultyType extends AbstractType
               'choices_as_values' => true,
               'expanded' => true,
           ))
+          ->add('mentor', 'choice', array(
+                'required'=> true,
+                'multiple'=> false,
+                'label' => 'Capstone Mentor',
+                'choices'  => array(
+                    'no' => 'no',
+                    'yes' => 'yes',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => true,
+            ))
           ->add('dept','text', array('attr' => array('label'=> 'Department','class' => 'text form-control',
             'placeholder' => 'Dept'),'required'=>false))
           ->add('email','text', array('attr' => array('label'=> 'Email','class' => 'text form-control', 'placeholder'
