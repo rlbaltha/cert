@@ -36,14 +36,42 @@
         </div>
 
         <div class="col-sm-10">
-            <h1>
-                {% if entities %}
-                    {% if entities[0].status =='affliate' %}Affliate Faculty
-                    {% elseif entities[0].status =='advisory' %}Advisory Board
-                    {% else %}Emeritus
-                    {% endif %}
+
+            {% if entities %}
+                {% if entities[0].status =='affliate' %}
+                    <h1>Affliate Faculty</h1>
+                    <p>Affliate Faculty meet one or more of the following:</p>
+
+                    <ul>
+                        <li>a member of this Faculty shall be a regular teacher of an approved course in the Certificate
+                            Program, or
+                        </li>
+                        <li>shall have within the past two years directed a capstone project for the Certificate or</li>
+                        <li>shall be engaged in research or publication in the area of the Certificate.</li>
+                    </ul>
+                {% elseif entities[0].status =='advisory' %}
+                    <h1>Advisory Board</h1>
+                    <p>The Advisory Board serves as the certificate steering committee and meets at least once per
+                        semester to support and advise the Director of the program.</p>
+                    <p>The Advisory Board is comprised of the Director and representatives from each participating
+                        college, the Center for Integrative Conservation Research, Office of Sustainability, Graduate
+                        School, and additional faculty as needed to provide balanced representation from each area of
+                        sustainability (economic, social, and ecological). Board members will serve two-year renewable
+                        terms.</p>
+                    <p>One chief task of the Board is to review courses for inclusion in the certificate. The Director
+                        will compile and forward a list of nominated courses to the Board for approval at least once a
+                        semester. The Board will periodically review courses previously submitted to make sure their
+                        inclusion in the certificate remains appropriate.</p>
+                    <p>Other responsibilities of the Board include identifying the academic home for the certificate
+                        with input from participating deans on a 3-year rotation or renewal basis, selecting the program
+                        Director, advising the Director regarding student capstone projects and internships as needed,
+                        overseeing disbursement and use of certificate program funds, and generally serving as
+                        ambassadors of the certificate, encouraging students, recruiting faculty participation, and
+                        periodically attending or presenting at the certificate seminar.</p>
+                {% else %}
+                    <h1>Emeritus</h1>
                 {% endif %}
-            </h1>
+            {% endif %}
 
 
             <table class="table sort">
