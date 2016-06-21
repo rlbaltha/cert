@@ -91,7 +91,6 @@
                             <a href="{{ path('faculty_show', { 'id': entity.id }) }}">{{ entity.firstname }} {{ entity.lastname }}</a>
                         </td>
                         <td>{{ entity.dept }}</td>
-                        <td>{{ entity.mentor }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
                                 <a class="btn btn-primary"
