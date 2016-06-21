@@ -59,7 +59,7 @@ class Faculty
     /**
      * @var string
      *
-     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="photo", type="string", length=510, nullable=true)
      */
     private $photo;
 
