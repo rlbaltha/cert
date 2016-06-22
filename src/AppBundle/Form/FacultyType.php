@@ -23,7 +23,7 @@ class FacultyType extends AbstractType
                 'multiple'=> false,
                 'label' => 'Status',
                 'choices'  => array(
-                    'Affliate' => 'affliate',
+                    'Affiliate' => 'affiliate',
                     'Advisory Board' => 'advisory',
                     'Emeritus' => 'emeritus',
                 ),
