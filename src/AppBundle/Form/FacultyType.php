@@ -53,8 +53,9 @@ class FacultyType extends AbstractType
           ->add('courses', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
-                        ->andWhere('c.status = :status')
-                        ->setParameter('status', 'approved')
+                        ->andWhere('c.status = :status1 or c.status = :status2')
+                        ->setParameter('status1', 'approved')
+                        ->setParameter('status2', 'exception')
                         ->orderBy('c.name ');
                 },
               'property' => 'name','expanded'=>true,'multiple'=>true,'label'  => 'Courses', 'label_attr'=> array('class' => 'checkbox-inline'),))

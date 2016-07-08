@@ -1,118 +1,148 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-<div class="row">
-    <div class="col-sm-2">
-        <div class="bootstrap-vertical-nav">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="bootstrap-vertical-nav">
 
-            <nav class="navbar  navbar-dark bg-inverse">
-                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-                    &#9776;
-                </button>
-                <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                    <ul class="nav navbar-nav">
-                        <li class="nav nav-header">Undergraduate</li>
-                        <li class="nav-item"><a href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor</a></li>
-                        <li class="nav-item"><a href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">Seminar</a></li>
-                        <li class="nav-item">
-                            <a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">Ecological</a>
-                        </li>
-                        <li class="nav-item"><a href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>
-                        </li>
-                        <li class="nav-item"><a href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a></li>
-                        <li class="nav-item"><a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a></li>
-                    </ul>
-                    {#
-                    <ul class="nav navbar-nav">
-                        <li class="nav navbar-header">Graduate</li>
-                        <li><a href="{{ path('course', { 'pillar':'anchor', 'level':'grad' }) }}">Anchor</a></li>
-                        <li><a href="{{ path('course', { 'pillar':'ecological', 'level':'grad' }) }}">Ecological</a>
-                        </li>
-                        <li><a href="{{ path('course', { 'pillar':'economic', 'level':'grad' }) }}">Economic</a></li>
-                        <li><a href="{{ path('course', { 'pillar':'social', 'level':'grad' }) }}">Social</a></li>
-                    </ul>
-                    #}
-
-                    {% if is_granted('ROLE_ADMIN') %}
+                <nav class="navbar  navbar-dark bg-inverse">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-nav">
-                            <li class="nav nav-header">Admin</li>
-                            <li class="nav-item"><a href="{{ path('course_new') }}">
-                                New Course
-                            </a></li>
-                            <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'pending'}) }}">Pending</a></li>
-                            <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a></li>
-                            <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'denied'}) }}">Denied</a></li>
+                            <li class="nav nav-header">Undergraduate</li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor</a>
+                            </li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">Seminar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">Ecological</a>
+                            </li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>
+                            </li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a>
+                            </li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a>
+                            </li>
+                            {% if is_granted('ROLE_USER') %}
+                                    <li class="nav-item"><a
+                                                href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a>
+                                    </li>
+                            {% endif %}
                         </ul>
-                    {% endif %}
-                </div>
-            </nav>
+                        {#
+                        <ul class="nav navbar-nav">
+                            <li class="nav navbar-header">Graduate</li>
+                            <li><a href="{{ path('course', { 'pillar':'anchor', 'level':'grad' }) }}">Anchor</a></li>
+                            <li><a href="{{ path('course', { 'pillar':'ecological', 'level':'grad' }) }}">Ecological</a>
+                            </li>
+                            <li><a href="{{ path('course', { 'pillar':'economic', 'level':'grad' }) }}">Economic</a></li>
+                            <li><a href="{{ path('course', { 'pillar':'social', 'level':'grad' }) }}">Social</a></li>
+                        </ul>
+                        #}
 
-        </div>
-    </div>
-
-
-    <div class="col-sm-10">
-        <h1>
-            Courses
-            {% if entities|length != 0%}
-            {% if app.request.attributes.get('_route') == 'course'%}
-                ({{ app.request.get('level') }}: {{ app.request.get('pillar') }})
-                {% else %}
-                ({{ entities[0].status }})
-            {% endif %}
-            {% endif %}
-        </h1>
-
-        <p>Students are required to take a minimum of 17 credit hours to earn the Sustainability Certificate.
-            <a href="{{ path('page_show', { 'id': '19' }) }}">See the Requirements page for details.</a> The
-            Certificate consists of the following components:
-        <ul>
-            <li><a href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor course</a>  (3 credit hours)</li>
-            <li>One course from each of 3 spheres
-                (<a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">Ecological</a>,
-                <a href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>,
-                <a href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a>) (9 credit hours)</li>
-            <li>Two semseters of the <a href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">Seminar</a> (2 credit hours)</li>
-            <li><a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a> (3 credit hours)</li>
-            <li>Portfolio</li>
-        </ul>
-        </p>
-        {% if entities|length > 0 %}
-            <table class="table sort">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Title</th>
-                    <th class="hidden-xs-down">Offered</th>
-                    <th class="hidden-xs-down">Prereqs</th>
-                    <th class="hidden-xs-down">Requirement</th>
-                    <th class="hidden-xs-down">Level</th>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <th class="hidden-xs-down">Actions</th>
-                    {% endif %}
-                </tr>
-                </thead>
-                <tbody>
-                {% for entity in entities %}
-                    <tr>
-                        <td><a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-                        <td>{{ entity.title }}</td>
-                        <td class="hidden-xs-down">{{ entity.offered }}</td>
-                        <td class="hidden-xs-down">{{ entity.prereqs }}</td>
-                        <td class="hidden-xs-down">{{ entity.pillar }}</td>
-                        <td class="hidden-xs-down">{{ entity.level }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <td class="hidden-xs-down">
-                                <a class="btn btn-primary"
-                                   href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
-                            </td>
+                            <ul class="nav navbar-nav">
+                                <li class="nav nav-header">Admin</li>
+                                <li class="nav-item"><a href="{{ path('course_new') }}">
+                                        New Course
+                                    </a></li>
+                                <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'pending'}) }}">Pending</a>
+                                </li>
+                                <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'denied'}) }}">Denied</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+
+        <div class="col-sm-10">
+            <h1>
+                Courses
+                {% if entities|length != 0 %}
+                    {% if app.request.attributes.get('_route') == 'course' %}
+                        ({{ app.request.get('level') }}: {{ app.request.get('pillar') }})
+                    {% else %}
+                        ({{ entities[0].status }})  N.B.
+                    {% endif %}
+                {% endif %}
+            </h1>
+
+            {% if app.request.attributes.get('_route') != 'course' %}
+            <div class="alert alert-warning" role="alert">
+                <strong>Note!</strong> Exceptions may be used for the certificate only if they meet particular requirements noted
+                in the description.
+            </div>
+            {% endif %}
+
+            <p>Students are required to take a minimum of 17 credit hours to earn the Sustainability Certificate.
+                <a href="{{ path('page_show', { 'id': '19' }) }}">See the Requirements page for details.</a> The
+                Certificate consists of the following components:
+            <ul>
+                <li><a href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor course</a> (3
+                    credit hours)
+                </li>
+                <li>One course from each of 3 spheres
+                    (<a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">Ecological</a>,
+                    <a href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>,
+                    <a href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a>) (9 credit
+                    hours)
+                </li>
+                <li>Two semseters of the <a href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">Seminar</a>
+                    (2 credit hours)
+                </li>
+                <li><a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a> (3 credit
+                    hours)
+                </li>
+                <li>Portfolio</li>
+            </ul>
+            </p>
+            {% if entities|length > 0 %}
+                <table class="table sort">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th class="hidden-xs-down">Offered</th>
+                        <th class="hidden-xs-down">Prereqs</th>
+                        <th class="hidden-xs-down">Requirement</th>
+                        <th class="hidden-xs-down">Level</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th class="hidden-xs-down">Actions</th>
                         {% endif %}
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-
-        {% endif %}
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td><a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                            <td>{{ entity.title }}</td>
+                            <td class="hidden-xs-down">{{ entity.offered }}</td>
+                            <td class="hidden-xs-down">{{ entity.prereqs }}</td>
+                            <td class="hidden-xs-down">{{ entity.pillar }}</td>
+                            <td class="hidden-xs-down">{{ entity.level }}</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td class="hidden-xs-down">
+                                    <a class="btn btn-primary"
+                                       href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
     </div>
-    {% endblock %}
+{% endblock %}

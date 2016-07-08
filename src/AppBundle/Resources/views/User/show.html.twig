@@ -198,27 +198,92 @@
                         </tr>
                         <tr>
                             <th>Anchor</th>
-                            <td>{% if entity.checklist.anchor %}{{ entity.checklist.anchor.name }}: {{ entity.checklist.anchor.title }}{% endif %}</td>
+                            <td>{% if entity.checklist.anchor %}
+                                    <a href="{{ path('course_show', { 'id': entity.checklist.anchor.id }) }}">
+                                        {{ entity.checklist.anchor.name }}: {{ entity.checklist.anchor.title }}
+                                    </a>
+                                    {% if entity.checklist.anchor.status=='exception' %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <strong>Note!</strong> This course has special requirements. Please note how
+                                            these requirements
+                                            were met in the exception space below.
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <th>Ecological Sphere</th>
-                            <td>{% if entity.checklist.sphere1 %}{{ entity.checklist.sphere1.name }}: {{ entity.checklist.sphere1.title }}{% endif %}</td>
+                            <td>{% if entity.checklist.sphere1 %}
+                                    <a href="{{ path('course_show', { 'id': entity.checklist.sphere1.id }) }}">
+                                        {{ entity.checklist.sphere1.name }}: {{ entity.checklist.sphere1.title }}
+                                    </a>
+                                    {% if entity.checklist.sphere1.status=='exception' %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <strong>Note!</strong> This course has special requirements. Please note how
+                                            these requirements
+                                            were met in the exception space below.
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <th>Economic Sphere</th>
-                            <td>{% if entity.checklist.sphere2 %}{{ entity.checklist.sphere2.name }}: {{ entity.checklist.sphere2.title }}{% endif %}</td>
+                            <td>{% if entity.checklist.sphere2 %}
+                                    <a href="{{ path('course_show', { 'id': entity.checklist.sphere2.id }) }}">
+                                        {{ entity.checklist.sphere2.name }}: {{ entity.checklist.sphere2.title }}
+                                    </a>
+                                    {% if entity.checklist.sphere2.status=='exception' %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <strong>Note!</strong> This course has special requirements. Please note how
+                                            these requirements
+                                            were met in the exception space below.
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <th>Social Sphere</th>
-                            <td>{% if entity.checklist.sphere3 %}{{ entity.checklist.sphere3.name }}: {{ entity.checklist.sphere3.title }}{% endif %}</td>
+                            <td>{% if entity.checklist.sphere3 %}
+                                    <a href="{{ path('course_show', { 'id': entity.checklist.sphere3.id }) }}">
+                                        {{ entity.checklist.sphere3.name }}: {{ entity.checklist.sphere3.title }}
+                                    </a>
+                                    {% if entity.checklist.sphere3.status=='exception' %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <strong>Note!</strong> This course has special requirements. Please note how
+                                            these requirements
+                                            were met in the exception space below.
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <th>Seminar</th>
-                            <td>{% if entity.checklist.seminar %}{{ entity.checklist.seminar.name }}: {{ entity.checklist.seminar.title }}{% endif %}</td>
+                            <td>{% if entity.checklist.seminar %}
+                                    <a href="{{ path('course_show', { 'id': entity.checklist.seminar.id }) }}">
+                                        {{ entity.checklist.seminar.name }}: {{ entity.checklist.seminar.title }}
+                                    </a>
+                                    {% if entity.checklist.sphere3.status=='exception' %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <strong>Note!</strong> This course has special requirements. Please note how
+                                            these requirements
+                                            were met in the exception space below.
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <th>Capstone</th>
-                            <td>{% if entity.checklist.capstone %}{{ entity.checklist.capstone.name }}: {{ entity.checklist.capstone.title }}{% endif %}</td>
+                            <td>{% if entity.checklist.capstone %}
+                                    <a href="{{ path('course_show', { 'id': entity.checklist.capstone.id }) }}">
+                                        {{ entity.checklist.capstone.name }}: {{ entity.checklist.capstone.title }}
+                                    </a>
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <th>Portfolio</th>

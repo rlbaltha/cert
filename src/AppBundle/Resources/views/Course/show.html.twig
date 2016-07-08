@@ -6,21 +6,36 @@
             <div class="bootstrap-vertical-nav">
 
                 <nav class="navbar  navbar-dark bg-inverse">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
                         &#9776;
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-nav">
                             <li class="nav nav-header">Undergraduate</li>
-                            <li class="nav-item"><a href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor</a></li>
-                            <li class="nav-item"><a href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">Seminar</a></li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor</a>
+                            </li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">Seminar</a>
+                            </li>
                             <li class="nav-item">
                                 <a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">Ecological</a>
                             </li>
-                            <li class="nav-item"><a href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>
                             </li>
-                            <li class="nav-item"><a href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a></li>
-                            <li class="nav-item"><a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a></li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a>
+                            </li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a>
+                            </li>
+                            {% if is_granted('ROLE_USER') %}
+                                <li class="nav-item"><a
+                                            href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a>
+                                </li>
+                            {% endif %}
                         </ul>
                         {#
                         <ul class="nav navbar-nav">
@@ -39,9 +54,10 @@
                                 <li class="nav-item"><a href="{{ path('course_new') }}">
                                         New Course
                                     </a></li>
-                                <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'pending'}) }}">Pending</a></li>
-                                <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a></li>
-                                <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'denied'}) }}">Denied</a></li>
+                                <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'pending'}) }}">Pending</a>
+                                </li>
+                                <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'denied'}) }}">Denied</a>
+                                </li>
                             </ul>
                         {% endif %}
                     </div>
