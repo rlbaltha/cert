@@ -297,10 +297,11 @@ class ProgramController extends Controller
 
         $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
         $email = $user_entity->getEmail();
-        $text = ', your application for the Sustainability Certficate has been approved.  Congrats.  Continue by filling in the Checklist.
-        Now that your application has been approved, you may add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena.
-        We would also like for you to take a survey as part of our assessment of the certificate program:  https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V
-        We will have an orientation at the beginning of each semester, but you are welcome to contact the director at any time:  scdirector@uga.edu.';
+        $text =  '<p>'.$name.', your application for the Sustainability Certificate has been approved. Congrats and welcome! </p>
+                 <p>Continue by filling in the Checklist.</p>
+                 <p>Now that your application has been approved, you may add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena.</p>
+                 <p>We would also like for you to take a survey as part of our assessment of the certificate program: https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V</p>
+                 <p>We will have an orientation at the beginning of each semester, but you are welcome to contact the director at any time: scdirector@uga.edu.</p>';
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Certificate Application Approved')
