@@ -74,7 +74,7 @@
                     {% if app.request.attributes.get('_route') == 'course' %}
                         ({{ app.request.get('level') }}: {{ app.request.get('pillar') }})
                     {% else %}
-                        ({{ entities[0].status }})  N.B.
+                        ({{ entities[0].status }})
                     {% endif %}
                 {% endif %}
             </h1>
