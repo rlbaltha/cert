@@ -48,7 +48,7 @@ class ProgramController extends Controller
 
             $user = $em->getRepository('AppBundle:User')->find($user);
             $name = $user->getFirstname().' '.$user->getLastname();
-            $text = ' has created an application.';
+            $text = $name.' has created an application.';
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Certificate Application')
@@ -184,7 +184,7 @@ class ProgramController extends Controller
             $user=$this->getUser();
             $user = $em->getRepository('AppBundle:User')->find($user);
             $name = $user->getFirstname().' '.$user->getLastname();
-            $text = ' has updated an application.';
+            $text = $name.' has updated an application.';
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Certificate Application')
@@ -244,7 +244,7 @@ class ProgramController extends Controller
 
         $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
         $email = 'scdirector@uga.edu';
-        $text = 'has submitted an application that is ready for review.';
+        $text = $name.' has submitted an application that is ready for review.';
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Certificate Application Ready for Review')
