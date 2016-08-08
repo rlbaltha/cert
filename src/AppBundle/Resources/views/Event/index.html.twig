@@ -6,13 +6,12 @@
         <div class="bootstrap-vertical-nav">
 
             <nav class="navbar  navbar-dark bg-inverse">
-                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                        data-target="#exCollapsingNavbar2">
                     &#9776;
                 </button>
                 <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                     <ul class="nav navbar-nav">
-                        <li class="nav-item"><a href="{{ path('event') }}">Certificate Events</a></li>
-                        <li class="nav-item"><a target="_blank" href="http://sustainability.uga.edu/what-were-doing/calendar/">Sustainability Events</a></li>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item"><a href="{{ path('event_new') }}">New Event</a></li>
                         {% endif %}
@@ -25,23 +24,27 @@
 
 
     <div class="col-sm-10">
-        <h1>Sustainability Events</h1>
+        <a class="btn btn-primary pull-xs-right" href="http://sustainability.uga.edu/events">Campus Sustainability
+            Events</a>
+        <h1>Sustainability Certificate Events</h1>
 
         {% for event in entities %}
-        <div class="card card-block">
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-primary pull-xs-right" href="{{ path('event_edit', {'id':event.id}) }}">
-                    Edit
-                </a>
-            {% endif %}
-            <h3 class="card-title">{{ event.title }}</h3>
-            <p class="card-text">{{ event.datetime|date("l, F d") }} {% if event.datetime|date("g:i A") == "12:00 AM" %}{% else %}{{ event.datetime|date("g:i A") }}{% endif %}</p>
-            <p class="card-text">{{ event.body|raw }}</p>
-        </div>
+            <div class="card card-block">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-primary pull-xs-right" href="{{ path('event_edit', {'id':event.id}) }}">
+                        Edit
+                    </a>
+                {% endif %}
+                <h3 class="card-title">{{ event.title }}</h3>
+                <p class="card-text">{{ event.datetime|date("l, F d") }} {% if event.datetime|date("g:i A") == "12:00 AM" %}{% else %}{{ event.datetime|date("g:i A") }}{% endif %}</p>
+                <p class="card-text">{{ event.body|raw }}</p>
+            </div>
+
+        {% else %}
+            <div class="card card-text">
+                <p>There are no events at this time. Please check back soon.</p>
+            </div>
+
+        {% endfor %}
     </div>
-    {% else %}
-        <div class="card-text">
-            <p>There are no events at this time. Please check back soon.</p>
-        </div>
-    {% endfor %}
     {% endblock %}
