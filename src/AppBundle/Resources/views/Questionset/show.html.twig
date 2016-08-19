@@ -1,0 +1,38 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+<div class="row">
+    <div class="col-sm-2">
+        <div class="bootstrap-vertical-nav">
+
+            <nav class="navbar  navbar-dark bg-inverse">
+                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                        data-target="#exCollapsingNavbar2">
+                    &#9776;
+                </button>
+                <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                    <ul class="nav navbar-nav">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item"><a href="{{ path('questionset') }}">
+                                    Questions sets
+                                </a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="col-sm-10">
+        <a class="btn btn-primary pull-xs-right" href="{{ path('question_new', { 'id': entity.id }) }}">Add Question</a>
+    <h1>Question set:  {{ entity.title }}</h1>
+        {% for question in entity.questions %}
+            <div class="card card-block">
+                <a class="btn btn-primary pull-xs-right" href="{{ path('question_edit', { 'id': question.id }) }}">Edit</a>
+                {{ question.question|raw }}
+            </div>
+        {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

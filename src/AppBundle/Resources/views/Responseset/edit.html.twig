@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts -%}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            {# nice little jquery plugin for sorting: tinysort #}
+            tinysort('#questions>div', {data: 'position'});
+        });
+    </script>
+{% endblock %}
+
+
+{% block body -%}
+    <div class="col-sm-12">
+        <h1>{{ entity.responses[0].question.questionset.title }}</h1>
+
+        <div class="alert alert-info" role="alert">Please respond to the following questions.</div>
+
+        {{ form_start(edit_form) }}
+        <div id="questions">
+            {% for response in edit_form.responses %}
+                <div data-position="{{ entity.responses[loop.index-1].question.position }}" class="card card-block">
+                    <strong>
+                        {{ entity.responses[loop.index-1].question.question|raw }}
+                    </strong>
+                    {{ form_row(response.response) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        {{ form_end(edit_form) }}
+    </div>
+{% endblock %}

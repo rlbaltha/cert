@@ -149,6 +149,11 @@ class Capstone
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="Responseset", mappedBy="capstone")
+     */
+    private $responsesets;
+
+    /**
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -654,5 +659,46 @@ class Capstone
     public function getGroupProject()
     {
         return $this->group_project;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->responsesets = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add responseset
+     *
+     * @param \AppBundle\Entity\Responseset $responseset
+     *
+     * @return Capstone
+     */
+    public function addResponseset(\AppBundle\Entity\Responseset $responseset)
+    {
+        $this->responsesets[] = $responseset;
+
+        return $this;
+    }
+
+    /**
+     * Remove responseset
+     *
+     * @param \AppBundle\Entity\Responseset $responseset
+     */
+    public function removeResponseset(\AppBundle\Entity\Responseset $responseset)
+    {
+        $this->responsesets->removeElement($responseset);
+    }
+
+    /**
+     * Get responsesets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResponsesets()
+    {
+        return $this->responsesets;
     }
 }

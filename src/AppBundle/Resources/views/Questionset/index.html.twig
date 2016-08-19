@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="bootstrap-vertical-nav">
+
+                <nav class="navbar  navbar-dark bg-inverse">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-nav">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item"><a href="{{ path('questionset') }}">
+                                        Questionsset
+                                    </a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="col-sm-10">
+            <h1>Question sets</h1>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('questionset_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+                        <td><a href="{{ path('questionset_edit', { 'id': entity.id }) }}">edit</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <ul>
+                <li>
+                    <a href="{{ path('questionset_new') }}">
+                        Create a new entry
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

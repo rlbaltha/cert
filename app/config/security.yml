@@ -39,6 +39,10 @@ security:
         - { path: ^/program/, role: ROLE_USER }
         - { path: ^/checklist/, role: ROLE_USER }
         - { path: ^/capstone/, role: ROLE_USER }
+        - { path: ^/question/, role: ROLE_USER }
+        - { path: ^/questionset/, role: ROLE_USER }
+        - { path: ^/response/, role: ROLE_USER }
+        - { path: ^/responseset/, role: ROLE_USER }
         - { path: ^/upload/, role: ROLE_ADMIN }
         - { path: edit$, role: ROLE_ADMIN }
         - { path: new$, role: ROLE_ADMIN }

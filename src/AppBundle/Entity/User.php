@@ -95,6 +95,11 @@ class User extends BaseUser
     private $capstone;
 
     /**
+     * @ORM\OneToMany(targetEntity="Responseset", mappedBy="user")
+     */
+    private $responsesets;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Status")
      */
     protected $progress;
@@ -368,5 +373,39 @@ class User extends BaseUser
     public function getProgress()
     {
         return $this->progress;
+    }
+
+    /**
+     * Add responseset
+     *
+     * @param \AppBundle\Entity\Responseset $responseset
+     *
+     * @return User
+     */
+    public function addResponseset(\AppBundle\Entity\Responseset $responseset)
+    {
+        $this->responsesets[] = $responseset;
+
+        return $this;
+    }
+
+    /**
+     * Remove responseset
+     *
+     * @param \AppBundle\Entity\Responseset $responseset
+     */
+    public function removeResponseset(\AppBundle\Entity\Responseset $responseset)
+    {
+        $this->responsesets->removeElement($responseset);
+    }
+
+    /**
+     * Get responsesets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResponsesets()
+    {
+        return $this->responsesets;
     }
 }
