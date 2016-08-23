@@ -310,18 +310,9 @@
 
 
         <div class="col-sm-4">
-            <a class="btn btn-primary pull-xs-right"
-               href="{{ path('responseset_new',  { 'id': entity.capstone.id }) }}">
-                Create Peer Review
-            </a>
-            <hr/>
-            {% for responseset in entity.capstone.responsesets %}
-            <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
-                View Peer Review
-            </a>
-            {% endfor %}
-            <hr/>
+
             <a href="#collapse_capstone" class="" data-toggle="collapse"><h2 class="inline">Capstone</h2></a>
+
             {% if entity.capstone %}
                 {% if is_granted('ROLE_ADMIN') and entity.capstone.status != 'Approved' %}
                     <a title="Approve this capstone" class="btn btn-primary  align-right"
@@ -356,6 +347,20 @@
 
 
             <div id="collapse_capstone" class="collapse in">
+
+
+                {% if entity.capstone.responsesets|length > 0  %}
+                <h3>Peer Reviews </h3>
+
+                {% for responseset in entity.capstone.responsesets %}
+                    <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
+                        by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
+                    </a>
+                    <br/>
+                {% endfor %}
+                <hr/>
+                {% endif %}
+
 
                 {% if entity.capstone %}
                     <table class="table">

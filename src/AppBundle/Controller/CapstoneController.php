@@ -18,6 +18,48 @@ use AppBundle\Form\CapstoneType;
 class CapstoneController extends Controller
 {
 
+    /**
+     * Lists all Page entities.
+     *
+     * @Route("/", name="capstone")
+     * @Method("GET")
+     * @Template()
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppBundle:Capstone')->findAll();
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+
+    /**
+     * Finds and displays a Page entity.
+     *
+     * @Route("/{id}", name="capstone_show")
+     * @Method("GET")
+     * @Template()
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Capstone')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
 
     /**
      * Creates a new Capstone entity.

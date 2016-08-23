@@ -1,0 +1,117 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $("#togglecol").click(function () {
+                $(".col-sm-4").toggleClass("col-sm-12");
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-12">
+
+            <h1 class="inline">{{ entity.user.firstname }} {{ entity.user.lastname }}</h1>
+
+
+            <h2>Capstone</h2>
+
+            <p>The capstone project provides an opportunity for you to apply your classroom learning to hands-on
+                sustainability challenges. For details, please review the information under the <strong>Student</strong>
+                heading of the website.
+                You will be notified by the Director when your application is approved.</p>
+
+
+            {% if entity.responsesets|length > 0 %}
+                <h3>Peer Reviews </h3>
+
+                {% for responseset in entity.responsesets %}
+                    <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
+                        by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
+                    </a>
+                    <br/>
+                {% endfor %}
+                <hr/>
+            {% endif %}
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ entity.title }}</td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>{{ entity.type }}</td>
+                </tr>
+                <tr>
+                    <th>Group</th>
+                    <td>{{ entity.groupProject }}</td>
+                </tr>
+                <tr>
+                    <th>Group Members</th>
+                    <td>{{ entity.groupMembers|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ entity.description |raw }}</td>
+                </tr>
+                <tr>
+                    <th>Goals</th>
+                    <td>{{ entity.goals|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Objectives</th>
+                    <td>{{ entity.objectives|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Timeline</th>
+                    <td>{{ entity.timeline|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Resources/Partners</th>
+                    <td>{{ entity.partners|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Personal Objectives</th>
+                    <td>{{ entity.personalObjectives|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Success Metrics</th>
+                    <td>{{ entity.successMetrics|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Steps</th>
+                    <td>{{ entity.steps|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Application</th>
+                    <td>{{ entity.application|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Mentor</th>
+                    <td>{{ entity.mentor }} {{ entity.mentorEmail }}</td>
+                </tr>
+                <tr>
+                    <th>Timeframe</th>
+                    <td>{{ entity.timeframe }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ entity.status }}</td>
+                </tr>
+                <tr>
+                    <th>Updated</th>
+                    <td>{{ entity.updated |date("m/d/Y g:ia") }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
