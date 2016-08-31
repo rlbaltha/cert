@@ -36,30 +36,6 @@ class CapstoneController extends Controller
         );
     }
 
-    /**
-     * Finds and displays a Page entity.
-     *
-     * @Route("/{id}", name="capstone_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Capstone')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
 
     /**
      * Creates a new Capstone entity.
@@ -213,6 +189,30 @@ class CapstoneController extends Controller
         );
     }
 
+    /**
+     * Finds and displays a Page entity.
+     *
+     * @Route("/{id}", name="capstone_show")
+     * @Method("GET")
+     * @Template()
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Capstone')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Capstone entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
 
     /**
      * Capstone Ready for review and send email.
