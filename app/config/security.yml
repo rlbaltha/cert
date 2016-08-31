@@ -24,10 +24,9 @@ security:
 #    encoders:
 #        FOS\UserBundle\Model\UserInterface: bcrypt
 
-
     firewalls:
         main:
-            pattern: /^
+            pattern: ^/
             trusted_sso:
                 manager: admin_sso
                 create_users: true
@@ -36,7 +35,7 @@ security:
                 logout_action: false
                 login_path: /login
                 check_path: /login
-                failure_path: /register
+                failure_path: /
             provider: fos_userbundle
             anonymous:    true
             switch_user: true
@@ -53,7 +52,7 @@ security:
             id: sso_user_provider
 
     encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
+        FOS\UserBundle\Model\UserInterface: sha512
 
     access_control:
 
