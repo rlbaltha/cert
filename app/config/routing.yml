@@ -12,3 +12,4 @@ login_check:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+

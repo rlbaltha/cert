@@ -63,24 +63,19 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Progress</th>
+                    <th>Name (Email)</th>
+                    <th>School: Program</th>
                     <th>Expected Graduation</th>
-                    <th>Actions</th>
+                    <th>Progress</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}, {{ entity.firstname }}</a></td>
-
-                        <td>{{ entity.email }}</td>
-                        <td>{% if entity.progress %}{{ entity.progress.name }}{% else %}Account Created{% endif %}</td>
+                        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}, {{ entity.firstname }}</a> ({{ entity.email }})</td>
+                        <td>{% if entity.program %}{{ entity.program.school }}: {{ entity.program.program }}{% endif %}</td>
                         <td>{% if entity.program %}{{ entity.program.graddate }} {{ entity.program.gradterm }}{% endif %}</td>
-                        <td>
-                            <a class="btn btn-primary" href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
-                        </td>
+                        <td>{% if entity.progress %}{{ entity.progress.name }}{% else %}Account Created{% endif %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
