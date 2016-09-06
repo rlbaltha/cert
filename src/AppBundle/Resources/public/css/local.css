@@ -1,6 +1,5 @@
 body {
     font-family: 'Raleway', sans-serif;
-
 }
 
 .container-fluid {
@@ -9,6 +8,7 @@ body {
 
 .col-sm-10 {
     padding: 3rem;
+
 }
 
 .col-sm-12 {

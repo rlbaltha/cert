@@ -15,28 +15,45 @@ class ProgramType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-          ->add('school', 'text', array('label' => 'School/College','attr' => array('class' => 'form-control'),))
-          ->add('program', 'text', array('label' => 'Major/Degree Program','attr' => array('class' => 'form-control'),))
-          ->add('ugaid', 'text', array('label' => 'UGA ID ','attr' => array('class' => 'form-control',
-            'placeholder'=>'811000000'),))
-          ->add('level', 'choice', array(
-            'choices'  => array(
-              'Undergrad' => 'Undergrad',
-              'Grad' => 'Grad'
-            ),
-              // *this line is important*
-            'choices_as_values' => true,
-            'expanded' => true,
-          ))
-          ->add('degree', 'text', array('required'=> false, 'label' => 'Previous degree(s)','attr' => array('class' =>
-      'form-control'),))
-          ->add('institution', 'text', array('required'=> false,'label' => 'Previous Institution(s)','attr' => array('class' => 'form-control'),))
-          ->add('graddate', 'choice', array(
-                'required'=> true,
-                'multiple'=> false,
+            ->add('school', 'choice', array(
+                'required' => true,
+                'multiple' => false,
+                'label' => 'School/College',
+                'choices' => array(
+                    'Franklin' => 'Franklin',
+                    'CAES' => 'CAES',
+                    'Terry' => 'Terry',
+                    'Ecology' => 'Ecology',
+                    'Engineering' => 'Engineering',
+                    'CE+D' => 'CE+D',
+                    'FACS' => 'FACS',
+                    'Warnell' => 'Warnell',
+                    'Social Work' => 'Social Work',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => false,
+            ))
+            ->add('program', 'text', array('label' => 'Major/Degree Program', 'attr' => array('class' => 'form-control'),))
+            ->add('ugaid', 'text', array('label' => 'UGA ID ', 'attr' => array('class' => 'form-control',
+                'placeholder' => '811000000'),))
+            ->add('level', 'choice', array(
+                'choices' => array(
+                    'Undergrad' => 'Undergrad',
+                    'Grad' => 'Grad'
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => true,
+            ))
+            ->add('degree', 'text', array('required' => false, 'label' => 'Previous degree(s)', 'attr' => array('class' =>
+                'form-control'),))
+            ->add('institution', 'text', array('required' => false, 'label' => 'Previous Institution(s)', 'attr' => array('class' => 'form-control'),))
+            ->add('graddate', 'choice', array(
+                'required' => true,
+                'multiple' => false,
                 'label' => 'Expected Graduation Year',
-                'choices'  => array(
+                'choices' => array(
                     '2016' => '2016',
                     '2017' => '2017',
                     '2018' => '2018',
@@ -52,51 +69,50 @@ class ProgramType extends AbstractType
                 'choices_as_values' => true,
                 'expanded' => false,
             ))
-          ->add('gradterm', 'choice', array(
-            'required'=> true,
-            'multiple'=> false,
-            'label' => 'Expected Graduation Term',
-            'choices'  => array(
-              'Spring' => 'Spring',
-              'Summer' => 'Summer',
-              'Fall' => 'Fall',
-            ),
-              // *this line is important*
-            'choices_as_values' => true,
-            'expanded' => true,
-          ))
-          ->add('address', 'text', array('required'=> false,'label' => 'Street','attr' => array('class' => 'form-control'),))
-          ->add('cityst', 'text', array('required'=> false,'label' => 'City, State, Zip','attr' => array('class' => 'form-control'),))
-          ->add('country', 'text', array('required'=> false,'label' => 'Country','attr' => array('class' =>
-            'form-control'),))
-          ->add('phone', 'text', array('required'=> false,'label' => 'Phone','attr' => array('class' => 'form-control'),))
-          ->add('area', 'choice', array(
-            'required'=> false,
-              'multiple'=> true,
-            'label' => 'Areas of Interest',
-            'choices'  => array(
-              'Energy' => 'Energy',
-              'Water' => 'Water',
-              'Transportation' => 'Transportation',
-              'Food' => 'Food',
-              'Waste' => 'Waste',
-            ),
-              // *this line is important*
-            'choices_as_values' => true,
-            'expanded' => true,
-          ))
-          ->add('interest', 'ckeditor', array('required'=> false,'label' => 'Details on your interest in Sustainability','config_name'
-          =>
-            'editor_simple',))
-          ->add('experience', 'ckeditor', array('required'=> false,'label' => 'Experience in Sustainability','config_name'
-          =>
-            'editor_simple',))
-          ->add('goals', 'ckeditor', array('required'=> false,'label' => 'What are your goals','config_name'
-          =>
-            'editor_simple',))
-        ;
+            ->add('gradterm', 'choice', array(
+                'required' => true,
+                'multiple' => false,
+                'label' => 'Expected Graduation Term',
+                'choices' => array(
+                    'Spring' => 'Spring',
+                    'Summer' => 'Summer',
+                    'Fall' => 'Fall',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => true,
+            ))
+            ->add('address', 'text', array('required' => false, 'label' => 'Street', 'attr' => array('class' => 'form-control'),))
+            ->add('cityst', 'text', array('required' => false, 'label' => 'City, State, Zip', 'attr' => array('class' => 'form-control'),))
+            ->add('country', 'text', array('required' => false, 'label' => 'Country', 'attr' => array('class' =>
+                'form-control'),))
+            ->add('phone', 'text', array('required' => false, 'label' => 'Phone', 'attr' => array('class' => 'form-control'),))
+            ->add('area', 'choice', array(
+                'required' => false,
+                'multiple' => true,
+                'label' => 'Areas of Interest',
+                'choices' => array(
+                    'Energy' => 'Energy',
+                    'Water' => 'Water',
+                    'Transportation' => 'Transportation',
+                    'Food' => 'Food',
+                    'Waste' => 'Waste',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => true,
+            ))
+            ->add('interest', 'ckeditor', array('required' => false, 'label' => 'Details on your interest in Sustainability', 'config_name'
+            =>
+                'editor_simple',))
+            ->add('experience', 'ckeditor', array('required' => false, 'label' => 'Experience in Sustainability', 'config_name'
+            =>
+                'editor_simple',))
+            ->add('goals', 'ckeditor', array('required' => false, 'label' => 'What are your goals', 'config_name'
+            =>
+                'editor_simple',));
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -21,7 +21,7 @@ class UserType extends BaseType
           ->add('lastname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
