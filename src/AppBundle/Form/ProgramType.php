@@ -29,10 +29,14 @@ class ProgramType extends AbstractType
                     'FACS' => 'FACS',
                     'Warnell' => 'Warnell',
                     'Social Work' => 'Social Work',
+                    'Grady' => 'Grady',
+                    'SPIA' => 'SPIA',
+                    'Public Health' => 'Public Health',
                 ),
                 // *this line is important*
                 'choices_as_values' => true,
                 'expanded' => false,
+                'attr' => array('class' =>'form-control'),
             ))
             ->add('program', 'text', array('label' => 'Major/Degree Program', 'attr' => array('class' => 'form-control'),))
             ->add('ugaid', 'text', array('label' => 'UGA ID ', 'attr' => array('class' => 'form-control',
@@ -68,6 +72,7 @@ class ProgramType extends AbstractType
                 // *this line is important*
                 'choices_as_values' => true,
                 'expanded' => false,
+                'attr' => array('class' =>'form-control'),
             ))
             ->add('gradterm', 'choice', array(
                 'required' => true,
