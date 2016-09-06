@@ -580,16 +580,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "1.6.3",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1"
+                "reference": "dd40b0a7fb16658cda9def9786992b8df8a49be7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/fd51907c6c76acaa8a5234822a4f901c1500afc1",
-                "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/dd40b0a7fb16658cda9def9786992b8df8a49be7",
+                "reference": "dd40b0a7fb16658cda9def9786992b8df8a49be7",
                 "shasum": ""
             },
             "require": {
@@ -598,6 +598,7 @@
                 "jdorn/sql-formatter": "~1.1",
                 "php": ">=5.3.2",
                 "symfony/console": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
                 "symfony/doctrine-bridge": "~2.2|~3.0",
                 "symfony/framework-bundle": "~2.3|~3.0"
             },
@@ -656,7 +657,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2016-04-21 19:55:56"
+            "time": "2016-08-10 15:35:22"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1113,12 +1114,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "298f27ce696deaa6ecd72e6ba563f892a17e0512"
+                "reference": "147ca6888712365e5ad3b7906f7b6e8654da2f48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/298f27ce696deaa6ecd72e6ba563f892a17e0512",
-                "reference": "298f27ce696deaa6ecd72e6ba563f892a17e0512",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/147ca6888712365e5ad3b7906f7b6e8654da2f48",
+                "reference": "147ca6888712365e5ad3b7906f7b6e8654da2f48",
                 "shasum": ""
             },
             "require": {
@@ -1127,6 +1128,9 @@
                 "symfony/framework-bundle": "~2.3|~3.0",
                 "symfony/security-bundle": "~2.3|~3.0",
                 "symfony/twig-bundle": "~2.3|~3.0"
+            },
+            "conflict": {
+                "symfony/doctrine-bridge": "<2.3"
             },
             "require-dev": {
                 "doctrine/doctrine-bundle": "~1.3",
@@ -1174,20 +1178,20 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2016-06-21 10:34:42"
+            "time": "2016-08-31 11:01:35"
         },
         {
             "name": "gedmo/doctrine-extensions",
-            "version": "v2.4.13",
+            "version": "v2.4.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Atlantic18/DoctrineExtensions.git",
-                "reference": "5f4b6c848f0d6834a434a62a09a0935d147082e1"
+                "reference": "b8188801bafc420b86908ee5229a5e92143ce514"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/5f4b6c848f0d6834a434a62a09a0935d147082e1",
-                "reference": "5f4b6c848f0d6834a434a62a09a0935d147082e1",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/b8188801bafc420b86908ee5229a5e92143ce514",
+                "reference": "b8188801bafc420b86908ee5229a5e92143ce514",
                 "shasum": ""
             },
             "require": {
@@ -1253,7 +1257,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2016-02-18 15:33:43"
+            "time": "2016-08-30 18:42:36"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1699,16 +1703,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.19.0",
+            "version": "1.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf"
+                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5f56ed5212dc509c8dc8caeba2715732abb32dbf",
-                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f42fbdfd53e306bda545845e4dbfd3e72edb4952",
+                "reference": "f42fbdfd53e306bda545845e4dbfd3e72edb4952",
                 "shasum": ""
             },
             "require": {
@@ -1727,8 +1731,8 @@
                 "php-console/php-console": "^3.1.3",
                 "phpunit/phpunit": "~4.5",
                 "phpunit/phpunit-mock-objects": "2.3.0",
-                "raven/raven": "^0.13",
                 "ruflin/elastica": ">=0.90 <3.0",
+                "sentry/sentry": "^0.13",
                 "swiftmailer/swiftmailer": "~5.3"
             },
             "suggest": {
@@ -1740,9 +1744,9 @@
                 "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
                 "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
                 "php-console/php-console": "Allow sending log messages to Google Chrome",
-                "raven/raven": "Allow sending log messages to a Sentry server",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
-                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+                "sentry/sentry": "Allow sending log messages to a Sentry server"
             },
             "type": "library",
             "extra": {
@@ -1773,7 +1777,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-04-12 18:29:35"
+            "time": "2016-07-29 03:23:52"
         },
         {
             "name": "paragonie/random_compat",
@@ -1863,17 +1867,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v4.0.6",
+            "version": "v4.0.7",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "181a47c527a04d2d03986a0b3e9c1b86eaacab40"
+                "reference": "d738952285a1a7d969f9338f735108c9f65bb7f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/181a47c527a04d2d03986a0b3e9c1b86eaacab40",
-                "reference": "181a47c527a04d2d03986a0b3e9c1b86eaacab40",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/d738952285a1a7d969f9338f735108c9f65bb7f2",
+                "reference": "d738952285a1a7d969f9338f735108c9f65bb7f2",
                 "shasum": ""
             },
             "require": {
@@ -1919,7 +1923,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-04-25 20:49:44"
+            "time": "2016-06-23 16:10:25"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2090,23 +2094,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.2",
+            "version": "v5.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1,<0.9.4"
+                "mockery/mockery": "~0.9.1"
             },
             "type": "library",
             "extra": {
@@ -2139,7 +2143,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-05-01 08:45:47"
+            "time": "2016-07-08 11:51:25"
         },
         {
             "name": "symfony/assetic-bundle",
@@ -2442,16 +2446,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.7.14",
+            "version": "v2.7.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "fe443f4a8b6b2f3977d4fe6b348e9f85a7840ea1"
+                "reference": "42199fef6e9b448947d395add058642975e59127"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/fe443f4a8b6b2f3977d4fe6b348e9f85a7840ea1",
-                "reference": "fe443f4a8b6b2f3977d4fe6b348e9f85a7840ea1",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/42199fef6e9b448947d395add058642975e59127",
+                "reference": "42199fef6e9b448947d395add058642975e59127",
                 "shasum": ""
             },
             "require": {
@@ -2514,7 +2518,7 @@
                 "doctrine/dbal": "~2.4",
                 "doctrine/doctrine-bundle": "~1.2",
                 "doctrine/orm": "~2.4,>=2.4.5",
-                "egulias/email-validator": "~1.2",
+                "egulias/email-validator": "~1.2,>=1.2.1",
                 "ircmaxell/password-compat": "~1.0",
                 "monolog/monolog": "~1.11",
                 "ocramius/proxy-manager": "~0.4|~1.0|~2.0"
@@ -2565,7 +2569,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-06-06 15:23:39"
+            "time": "2016-07-30 08:15:52"
         },
         {
             "name": "twig/twig",
