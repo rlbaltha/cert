@@ -157,7 +157,7 @@ ivory_ck_editor:
             stylesSet: 'cert_styles:../../bundles/app/js/ckeditor_styles.js'
     toolbars:
         configs:
-            toolbar_default: [ ['Bold','Italic','Underline','Strike','JustifyLeft','JustifyCenter','JustifyRight','TextColor','BGColor','FontSize'],['Link','Unlink','NumberedList','BulletedList','Outdent','Indent','Image','MediaEmbed'],[ 'Undo', 'Redo','RemoveFormat'] ]
+            toolbar_default: [ ['Styles','Bold','Italic','Underline','Strike','JustifyLeft','JustifyCenter','JustifyRight','TextColor','BGColor','FontSize'],['Link','Unlink','NumberedList','BulletedList','Outdent','Indent','Image','MediaEmbed'],[ 'Undo', 'Redo','RemoveFormat'] ]
             toolbar_simple: [ ['Bold','Italic','Underline','Strike'],['Link','Unlink'],['NumberedList','BulletedList']]
             toolbar_page: [ ['Source','Styles','Bold','Italic','Underline','Strike','Font','FontSize'],['JustifyLeft','JustifyCenter','JustifyRight'],['TextColor','BGColor'],['Link','Unlink'],['NumberedList','BulletedList'],['Outdent','Indent'],['Image'],[ 'PasteText', 'Table', 'Undo', 'Redo','RemoveFormat','Maximize'] ]
 
