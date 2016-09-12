@@ -32,7 +32,7 @@
 
                 {% for responseset in entity.responsesets %}
                     <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
-                        by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
+                        {{ responseset.user.firstname }} {{ responseset.user.lastname }}
                     </a>
                     <br/>
                 {% endfor %}

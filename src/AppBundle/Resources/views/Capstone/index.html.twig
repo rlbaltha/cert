@@ -54,17 +54,26 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>Name Email</th>
+                    <th>Capstone Status</th>
+                    <th>Peer Reviews</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('capstone_show', { 'id': entity.id }) }}">{{ entity.user.firstname }}, {{ entity.user.lastname }}</a></td>
+                        <td><a href="{{ path('capstone_show', { 'id': entity.id }) }}">{{ entity.user.firstname }}, {{ entity.user.lastname }}</a> {{ entity.user.email }}</td>
 
-                        <td>{{ entity.user.email }}</td>
+                        <td>{{ entity.status }}</td>
+                        <td>{% if entity.responsesets|length > 0 %}
+                                {% for responseset in entity.responsesets %}
+                                    <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
+                                        {{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
+                        </td>
                         <td>
                             <a class="btn btn-primary pull-xs-right"
                                href="{{ path('responseset_new',  { 'id': entity.id }) }}">
