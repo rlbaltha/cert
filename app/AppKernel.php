@@ -23,6 +23,8 @@ class AppKernel extends Kernel
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new BeSimple\SsoAuthBundle\BeSimpleSsoAuthBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new AppBundle\AppBundle(),
         );
 

@@ -25,7 +25,9 @@
         "egeloen/ckeditor-bundle": "^3.0",
         "vich/uploader-bundle": "^0.14.0",
         "knplabs/knp-snappy-bundle": "dev-master",
-        "besimple/sso-auth-bundle": "@dev"
+        "besimple/sso-auth-bundle": "@dev",
+        "adesigns/calendar-bundle": "^1.1",
+        "friendsofsymfony/jsrouting-bundle": "^1.6"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
