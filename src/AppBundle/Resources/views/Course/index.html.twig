@@ -36,7 +36,6 @@
                                                 href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a>
                                     </li>
                             {% endif %}
-                            <li><hr/></li>
                             <li class="nav-item"><a
                                         href="{{ path('course_listbylocation', { 'location':'Abroad', 'status':'approved' }) }}">Study Abroad</a>
                             </li>
@@ -77,13 +76,15 @@
                 {% if entities|length != 0 %}
                     {% if app.request.attributes.get('_route') == 'course' %}
                         ({{ app.request.get('level') }}: {{ app.request.get('pillar') }})
+                    {% elseif app.request.attributes.get('_route') == 'course_listbylocation' %}
+                        (study abroad)
                     {% else %}
                         ({{ entities[0].status }})
                     {% endif %}
                 {% endif %}
             </h1>
 
-            {% if app.request.attributes.get('_route') != 'course' %}
+            {% if app.request.get('status') == 'exception'  %}
             <div class="alert alert-warning" role="alert">
                 <strong>Note!</strong> Exceptions may be used for the certificate only if they meet particular requirements noted
                 in the description.
