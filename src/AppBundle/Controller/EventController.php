@@ -30,9 +30,11 @@ class EventController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Events');
 
         return array(
             'entities' => $entities,
+            'section' => $section,
         );
     }
     /**
