@@ -103,6 +103,13 @@ class Course
     /**
      * @var string
      *
+     * @ORM\Column(name="location", type="string", length=255, nullable=true)
+     */
+    private $location='Campus';
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="status", type="string", length=255, nullable=true)
      */
     private $status='pending';
@@ -405,5 +412,29 @@ class Course
     public function getContact()
     {
         return $this->contact;
+    }
+
+    /**
+     * Set location
+     *
+     * @param string $location
+     *
+     * @return Course
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return string
+     */
+    public function getLocation()
+    {
+        return $this->location;
     }
 }

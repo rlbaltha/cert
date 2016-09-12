@@ -45,6 +45,23 @@ class CourseRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * find course by status
+     *
+     * @return Course
+     */
+    public function findByLocation($location, $status) {
+        $courses = $this->createQueryBuilder('c')
+            ->andWhere('c.location = :location')
+            ->andWhere('c.status = :status')
+            ->setParameter('location', $location)
+            ->setParameter('status', $status)
+            ->orderBy('c.name ')
+            ->getQuery()
+            ->getResult();
+        return $courses;
+    }
+
+    /**
      * find all courses
      *
      * @return Course
@@ -56,4 +73,5 @@ class CourseRepository extends \Doctrine\ORM\EntityRepository
           ->getResult();
         return $courses;
     }
+
 }

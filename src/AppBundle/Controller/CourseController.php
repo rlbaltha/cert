@@ -63,6 +63,25 @@ class CourseController extends Controller
     }
 
     /**
+     * Lists all Course entities.
+     *
+     * @Route("/listbylocation/{location}/{status}", name="course_listbylocation")
+     * @Method("GET")
+     * @Template("AppBundle:Course:index.html.twig")
+     */
+    public function listbylocationAction($location, $status)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppBundle:Course')->findByLocation($location, $status);
+
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+
+    /**
      * Creates a new Course entity.
      *
      * @Route("/", name="course_create")

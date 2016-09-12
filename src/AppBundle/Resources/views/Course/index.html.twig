@@ -36,6 +36,10 @@
                                                 href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a>
                                     </li>
                             {% endif %}
+                            <li><hr/></li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course_listbylocation', { 'location':'Abroad', 'status':'approved' }) }}">Study Abroad</a>
+                            </li>
                         </ul>
                         {#
                         <ul class="nav navbar-nav">
