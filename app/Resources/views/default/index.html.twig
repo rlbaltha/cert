@@ -26,19 +26,33 @@
 {% block body %}
 
     <div class="landing">
-        <a class="btn btn-primary officebtn hidden-xs-down" href="http://sustainability.uga.edu/">Looking for the Office of Sustainability?</a>
-        <p>The University of Georgia's </p>
+        <a class="btn btn-primary officebtn hidden-xs-down" href="http://sustainability.uga.edu/">Looking for the
+            Office of Sustainability?</a>
 
-        <h1 class="header"><span class="header">Sustainability</span> Certificate</h1>
-        <p>
-            The sustainability certificate equips students with the skills to make significant,
-            systemic changes in their communities, paving the way for a more sustainable future.
-        </p>
-        <p class="hidden-xs-down">Through the process of obtaining the sustainability certificate, students gain knowledge about the myriad of issues pertaining to sustainability,
-            achieve enlightened perspectives about what sustainability means for individuals, communities, and the world, and acquire experience applying
-            this understanding to meaningful, real-world situations.
-        </p>
-        <a class="btn btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
+        <div class="col-sm-8">
+            <p>The University of Georgia's </p>
+
+            <h1 class="header"><span class="header">Sustainability</span> Certificate</h1>
+            <p>
+                The sustainability certificate equips students with the skills to make significant,
+                systemic changes in their communities, paving the way for a more sustainable future.
+            </p>
+            <p class="hidden-xs-down">Through the process of obtaining the sustainability certificate, students gain
+                knowledge about the myriad of issues pertaining to sustainability,
+                achieve enlightened perspectives about what sustainability means for individuals, communities, and the
+                world, and acquire experience applying
+                this understanding to meaningful, real-world situations.
+            </p>
+            <a class="btn btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
+        </div>
+        <div class="col-sm-4">
+
+
+            <a class="twitter-timeline" data-width="400" data-theme="dark" data-link-color="#971c1e"
+               href="https://twitter.com/uga_scdirector">Tweets by Sustain Cert.</a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+        </div>
         <a id="scroll1" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Down</a>
     </div>
 
@@ -52,7 +66,8 @@
         <p class="hidden-xs-down">The application is available on our website.</p>
 
         <p class="hidden-xs-down">Students must be in good standing with the university at the time of applying. </p>
-        <a class="btn btn-primary" href="{{ path('page_show', { 'id': '20' }) }}">Learn More <span class="sr-only">about applying</span> </a>
+        <a class="btn btn-primary" href="{{ path('page_show', { 'id': '20' }) }}">Learn More <span class="sr-only">about applying</span>
+        </a>
 
     </div>
 
@@ -69,8 +84,10 @@
 
         <h2>What are the requirements?</h2>
 
-        <p class="hidden-xs-down">The Sustainability Certificate is a 17-hour certificate that requires students to take a three-hour anchor course,
-            one three-hour course under each sphere of sustainability, two one-hour seminars, as well as complete a three-hour capstone project.</p>
+        <p class="hidden-xs-down">The Sustainability Certificate is a 17-hour certificate that requires students to take
+            a three-hour anchor course,
+            one three-hour course under each sphere of sustainability, two one-hour seminars, as well as complete a
+            three-hour capstone project.</p>
 
         <a class="btn btn-primary" href="{{ path('page_show', { 'id': '19' }) }}">Learn More <span class="sr-only">about the certficate</span></a>
         <a id="scroll2" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Down</a>
@@ -86,22 +103,28 @@
             <p>Talley Vodicka, Administrative Specialist</p>
             <p>Nirav Ilango, Intern</p>
             <p>Email: scdirector@uga.edu (preferred)</p>
-            <p>Phone:  706-542-0458 </p>
+            <p>Phone: 706-542-0458 </p>
             <img alt="Sustainability logo" class="img-responsive
                 navbar-logo hidden-xs" src="{{ asset('bundles/app/images/sustainableugawhitenav.png') }}">
         </div>
         <div class="col-sm-6">
             <h2>Participants</h2>
             <p><a class="inverse" href="http://sustainability.uga.edu/" target="_blank">Office of Sustainability</a></p>
-            <p><a class="inverse" href="http://cicr.uga.edu/" target="_blank">Center for Intergrative Conservation Research</a></p>
-            <p><a class="inverse" href="http://franklin.uga.edu/" target="_blank">The Franklin College of Arts and Science</a></p>
-            <p><a class="inverse" href="http://www.caes.uga.edu/" target="_blank">College of Agricultural and Environmental Sciences</a></p>
+            <p><a class="inverse" href="http://cicr.uga.edu/" target="_blank">Center for Intergrative Conservation
+                    Research</a></p>
+            <p><a class="inverse" href="http://franklin.uga.edu/" target="_blank">The Franklin College of Arts and
+                    Science</a></p>
+            <p><a class="inverse" href="http://www.caes.uga.edu/" target="_blank">College of Agricultural and
+                    Environmental Sciences</a></p>
             <p><a class="inverse" href="http://www.terry.uga.edu/" target="_blank">Terry College of Business</a></p>
             <p><a class="inverse" href="http://www.ecology.uga.edu/" target="_blank">Odum School of Ecology</a></p>
             <p><a class="inverse" href="http://www.engineering.uga.edu/" target="_blank">College of Engineering</a></p>
-            <p><a class="inverse" href="http://www.ced.uga.edu/" target="_blank">College of Environment and Design</a></p>
-            <p><a class="inverse" href="http://www.fcs.uga.edu/" target="_blank">College of Family and Consumer Sciences</a></p>
-            <p><a class="inverse" href="http://www.warnell.uga.edu/" target="_blank">Warnell School of Forestry and Natural Resources</a></p>
+            <p><a class="inverse" href="http://www.ced.uga.edu/" target="_blank">College of Environment and Design</a>
+            </p>
+            <p><a class="inverse" href="http://www.fcs.uga.edu/" target="_blank">College of Family and Consumer
+                    Sciences</a></p>
+            <p><a class="inverse" href="http://www.warnell.uga.edu/" target="_blank">Warnell School of Forestry and
+                    Natural Resources</a></p>
             <p><a class="inverse" href="http://ssw.uga.edu/" target="_blank">School of Social Work</a></p>
         </div>
         <a id="scroll3" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Up</a>
