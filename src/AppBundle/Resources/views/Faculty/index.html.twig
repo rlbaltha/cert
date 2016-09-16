@@ -101,6 +101,9 @@
                 {% endfor %}
                 </tbody>
             </table>
+            {% if is_granted('ROLE_ADMIN') %}
+            <p>Email list: {% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
+            {% endif %}
         </div>
     </div>
 
