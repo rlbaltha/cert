@@ -12,6 +12,18 @@
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-nav">
+                            {% if section %}
+                                {% for page in section.pages if section %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+
                             <li class="nav nav-header">Undergraduate</li>
                             <li class="nav-item"><a
                                         href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor</a>
