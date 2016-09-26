@@ -35,7 +35,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     {
         $course = $this->createQueryBuilder('u')
             ->join('u.progress', 'p')
-            ->andWhere("p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'")
+            ->andWhere("p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
             ->getQuery()
             ->getResult();
         return $course;
