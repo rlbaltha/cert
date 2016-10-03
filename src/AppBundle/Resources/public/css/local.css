@@ -129,6 +129,13 @@ form div div {
 input + label {
     margin-right: 15px;
 }
+
+/**********  calendar **********/
+
+.fc-event-title {
+    cursor: pointer;
+}
+
 /********** homepage ***********/
 
 .landing {
