@@ -75,6 +75,13 @@ class Course
     /**
      * @var string
      *
+     * @ORM\Column(name="notes", type="text", nullable=true)
+     */
+    private $notes;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="contact", type="string", length=255)
      */
     private $contact='Certificate Director';
@@ -436,5 +443,29 @@ class Course
     public function getLocation()
     {
         return $this->location;
+    }
+
+    /**
+     * Set notes
+     *
+     * @param string $notes
+     *
+     * @return Course
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Get notes
+     *
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
     }
 }
