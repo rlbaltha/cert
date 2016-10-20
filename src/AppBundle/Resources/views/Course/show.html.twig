@@ -97,12 +97,16 @@
                 </tr>
                 </tbody>
             </table>
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="card card-block">Admin notes: {{ entity.notes|raw }}</div>
+            {% endif %}
             <div class="card card-block">{{ entity.description|raw }}</div>
             {% if entity.syllabus|length > 10 %}
                 <div class="card card-block">
                     <p>Contact:  {{ entity.contact }}</p>
                     {{ entity.syllabus|raw }}</div>
             {% endif %}
+
         </div>
     </div>
 {% endblock %}

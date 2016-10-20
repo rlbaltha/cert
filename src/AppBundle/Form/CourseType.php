@@ -44,6 +44,7 @@ class CourseType extends AbstractType
             'attr' => array('class' => 'radio'),))
             ->add('description', 'ckeditor', array('config_name' => 'editor_default',))
             ->add('syllabus', 'ckeditor', array('config_name' => 'editor_default',))
+            ->add('notes', 'ckeditor', array('config_name' => 'editor_default',))
             ->add('contact', 'text', array('required' =>false, 'attr' => array('label' => 'Contact', 'class' => 'text
             form-control'),))
             ->add('contact_email', 'text', array('required' =>false, 'attr' => array('label' => 'Contact Email', 'class' => 'text

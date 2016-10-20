@@ -29,6 +29,7 @@ class CourseController extends Controller
     public function indexAction($pillar, $level, $status)
     {
         $em = $this->getDoctrine()->getManager();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
 
         if ($pillar=='all') {
             $entities = '';
@@ -40,6 +41,7 @@ class CourseController extends Controller
 
         return array(
             'entities' => $entities,
+            'section' => $section,
         );
     }
 
@@ -53,12 +55,14 @@ class CourseController extends Controller
     public function listbystatusAction($status)
     {
         $em = $this->getDoctrine()->getManager();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
 
             $entities = $em->getRepository('AppBundle:Course')->findByStatus($status);
 
 
         return array(
-          'entities' => $entities,
+            'entities' => $entities,
+            'section' => $section,
         );
     }
 
@@ -72,12 +76,14 @@ class CourseController extends Controller
     public function listbylocationAction($location, $status)
     {
         $em = $this->getDoctrine()->getManager();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
 
         $entities = $em->getRepository('AppBundle:Course')->findByLocation($location, $status);
 
 
         return array(
             'entities' => $entities,
+            'section' => $section,
         );
     }
 
