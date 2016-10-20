@@ -82,6 +82,13 @@ class Course
     /**
      * @var string
      *
+     * @ORM\Column(name="contact_email", type="string", length=255, nullable=true)
+     */
+    private $contact_email='scdirector@uga.edu';
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="pillar", type="string", length=255, nullable=true)
      */
     private $pillar;
@@ -436,5 +443,29 @@ class Course
     public function getLocation()
     {
         return $this->location;
+    }
+
+    /**
+     * Set contactEmail
+     *
+     * @param string $contactEmail
+     *
+     * @return Course
+     */
+    public function setContactEmail($contactEmail)
+    {
+        $this->contact_email = $contactEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get contactEmail
+     *
+     * @return string
+     */
+    public function getContactEmail()
+    {
+        return $this->contact_email;
     }
 }
