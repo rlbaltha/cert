@@ -328,14 +328,16 @@ class CourseController extends Controller
         if ($state=='approved') {
             $text =  '<p>'.$name.', the course you proposed for the Sustainability Certificate has been approved. 
             Thanks much for being part of the certificate and for all you do for sustainability at UGA.</p>
-            <p>You should be able to see your course listed now on the website:  https://www.sustain.uga.edu. 
+            <p>You should be able to see your course listed now on the website:  
+            <a href="https://www.sustain.uga.edu">https://www.sustain.uga.edu</a>. 
              Please contact us if you have questions: scdirector@uga.edu.</p>';
         }
         else {
             $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate, but we do 
              not feel the course meets our criteria for inclusion.  As a baseline for the spheres, we would like to see
               at least 50% of the course directly focused on sustainability and clearly see sustainability in the description and course objectives.
-             For me details, please read the criteria for including a course on our website:  https://www.sustain.uga.edu/page/29
+             For me details, please read the criteria for including a course on our website: 
+              <a href="https://www.sustain.uga.edu/page/29">https://www.sustain.uga.edu/page/29</a>
             </p>
             <p>Please contact us if you have questions: scdirector@uga.edu.</p>';
         }
