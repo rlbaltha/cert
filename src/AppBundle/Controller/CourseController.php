@@ -325,12 +325,15 @@ class CourseController extends Controller
 
         $name = $entity->getContact();
         $email = $entity->getContactEmail();
+        $course = $entity->getName();
         if ($state=='approved') {
-            $text =  '<p>'.$name.', the course you proposed for the Sustainability Certificate has been approved. 
+            $text =  '<p>'.$name.', '.$course.'  has been approved for the Sustainability Certificate. 
             Thanks much for being part of the certificate and for all you do for sustainability at UGA.</p>
             <p>You should be able to see your course listed now on the website:  
             <a href="https://www.sustain.uga.edu">https://www.sustain.uga.edu</a>. 
-             Please contact us if you have questions: scdirector@uga.edu.</p>';
+             <p>Please contact us if you have questions: scdirector@uga.edu.</p>
+             <p>The Cert Staff</p>
+             ';
         }
         else {
             $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate, but we do 
