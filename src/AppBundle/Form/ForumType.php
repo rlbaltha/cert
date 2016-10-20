@@ -18,6 +18,8 @@ class ForumType extends AbstractType
             ->add('title', 'text', array('attr' => array('class' => 'text form-control'),))
             ->add('body', 'ckeditor', array('config_name' => 'editor_default',))
             ->add('parent', 'entity', array(
+                'required'    => false,
+                'empty_data'  => null,
                 'class' => 'AppBundle:Forum',
                 'choice_label' => 'title',
                 'label' => 'Forum',

@@ -44,12 +44,13 @@
                                         href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a>
                             </li>
                             {% if is_granted('ROLE_USER') %}
-                                    <li class="nav-item"><a
-                                                href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a>
-                                    </li>
+                                <li class="nav-item"><a
+                                            href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a>
+                                </li>
                             {% endif %}
                             <li class="nav-item"><a
-                                        href="{{ path('course_listbylocation', { 'location':'Abroad', 'status':'approved' }) }}">Study Abroad</a>
+                                        href="{{ path('course_listbylocation', { 'location':'Abroad', 'status':'approved' }) }}">Study
+                                    Abroad</a>
                             </li>
                         </ul>
                         {#
@@ -96,11 +97,12 @@
                 {% endif %}
             </h1>
 
-            {% if app.request.get('status') == 'exception'  %}
-            <div class="alert alert-warning" role="alert">
-                <strong>Note!</strong> Exceptions may be used for the certificate only if they meet particular requirements noted
-                in the description.
-            </div>
+            {% if app.request.get('status') == 'exception' %}
+                <div class="alert alert-warning" role="alert">
+                    <strong>Note!</strong> Exceptions may be used for the certificate only if they meet particular
+                    requirements noted
+                    in the description.
+                </div>
             {% endif %}
 
             <p>Students are required to take a minimum of 17 credit hours to earn the Sustainability Certificate.
@@ -135,27 +137,21 @@
                         <th class="hidden-xs-down">Prereqs</th>
                         <th class="hidden-xs-down">Requirement</th>
                         <th class="hidden-xs-down">Level</th>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <th class="hidden-xs-down">Actions</th>
-                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
                     {% for entity in entities %}
                         <tr>
-                            <td><a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                            <td>
+                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
+                            </td>
                             <td>{{ entity.title }}</td>
                             <td class="hidden-xs-down">{{ entity.offered }}</td>
                             <td class="hidden-xs-down">{{ entity.prereqs }}</td>
                             <td class="hidden-xs-down">{{ entity.pillar }}</td>
                             <td class="hidden-xs-down">{{ entity.level }}</td>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <td class="hidden-xs-down">
-                                    <a class="btn btn-primary"
-                                       href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>
-                                </td>
-                            {% endif %}
                         </tr>
+
                     {% endfor %}
                     </tbody>
                 </table>

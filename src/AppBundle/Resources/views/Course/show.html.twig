@@ -71,11 +71,16 @@
         </div>
 
         <div class="col-sm-10">
-            {% if is_granted('ROLE_ADMIN') %}
-                <td class="hidden-xs-down">
-                    <a class="btn btn-primary pull-xs-right" href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
-                </td>
-            {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="btn-group pull-sm-right" role="group" aria-label="Basic example">
+                        <a class="btn btn-primary"
+                           href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
+                        <a class="btn btn-primary"
+                           href="{{ path('course_approval', {'state':'approved', 'id': entity.id }) }}">Approve</a>
+                        <a class="btn btn-primary"
+                           href="{{ path('course_approval', { 'state':'denied', 'id': entity.id }) }}">Deny</a>
+                    </div>
+                {% endif %}
             <h1>{{ entity.name }}</h1>
             <table class="table">
                 <thead>

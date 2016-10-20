@@ -254,6 +254,7 @@ class CourseController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Course entity.
      *
@@ -296,4 +297,68 @@ class CourseController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Approve Application and send email.
+     *
+     * @Route("/approval/{state}/{id}", name="course_approval")
+     * @Method("GET")
+     * @Template("AppBundle:Course:index.html.twig")
+     */
+    public function approveAction($id, $state)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Course')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Course entity.');
+        }
+
+        $timestamp = date('m/d/Y h:i:s A');
+        $notes = $entity->getNotes();
+        $entity->setNotes($notes.'<p> Course '.$state.' '.$timestamp.'</p>');
+        $entity->setStatus($state);
+
+        $em->persist($entity);
+        $em->flush();
+
+        $name = $entity->getContact();
+        $email = $entity->getContactEmail();
+        if ($state=='approved') {
+            $text =  '<p>'.$name.', the course you proposed for the Sustainability Certificate has been approved. 
+            Thanks much for being part of the certificate and for all you do for sustainability at UGA.</p>
+            <p>You should be able to see your course listed now on the website:  https://www.sustain.uga.edu. 
+             Please contact us if you have questions: scdirector@uga.edu.</p>';
+        }
+        else {
+            $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate, but we do 
+             not feel the course meets our criteria for inclusion.  As a baseline for the spheres, we would like to see
+              at least 50% of the course directly focused on sustainability and clearly see sustainability in the description and course objectives.
+             For me details, please read the criteria for including a course on our website:  https://www.sustain.uga.edu/page/29
+            </p>
+            <p>Please contact us if you have questions: scdirector@uga.edu.</p>';
+        }
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Course Proposed for Sustainability Certificate')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo($email)
+            ->setBcc('scdirector@uga.edu')
+            ->setBody(
+                $this->renderView(
+
+                    'AppBundle:Email:apply.html.twig',
+                    array('name' => $name,
+                        'text' => $text)
+                ),
+                'text/html'
+            )
+        ;
+        $this->get('mailer')->send($message);
+
+        return $this->redirect($this->generateUrl('course_listbystatus', array('status' => 'pending')));
+    }
+
+
 }
