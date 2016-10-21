@@ -1,5 +1,35 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "filter", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"],
+                    filter_reset: ".reset",
+                    filter_cssFilter: "form-control",
+                },
+                headers: {
+                    5: {sorter: false, filter: false},
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body -%}
     <div class="row">
         <div class="col-sm-2">
@@ -74,6 +104,8 @@
                                 </li>
                                 <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'denied'}) }}">Denied</a>
                                 </li>
+                                <li class="nav-item"><a href="{{ path('course_listall') }}">All</a>
+                                </li>
                             </ul>
                         {% endif %}
                     </div>
@@ -91,6 +123,8 @@
                         ({{ app.request.get('level') }}: {{ app.request.get('pillar') }})
                     {% elseif app.request.attributes.get('_route') == 'course_listbylocation' %}
                         (study abroad)
+                    {% elseif app.request.attributes.get('_route') == 'course_listall' %}
+                        (all)
                     {% else %}
                         ({{ entities[0].status }})
                     {% endif %}
@@ -137,6 +171,9 @@
                         <th class="hidden-xs-down">Prereqs</th>
                         <th class="hidden-xs-down">Requirement</th>
                         <th class="hidden-xs-down">Level</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th class="hidden-xs-down">Status</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
@@ -150,6 +187,9 @@
                             <td class="hidden-xs-down">{{ entity.prereqs }}</td>
                             <td class="hidden-xs-down">{{ entity.pillar }}</td>
                             <td class="hidden-xs-down">{{ entity.level }}</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td class="hidden-xs-down">{{ entity.status }}</td>
+                            {% endif %}
                         </tr>
 
                     {% endfor %}

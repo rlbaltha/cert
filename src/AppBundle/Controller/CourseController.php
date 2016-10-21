@@ -87,6 +87,29 @@ class CourseController extends Controller
         );
     }
 
+
+    /**
+     * Lists all Course entities.
+     *
+     * @Route("/listall", name="course_listall")
+     * @Method("GET")
+     * @Template("AppBundle:Course:index.html.twig")
+     */
+    public function listallAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
+
+        $entities = $em->getRepository('AppBundle:Course')->findAllSorted();
+
+
+        return array(
+            'entities' => $entities,
+            'section' => $section,
+        );
+    }
+
+
     /**
      * Creates a new Course entity.
      *
