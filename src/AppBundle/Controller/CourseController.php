@@ -359,10 +359,10 @@ class CourseController extends Controller
              ';
         }
         else {
-            $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate, but we do 
-             not feel the course meets our criteria for inclusion.  As a baseline for the spheres, we would like to see
-              at least 50% of the course directly focused on sustainability and clearly see sustainability in the description and course objectives.
-             For me details, please read the criteria for including a course on our website: 
+            $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate.  Our Review Committee does 
+             not feel that '.$course.' meets our criteria for inclusion.  As a baseline for our sustainability spheres, we would like to see
+              at least 50% of the course directly focused on sustainability and would like to see sustainability in the description 
+              and course objectives. For me details, please read the criteria for including a course on our website: 
               <a href="https://www.sustain.uga.edu/page/29">https://www.sustain.uga.edu/page/29</a>
             </p>
             <p>Please contact us if you have questions: scdirector@uga.edu.</p>';
