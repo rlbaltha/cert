@@ -359,7 +359,7 @@ class CourseController extends Controller
              ';
         }
         else {
-            $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate.  Our Review Committee does 
+            $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate.  The Review Committee does 
              not feel that '.$course.' meets our criteria for inclusion.  As a baseline for our sustainability spheres, we would like to see
               at least 50% of the course directly focused on sustainability and would like to see sustainability in the description 
               and course objectives. For more details, please read the criteria for including a course on our website: 
