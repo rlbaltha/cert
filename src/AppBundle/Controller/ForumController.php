@@ -210,7 +210,17 @@ class ForumController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('forum_show', array('id' => $id)));
+            if ($entity->getParent()->getParent()) {
+                $returnid = $entity->getParent()->getParent()->getId();
+            }
+            elseif ($entity->getParent()) {
+                $returnid = $entity->getParent()->getId();
+            }
+            else {
+                $returnid = $entity->getId();
+            }
+
+            return $this->redirect($this->generateUrl('forum_show', array('id' => $returnid)));
         }
 
         return array(
