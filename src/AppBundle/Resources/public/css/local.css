@@ -136,6 +136,11 @@ input + label {
     cursor: pointer;
 }
 
+/********** forum ***********/
+.card-forum {
+    margin-top: 2rem;
+    }
+
 /********** homepage ***********/
 
 .landing {

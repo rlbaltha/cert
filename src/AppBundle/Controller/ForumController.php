@@ -29,7 +29,7 @@ class ForumController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Forum')->findAll();
+        $entities = $em->getRepository('AppBundle:Forum')->findTopLevel();
 
         return array(
             'entities' => $entities,
@@ -57,7 +57,17 @@ class ForumController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('forum_show', array('id' => $entity->getId())));
+            if ($entity->getParent()->getParent()) {
+                $returnid = $entity->getParent()->getParent()->getId();
+            }
+            elseif ($entity->getParent()) {
+                $returnid = $entity->getParent()->getId();
+            }
+            else {
+                $returnid = $entity->getId();
+            }
+
+                return $this->redirect($this->generateUrl('forum_show', array('id' => $returnid)));
         }
 
         return array(

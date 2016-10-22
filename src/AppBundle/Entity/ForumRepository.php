@@ -10,4 +10,19 @@ namespace AppBundle\Entity;
  */
 class ForumRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    /**
+     * find forum entities with no parent
+     *
+     * @return Forum
+     */
+    public function findTopLevel() {
+        $forums = $this->createQueryBuilder('f')
+            ->andWhere('f.parent is NULL')
+            ->orderBy('f.title')
+            ->getQuery()
+            ->getResult();
+        return $forums;
+    }
+
 }
