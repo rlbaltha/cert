@@ -24,7 +24,7 @@ security:
 #    encoders:
 #        FOS\UserBundle\Model\UserInterface: bcrypt
 
-#    firewalls:
+    firewalls:
         main:
             pattern: ^/
             trusted_sso:
