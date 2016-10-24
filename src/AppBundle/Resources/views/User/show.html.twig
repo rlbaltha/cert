@@ -16,6 +16,14 @@
     <div class="row">
         <div class="col-sm-12">
 
+            {% if app.session.flashBag.has('success') %}
+            <div class="alert alert-success">
+                {% for msg in app.session.flashBag.get('success') %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <h1 class="inline">{{ entity.firstname }} {{ entity.lastname }}</h1>
             {% if is_granted('ROLE_ADMIN') %}
                 <a class="btn btn-primary" style="margin-left: 10px;"
