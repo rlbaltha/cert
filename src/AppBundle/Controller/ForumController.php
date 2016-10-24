@@ -57,11 +57,12 @@ class ForumController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            if ($entity->getParent()->getParent()) {
-                $returnid = $entity->getParent()->getParent()->getId();
-            }
-            elseif ($entity->getParent()) {
-                $returnid = $entity->getParent()->getId();
+            if ($entity->getParent()) {
+                if ($entity->getParent()->getParent()) {
+                    $returnid = $entity->getParent()->getParent()->getId();
+                } else {
+                    $returnid = $entity->getParent()->getId();
+                }
             }
             else {
                 $returnid = $entity->getId();
@@ -210,11 +211,12 @@ class ForumController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            if ($entity->getParent()->getParent()) {
-                $returnid = $entity->getParent()->getParent()->getId();
-            }
-            elseif ($entity->getParent()) {
-                $returnid = $entity->getParent()->getId();
+            if ($entity->getParent()) {
+                if ($entity->getParent()->getParent()) {
+                    $returnid = $entity->getParent()->getParent()->getId();
+                } else {
+                    $returnid = $entity->getParent()->getId();
+                }
             }
             else {
                 $returnid = $entity->getId();
