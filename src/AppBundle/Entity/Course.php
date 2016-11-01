@@ -70,7 +70,7 @@ class Course
      *
      * @ORM\Column(name="syllabus", type="text", nullable=true)
      */
-    private $syllabus;
+    private $syllabus='Needed';
 
     /**
      * @var string
@@ -84,14 +84,14 @@ class Course
      *
      * @ORM\Column(name="contact", type="string", length=255)
      */
-    private $contact='Certificate Director';
+    private $contact='Needed';
 
     /**
      * @var string
      *
      * @ORM\Column(name="contact_email", type="string", length=255, nullable=true)
      */
-    private $contact_email='scdirector@uga.edu';
+    private $contact_email='Needed';
 
     /**
      * @var string
