@@ -18,10 +18,11 @@ class CourseRepository extends \Doctrine\ORM\EntityRepository
     public function findByPillar($pillar, $level, $status) {
         $courses = $this->createQueryBuilder('c')
             ->andWhere('c.pillar = :pillar')
-            ->andWhere('c.level = :level')
+            ->andWhere('c.level = :level or c.level = :split')
             ->andWhere('c.status = :status')
             ->setParameter('pillar', $pillar)
             ->setParameter('level', $level)
+            ->setParameter('split', 'split')
             ->setParameter('status', $status)
             ->orderBy('c.name ')
             ->getQuery()
