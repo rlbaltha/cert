@@ -29,7 +29,7 @@ class CourseType extends AbstractType
                 'multiple' => false,
                 'label' => 'Pillar',
                 'attr' => array('class' => 'radio'),))
-            ->add('level', 'choice', array('choices' => array('Grad' => 'Grad', 'Undergrad' => 'Undergrad'), 'required' =>
+            ->add('level', 'choice', array('choices' => array('Grad' => 'Grad', 'Undergrad' => 'Undergrad', 'Split' => 'Split'), 'required' =>
                 true,
                 'expanded' => true, 'multiple' => false, 'label' => 'Level',
                 'attr' => array('class' => 'radio'),))

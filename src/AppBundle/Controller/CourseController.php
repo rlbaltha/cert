@@ -186,6 +186,7 @@ class CourseController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Course')->find($id);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Course entity.');
@@ -195,6 +196,7 @@ class CourseController extends Controller
 
         return array(
             'entity'      => $entity,
+            'section' => $section,
             'delete_form' => $deleteForm->createView(),
         );
     }
