@@ -10,4 +10,25 @@ namespace AppBundle\Entity;
  */
 class CapstoneRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Find users by type
+     *
+     * @return User
+     */
+    public function findByType($type)
+    {
+        if ($type == 'Peer') {
+            $status = 'Ready for Peer Review';
+        }
+        else {
+            $status = 'Ready for Director Review';
+        }
+
+        $course = $this->createQueryBuilder('c')
+            ->andWhere("c.status = :type")
+            ->setParameter('type', $status)
+            ->getQuery()
+            ->getResult();
+        return $course;
+    }
 }

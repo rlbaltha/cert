@@ -21,15 +21,15 @@ class CapstoneController extends Controller
     /**
      * Lists all Page entities.
      *
-     * @Route("/", name="capstone")
+     * @Route("/list/{type}", name="capstone")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($type)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Capstone')->findAll();
+        $entities = $em->getRepository('AppBundle:Capstone')->findByType($type);
 
         return array(
             'entities' => $entities,
@@ -217,11 +217,11 @@ class CapstoneController extends Controller
     /**
      * Capstone Ready for review and send email.
      *
-     * @Route("/ready/{id}", name="capstone_ready")
+     * @Route("/ready/{type}/{id}", name="capstone_ready")
      * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
      */
-    public function readyAction($id)
+    public function readyAction($id, $type)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -233,12 +233,20 @@ class CapstoneController extends Controller
 
         $user = $entity->getUser();
         $user_entity = $em->getRepository('AppBundle:User')->find($user);
-        $status = $em->getRepository('AppBundle:Status')->findByName('Ready for Review');
+
+        if ($type == 'Director') {
+            $status = $em->getRepository('AppBundle:Status')->findByName('Ready for Director Review');
+            $entity->setStatus('Ready for Director Review');
+        }
+        else {
+            $status = $em->getRepository('AppBundle:Status')->findByName('Ready for Peer Review');
+            $entity->setStatus('Ready for Peer Review');
+        }
         $user_entity->setProgress($status);
         $timestamp = date('m/d/Y h:i:s A');
         $notes = $user_entity->getNotes();
-        $user_entity->setNotes($notes.'<p> Capstone ready for review '.$timestamp.'</p>');
-        $entity->setStatus('Capstone Ready for Review');
+        $user_entity->setNotes($notes.'<p> Capstone ready for '.$type. ' review '.$timestamp.'</p>');
+
 
         $em->persist($entity);
         $em->persist($user_entity);
@@ -246,18 +254,17 @@ class CapstoneController extends Controller
 
         $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
         $email = 'scdirector@uga.edu';
-        $text = 'has submitted an capstone that is ready for review.';
+        $text = $name.' has submitted an capstone that is ready for ' .$type. 'review.';
 
         $message = \Swift_Message::newInstance()
-            ->setSubject('Certificate Capstone Ready for Review')
+            ->setSubject('Certificate Capstone Ready for ' .$type. ' Review')
             ->setFrom('scdirector@uga.edu')
             ->setTo($email)
             ->setBody(
                 $this->renderView(
 
                     'AppBundle:Email:apply.html.twig',
-                    array('name' => $name,
-                        'text' => $text)
+                    array('text' => $text)
                 ),
                 'text/html'
             )
