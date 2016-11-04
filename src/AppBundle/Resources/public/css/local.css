@@ -146,6 +146,21 @@ input + label {
 .margin-top {
     margin-top: 3rem;
 }
+
+.margin-bottom {
+    margin-bottom: 3rem;
+}
+
+.inline {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.expand {
+    font-size: 2em;
+    padding-top: 0;
+    padding-bottom: 0;
+}
 /********** homepage ***********/
 
 .landing {
