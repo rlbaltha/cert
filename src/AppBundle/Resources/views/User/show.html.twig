@@ -15,7 +15,7 @@
 {% block body -%}
     {# Name and notes #}
     <div class="row margin-top">
-        <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-sm-8 offset-sm-2 col-xs-12">
             {% if app.session.flashBag.has('success') %}
                 <div class="alert alert-success">
                     {% for msg in app.session.flashBag.get('success') %}
@@ -27,8 +27,8 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
-            <div class="btn-group pull-sm-right" role="group" aria-label="Basic Functions">
+        <div class="col-sm-8 offset-sm-2 col-xs-12">
+            <div class="btn-group float-sm-right" role="group" aria-label="Basic Functions">
                 {% if is_granted('ROLE_ADMIN') %}
                     <a class="btn btn-primary" style="margin-left: 10px;"
                        href="{{ path('user_edit', { 'id': entity.id }) }}">
@@ -51,343 +51,350 @@
             <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
 
 
-            {% if entity.progress %}<p class="margin-top">Certificate
-                Progress: {{ entity.progress.name }}</p>{% endif %}
-            <p class="">Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
+            {% if entity.progress %}
+                <p>Certificate Progress: {{ entity.progress.name }}</p>
+            {% endif %}
+            <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
 
         </div>
     </div>
 
-    {# Application #}
     <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-sm-8 offset-sm-2 col-xs-12">
             <div id="accordion" role="tablist" aria-multiselectable="true">
 
-                {# Director Notes Here#}
+                {# Director Notes #}
                 {% if is_granted('ROLE_ADMIN') %}
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingOne">
-                        <h5 class="mb-0">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
-                               aria-controls="collapseOne">
-                                Director Notes
-                            </a>
-                        </h5>
-                    </div>
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <h5 class="mb-0">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true"
+                                   aria-controls="collapseOne">
+                                    Director Notes
+                                </a>
+                            </h5>
+                        </div>
 
-                    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="card-block">
+                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="card-block">
 
-                            <p>{{ entity.notes |raw }}
-                                {% if entity.notes|length < 1 %}No notes yet.{% endif %}
-                            </p>
-                            <p>Updated: {{ entity.notesChanged|date("m/d/Y g:ia") }}</p>
+                                <p>{{ entity.notes |raw }}
+                                    {% if entity.notes|length < 1 %}No notes yet.{% endif %}
+                                </p>
+                                <p>Updated: {{ entity.notesChanged|date("m/d/Y g:ia") }}</p>
 
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endif %}
 
                 {# Applcation #}
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingTwo">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
-                               aria-expanded="false" aria-controls="collapseTwo">
-                                Application
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse {% if entity.program.status != 'Approved' %}in{% endif %}" role="tabpanel" aria-labelledby="headingTwo">
-                        <div class="card-block">
+                {# check to see if profile matches currrent user #}
+                {% if app.user.username == entity.username  or is_granted('ROLE_ADMIN') %}
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingTwo">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                                   aria-expanded="false" aria-controls="collapseTwo">
+                                    Application
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse {% if entity.program.status != 'Approved' %}in{% endif %}"
+                             role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="card-block">
 
-                            <p>Please fill out the Application form completely. You may return to edit it at any
-                                time.</p>
-                            <p>When you have completed the application, click the <em>Ready for Review</em> button. You
-                                will be
-                                notified by the Director when your application is approved.</p>
+                                <p>Please fill out the Application form completely. You may return to edit it at any
+                                    time.</p>
+                                <p>When you have completed the application, click the <strong>Ready for Review</strong> button.
+                                    You
+                                    will be
+                                    notified by the Director when your application is approved.</p>
 
-                            {% if entity.program %}
-                                {% if is_granted('ROLE_ADMIN') and entity.program.status != 'Approved' %}
-                                    <a title="Approve this application" class="btn btn-primary  align-right"
-                                       href="{{ path('program_approve',  { 'id': entity.program.id }) }}">
-                                        Approve App
+                                {% if entity.program %}
+                                    {% if is_granted('ROLE_ADMIN') and entity.program.status != 'Approved' %}
+                                        <a title="Approve this application" class="btn btn-primary  align-right"
+                                           href="{{ path('program_approve',  { 'id': entity.program.id }) }}">
+                                            Approve App
+                                        </a>
+                                    {% endif %}
+
+                                    {% if entity.program.status == 'Created' %}
+                                        <a title="Update your application" class="btn btn-primary  align-right "
+                                           href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
+                                            Update
+                                        </a>
+                                        <a title="Application Ready for Review" class="btn btn-primary  align-right  "
+                                           href="{{ path('program_ready',  { 'id': entity.program.id }) }}">
+                                            Ready for Review
+                                        </a>
+                                    {% endif %}
+                                {% else %}
+                                    <a title="Get started on your application" class="btn btn-primary  align-right  "
+                                       href="{{ path('program_new') }}">
+                                        Get Started
                                     </a>
                                 {% endif %}
 
-                                {% if entity.program.status == 'Created' %}
-                                    <a title="Update your application" class="btn btn-primary  align-right "
-                                       href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
+
+                                {% if entity.program %}
+                                    <table class="table margin-top">
+                                        <tbody>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ entity.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>School</th>
+                                            <td>{{ entity.program.school }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Program</th>
+                                            <td>{{ entity.program.program }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Uga Id</th>
+                                            <td>{{ entity.program.ugaid }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Level</th>
+                                            <td>{{ entity.program.level }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Previous Degree(s)</th>
+                                            <td>{{ entity.program.degree }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Previous Institution(s)</th>
+                                            <td>{{ entity.program.institution }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Expected Graduation</th>
+                                            <td>{{ entity.program.graddate }} {{ entity.program.gradterm }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Address</th>
+                                            <td>{{ entity.program.address }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>City State Zip</th>
+                                            <td>{{ entity.program.cityst }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Country</th>
+                                            <td>{{ entity.program.country }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Phone</th>
+                                            <td>{{ entity.program.phone }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Areas of Interest</th>
+                                            <td>{% for area in entity.program.area %}{{ area }} {% endfor %}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Interest in Sustainability</th>
+                                            <td>{{ entity.program.interest | raw }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Experience</th>
+                                            <td>{{ entity.program.experience | raw }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Goals</th>
+                                            <td>{{ entity.program.goals | raw }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Application Status</th>
+                                            <td>{{ entity.program.status }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Updated</th>
+                                            <td>{{ entity.program.updated |date("m/d/Y g:ia") }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {# Checklist #}
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingThree">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseThree"
+                                   aria-expanded="false" aria-controls="collapseThree">
+                                    Checklist
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapseThree"
+                             class="collapse {% if entity.program.status == 'Approved' and not entity.capstone %}in{% endif %}"
+                             role="tabpanel"
+                             aria-labelledby="headingThree">
+                            <div class="card-block">
+                                <p>The checklist allows you to track your progress through the program. Please update
+                                    regularly.
+                                </p>
+                                {% if entity.checklist %}
+                                    <a class="btn btn-primary align-right margin-bottom"
+                                       href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
                                         Update
                                     </a>
-                                    <a title="Application Ready for Review" class="btn btn-primary  align-right  "
-                                       href="{{ path('program_ready',  { 'id': entity.program.id }) }}">
-                                        Ready for Review
+                                {% else %}
+                                    <a title="Get started on your checklist"
+                                       class="btn btn-primary  align-right {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
+                                       href="{{ path('checklist_new') }}">
+                                        Get Started
                                     </a>
                                 {% endif %}
-                            {% else %}
-                                <a title="Get started on your application" class="btn btn-primary  align-right  "
-                                   href="{{ path('program_new') }}">
-                                    Get Started
-                                </a>
-                            {% endif %}
 
-
-                            {% if entity.program %}
-                                <table class="table margin-top">
-                                    <tbody>
-                                    <tr>
-                                        <th>Email</th>
-                                        <td>{{ entity.email }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>School</th>
-                                        <td>{{ entity.program.school }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Program</th>
-                                        <td>{{ entity.program.program }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Uga Id</th>
-                                        <td>{{ entity.program.ugaid }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Level</th>
-                                        <td>{{ entity.program.level }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Previous Degree(s)</th>
-                                        <td>{{ entity.program.degree }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Previous Institution(s)</th>
-                                        <td>{{ entity.program.institution }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Expected Graduation</th>
-                                        <td>{{ entity.program.graddate }} {{ entity.program.gradterm }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Address</th>
-                                        <td>{{ entity.program.address }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>City State Zip</th>
-                                        <td>{{ entity.program.cityst }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Country</th>
-                                        <td>{{ entity.program.country }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Phone</th>
-                                        <td>{{ entity.program.phone }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Areas of Interest</th>
-                                        <td>{% for area in entity.program.area %}{{ area }} {% endfor %}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Interest in Sustainability</th>
-                                        <td>{{ entity.program.interest | raw }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Experience</th>
-                                        <td>{{ entity.program.experience | raw }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Goals</th>
-                                        <td>{{ entity.program.goals | raw }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Application Status</th>
-                                        <td>{{ entity.program.status }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Updated</th>
-                                        <td>{{ entity.program.updated |date("m/d/Y g:ia") }}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            {% endif %}
-
-
+                                {% if entity.checklist %}
+                                    <table class="table margin-top">
+                                        <tbody>
+                                        <tr>
+                                            <th>Pre-Certificate Survey Completed</th>
+                                            <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}{% endif %}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Orientation Completed</th>
+                                            <td>{% if entity.checklist.orientation %}{{ entity.checklist.orientation|date('m/d/Y') }}{% endif %}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Anchor</th>
+                                            <td>{% if entity.checklist.anchor %}
+                                                    <a href="{{ path('course_show', { 'id': entity.checklist.anchor.id }) }}">
+                                                        {{ entity.checklist.anchor.name }}
+                                                        : {{ entity.checklist.anchor.title }}
+                                                    </a>
+                                                    {% if entity.checklist.anchor.status=='exception' %}
+                                                        <div class="alert alert-warning" role="alert">
+                                                            <strong>Note!</strong> This course has special requirements.
+                                                            Please note
+                                                            how
+                                                            these requirements
+                                                            were met in the exception space below.
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Ecological Sphere</th>
+                                            <td>{% if entity.checklist.sphere1 %}
+                                                    <a href="{{ path('course_show', { 'id': entity.checklist.sphere1.id }) }}">
+                                                        {{ entity.checklist.sphere1.name }}
+                                                        : {{ entity.checklist.sphere1.title }}
+                                                    </a>
+                                                    {% if entity.checklist.sphere1.status=='exception' %}
+                                                        <div class="alert alert-warning" role="alert">
+                                                            <strong>Note!</strong> This course has special requirements.
+                                                            Please note
+                                                            how
+                                                            these requirements
+                                                            were met in the exception space below.
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Economic Sphere</th>
+                                            <td>{% if entity.checklist.sphere2 %}
+                                                    <a href="{{ path('course_show', { 'id': entity.checklist.sphere2.id }) }}">
+                                                        {{ entity.checklist.sphere2.name }}
+                                                        : {{ entity.checklist.sphere2.title }}
+                                                    </a>
+                                                    {% if entity.checklist.sphere2.status=='exception' %}
+                                                        <div class="alert alert-warning" role="alert">
+                                                            <strong>Note!</strong> This course has special requirements.
+                                                            Please note
+                                                            how
+                                                            these requirements
+                                                            were met in the exception space below.
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Social Sphere</th>
+                                            <td>{% if entity.checklist.sphere3 %}
+                                                    <a href="{{ path('course_show', { 'id': entity.checklist.sphere3.id }) }}">
+                                                        {{ entity.checklist.sphere3.name }}
+                                                        : {{ entity.checklist.sphere3.title }}
+                                                    </a>
+                                                    {% if entity.checklist.sphere3.status=='exception' %}
+                                                        <div class="alert alert-warning" role="alert">
+                                                            <strong>Note!</strong> This course has special requirements.
+                                                            Please note
+                                                            how
+                                                            these requirements
+                                                            were met in the exception space below.
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Seminar</th>
+                                            <td>{% if entity.checklist.seminar %}
+                                                    <a href="{{ path('course_show', { 'id': entity.checklist.seminar.id }) }}">
+                                                        {{ entity.checklist.seminar.name }}
+                                                        : {{ entity.checklist.seminar.title }}
+                                                    </a>
+                                                    {% if entity.checklist.sphere3.status=='exception' %}
+                                                        <div class="alert alert-warning" role="alert">
+                                                            <strong>Note!</strong> This course has special requirements.
+                                                            Please note
+                                                            how
+                                                            these requirements
+                                                            were met in the exception space below.
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Capstone</th>
+                                            <td>{% if entity.checklist.capstone %}
+                                                    <a href="{{ path('course_show', { 'id': entity.checklist.capstone.id }) }}">
+                                                        {{ entity.checklist.capstone.name }}
+                                                        : {{ entity.checklist.capstone.title }}
+                                                    </a>
+                                                {% endif %}
+                                                {% if entity.capstone %}
+                                                    {{ entity.capstone.status }}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Portfolio</th>
+                                            <td><a href="{{ entity.checklist.portfolio }}"
+                                                   target="_blank">{{ entity.checklist.portfolio }}</a></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Post-Certificate Survey Completed</th>
+                                            <td>{% if entity.checklist.postAssess %}{{ entity.checklist.postAssess|date('m/d/Y') }}{% endif %}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Exceptions</th>
+                                            <td>{{ entity.checklist.exceptions | raw }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Updated</th>
+                                            <td>{{ entity.checklist.updated | date("m/d/Y g:ia") }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                </div>
-                {# Checklist #}
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingThree">
-                        <h5 class="mb-0">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
-                               aria-expanded="false" aria-controls="collapseThree">
-                                Checklist
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse {% if entity.program.status == 'Approved' %}in{% endif %}" role="tabpanel" aria-labelledby="headingThree">
-                        <div class="card-block">
-                            <p>The checklist allows you to track your progress through the program. Please update
-                                regularly.
-                            </p>
-                            {% if entity.checklist %}
-                                <a class="btn btn-primary align-right margin-bottom"
-                                   href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
-                                    Update
-                                </a>
-                            {% else %}
-                                <a title="Get started on your checklist"
-                                   class="btn btn-primary  align-right {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
-                                   href="{{ path('checklist_new') }}">
-                                    Get Started
-                                </a>
-                            {% endif %}
+                {% endif %}
 
-                            {% if entity.checklist %}
-                                <table class="table margin-top">
-                                    <tbody>
-                                    <tr>
-                                        <th>Pre-Certificate Survey Completed</th>
-                                        <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}{% endif %}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Orientation Completed</th>
-                                        <td>{% if entity.checklist.orientation %}{{ entity.checklist.orientation|date('m/d/Y') }}{% endif %}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Anchor</th>
-                                        <td>{% if entity.checklist.anchor %}
-                                                <a href="{{ path('course_show', { 'id': entity.checklist.anchor.id }) }}">
-                                                    {{ entity.checklist.anchor.name }}
-                                                    : {{ entity.checklist.anchor.title }}
-                                                </a>
-                                                {% if entity.checklist.anchor.status=='exception' %}
-                                                    <div class="alert alert-warning" role="alert">
-                                                        <strong>Note!</strong> This course has special requirements.
-                                                        Please note
-                                                        how
-                                                        these requirements
-                                                        were met in the exception space below.
-                                                    </div>
-                                                {% endif %}
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Ecological Sphere</th>
-                                        <td>{% if entity.checklist.sphere1 %}
-                                                <a href="{{ path('course_show', { 'id': entity.checklist.sphere1.id }) }}">
-                                                    {{ entity.checklist.sphere1.name }}
-                                                    : {{ entity.checklist.sphere1.title }}
-                                                </a>
-                                                {% if entity.checklist.sphere1.status=='exception' %}
-                                                    <div class="alert alert-warning" role="alert">
-                                                        <strong>Note!</strong> This course has special requirements.
-                                                        Please note
-                                                        how
-                                                        these requirements
-                                                        were met in the exception space below.
-                                                    </div>
-                                                {% endif %}
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Economic Sphere</th>
-                                        <td>{% if entity.checklist.sphere2 %}
-                                                <a href="{{ path('course_show', { 'id': entity.checklist.sphere2.id }) }}">
-                                                    {{ entity.checklist.sphere2.name }}
-                                                    : {{ entity.checklist.sphere2.title }}
-                                                </a>
-                                                {% if entity.checklist.sphere2.status=='exception' %}
-                                                    <div class="alert alert-warning" role="alert">
-                                                        <strong>Note!</strong> This course has special requirements.
-                                                        Please note
-                                                        how
-                                                        these requirements
-                                                        were met in the exception space below.
-                                                    </div>
-                                                {% endif %}
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Social Sphere</th>
-                                        <td>{% if entity.checklist.sphere3 %}
-                                                <a href="{{ path('course_show', { 'id': entity.checklist.sphere3.id }) }}">
-                                                    {{ entity.checklist.sphere3.name }}
-                                                    : {{ entity.checklist.sphere3.title }}
-                                                </a>
-                                                {% if entity.checklist.sphere3.status=='exception' %}
-                                                    <div class="alert alert-warning" role="alert">
-                                                        <strong>Note!</strong> This course has special requirements.
-                                                        Please note
-                                                        how
-                                                        these requirements
-                                                        were met in the exception space below.
-                                                    </div>
-                                                {% endif %}
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Seminar</th>
-                                        <td>{% if entity.checklist.seminar %}
-                                                <a href="{{ path('course_show', { 'id': entity.checklist.seminar.id }) }}">
-                                                    {{ entity.checklist.seminar.name }}
-                                                    : {{ entity.checklist.seminar.title }}
-                                                </a>
-                                                {% if entity.checklist.sphere3.status=='exception' %}
-                                                    <div class="alert alert-warning" role="alert">
-                                                        <strong>Note!</strong> This course has special requirements.
-                                                        Please note
-                                                        how
-                                                        these requirements
-                                                        were met in the exception space below.
-                                                    </div>
-                                                {% endif %}
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Capstone</th>
-                                        <td>{% if entity.checklist.capstone %}
-                                                <a href="{{ path('course_show', { 'id': entity.checklist.capstone.id }) }}">
-                                                    {{ entity.checklist.capstone.name }}
-                                                    : {{ entity.checklist.capstone.title }}
-                                                </a>
-                                            {% endif %}
-                                            {% if entity.capstone %}
-                                                {{ entity.capstone.status }}
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Portfolio</th>
-                                        <td><a href="{{ entity.checklist.portfolio }}"
-                                               target="_blank">{{ entity.checklist.portfolio }}</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Post-Certificate Survey Completed</th>
-                                        <td>{% if entity.checklist.postAssess %}{{ entity.checklist.postAssess|date('m/d/Y') }}{% endif %}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Exceptions</th>
-                                        <td>{{ entity.checklist.exceptions | raw }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Updated</th>
-                                        <td>{{ entity.checklist.updated | date("m/d/Y g:ia") }}</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            {% endif %}
-
-
-                        </div>
-                    </div>
-                </div>
                 {# Capstone #}
                 <div class="card">
                     <div class="card-header" role="tab" id="headingFour">
@@ -398,69 +405,91 @@
                             </a>
                         </h5>
                     </div>
-                    <div id="collapseFour" class="collapse {% if entity.program.status == 'Approved' %}in{% endif %}" role="tabpanel" aria-labelledby="headingFour">
+                    <div id="collapseFour" class="collapse {% if entity.program.status == 'Approved' %}in{% endif %}"
+                         role="tabpanel" aria-labelledby="headingFour">
                         <div class="card-block">
 
                             <p>The capstone project provides an opportunity for you to apply your classroom learning to
                                 hands-on
-                                sustainability challenges. For details, please review the information under the
-                                <strong>Student</strong>
-                                heading of the website.
-                                You will be notified by the Director when your application is approved.</p>
+                                sustainability challenges. For details, please
+                                <a href="{{ path('page_show',  { 'id': '17'}) }}">
+                                    review the
+                                    <strong>Guidelines for the Capstone.</strong>
+                                </a></p>
+                            <p>Under the advisement of your capstone mentor, develop a work plan for their capstone
+                                project, outlining goals, objectives, timeline,
+                                resources/partners, personal objectives, and success metrics.</p>
+                            <p>Once your work plan is complete, mark it <strong>Ready for Peer Review</strong></p>
+                            <p>When you have received feedback from your peers, revise and polish your work plan. Then
+                                mark it <strong>Ready for Director Review</strong></p>
 
-                            <a class="btn btn-primary  align-right"
-                               href="{{ path('capstone',  { 'type':'Peer' }) }}">
-                                Review Other Capstones
-                            </a>
+                            <p>You will be notified by the Director when your work plan is approved.</p>
+
 
                             {% if entity.capstone %}
+
                                 {% if is_granted('ROLE_ADMIN') and entity.capstone.status != 'Approved' %}
                                     <a title="Approve this capstone" class="btn btn-primary  align-right"
                                        href="{{ path('capstone_approve',  { 'id': entity.capstone.id }) }}">
-                                        Approve Capstone
+                                        Approve Workplan
                                     </a>
                                 {% endif %}
 
-                                {% if entity.capstone.status == 'Created' %}
+                                {% if entity.capstone.status != 'Approved' %}
                                     <a title="Update your capstone" class="btn btn-primary  align-right"
                                        href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
-                                        Update
+                                        Update Workplan
                                     </a>
                                     <a class="btn btn-primary  align-right"
                                        href="{{ path('capstone_ready',  { 'id': entity.capstone.id , 'type':'Peer'}) }}">
                                         Ready for Peer Review
                                     </a>
-                                    <a class="btn btn-primary  align-right"
+                                    <a class="btn btn-primary  align-right {% if entity.responsesets|length < 3 %}disabled{% endif %}"
                                        href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
                                         Ready for Director Review
                                     </a>
                                 {% endif %}
 
-                            {% else %}
-                                <a title="Get started on your capstone"
-                                   class="btn btn-primary align-right {% if not entity.checklist %}disabled{% endif %}"
-                                   href="{{ path('capstone_new') }}">
-                                    Get Started
-                                </a>
-                            {% endif %}
+                                <h3 class="margin-top">Peer Reviews </h3>
 
-
-                            {% if entity.capstone %}
-                                {% if entity.capstone.responsesets|length > 0 %}
-                                    <h3 class="margin-top">Peer Reviews </h3>
-
-                                    {% for responseset in entity.capstone.responsesets %}
+                                <p>Students are expected to give feedback on one another’s work plans. Peer review
+                                    should be completed before final work plans are submitted.
+                                    At least two of the three peer reviewers should be outside of
+                                    the student's home discipline/department.
+                                </p>
+                                {% if entity.responsesets|length > 0 %}
+                                    <p>You have offered peer reviews for:
+                                    {% for responseset in entity.responsesets %}
                                         <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
-                                            by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
+                                            {{ responseset.capstone.user.firstname }} {{ responseset.capstone.user.lastname }}
+                                            {% if not loop.last %}, {% endif %}
                                         </a>
-                                        <br/>
+                                        </p>
                                     {% endfor %}
-                                    <hr/>
+                                {% else %}
+                                    <p>You have not offered any peer reviews yet.</p>
                                 {% endif %}
-                            {% endif %}
 
+                                {% if entity.capstone.status == 'Ready for Peer Review' and entity.username != app.user.username %}
+                                    <a class="btn btn-primary"
+                                       href="{{ path('responseset_new',  { 'id': entity.capstone.id }) }}">
+                                        Create Review
+                                    </a>
+                                {% endif %}
 
-                            {% if entity.capstone %}
+                                <a class="btn btn-primary  align-right"
+                                   href="{{ path('capstone',  { 'type':'Peer' }) }}">
+                                    Review Other Capstones
+                                </a>
+                                <hr/>
+                                {% for responseset in entity.capstone.responsesets %}
+                                    <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
+                                        Review by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
+                                    </a>
+                                    <br/>
+                                {% endfor %}
+                                <hr/>
+                                <h3 class="margin-top">Workplan</h3>
                                 <table class="table margin-top">
                                     <tbody>
                                     <tr>
@@ -533,6 +562,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+
+                            {% else %}
+                                <a title="Get started on your capstone"
+                                   class="btn btn-primary align-right {% if not entity.checklist %}disabled{% endif %}"
+                                   href="{{ path('capstone_new') }}">
+                                    Get Started on your Workplan
+                                </a>
                             {% endif %}
 
                         </div>

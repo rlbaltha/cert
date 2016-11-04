@@ -13,8 +13,8 @@
 
 
 {% block body -%}
-    <div class="row">
-        <div class="col-sm-12">
+    <div class="row margin-top">
+        <div class="col-sm-8 col-sm-offset-2">
 
             <h1 class="inline">{{ entity.user.firstname }} {{ entity.user.lastname }}</h1>
 
@@ -39,7 +39,12 @@
                 <hr/>
             {% endif %}
 
-            <table class="table">
+            <a class="btn btn-primary"
+               href="{{ path('responseset_new',  { 'id': entity.id }) }}">
+                Create Review
+            </a>
+
+            <table class="table margin-top">
                 <tbody>
                 <tr>
                     <th>Title</th>

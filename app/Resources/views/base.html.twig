@@ -9,8 +9,7 @@
 
     <!-- Bootstrap CSS -->
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
         <link type="text/css" rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link type="text/css" rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/css/theme.bootstrap.min.css">
@@ -35,11 +34,11 @@
 <body>
 
 <div class="container-fluid">
-    <nav class="navbar navbar-dark bg-inverse">
-        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
+    <nav class="navbar navbar-dark navbar-fixed-top">
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#responsiveCollapse">
             &#9776;
         </button>
-        <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar">
+        <div class="collapse navbar-toggleable-xs" id="responsiveCollapse">
             <a class="navbar-brand hidden-xs-down" href="{{ path('homepage') }}" title="Return to the homepage">
                 <img class="navbar-logo" alt="Sustainability logo" class="" src="{{ asset('bundles/app/images/sustainableugawhitenav.png') }}"></a>
             <ul class="nav navbar-nav">
@@ -59,7 +58,7 @@
 
             </ul>
 
-            <ul class="nav navbar-nav pull-xs-right">
+            <ul class="nav navbar-nav float-sm-right">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
@@ -94,7 +93,7 @@
         {% block javascripts %}
             <!-- jQuery first, then Bootstrap JS. -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
             <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/tinysort/2.2.2/tinysort.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/js/jquery.tablesorter.min.js"></script>

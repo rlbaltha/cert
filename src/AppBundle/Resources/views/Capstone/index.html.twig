@@ -16,16 +16,11 @@
                 theme: "bootstrap",
                 widthFixed: true,
                 headerTemplate: '{content} {icon}',
-                widgets: ["uitheme", "filter", "zebra"],
+                widgets: ["uitheme", "zebra"],
                 widgetOptions: {
-                    zebra: ["even", "odd"],
-                    filter_reset: ".reset",
-                    filter_cssFilter: "form-control",
-                },
-                headers: {
-                    5: {sorter: false, filter: false},
+                    zebra: ["even", "odd"]
                 }
-            });
+           });
         });
     </script>
 {% endblock %}
@@ -35,12 +30,12 @@
         <div class="col-sm-2">
             <div class="bootstrap-vertical-nav">
 
-                <nav class="navbar  navbar-dark bg-inverse">
+                <nav class="navbar navbar-dark">
                     <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
                         &#9776;
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-sidenav">
                             <li class="nav-item"><a href="{{ path('capstone',  { 'type':'Peer' }) }}">Ready for Peer Review</a></li>
                             <li class="nav-item"><a href="{{ path('capstone',  { 'type':'Director' }) }}">Ready for Director Review</a></li>
                         </ul>
@@ -58,13 +53,12 @@
                     <th>Name Email</th>
                     <th>Capstone Status</th>
                     <th>Peer Reviews</th>
-                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('capstone_show', { 'id': entity.id }) }}">{{ entity.user.firstname }}, {{ entity.user.lastname }}</a> {{ entity.user.email }}</td>
+                        <td><a href="{{ path('user_show', { 'id': entity.user.id }) }}">{{ entity.user.firstname }}, {{ entity.user.lastname }}</a> {{ entity.user.email }}</td>
 
                         <td>{{ entity.status }}</td>
                         <td>{% if entity.responsesets|length > 0 %}
@@ -74,12 +68,6 @@
                                     </a>
                                 {% endfor %}
                             {% endif %}
-                        </td>
-                        <td>
-                            <a class="btn btn-primary pull-xs-right"
-                               href="{{ path('responseset_new',  { 'id': entity.id }) }}">
-                                Create Peer Review
-                            </a>
                         </td>
                     </tr>
                 {% endfor %}

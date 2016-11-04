@@ -35,13 +35,13 @@
         <div class="col-sm-2">
             <div class="bootstrap-vertical-nav">
 
-                <nav class="navbar  navbar-dark bg-inverse">
+                <nav class="navbar navbar-dark">
                     <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
                             data-target="#exCollapsingNavbar2">
                         &#9776;
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-sidenav">
                             {% if section %}
                                 {% for page in section.pages if section %}
                                     {% if (page.link is null or page.link == '') %}
@@ -84,7 +84,7 @@
                             </li>
                         </ul>
                         {#
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-sidenav">
                             <li class="nav navbar-header">Graduate</li>
                             <li><a href="{{ path('course', { 'pillar':'anchor', 'level':'grad' }) }}">Anchor</a></li>
                             <li><a href="{{ path('course', { 'pillar':'ecological', 'level':'grad' }) }}">Ecological</a>
@@ -95,7 +95,7 @@
                         #}
 
                         {% if is_granted('ROLE_ADMIN') %}
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-sidenav">
                                 <li class="nav nav-header">Admin</li>
                                 <li class="nav-item"><a href="{{ path('course_new') }}">
                                         New Course
