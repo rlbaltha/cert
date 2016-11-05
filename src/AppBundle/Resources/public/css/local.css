@@ -64,9 +64,16 @@ body {
     font-size: 11pt;
 }
 
+.nav-header {
+    color: #fff;
+    font-size: 11pt;
+    margin-left: -.5rem;
+}
+
 .navbar-sidenav li a {
     color: #fff;
     font-size: 11pt;
+
 }
 
 .navbar-logo {

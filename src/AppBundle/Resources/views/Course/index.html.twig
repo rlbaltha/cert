@@ -82,17 +82,29 @@
                                         href="{{ path('course_listbylocation', { 'location':'Abroad', 'status':'approved' }) }}">Study
                                     Abroad</a>
                             </li>
-                        </ul>
-                        {#
-                        <ul class="nav navbar-sidenav">
-                            <li class="nav navbar-header">Graduate</li>
-                            <li><a href="{{ path('course', { 'pillar':'anchor', 'level':'grad' }) }}">Anchor</a></li>
-                            <li><a href="{{ path('course', { 'pillar':'ecological', 'level':'grad' }) }}">Ecological</a>
+
+                            <li class="nav nav-header">Graduate</li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'anchor', 'level':'grad' }) }}">Anchor</a>
                             </li>
-                            <li><a href="{{ path('course', { 'pillar':'economic', 'level':'grad' }) }}">Economic</a></li>
-                            <li><a href="{{ path('course', { 'pillar':'social', 'level':'grad' }) }}">Social</a></li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'seminar', 'level':'grad' }) }}">Seminar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('course', { 'pillar':'ecological', 'level':'grad' }) }}">Ecological</a>
+                            </li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'economic', 'level':'grad' }) }}">Economic</a>
+                            </li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'social', 'level':'grad' }) }}">Social</a>
+                            </li>
+                            <li class="nav-item"><a
+                                        href="{{ path('course', { 'pillar':'capstone', 'level':'grad' }) }}">Capstone</a>
+                            </li>
+
+
                         </ul>
-                        #}
 
                         {% if is_granted('ROLE_ADMIN') %}
                             <ul class="nav navbar-sidenav">
