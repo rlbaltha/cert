@@ -37,7 +37,9 @@
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
                             <li class="nav-item"><a href="{{ path('capstone',  { 'type':'Peer' }) }}">Ready for Peer Review</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item"><a href="{{ path('capstone',  { 'type':'Director' }) }}">Ready for Director Review</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </nav>

@@ -119,7 +119,7 @@
                                     {% endif %}
 
                                     {% if entity.program.status == 'Created' %}
-                                        <a  class="btn btn-primary  align-right "
+                                        <a class="btn btn-primary  align-right "
                                            href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
                                             Update Application
                                         </a>
@@ -356,7 +356,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Capstone</th>
+                                            <th>Capstone Work Plan</th>
                                             <td>{% if entity.checklist.capstone %}
                                                     <a href="{{ path('course_show', { 'id': entity.checklist.capstone.id }) }}">
                                                         {{ entity.checklist.capstone.name }}
@@ -423,41 +423,16 @@
 
                             <p>You will be notified by the director when your work plan is approved.</p>
 
+                            <p>Students are expected to give feedback on one another’s work plans. Peer review
+                                should be completed before final work plans are submitted.
+                                At least two of the three peer reviewers should be outside of
+                                the student's home discipline/department.
+                            </p>
+
 
                             {% if entity.capstone %}
 
-                                {% if is_granted('ROLE_ADMIN') and entity.capstone.status != 'Approved' %}
-                                    <a title="Approve this capstone" class="btn btn-primary  align-right"
-                                       href="{{ path('capstone_approve',  { 'id': entity.capstone.id }) }}">
-                                        Approve Workplan
-                                    </a>
-                                {% endif %}
-
-                                {% if entity.capstone.status != 'Approved' %}
-                                    <a title="Update your capstone" class="btn btn-primary  align-right"
-                                       href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
-                                        Update Workplan
-                                    </a>
-                                    {% if entity.capstone.status != 'Ready for Peer Review' and entity.capstone.status != 'Ready for Director Review' %}
-                                    <a class="btn btn-primary  align-right"
-                                       href="{{ path('capstone_ready',  { 'id': entity.capstone.id , 'type':'Peer'}) }}">
-                                        Ready for Peer Review
-                                    </a>
-                                    {% endif %}
-                                    <a class="btn btn-primary  align-right {% if entity.responsesets|length < 3 %}disabled{% endif %}"
-                                       href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
-                                        Ready for Director Review
-                                    </a>
-                                {% endif %}
-
-                                <h3 class="margin-top">Peer Reviews </h3>
-
-                                <p>Students are expected to give feedback on one another’s work plans. Peer review
-                                    should be completed before final work plans are submitted.
-                                    At least two of the three peer reviewers should be outside of
-                                    the student's home discipline/department.
-                                </p>
-                                {% if entity.responsesets|length > 0 %}
+                                {% if entity.responsesets|length > 0  and app.user.username==entity.capstone.user.username %}
                                     <p>You have offered peer reviews for:
                                     {% for responseset in entity.responsesets %}
                                         <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
@@ -466,14 +441,12 @@
                                         </a>
                                         </p>
                                     {% endfor %}
-                                {% else %}
-                                    <p>You have not offered any peer reviews yet.</p>
                                 {% endif %}
 
-                                {% if entity.capstone.status == 'Ready for Peer Review' and entity.username != app.user.username %}
-                                    <a class="btn btn-primary"
-                                       href="{{ path('responseset_new',  { 'id': entity.capstone.id }) }}">
-                                        Create Review
+                                {% if is_granted('ROLE_ADMIN') and entity.capstone.status != 'Approved' %}
+                                    <a title="Approve this capstone" class="btn btn-primary  align-right"
+                                       href="{{ path('capstone_approve',  { 'id': entity.capstone.id }) }}">
+                                        Approve Workplan
                                     </a>
                                 {% endif %}
 
@@ -481,13 +454,33 @@
                                    href="{{ path('capstone',  { 'type':'Peer' }) }}">
                                     Review Other Capstones
                                 </a>
-                                <hr/>
-                                {% for responseset in entity.capstone.responsesets %}
-                                    <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
-                                        Review by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
+                                {% if entity.capstone.status == 'Ready for Peer Review' and entity.username != app.user.username %}
+                                    <a class="btn btn-primary"
+                                       href="{{ path('responseset_new',  { 'id': entity.capstone.id }) }}">
+                                        Create Review
                                     </a>
-                                    <br/>
-                                {% endfor %}
+                                {% endif %}
+
+                                {% if entity.capstone.status != 'Approved' and app.user.username==entity.capstone.user.username %}
+                                    <a title="Update your capstone" class="btn btn-primary  align-right"
+                                       href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
+                                        Update Work plan
+                                    </a>
+                                    {% if entity.capstone.status != 'Ready for Peer Review' and entity.capstone.status != 'Ready for Director Review' %}
+                                        <a class="btn btn-primary  align-right"
+                                           href="{{ path('capstone_ready',  { 'id': entity.capstone.id , 'type':'Peer'}) }}">
+                                            Ready for Peer Review
+                                        </a>
+                                    {% endif %}
+                                    <a class="btn btn-primary  align-right {% if entity.responsesets|length < 3 %}disabled{% endif %}"
+                                       href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
+                                        Ready for Director Review
+                                    </a>
+                                {% endif %}
+
+
+
+
                                 <hr/>
                                 <h3 class="margin-top">Workplan</h3>
                                 <table class="table margin-top">
@@ -563,6 +556,25 @@
                                     </tbody>
                                 </table>
 
+                                {% if entity.capstone.responsesets %}
+                                    <hr/>
+                                    {% for responseset in entity.capstone.responsesets %}
+                                        <h5>
+                                            Review by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
+                                        </h5>
+                                        {% for response in responseset.responses %}
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">{{ response.question.question |raw }}</h3>
+                                                </div>
+                                                <div class="card-block">
+                                                    {{ response.response|raw }}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+
                             {% else %}
                                 <a title="Get started on your capstone"
                                    class="btn btn-primary align-right {% if not entity.checklist %}disabled{% endif %}"
@@ -574,6 +586,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
