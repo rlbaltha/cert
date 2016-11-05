@@ -2,7 +2,11 @@
 
 {% block body -%}
 <div class="col-sm-12">
+
     <a class="btn btn-primary float-sm-right" href="{{ path('user_show', { 'id': entity.capstone.user.id }) }}">Return to Work Plan</a>
+    {% if app.user.username==entity.user.username %}
+    <a class="btn btn-primary float-sm-right" href="{{ path('responseset_edit', { 'id': entity.id }) }}">Edit</a>
+    {% endif %}
     <h2>Responses</h2>
     {% for response in entity.responses %}
         <div class="card">
