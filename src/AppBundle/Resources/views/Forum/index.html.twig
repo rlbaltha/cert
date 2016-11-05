@@ -30,19 +30,25 @@
 
         <div class="col-sm-10">
             <h1>Forums</h1>
-            <p>Forums are for sharing information to assist you in your work in sustainability.  Please offer you insights on
-            the topics below. </p>
+            <p>Forums are for sharing information to assist you in your work in sustainability. Please offer you
+                insights on
+                the topics below. </p>
             <p>If you have an idea for a new topic, please let us know (scdirector@uga.edu).</p>
-            {% for entity in entities %}
-                <div class="card card-block">
-                    {% if app.user.username == entity.user.username %}
-                    <a href="{{ path('forum_edit', { 'id': entity.id }) }}" class="pull-sm-right btn btn-primary">Edit</a>
-                    {% endif %}
-                    <h4 class="card-title">
-                        <a href="{{ path('forum_show', { 'id': entity.id }) }}">{{ entity.title }}</a>
-                    </h4>
-                    {{ entity.body|raw }}
 
+            {% for entity in entities %}
+                <div class="card">
+                    <div class="card-header">
+                        {% if app.user.username == entity.user.username %}
+                            <a href="{{ path('forum_edit', { 'id': entity.id }) }}"
+                               class="float-sm-right btn btn-primary">Edit</a>
+                        {% endif %}
+                        <h4 class="card-title">
+                            <a href="{{ path('forum_show', { 'id': entity.id }) }}">{{ entity.title }}</a>
+                        </h4>
+                    </div>
+                    <div class="card-block">
+                        {{ entity.body|raw }}
+                    </div>
                 </div>
             {% endfor %}
 

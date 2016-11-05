@@ -107,10 +107,8 @@
 
                                 <p>Please fill out the Application form completely. You may return to edit it at any
                                     time.</p>
-                                <p>When you have completed the application, click the <strong>Ready for Review</strong> button.
-                                    You
-                                    will be
-                                    notified by the Director when your application is approved.</p>
+                                <p>When you have completed the application, click <strong>Ready for Review.</strong>
+                                    You will be notified by the Director when your application is approved.</p>
 
                                 {% if entity.program %}
                                     {% if is_granted('ROLE_ADMIN') and entity.program.status != 'Approved' %}
@@ -121,9 +119,9 @@
                                     {% endif %}
 
                                     {% if entity.program.status == 'Created' %}
-                                        <a title="Update your application" class="btn btn-primary  align-right "
+                                        <a  class="btn btn-primary  align-right "
                                            href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
-                                            Update
+                                            Update Application
                                         </a>
                                         <a title="Application Ready for Review" class="btn btn-primary  align-right  "
                                            href="{{ path('program_ready',  { 'id': entity.program.id }) }}">
@@ -241,13 +239,13 @@
                                 {% if entity.checklist %}
                                     <a class="btn btn-primary align-right margin-bottom"
                                        href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
-                                        Update
+                                        Update Checklist
                                     </a>
                                 {% else %}
                                     <a title="Get started on your checklist"
                                        class="btn btn-primary  align-right {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
                                        href="{{ path('checklist_new') }}">
-                                        Get Started
+                                        Get Started on your Checklist
                                     </a>
                                 {% endif %}
 
@@ -423,7 +421,7 @@
                             <p>When you have received feedback from your peers, revise and polish your work plan. Then
                                 mark it <strong>Ready for Director Review</strong></p>
 
-                            <p>You will be notified by the Director when your work plan is approved.</p>
+                            <p>You will be notified by the director when your work plan is approved.</p>
 
 
                             {% if entity.capstone %}
@@ -440,10 +438,12 @@
                                        href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
                                         Update Workplan
                                     </a>
+                                    {% if entity.capstone.status != 'Ready for Peer Review' and entity.capstone.status != 'Ready for Director Review' %}
                                     <a class="btn btn-primary  align-right"
                                        href="{{ path('capstone_ready',  { 'id': entity.capstone.id , 'type':'Peer'}) }}">
                                         Ready for Peer Review
                                     </a>
+                                    {% endif %}
                                     <a class="btn btn-primary  align-right {% if entity.responsesets|length < 3 %}disabled{% endif %}"
                                        href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
                                         Ready for Director Review
@@ -567,7 +567,7 @@
                                 <a title="Get started on your capstone"
                                    class="btn btn-primary align-right {% if not entity.checklist %}disabled{% endif %}"
                                    href="{{ path('capstone_new') }}">
-                                    Get Started on your Workplan
+                                    Get Started on your Work Plan
                                 </a>
                             {% endif %}
 

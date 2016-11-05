@@ -301,7 +301,8 @@ class ProgramController extends Controller
                  <p>Continue by filling in the <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Checklist</a>.</p>
                  <p>Now that your application has been approved, you may add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena.</p>
                  <p>We would also like for you to take a survey as part of our assessment of the certificate program: 
-                 <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Pre-Certificate Survey</a></p>
+                 <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Pre-Certificate Survey</a>
+                 Be sure to record the date that you took the survey in your <strong>Checklist</strong></p>
                  <p>We will have an orientation at the beginning of each semester, but you are welcome to contact the director at any time: scdirector@uga.edu.</p>
                  <p>The Cert Staff</p>
                  <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>
