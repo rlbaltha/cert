@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use AppBundle\Entity\Status;
 
-class ProfileType extends AbstractType
+class AdminType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,7 +17,11 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('firstname', 'text', array('label' => 'First Name', 'attr' => array('class' => 'form-control'),))
-            ->add('lastname', 'text', array('label' => 'Last Name','attr' => array('class' => 'form-control'),));
+            ->add('lastname', 'text', array('label' => 'Last Name','attr' => array('class' => 'form-control'),))
+            ->add('progress', 'entity', array('required' => true, 'class' => 'AppBundle\Entity\Status',
+                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Status', 'attr' => array
+                ('class' => 'form-control'),))
+            ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',));
     }
 
     /**

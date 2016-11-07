@@ -101,7 +101,7 @@
                                 </a>
                             </h5>
                         </div>
-                        <div id="collapseTwo" class="collapse {% if entity.program.status != 'Approved' %}in{% endif %}"
+                        <div id="collapseTwo" class="collapse {% if entity.program %}{% if entity.program.status != 'Approved' %}in{% endif %}{% endif %}"
                              role="tabpanel" aria-labelledby="headingTwo">
                             <div class="card-block">
 
@@ -229,7 +229,7 @@
                             </h5>
                         </div>
                         <div id="collapseThree"
-                             class="collapse {% if entity.program.status == 'Approved' and not entity.capstone %}in{% endif %}"
+                             class="collapse {% if entity.program %}{% if entity.program.status == 'Approved' and not entity.capstone %}in{% endif %}{% endif %}"
                              role="tabpanel"
                              aria-labelledby="headingThree">
                             <div class="card-block">
@@ -403,7 +403,7 @@
                             </a>
                         </h5>
                     </div>
-                    <div id="collapseFour" class="collapse {% if entity.program.status == 'Approved' %}in{% endif %}"
+                    <div id="collapseFour" class="collapse {% if entity.program %}{% if entity.program.status == 'Approved' %}in{% endif %}{% endif %}"
                          role="tabpanel" aria-labelledby="headingFour">
                         <div class="card-block">
 

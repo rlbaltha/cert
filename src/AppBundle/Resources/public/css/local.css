@@ -1,5 +1,5 @@
 body {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Merriweather Sans', sans-serif;;
 }
 
 .container-fluid {
@@ -26,7 +26,7 @@ body {
 }
 
 .navbar-brand, h1, h2, h3 {
-    font-family: 'Nixie One', cursive;
+    font-family: 'Merriweather', serif;
 }
 
 .padding {
@@ -85,6 +85,10 @@ body {
     padding: 0;
     margin: -.6rem;
     margin-right: 0;
+}
+
+.navbar-sidenav .nav-item {
+    padding-bottom: .5rem;
 }
 
 
@@ -155,6 +159,10 @@ input + label {
 
 .marketing {
     margin-top: 3rem;
+}
+
+.carousel-caption p {
+    font-size: larger;
 }
 
 footer {
