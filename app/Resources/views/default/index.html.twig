@@ -4,16 +4,6 @@
     {{ parent() }}
     <script language="javascript">
         $(document).ready(function () {
-            $("#scroll1").click(function () {
-                $('html, body').animate({
-                    scrollTop: $("#page2").offset().top
-                }, 1000);
-            });
-            $("#scroll2").click(function () {
-                $('html, body').animate({
-                    scrollTop: $("#page3").offset().top
-                }, 1000);
-            });
             $("#scroll3").click(function () {
                 $('html, body').animate({
                     scrollTop: $("body").offset().top
@@ -25,108 +15,141 @@
 
 {% block body %}
 
-    <div class="landing">
 
-
-        <div class="col-sm-8" style="padding-top: 25vh">
-            <p>The University of Georgia's </p>
-
-            <h1 class="header"><span class="header">Sustainability</span> Certificate</h1>
-            <p>
-                The sustainability certificate equips students with the skills to make significant,
-                systemic changes in their communities, paving the way for a more sustainable future.
-            </p>
-            <p class="hidden-xs-down">Through the process of obtaining the sustainability certificate, students gain
-                knowledge about the myriad of issues pertaining to sustainability,
-                achieve enlightened perspectives about what sustainability means for individuals, communities, and the
-                world, and acquire experience applying
-                this understanding to meaningful, real-world situations.
-            </p>
-            <a class="btn btn-primary" href="{{ path('page_show', { 'id': '1' }) }}">Learn More</a>
+    <!-- Carousel
+     ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for feature in features  if feature.type=='carousel' %}
+                <li data-target="#myCarousel" data-slide-to="{{ loop.index }}"
+                    class="{% if loop.first %}active{% endif %}"></li>
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            {% for feature in features  if feature.type=='carousel' %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img class="slide" src="{{ feature.image }}" alt="Slide {{ loop.index }}">
+                    <div class="container">
+                        <div class="carousel-caption text-xs-left">
+                            <h1>{{ feature.title}}</h1>
+                            {{ feature.body|raw }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-        <div class="col-sm-4">
-            <a class="btn btn-primary officebtn hidden-xs-down" href="http://sustainability.uga.edu/">Looking for the
-                Office of Sustainability?</a>
-
-            <a class="twitter-timeline" data-width="400" data-height="800" data-theme="dark" data-link-color="#971c1e"
-               href="https://twitter.com/uga_scdirector">Tweets by Sustain Cert.</a>
-
-        </div>
-        <a id="scroll1" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Down</a>
-    </div>
-
-    <div id="page2" class="col-sm-6  landing-section inverse">
-
-
-        <p class="hidden-xs">About the Certificate</p>
-
-        <h2>How can I apply?</h2>
-
-        <p class="hidden-xs-down">The application is available on our website.</p>
-
-        <p class="hidden-xs-down">Students must be in good standing with the university at the time of applying. </p>
-        <a class="btn btn-primary" href="{{ path('page_show', { 'id': '20' }) }}">Learn More <span class="sr-only">about applying</span>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
         </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div><!-- /.carousel -->
 
-    </div>
 
-    <div class="col-sm-6 landing-section landing-section-image1 hidden-xs">
+    <!-- ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    </div>
+    <div class="container marketing">
 
-    <div class="col-sm-6 landing-section landing-section-image2 hidden-xs">
+        <!-- Three COLUMNS of text below the carousel -->
+        <div class="row">
+            {% for feature in features  if feature.type=='column' %}
+                <div class="col-lg-4">
+                    {% if feature.image!='' %}
+                    <img class="img-thumbnail rounded" src="{{ feature.image }}" alt="Slide {{ loop.index }}"
+                         width="80%">
+                    {% endif %}
+                    {% if feature.title!='' %}
+                    <h3>{{ feature.title }}</h3>
+                    {% endif %}
+                    {{ feature.body|raw }}
+                    {% if feature.url!='' %}
+                    <a class="btn btn-primary" href="{{ feature.url }}" title="Read more about {{ feature.title }}">Read more</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div><!-- /.row -->
 
-    </div>
 
-    <div class="col-sm-6  landing-section ">
-        <p class="hidden-xs-down">About the Certificate</p>
+        <!-- FEATURES -->
 
-        <h2>What are the requirements?</h2>
+        <hr class="featurette-divider">
+        {% for feature in features  if feature.type=='feature' %}
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h3 class="featurette-heading">{{ feature.title }}</h3>
+                    {{ feature.body|raw }}
+                    {% if feature.url!='' %}
+                        <a class="btn btn-primary" href="{{ feature.url }}" title="Read more about {{ feature.title }}">Read more</a>
+                    {% endif %}
+                </div>
+                <div class="col-md-5">
+                    <img class="featurette-image img-fluid mx-auto" src="{{ feature.image }}"
+                         alt="Featurette {{ loop.index }}" width="100%">
+                </div>
+            </div>
+            <hr class="featurette-divider">
+        {% endfor %}
 
-        <p class="hidden-xs-down">The Sustainability Certificate is a 17-hour certificate that requires students to take
-            a three-hour anchor course,
-            one three-hour course under each sphere of sustainability, two one-hour seminars, as well as complete a
-            three-hour capstone project.</p>
+        <!-- /END THE FEATURETTES -->
 
-        <a class="btn btn-primary" href="{{ path('page_show', { 'id': '19' }) }}">Learn More <span class="sr-only">about the certficate</span></a>
-        <a id="scroll2" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Down</a>
-    </div>
+    </div><!-- /.container -->
 
-    <div id="page3" class="col-sm-12 landing-footer-image"></div>
-    <div class="col-sm-12 landing-footer">
-
-        <div class="col-sm-6">
-
-            <h2>Contact Us</h2>
-            <p>Ron Balthazor, Director</p>
-            <p>Talley Vodicka, Administrative Specialist</p>
-            <p>Nirav Ilango, Intern</p>
-            <p>Email: scdirector@uga.edu (preferred)</p>
-            <p>Phone: 706-542-0458 </p>
-            <img alt="Sustainability logo" class="img-responsive
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Contact Us</h2>
+                    <p>Ron Balthazor, Director</p>
+                    <p>Talley Vodicka, Administrative Specialist</p>
+                    <p>Nirav Ilango, Intern</p>
+                    <p>Email: scdirector@uga.edu (preferred)</p>
+                    <p>Phone: 706-542-0458 </p>
+                    <img alt="Sustainability logo" class="img-responsive
                 navbar-logo hidden-xs" src="{{ asset('bundles/app/images/sustainableugawhitenav.png') }}">
+                    <p><a id="scroll3" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Up</a></p>
+                </div>
+                <div class="col-sm-6">
+                    <h2>Participants</h2>
+                    <p><a class="inverse" href="http://sustainability.uga.edu/" target="_blank">Office of
+                            Sustainability</a></p>
+                    <p><a class="inverse" href="http://cicr.uga.edu/" target="_blank">Center for Intergrative
+                            Conservation
+                            Research</a></p>
+                    <p><a class="inverse" href="http://franklin.uga.edu/" target="_blank">The Franklin College of Arts
+                            and
+                            Science</a></p>
+                    <p><a class="inverse" href="http://www.caes.uga.edu/" target="_blank">College of Agricultural and
+                            Environmental Sciences</a></p>
+                    <p><a class="inverse" href="http://www.terry.uga.edu/" target="_blank">Terry College of Business</a>
+                    </p>
+                    <p><a class="inverse" href="http://www.ecology.uga.edu/" target="_blank">Odum School of Ecology</a>
+                    </p>
+                    <p><a class="inverse" href="http://www.engineering.uga.edu/" target="_blank">College of
+                            Engineering</a></p>
+                    <p><a class="inverse" href="http://www.ced.uga.edu/" target="_blank">College of Environment and
+                            Design</a>
+                    </p>
+                    <p><a class="inverse" href="http://www.fcs.uga.edu/" target="_blank">College of Family and Consumer
+                            Sciences</a></p>
+                    <p><a class="inverse" href="http://www.warnell.uga.edu/" target="_blank">Warnell School of Forestry
+                            and
+                            Natural Resources</a></p>
+                    <p><a class="inverse" href="http://ssw.uga.edu/" target="_blank">School of Social Work</a></p>
+
+
+                </div>
+
+            </div>
+
         </div>
-        <div class="col-sm-6">
-            <h2>Participants</h2>
-            <p><a class="inverse" href="http://sustainability.uga.edu/" target="_blank">Office of Sustainability</a></p>
-            <p><a class="inverse" href="http://cicr.uga.edu/" target="_blank">Center for Intergrative Conservation
-                    Research</a></p>
-            <p><a class="inverse" href="http://franklin.uga.edu/" target="_blank">The Franklin College of Arts and
-                    Science</a></p>
-            <p><a class="inverse" href="http://www.caes.uga.edu/" target="_blank">College of Agricultural and
-                    Environmental Sciences</a></p>
-            <p><a class="inverse" href="http://www.terry.uga.edu/" target="_blank">Terry College of Business</a></p>
-            <p><a class="inverse" href="http://www.ecology.uga.edu/" target="_blank">Odum School of Ecology</a></p>
-            <p><a class="inverse" href="http://www.engineering.uga.edu/" target="_blank">College of Engineering</a></p>
-            <p><a class="inverse" href="http://www.ced.uga.edu/" target="_blank">College of Environment and Design</a>
-            </p>
-            <p><a class="inverse" href="http://www.fcs.uga.edu/" target="_blank">College of Family and Consumer
-                    Sciences</a></p>
-            <p><a class="inverse" href="http://www.warnell.uga.edu/" target="_blank">Warnell School of Forestry and
-                    Natural Resources</a></p>
-            <p><a class="inverse" href="http://ssw.uga.edu/" target="_blank">School of Social Work</a></p>
-        </div>
-        <a id="scroll3" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Up</a>
-    </div>
+
+    </footer>
+
 
 {% endblock %}

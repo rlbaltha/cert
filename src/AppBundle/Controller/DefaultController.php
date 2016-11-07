@@ -24,9 +24,11 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Event')->findAll();
+        $features = $em->getRepository('AppBundle:Feature')->findAll();
 
         return array(
-          'entities' => $entities,
+            'entities' => $entities,
+            'features' => $features,
         );
     }
 }

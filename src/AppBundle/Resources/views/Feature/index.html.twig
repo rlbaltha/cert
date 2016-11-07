@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="bootstrap-vertical-nav">
+
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <ul class="nav navbar-sidenav">
+                                <li class="nav-item"><a href="{{ path('feature_new') }}">
+                                        New Feature
+                                    </a></li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <div class="col-sm-10">
+
+            <h1>Homepage Features</h1>
+            {% for entity in entities %}
+            <div class="card card-block">
+                <a class="btn btn-primary float-sm-right" href="{{ path('feature_edit', { 'id': entity.id }) }}">Edit</a>
+                <p>Type: {{ entity.type }}</p>
+                <h2 class="card-title">{{ entity.title }}</h2>
+                <img class="img-thumbnail rounded" src="{{ entity.image }}" >
+                {{ entity.body|raw }}
+                <p>{{ entity.url }}</p>
+
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+{% endblock %}

@@ -153,76 +153,26 @@ input + label {
 }
 /********** homepage ***********/
 
-.landing {
-    margin: 0;
+.marketing {
+    margin-top: 3rem;
+}
+
+footer {
+    padding: 5rem;
+    background-color: #567f20;
     color: #fff;
-    font-weight: 600;
-    background: url(../images/landing3.jpg);
-    min-height: 100vh; /* These two lines are counted as one :-)       */
-    padding: 5vh;
+    font-size: 11pt;
 }
 
-.landing p {
-    max-width: 900px;
-}
-
-.landing-section {
-    height: 50vh;
-    padding: 7vh;
-
-}
-
-.inverse {
-    background-color: #2f2f2f;
+footer a {
     color: #fff;
-}
-
- a.inverse:hover {
-    color: #971c1e;
-}
-
-.landing-section-image1 {
-    background-image: url(../images/landing2.jpg);
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
-
-.landing-section-image2 {
-    background-image: url(../images/landing6.jpg);
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
-
-.landing-footer {
-    min-height: 55vh; /* These two lines are counted as one :-)       */
-    background-color: #2f2f2f;
-    color: #fff;
-    padding: 5%;
-}
-
-.landing-footer-image {
-    min-height: 45vh; /* These two lines are counted as one :-)       */
-    background-image: url(../images/landing4.jpg);
-}
-
-h1.header {
-    font-weight: bold;
-}
-span.header {
-    color: #fff;
+    font-size: 11pt;
 }
 
 .scrollbtn {
-    position: absolute;
-    bottom:20px;
-    right: 10px;
+    margin-top: 8rem;
 }
 
-.officebtn {
-    position: absolute;
-    top:0;
-    right:3rem;
-}
 
 
 
