@@ -12,6 +12,11 @@ body {
 
 }
 
+.col-sm-9 {
+    padding: 3rem;
+
+}
+
 .col-sm-12 {
     padding: 3rem;
 }
