@@ -2,41 +2,7 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-3">
-            <div class="bootstrap-vertical-nav">
-
-                <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
-                            data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-sidenav">
-                            {% if section is defined %}
-                                {% for page in section.pages %}
-                                    {% if (page.link is null or page.link == '') %}
-                                        <li class="nav-item"><a
-                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
-                                        </li>
-                                    {% else %}
-                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item"><a href="{{ path('faculty_new') }}">
-                                        New Listing
-                                    </a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </nav>
-
-            </div>
-        </div>
-
-        <div class="col-sm-9">
-
+        <div class="col-sm-8 offset-sm-1">
             {% if entities %}
                 {% if app.request.get('status') =='all' %}
                     <h1>Affiliate Faculty</h1>
@@ -104,6 +70,37 @@
             {% if is_granted('ROLE_ADMIN') %}
             <p>Email list: {% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
             {% endif %}
+        </div>
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            {% if section is defined %}
+                                {% for page in section.pages %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item"><a href="{{ path('faculty_new') }}">
+                                        New Listing
+                                    </a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
         </div>
     </div>
 

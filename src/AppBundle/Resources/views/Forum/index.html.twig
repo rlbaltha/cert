@@ -2,33 +2,7 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-3">
-            <div class="bootstrap-vertical-nav">
-
-                <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
-                            data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-sidenav">
-
-                        </ul>
-
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <ul class="nav navbar-sidenav">
-                                <li class="nav-item"><a href="{{ path('forum_new') }}">
-                                        New Forum
-                                    </a></li>
-                            </ul>
-                        {% endif %}
-                    </div>
-                </nav>
-
-            </div>
-        </div>
-
-        <div class="col-sm-9">
+        <div class="col-sm-8 offset-sm-1">
             <h1>Forums</h1>
             <p>Forums are for sharing information to assist you in your work in sustainability. Please offer you
                 insights on
@@ -51,7 +25,30 @@
                     </div>
                 </div>
             {% endfor %}
+        </div>
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
 
+                        </ul>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <ul class="nav navbar-sidenav">
+                                <li class="nav-item"><a href="{{ path('forum_new') }}">
+                                        New Forum
+                                    </a></li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </nav>
+
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -14,8 +14,9 @@
 
 {% block body -%}
     {# Name and notes #}
-    <div class="row margin-top">
-        <div class="col-sm-8 offset-sm-2 col-xs-12">
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-xs-12">
+
             {% if app.session.flashBag.has('success') %}
                 <div class="alert alert-success">
                     {% for msg in app.session.flashBag.get('success') %}
@@ -23,11 +24,7 @@
                     {% endfor %}
                 </div>
             {% endif %}
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-sm-8 offset-sm-2 col-xs-12">
             <div class="btn-group float-sm-right" role="group" aria-label="Basic Functions">
                 {% if is_granted('ROLE_ADMIN') %}
                     <a class="btn btn-primary" style="margin-left: 10px;"
@@ -60,7 +57,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-8 offset-sm-2 col-xs-12">
+        <div class="col-sm-10 offset-sm-1 col-xs-12">
             <div id="accordion" role="tablist" aria-multiselectable="true">
 
                 {# Director Notes #}

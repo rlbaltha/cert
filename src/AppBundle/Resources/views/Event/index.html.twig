@@ -8,42 +8,10 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-3">
-            <div class="bootstrap-vertical-nav">
-
-                <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
-                            data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-sidenav">
-                            {% if section %}
-                            {% for page in section.pages if section %}
-                                {% if (page.link is null or page.link == '') %}
-                                    <li class="nav-item"><a
-                                                href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
-                                    </li>
-                                {% else %}
-                                    <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
-                                {% endif %}
-                            {% endfor %}
-                            {% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item"><a href="{{ path('event_new') }}">New Event</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </nav>
-
-            </div>
-        </div>
-
-
-        <div class="col-sm-9">
+        <div class="col-sm-8 offset-sm-1">
             <a class="btn btn-primary float-sm-right" href="http://sustainability.uga.edu/events">Campus Sustainability
                 Events</a>
-            <h1>Sustainability Certificate Events</h1>
+            <h1>Certificate Calendar</h1>
 
             {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
 
@@ -67,6 +35,36 @@
                 </div>
 
             {% endfor %}
+        </div>
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            {% if section %}
+                                {% for page in section.pages if section %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item"><a href="{{ path('event_new') }}">New Event</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
         </div>
     </div>
 

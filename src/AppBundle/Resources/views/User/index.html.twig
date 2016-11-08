@@ -32,34 +32,11 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-3">
-            <div class="bootstrap-vertical-nav">
-
-                <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-sidenav">
-                            {% for status in status %}
-                                <li class="nav-item"><a href="{{ path('user', { 'type': status.id }) }}">{{ status.name }}</a></li>
-                            {% endfor %}
-                            <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All Students</a></li>
-                            <li class="nav-item"><a href="{{ path('user', { 'type': 'all' }) }}">All Accounts</a></li>
-                        </ul>
-                    </div>
-                </nav>
-
-            </div>
-        </div>
-        <div class="col-sm-9">
-
+        <div class="col-sm-8 offset-sm-1">
             <h1>{% if app.request.get('type')=='all' %}All Accounts ({{ entities|length }}){% elseif app.request.get('type')=='students' %}All Students ({{ entities|length }}){% else %}
                     {% if entities %}{{ entities[0].progress.name }} ({{ entities|length }}){% else %}Nothing found{% endif %}
                 {% endif %}
             </h1>
-
-
             <table class="table">
                 <thead>
                 <tr>
@@ -80,9 +57,26 @@
                 {% endfor %}
                 </tbody>
             </table>
-
             <p>Email list: {% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
+        </div>
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            {% for status in status %}
+                                <li class="nav-item"><a href="{{ path('user', { 'type': status.id }) }}">{{ status.name }}</a></li>
+                            {% endfor %}
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All Students</a></li>
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'all' }) }}">All Accounts</a></li>
+                        </ul>
+                    </div>
+                </nav>
 
+            </div>
         </div>
     </div>
 

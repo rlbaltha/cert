@@ -2,9 +2,51 @@
 
 {% block body -%}
     <div class="row">
+        <div class="col-sm-8 offset-sm-1">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="btn-group float-sm-right" role="group" aria-label="Basic example">
+                        <a class="btn btn-primary"
+                           href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
+                        <a class="btn btn-primary"
+                           href="{{ path('course_approval', {'state':'approved', 'id': entity.id }) }}">Approve</a>
+                        <a class="btn btn-primary"
+                           href="{{ path('course_approval', { 'state':'denied', 'id': entity.id }) }}">Deny</a>
+                    </div>
+                {% endif %}
+            <h1>{{ entity.name }}</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Offered</th>
+                    <th class=" hidden-xs-down">Prereqs</th>
+                    <th class=" hidden-xs-down">School</th>
+                    <th class=" hidden-xs-down">Requirement</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ entity.title }}</td>
+                    <td>{{ entity.offered }}</td>
+                    <td class=" hidden-xs-down">{{ entity.prereqs }}</td>
+                    <td class=" hidden-xs-down">{{ entity.school }}</td>
+                    <td class=" hidden-xs-down">{{ entity.pillar }}</td>
+                </tr>
+                </tbody>
+            </table>
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="card card-block">Admin notes: {{ entity.notes|raw }}</div>
+            {% endif %}
+            <div class="card card-block">{{ entity.description|raw }}</div>
+            {% if entity.syllabus|length > 10 %}
+                <div class="card card-block">
+                    <p>Contact:  {{ entity.contact }}</p>
+                    {{ entity.syllabus|raw }}</div>
+            {% endif %}
+
+        </div>
         <div class="col-sm-3">
             <div class="bootstrap-vertical-nav">
-
                 <nav class="navbar navbar-dark">
                     <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
                             data-target="#exCollapsingNavbar2">
@@ -94,50 +136,6 @@
                 </nav>
 
             </div>
-        </div>
-
-        <div class="col-sm-9">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <div class="btn-group float-sm-right" role="group" aria-label="Basic example">
-                        <a class="btn btn-primary"
-                           href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
-                        <a class="btn btn-primary"
-                           href="{{ path('course_approval', {'state':'approved', 'id': entity.id }) }}">Approve</a>
-                        <a class="btn btn-primary"
-                           href="{{ path('course_approval', { 'state':'denied', 'id': entity.id }) }}">Deny</a>
-                    </div>
-                {% endif %}
-            <h1>{{ entity.name }}</h1>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Offered</th>
-                    <th class=" hidden-xs-down">Prereqs</th>
-                    <th class=" hidden-xs-down">School</th>
-                    <th class=" hidden-xs-down">Requirement</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{ entity.title }}</td>
-                    <td>{{ entity.offered }}</td>
-                    <td class=" hidden-xs-down">{{ entity.prereqs }}</td>
-                    <td class=" hidden-xs-down">{{ entity.school }}</td>
-                    <td class=" hidden-xs-down">{{ entity.pillar }}</td>
-                </tr>
-                </tbody>
-            </table>
-            {% if is_granted('ROLE_ADMIN') %}
-                <div class="card card-block">Admin notes: {{ entity.notes|raw }}</div>
-            {% endif %}
-            <div class="card card-block">{{ entity.description|raw }}</div>
-            {% if entity.syllabus|length > 10 %}
-                <div class="card card-block">
-                    <p>Contact:  {{ entity.contact }}</p>
-                    {{ entity.syllabus|raw }}</div>
-            {% endif %}
-
         </div>
     </div>
 {% endblock %}
