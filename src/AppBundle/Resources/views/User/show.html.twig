@@ -53,12 +53,7 @@
             {% endif %}
             <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
 
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-10 offset-sm-1 col-xs-12">
-            <div id="accordion" role="tablist" aria-multiselectable="true">
+             <div id="accordion" role="tablist" aria-multiselectable="true">
 
                 {# Director Notes #}
                 {% if is_granted('ROLE_ADMIN') %}
