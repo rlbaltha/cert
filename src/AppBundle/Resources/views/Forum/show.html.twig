@@ -97,9 +97,9 @@
 
                         {% if is_granted('ROLE_ADMIN') %}
                             <ul class="nav navbar-sidenav">
-                                <li class="nav-item"><a href="{{ path('forum_new') }}">
-                                        New Forum
-                                    </a></li>
+                                <li class="nav-item">
+                                    <a  href="{{ path('forum_new', {'id':entity.id}) }}">New Forum</a>
+                                </li>
                             </ul>
                         {% endif %}
                     </div>
