@@ -54,6 +54,12 @@ class Upload
      */
     protected $created;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Course", inversedBy="uploads")
+     */
+    protected $course;
+
+
 
     /**
      * Get id
@@ -168,4 +174,28 @@ class Upload
         return pathinfo($filename, PATHINFO_EXTENSION);
     }
 
+
+    /**
+     * Set course
+     *
+     * @param \AppBundle\Entity\Course $course
+     *
+     * @return Upload
+     */
+    public function setCourse(\AppBundle\Entity\Course $course = null)
+    {
+        $this->course = $course;
+
+        return $this;
+    }
+
+    /**
+     * Get course
+     *
+     * @return \AppBundle\Entity\Course
+     */
+    public function getCourse()
+    {
+        return $this->course;
+    }
 }

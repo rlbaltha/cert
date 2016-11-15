@@ -129,6 +129,11 @@ class Course
     private $status='pending';
 
     /**
+     * @ORM\OneToMany(targetEntity="Upload", mappedBy="course")
+     */
+    protected $uploads;
+
+    /**
      * Get id
      *
      * @return integer
@@ -500,5 +505,46 @@ class Course
     public function getContactEmail()
     {
         return $this->contact_email;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->uploads = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add upload
+     *
+     * @param \AppBundle\Entity\Upload $upload
+     *
+     * @return Course
+     */
+    public function addUpload(\AppBundle\Entity\Upload $upload)
+    {
+        $this->uploads[] = $upload;
+
+        return $this;
+    }
+
+    /**
+     * Remove upload
+     *
+     * @param \AppBundle\Entity\Upload $upload
+     */
+    public function removeUpload(\AppBundle\Entity\Upload $upload)
+    {
+        $this->uploads->removeElement($upload);
+    }
+
+    /**
+     * Get uploads
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUploads()
+    {
+        return $this->uploads;
     }
 }

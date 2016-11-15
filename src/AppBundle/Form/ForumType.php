@@ -24,10 +24,6 @@ class ForumType extends AbstractType
                 'choice_label' => 'title',
                 'label' => 'Forum',
                 'attr' => array('class' => 'form-control'),))
-
-    // used to render a select box, check boxes or radios
-    // 'multiple' => true,
-    // 'expanded' => true,
         ;
     }
     
