@@ -37,6 +37,13 @@ class Checklist
     private $portfolio;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="presentation", type="string", length=255, nullable=true)
+     */
+    private $presentation;
+
+    /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="checklist")
      */
     private $user;
@@ -452,5 +459,29 @@ class Checklist
     public function getOrientation()
     {
         return $this->orientation;
+    }
+
+    /**
+     * Set presentation
+     *
+     * @param string $presentation
+     *
+     * @return Checklist
+     */
+    public function setPresentation($presentation)
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    /**
+     * Get presentation
+     *
+     * @return string
+     */
+    public function getPresentation()
+    {
+        return $this->presentation;
     }
 }

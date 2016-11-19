@@ -92,11 +92,28 @@ class ChecklistType extends AbstractType
             },
             'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Capstone', 'attr' => array
             ('class' => 'form-control'),))
+            ->add(
+                'presentation',
+                'choice',
+                array(
+                    'choices' => array(
+                        'Seminar' => 'Seminar',
+                        'Semester In Review' => 'Semester In Review',
+                        'Sustainability Slam' => 'Sustainability Slam',
+                        'Conference' => 'Conference',
+                        'Other' => 'Other',
+                    ),
+                    // *this line is important*
+                    'choices_as_values' => true,
+                    'label' => 'Where did you present your capstone?',
+                    'attr' => array('class' => 'text form-control'),
+                )
+            )
           ->add('portfolio', 'text', array('required'=> false,'attr' => array('class' => 'text form-control', 'placeholder' =>
             'https://uga.digication.com/'),))
           ->add('post_assess','date', array('attr' => array('class' => ''), 'label'  => 'Post-Certificate Survey 
             Completed', 'required' => false,))
-            ->add('exceptions', 'ckeditor', array('config_name' => 'editor_simple',))
+            ->add('exceptions', 'ckeditor', array('label'  => 'Exceptions:  Please offer any exceptions to the above requirements and the reasons for them.','config_name' => 'editor_simple',))
 
         ;
     }

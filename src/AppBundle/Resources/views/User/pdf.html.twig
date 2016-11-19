@@ -177,6 +177,10 @@
                                 <td>{% if entity.checklist.capstone %}{{ entity.checklist.capstone.name }}: {{ entity.checklist.capstone.title }}{% endif %}</td>
                             </tr>
                             <tr>
+                                <th>Presentation</th>
+                                <td>{{ entity.checklist.portfolio }}</td>
+                            </tr>
+                            <tr>
                                 <th>Portfolio</th>
                                 <td><a href="{{ entity.checklist.portfolio }}"
                                        target="_blank">{{ entity.checklist.portfolio }}</a></td>
