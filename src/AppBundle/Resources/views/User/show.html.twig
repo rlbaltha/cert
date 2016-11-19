@@ -228,6 +228,11 @@
                                 <p>The checklist allows you to track your progress through the program. Please update
                                     regularly.
                                 </p>
+                                <p> For details, please
+                                    <a href="{{ path('page_show',  { 'id': '12'}) }}">
+                                        review the
+                                        <strong>Guidelines for the Certificate.</strong>
+                                    </a></p>
                                 {% if entity.checklist %}
                                     <a class="btn btn-primary align-right margin-bottom"
                                        href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
