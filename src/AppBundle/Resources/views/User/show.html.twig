@@ -246,7 +246,8 @@
                                         <tbody>
                                         <tr>
                                             <th>Pre-Certificate Survey Completed</th>
-                                            <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}{% endif %}</td>
+                                            <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}
+                                                {% else %}<p>This survey is part of our assessment of the certificate.  Please complete it at the beginning of your program. </p><a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Take the Survey Now</a>{% endif %}</td>
                                         </tr>
                                         <tr>
                                             <th>Orientation Completed</th>
@@ -367,7 +368,8 @@
                                         </tr>
                                         <tr>
                                             <th>Post-Certificate Survey Completed</th>
-                                            <td>{% if entity.checklist.postAssess %}{{ entity.checklist.postAssess|date('m/d/Y') }}{% endif %}</td>
+                                            <td>{% if entity.checklist.postAssess %}{{ entity.checklist.postAssess|date('m/d/Y') }}
+                                                {% else %}<p>This survey is part of our assessment of the certificate.  Please complete it at the end of your program.</p>  <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_8vvElrQSuli7Pg1" target="_blank">Take the Survey Now</a>{% endif %}</td>
                                         </tr>
                                         <tr>
                                             <th>Exceptions</th>
