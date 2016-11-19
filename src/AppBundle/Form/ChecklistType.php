@@ -107,6 +107,7 @@ class ChecklistType extends AbstractType
                     'choices_as_values' => true,
                     'label' => 'Where did you present your capstone?',
                     'attr' => array('class' => 'text form-control'),
+                    'required' => false,
                 )
             )
           ->add('portfolio', 'text', array('required'=> false,'attr' => array('class' => 'text form-control', 'placeholder' =>
