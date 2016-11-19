@@ -6,6 +6,12 @@
         $(document).ready(function () {
             {# nice little jquery plugin for sorting: tinysort #}
             tinysort('#questions>div', {data: 'position'});
+            $('#delete_form').toggle();
+            $("#confirm_btn, #cancel_btn").click(function () {
+                $('#edit_form').toggle();
+                $('#delete_form').toggle();
+            });
+            $("form:not(.filter) :input:visible:enabled:first").focus();
         });
     </script>
 {% endblock %}
@@ -13,22 +19,31 @@
 
 {% block body -%}
     <div class="col-sm-10 offset-sm-1 col-xs-12">
-        <h1>{{ entity.responses[0].question.questionset.title }}</h1>
+        <div id="edit_form">
+            <h1>{{ entity.responses[0].question.questionset.title }}</h1>
 
-        <div class="alert alert-info" role="alert">Please respond to the following questions.</div>
+            <div class="alert alert-info" role="alert">Please respond to the following questions.</div>
 
-        {{ form_start(edit_form) }}
-        <div id="questions">
-            {% for response in edit_form.responses %}
-                <div data-position="{{ entity.responses[loop.index-1].question.position }}" class="card card-block">
-                    <strong>
-                        {{ entity.responses[loop.index-1].question.question|raw }}
-                    </strong>
-                    {{ form_row(response.response) }}
-                </div>
-            {% endfor %}
+            {{ form_start(edit_form) }}
+            <div id="questions">
+                {% for response in edit_form.responses %}
+                    <div data-position="{{ entity.responses[loop.index-1].question.position }}" class="card card-block">
+                        <strong>
+                            {{ entity.responses[loop.index-1].question.question|raw }}
+                        </strong>
+                        {{ form_row(response.response) }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            {{ form_end(edit_form) }}
+            <a class="btn btn-danger" href="javascript:void(0)" id="confirm_btn">Delete</a>
         </div>
 
-        {{ form_end(edit_form) }}
+
+        <div id="delete_form">
+            {{ form(delete_form) }}
+            <a class="btn btn-secondary" href="javascript:void(0)" id="cancel_btn">Cancel</a>
+        </div>
     </div>
 {% endblock %}

@@ -78,7 +78,7 @@ class ResponsesetController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -186,7 +186,7 @@ class ResponsesetController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -238,6 +238,8 @@ class ResponsesetController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AppBundle:Responseset')->find($id);
+            $capstoneid = $entity->getCapstone()->getUser()->getId();
+
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Responseset entity.');
@@ -247,7 +249,7 @@ class ResponsesetController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('responseset'));
+        return $this->redirect($this->generateUrl('user_show', array('id' => $capstoneid)));
     }
 
     /**
@@ -262,7 +264,7 @@ class ResponsesetController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('responseset_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }
