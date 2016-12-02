@@ -19,8 +19,13 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function findUsersByType($type)
     {
         $course = $this->createQueryBuilder('u')
+            ->join('u.program', 'p')
             ->andWhere("u.progress = :type")
             ->setParameter('type', $type)
+            ->addOrderBy('p.graddate', 'ASC')
+            ->addOrderBy('p.gradterm', 'ASC')
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
             ->getQuery()
             ->getResult();
         return $course;
@@ -39,6 +44,8 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere("p.graddate = :date")
             ->setParameter('term', $term)
             ->setParameter('date', $date)
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
             ->getQuery()
             ->getResult();
         return $course;
@@ -53,7 +60,12 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     {
         $course = $this->createQueryBuilder('u')
             ->join('u.progress', 'p')
+            ->join('u.program', 'pr')
             ->andWhere("p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
+            ->addOrderBy('pr.graddate', 'ASC')
+            ->addOrderBy('pr.gradterm', 'ASC')
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
             ->getQuery()
             ->getResult();
         return $course;
