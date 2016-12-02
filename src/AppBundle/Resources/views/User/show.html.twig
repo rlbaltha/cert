@@ -110,7 +110,7 @@
                                         </a>
                                     {% endif %}
 
-                                    {% if entity.program.status == 'Created' %}
+                                    {% if is_granted('ROLE_ADMIN') or entity.program.status == 'Created' %}
                                         <a class="btn btn-primary  align-right "
                                            href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
                                             Update Application

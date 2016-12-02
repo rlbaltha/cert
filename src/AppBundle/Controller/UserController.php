@@ -78,6 +78,28 @@ class UserController extends Controller
     }
 
     /**
+     * Lists  User entities.
+     *
+     * @Route("/list/{date}/{term}", name="user_graddate")
+     * @Method("GET")
+     * @Template("AppBundle:User:index.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function indexByTermAction($term, $date)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppBundle:User')->findUsersByTerm($term, $date);
+
+        $status = $em->getRepository('AppBundle:Status')->findAll();
+        return array(
+            'entities' => $entities,
+            'status' => $status,
+        );
+    }
+
+
+    /**
      * Finds and displays a User entity.
      *
      * @Route("/{id}", name="user_show")

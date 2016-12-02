@@ -27,6 +27,24 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * Find users by term
+     *
+     * @return User
+     */
+    public function findUsersByTerm($term, $date)
+    {
+        $course = $this->createQueryBuilder('u')
+            ->join('u.program', 'p')
+            ->andWhere("p.gradterm = :term")
+            ->andWhere("p.graddate = :date")
+            ->setParameter('term', $term)
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult();
+        return $course;
+    }
+
+    /**
      * Find student users
      *
      * @return User
