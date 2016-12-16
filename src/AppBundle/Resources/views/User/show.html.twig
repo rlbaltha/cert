@@ -421,6 +421,13 @@
                                 project, outlining goals, objectives, timeline,
                                 resources/partners, personal objectives, and success metrics.</p>
                             <p>Once your work plan is complete, mark it <strong>Ready for Peer Review</strong></p>
+
+                            {% if entity.capstone.responsesets %}
+                                <p>You currently have reviews from <strong>
+                                {% for responseset in entity.capstone.responsesets %}
+                                    {% if loop.last %}and {% endif %}{{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}</strong> <a href="#reviews" >listed after your workplan</a>.
+                            {% endif %}
                             <p>When you have received feedback from your peers, revise and polish your work plan. Then
                                 mark it <strong>Ready for Director Review</strong></p>
 
@@ -549,7 +556,7 @@
                                     </tr>
                                     <tr>
                                         <th>Status</th>
-                                        <td>{{ entity.capstone.status }}</td>
+                                        <td>{{ entity.capstone.status }}<a name="reviews"></a></td>
                                     </tr>
                                     <tr>
                                         <th>Updated</th>
@@ -559,6 +566,7 @@
                                 </table>
 
                                 {% if entity.capstone.responsesets %}
+
                                     <hr/>
                                     {% for responseset in entity.capstone.responsesets %}
                                         {% if app.user.username==responseset.user.username %}
