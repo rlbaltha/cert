@@ -423,9 +423,9 @@
                             <p>Once your work plan is complete, mark it <strong>Ready for Peer Review</strong></p>
 
                             {% if entity.capstone.responsesets %}
-                                <p>You currently have reviews from <strong>
+                                <p>You currently have review{% if entity.capstone.responsesets|length > 1 %}s{% endif %} from <strong>
                                 {% for responseset in entity.capstone.responsesets %}
-                                    {% if loop.last %}and {% endif %}{{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
+                                    {% if loop.last and entity.capstone.responsesets|length > 1 %}and {% endif %}{{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
                                 {% endfor %}</strong> <a href="#reviews" >listed after your workplan</a>.
                             {% endif %}
                             <p>When you have received feedback from your peers, revise and polish your work plan. Then
