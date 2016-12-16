@@ -63,7 +63,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         $course = $this->createQueryBuilder('u')
             ->join('u.progress', 'p')
             ->join('u.program', 'pr')
-            ->andWhere("p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
+            ->andWhere("p.name != 'Inactive' and p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
             ->addOrderBy('pr.graddate', 'ASC')
             ->addOrderBy('pr.gradterm', 'DESC')
             ->addOrderBy('u.lastname', 'ASC')
