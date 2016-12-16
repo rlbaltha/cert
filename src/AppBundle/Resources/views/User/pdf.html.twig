@@ -173,8 +173,17 @@
                                 <td>{% if entity.checklist.seminar %}{{ entity.checklist.seminar.name }}: {{ entity.checklist.seminar.title }}{% endif %}</td>
                             </tr>
                             <tr>
-                                <th>Capstone</th>
-                                <td>{% if entity.checklist.capstone %}{{ entity.checklist.capstone.name }}: {{ entity.checklist.capstone.title }}{% endif %}</td>
+                                <th>Capstone Work Plan</th>
+                                <td>{% if entity.checklist.capstone %}
+                                        <a href="{{ path('course_show', { 'id': entity.checklist.capstone.id }) }}">
+                                            {{ entity.checklist.capstone.name }}
+                                            : {{ entity.checklist.capstone.title }}
+                                        </a>
+                                    {% endif %}
+                                    {% if entity.capstone %}
+                                        {{ entity.capstone.status }}
+                                    {% endif %}
+                                </td>
                             </tr>
                             <tr>
                                 <th>Presentation</th>
