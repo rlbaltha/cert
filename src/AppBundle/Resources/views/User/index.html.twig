@@ -42,7 +42,8 @@
                 <tr>
                     <th>Name (Email)</th>
                     <th>School: Program</th>
-                    <th>Expected Graduation</th>
+                    <th>Capstone Term</th>
+                    <th>Graduation Term</th>
                     <th>Progress</th>
                 </tr>
                 </thead>
@@ -53,6 +54,11 @@
                                 , {{ entity.firstname }}</a> ({{ entity.email }})
                         </td>
                         <td>{% if entity.program %}{{ entity.program.school }}: {{ entity.program.program }}{% endif %}</td>
+                        <td>
+                            {% if entity.checklist %}
+                                {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
+                            {% endif %}
+                        </td>
                         <td>
                             {% if entity.program %}
                                 <a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>

@@ -70,6 +70,21 @@ class Checklist
     private $orientation;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="capstonedate", type="string", length=255, nullable=true)
+     */
+    private $capstonedate;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="capstoneterm", type="string", length=255, nullable=true)
+     */
+    private $capstoneterm;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Course")
      */
     protected $anchor;
@@ -98,6 +113,7 @@ class Checklist
      * @ORM\ManyToOne(targetEntity="Course")
      */
     protected $capstone;
+
 
     /**
      * @var \DateTime $created
@@ -483,5 +499,53 @@ class Checklist
     public function getPresentation()
     {
         return $this->presentation;
+    }
+
+    /**
+     * Set capstonedate
+     *
+     * @param string $capstonedate
+     *
+     * @return Checklist
+     */
+    public function setCapstonedate($capstonedate)
+    {
+        $this->capstonedate = $capstonedate;
+
+        return $this;
+    }
+
+    /**
+     * Get capstonedate
+     *
+     * @return string
+     */
+    public function getCapstonedate()
+    {
+        return $this->capstonedate;
+    }
+
+    /**
+     * Set capstoneterm
+     *
+     * @param string $capstoneterm
+     *
+     * @return Checklist
+     */
+    public function setCapstoneterm($capstoneterm)
+    {
+        $this->capstoneterm = $capstoneterm;
+
+        return $this;
+    }
+
+    /**
+     * Get capstoneterm
+     *
+     * @return string
+     */
+    public function getCapstoneterm()
+    {
+        return $this->capstoneterm;
     }
 }
