@@ -369,10 +369,11 @@ class CourseController extends Controller
         $course = $entity->getName();
         if ($state=='approved') {
             $text =  '<p>'.$name.', '.$course.'  has been approved for inclusion in the Sustainability Certificate Program.</p>
-             <p>As an instructor of an approved course in the Certificate Program, you are now considered affiliate faculty, 
+             <p>As an instructor of an approved course in the certificate program, you are now considered affiliate faculty, 
             and as such we would like to include some information about you and your research interests on our faculty page. 
             Please send a brief description of your interests in sustainability at your earliest convenience. 
-            Otherwise we are happy to harvest this data from your departmental website.  If you are already afflicate faculty, please
+            Otherwise we are happy to harvest this data from your departmental website.</p>
+            <p>If you are already affiliate faculty, please
             take a minute to review your information on our website and send along an update as appropriate.
             Thanks much for being part of the certificate and for all you do for sustainability at UGA.</p>
             <p>You should be able to see your course listed now on the website:  
@@ -382,13 +383,13 @@ class CourseController extends Controller
              ';
         }
         else {
-            $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate.  The Review Committee does 
-             not feel that '.$course.' meets our criteria for inclusion.  As a baseline for our sustainability spheres, we would like to see
+            $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate.  The Review Committee of the certificate program
+             does not feel that '.$course.' meets our criteria for inclusion.  As a baseline for our sustainability spheres, we would like to see
               at least 50% of the course directly focused on sustainability and would like to see sustainability in the description 
               and course objectives. For more details, please read the criteria for including a course on our website: 
               <a href="https://www.sustain.uga.edu/page/29">https://www.sustain.uga.edu/page/29</a>
             </p>
-            <p>Please contact us if you have questions: scdirector@uga.edu.</p>
+            <p>Please contact me if you have questions: scdirector@uga.edu.</p>
             <p>Ron Balthazor, Director</p>';
         }
 
