@@ -68,7 +68,7 @@ class Faculty
      *
      * @ORM\Column(name="status", type="string", length=255, nullable=true)
      */
-    private $status='Affliate Faculty';
+    private $status='affiliate';
 
     /**
      * @var string
