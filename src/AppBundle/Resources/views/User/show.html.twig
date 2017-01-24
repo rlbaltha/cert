@@ -250,6 +250,11 @@
                                     <table class="table margin-top">
                                         <tbody>
                                         <tr>
+                                            <th>Date Certificate  was added in Athena</th>
+                                            <td>{% if entity.checklist.athena %}{{ entity.checklist.athena|date('m/d/Y') }}
+                                                {% else %}<p>All students should add the Sustainability Certificate to their active curricula program via the MyPrograms option in Athena.</p><a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate to Athena Now</a>{% endif %}</td>
+                                        </tr>
+                                        <tr>
                                             <th>Pre-Certificate Survey Completed</th>
                                             <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}
                                                 {% else %}<p>This survey is part of our assessment of the certificate.  Please complete it at the beginning of your program. </p><a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Take the Survey Now</a>{% endif %}</td>

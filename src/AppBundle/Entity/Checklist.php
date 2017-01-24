@@ -51,6 +51,13 @@ class Checklist
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="athena", type="datetime", nullable=true)
+     */
+    private $athena;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="pre_assess", type="datetime", nullable=true)
      */
     private $pre_assess;
@@ -547,5 +554,29 @@ class Checklist
     public function getCapstoneterm()
     {
         return $this->capstoneterm;
+    }
+
+    /**
+     * Set athena
+     *
+     * @param \DateTime $athena
+     *
+     * @return Checklist
+     */
+    public function setAthena($athena)
+    {
+        $this->athena = $athena;
+
+        return $this;
+    }
+
+    /**
+     * Get athena
+     *
+     * @return \DateTime
+     */
+    public function getAthena()
+    {
+        return $this->athena;
     }
 }

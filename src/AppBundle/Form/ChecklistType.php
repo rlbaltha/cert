@@ -16,6 +16,7 @@ class ChecklistType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('athena','date', array('attr' => array('class' => ''), 'label'  => 'Date Certificate was added in Athena', 'required' => false,))
             ->add('pre_assess','date', array('attr' => array('class' => ''), 'label'  => 'Pre-Certificate Survey 
             Completed', 'required' => false,))
             ->add('orientation','date', array('attr' => array('class' => ''), 'label'  => 'Orientation 
