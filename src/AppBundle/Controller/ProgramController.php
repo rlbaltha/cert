@@ -299,7 +299,7 @@ class ProgramController extends Controller
         $email = $user_entity->getEmail();
         $text =  '<p>'.$name.', your application for the Sustainability Certificate has been approved. Congrats and welcome! </p>
                  <p>Continue by filling in the <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Checklist</a>.</p>
-                 <p>Now that your application has been approved, you may add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena.</p>
+                 <p>Now that your application has been approved, you may add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena. <a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate in Athena Now</a></p>
                  <p>We would also like for you to take a survey as part of our assessment of the certificate program: 
                  <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Pre-Certificate Survey</a>
                  Be sure to record the date that you took the survey in your <strong>Checklist</strong></p>

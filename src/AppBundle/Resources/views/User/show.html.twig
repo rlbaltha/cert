@@ -250,9 +250,9 @@
                                     <table class="table margin-top">
                                         <tbody>
                                         <tr>
-                                            <th>Date Certificate  was added in Athena</th>
+                                            <th>Certificate added in Athena</th>
                                             <td>{% if entity.checklist.athena %}{{ entity.checklist.athena|date('m/d/Y') }}
-                                                {% else %}<p>All students should add the Sustainability Certificate to their active curricula program via the MyPrograms option in Athena.</p><a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate to Athena Now</a>{% endif %}</td>
+                                                {% else %}<p>All students should add the Sustainability Certificate to their active curricula program via the MyPrograms option in Athena.</p><a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate in Athena Now</a>{% endif %}</td>
                                         </tr>
                                         <tr>
                                             <th>Pre-Certificate Survey Completed</th>
@@ -388,6 +388,10 @@
                                             <th>Post-Certificate Survey Completed</th>
                                             <td>{% if entity.checklist.postAssess %}{{ entity.checklist.postAssess|date('m/d/Y') }}
                                                 {% else %}<p>This survey is part of our assessment of the certificate.  Please complete it at the end of your program.</p>  <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_8vvElrQSuli7Pg1" target="_blank">Take the Survey Now</a>{% endif %}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Apply for Graduation in Athena</th>
+                                            <td><p>Once you have met all requirements, please remember to apply to graduate with the Sustainability Certificate in Athena for the semester you will graduate from UGA.  <a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Apply for graduation Now</a></p></td>
                                         </tr>
                                         <tr>
                                             <th>Exceptions</th>
