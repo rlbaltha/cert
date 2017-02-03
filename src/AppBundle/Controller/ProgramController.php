@@ -35,7 +35,7 @@ class ProgramController extends Controller
         if ($form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $user=$this->getUser();
+            $user = $this->getUser();
             $entity->setUser($user);
 
             $user_entity = $em->getRepository('AppBundle:User')->find($user);
@@ -47,8 +47,8 @@ class ProgramController extends Controller
             $em->flush();
 
             $user = $em->getRepository('AppBundle:User')->find($user);
-            $name = $user->getFirstname().' '.$user->getLastname();
-            $text = $name.' has created an application.';
+            $name = $user->getFirstname() . ' ' . $user->getLastname();
+            $text = $name . ' has created an application.';
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Certificate Application')
@@ -62,8 +62,7 @@ class ProgramController extends Controller
                             'text' => $text)
                     ),
                     'text/html'
-                )
-            ;
+                );
             $this->get('mailer')->send($message);
 
             return $this->redirect($this->generateUrl('user_profile'));
@@ -71,7 +70,7 @@ class ProgramController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -89,7 +88,7 @@ class ProgramController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Submit Application','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Submit Application', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -104,11 +103,11 @@ class ProgramController extends Controller
     public function newAction()
     {
         $entity = new Program();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -134,19 +133,19 @@ class ProgramController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Program entity.
-    *
-    * @param Program $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Program entity.
+     *
+     * @param Program $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Program $entity)
     {
         $form = $this->createForm(new ProgramType(), $entity, array(
@@ -154,10 +153,11 @@ class ProgramController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
+
     /**
      * Edits an existing Program entity.
      *
@@ -181,10 +181,10 @@ class ProgramController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-            $user=$this->getUser();
+            $user = $this->getUser();
             $user = $em->getRepository('AppBundle:User')->find($user);
-            $name = $user->getFirstname().' '.$user->getLastname();
-            $text = $name.' has updated an application.';
+            $name = $user->getFirstname() . ' ' . $user->getLastname();
+            $text = $name . ' has updated an application.';
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Certificate Application')
@@ -195,19 +195,18 @@ class ProgramController extends Controller
 
                         'AppBundle:Email:apply.html.twig',
                         array('name' => $name,
-                              'text' => $text)
+                            'text' => $text)
                     ),
                     'text/html'
-                )
-            ;
+                );
             $this->get('mailer')->send($message);
 
             return $this->redirect($this->generateUrl('user_profile'));
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -235,16 +234,16 @@ class ProgramController extends Controller
         $user_entity->setProgress($status);
         $timestamp = date('m/d/Y h:i:s A');
         $notes = $user_entity->getNotes();
-        $user_entity->setNotes($notes.'<p> Application ready for review '.$timestamp.'</p>');
+        $user_entity->setNotes($notes . '<p> Application ready for review ' . $timestamp . '</p>');
         $entity->setStatus('Ready for Review');
 
         $em->persist($entity);
         $em->persist($user_entity);
         $em->flush();
 
-        $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
+        $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
         $email = 'scdirector@uga.edu';
-        $text = $name.' has submitted an application that is ready for review.';
+        $text = $name . ' has submitted an application that is ready for review.';
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Certificate Application Ready for Review')
@@ -258,8 +257,7 @@ class ProgramController extends Controller
                         'text' => $text)
                 ),
                 'text/html'
-            )
-        ;
+            );
         $this->get('mailer')->send($message);
 
         return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
@@ -288,16 +286,16 @@ class ProgramController extends Controller
         $user_entity->setProgress($status);
         $timestamp = date('m/d/Y h:i:s A');
         $notes = $user_entity->getNotes();
-        $user_entity->setNotes($notes.'<p> Application approved '.$timestamp.'</p>');
+        $user_entity->setNotes($notes . '<p> Application approved ' . $timestamp . '</p>');
         $entity->setStatus('Approved');
 
         $em->persist($entity);
         $em->persist($user_entity);
         $em->flush();
 
-        $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
+        $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
         $email = $user_entity->getEmail();
-        $text =  '<p>'.$name.', your application for the Sustainability Certificate has been approved. Congrats and welcome! </p>
+        $text = '<p>' . $name . ', your application for the Sustainability Certificate has been approved. Congrats and welcome! </p>
                  <p>Continue by filling in the <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Checklist</a>.</p>
                  <p>Now that your application has been approved, you may add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena. <a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate in Athena Now</a></p>
                  <p>We would also like for you to take a survey as part of our assessment of the certificate program: 
@@ -308,31 +306,46 @@ class ProgramController extends Controller
                  <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>
                  ';
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Certificate Application Approved')
-                ->setFrom('scdirector@uga.edu')
-                ->setTo($email)
-                ->setBcc('scdirector@uga.edu')
-                ->setBody(
-                    $this->renderView(
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Certificate Application Approved')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo($email)
+            ->setBcc('scdirector@uga.edu')
+            ->setBody(
+                $this->renderView(
 
-                        'AppBundle:Email:apply.html.twig',
-                        array('name' => $name,
-                            'text' => $text)
-                    ),
-                    'text/html'
-                )
-            ;
-            $this->get('mailer')->send($message);
+                    'AppBundle:Email:apply.html.twig',
+                    array('name' => $name,
+                        'text' => $text)
+                ),
+                'text/html'
+            );
+
+        $text2 = '<p>Please create a Sustainability Certificate portfolio account for ' . $name . ' ' . $email . ' </p>
+        <p>Many thanks.</p><p>The Cert Bot</p>';
+        $message2 = \Swift_Message::newInstance()
+            ->setSubject('Certificate Application Approved')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo('cnbishop@uga.edu')
+            ->setBcc('scdirector@uga.edu')
+            ->setBody(
+                $this->renderView(
+
+                    'AppBundle:Email:apply.html.twig',
+                    array('name' => $name,
+                        'text' => $text2)
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
+        $this->get('mailer')->send($message2);
 
         $this->container->get('session')
             ->getFlashBag()
-            ->add('success', 'Please remember to add '. $email . ' ('. $name. ') to the listserv.' )
-        ;
+            ->add('success', 'Please remember to add ' . $email . ' (' . $name . ') to the listserv.');
 
         return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
-        }
-
+    }
 
 
     /**
@@ -373,8 +386,7 @@ class ProgramController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('program_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
+            ->getForm();
     }
 }
