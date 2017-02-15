@@ -100,6 +100,11 @@ class User extends BaseUser
     private $responsesets;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Organization", mappedBy="users")
+     */
+    private $organizations;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Status")
      */
     protected $progress;
@@ -407,5 +412,39 @@ class User extends BaseUser
     public function getResponsesets()
     {
         return $this->responsesets;
+    }
+
+    /**
+     * Add organization
+     *
+     * @param \AppBundle\Entity\Organization $organization
+     *
+     * @return User
+     */
+    public function addOrganization(\AppBundle\Entity\Organization $organization)
+    {
+        $this->organizations[] = $organization;
+
+        return $this;
+    }
+
+    /**
+     * Remove organization
+     *
+     * @param \AppBundle\Entity\Organization $organization
+     */
+    public function removeOrganization(\AppBundle\Entity\Organization $organization)
+    {
+        $this->organizations->removeElement($organization);
+    }
+
+    /**
+     * Get organizations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrganizations()
+    {
+        return $this->organizations;
     }
 }
