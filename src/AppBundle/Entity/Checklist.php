@@ -37,9 +37,23 @@ class Checklist
     private $portfolio;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="presentation", type="string", length=255, nullable=true)
+     */
+    private $presentation;
+
+    /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="checklist")
      */
     private $user;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="athena", type="datetime", nullable=true)
+     */
+    private $athena;
 
     /**
      * @var \DateTime
@@ -61,6 +75,21 @@ class Checklist
      * @ORM\Column(name="orientation", type="datetime", nullable=true)
      */
     private $orientation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="capstonedate", type="string", length=255, nullable=true)
+     */
+    private $capstonedate;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="capstoneterm", type="string", length=255, nullable=true)
+     */
+    private $capstoneterm;
 
     /**
      * @ORM\ManyToOne(targetEntity="Course")
@@ -91,6 +120,7 @@ class Checklist
      * @ORM\ManyToOne(targetEntity="Course")
      */
     protected $capstone;
+
 
     /**
      * @var \DateTime $created
@@ -452,5 +482,101 @@ class Checklist
     public function getOrientation()
     {
         return $this->orientation;
+    }
+
+    /**
+     * Set presentation
+     *
+     * @param string $presentation
+     *
+     * @return Checklist
+     */
+    public function setPresentation($presentation)
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    /**
+     * Get presentation
+     *
+     * @return string
+     */
+    public function getPresentation()
+    {
+        return $this->presentation;
+    }
+
+    /**
+     * Set capstonedate
+     *
+     * @param string $capstonedate
+     *
+     * @return Checklist
+     */
+    public function setCapstonedate($capstonedate)
+    {
+        $this->capstonedate = $capstonedate;
+
+        return $this;
+    }
+
+    /**
+     * Get capstonedate
+     *
+     * @return string
+     */
+    public function getCapstonedate()
+    {
+        return $this->capstonedate;
+    }
+
+    /**
+     * Set capstoneterm
+     *
+     * @param string $capstoneterm
+     *
+     * @return Checklist
+     */
+    public function setCapstoneterm($capstoneterm)
+    {
+        $this->capstoneterm = $capstoneterm;
+
+        return $this;
+    }
+
+    /**
+     * Get capstoneterm
+     *
+     * @return string
+     */
+    public function getCapstoneterm()
+    {
+        return $this->capstoneterm;
+    }
+
+    /**
+     * Set athena
+     *
+     * @param \DateTime $athena
+     *
+     * @return Checklist
+     */
+    public function setAthena($athena)
+    {
+        $this->athena = $athena;
+
+        return $this;
+    }
+
+    /**
+     * Get athena
+     *
+     * @return \DateTime
+     */
+    public function getAthena()
+    {
+        return $this->athena;
     }
 }

@@ -35,4 +35,21 @@ class FacultyRepository extends \Doctrine\ORM\EntityRepository
         }
 
     }
+
+    /**
+     * Find faculty
+     *
+     * @return Faculty
+     */
+    public function findByEmail($email)
+    {
+            $faculty = $this->createQueryBuilder('f')
+                ->andWhere('f.email = :email')
+                ->addOrderBy('f.lastname')
+                ->setParameter('email', $email)
+                ->getQuery()
+                ->getOneOrNullResult();
+            return $faculty;
+
+    }
 }

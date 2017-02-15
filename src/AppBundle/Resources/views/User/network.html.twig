@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "filter", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"],
+                    filter_reset: ".reset",
+                    filter_cssFilter: "form-control",
+                },
+                headers: {
+                    5: {sorter: false, filter: false},
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1">
+            <h1>{% if app.request.get('type')=='all' %}All Accounts{% elseif app.request.get('type')=='students' %}All Students{% else %}
+                    {% if entities %}{{ entities[0].progress.name }}{% else %}Nothing found{% endif %}
+                {% endif %}
+            </h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.lastname }}, {{ entity.firstname }} </td>
+                        <td>{{ entity.email }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

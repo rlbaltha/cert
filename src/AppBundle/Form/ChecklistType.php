@@ -16,6 +16,7 @@ class ChecklistType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('athena','date', array('attr' => array('class' => ''), 'label'  => 'Date Certificate was added in Athena', 'required' => false,))
             ->add('pre_assess','date', array('attr' => array('class' => ''), 'label'  => 'Pre-Certificate Survey 
             Completed', 'required' => false,))
             ->add('orientation','date', array('attr' => array('class' => ''), 'label'  => 'Orientation 
@@ -80,23 +81,74 @@ class ChecklistType extends AbstractType
             },
             'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Seminar', 'attr' => array
             ('class' => 'form-control'),))
-          ->add('capstone', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('c')
-                  ->andWhere('c.pillar = :pillar')
-                    ->andWhere('c.status = :status1 or c.status = :status2')
-                    ->setParameter('pillar', 'capstone')
-                    ->setParameter('status1', 'approved')
-                    ->setParameter('status2', 'exception')
-                  ->orderBy('c.name ');
-            },
-            'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Capstone', 'attr' => array
-            ('class' => 'form-control'),))
+            ->add('capstonedate', 'choice', array(
+                'required' => true,
+                'multiple' => false,
+                'label' => 'Expected Capstone Year',
+                'choices' => array(
+                    '2017' => '2017',
+                    '2018' => '2018',
+                    '2019' => '2019',
+                    '2020' => '2020',
+                    '2021' => '2021',
+                    '2022' => '2022',
+                    '2023' => '2023',
+                    '2024' => '2024',
+                    '2025' => '2025',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => false,
+                'attr' => array('class' =>'form-control'),
+            ))
+            ->add('capstoneterm', 'choice', array(
+                'required' => true,
+                'multiple' => false,
+                'label' => 'Expected Capstone Term',
+                'choices' => array(
+                    'Spring' => 'Spring',
+                    'Summer' => 'Summer',
+                    'Fall' => 'Fall',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => true,
+            ))
+            ->add('capstone', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.pillar = :pillar')
+                        ->andWhere('c.status = :status1 or c.status = :status2')
+                        ->setParameter('pillar', 'capstone')
+                        ->setParameter('status1', 'approved')
+                        ->setParameter('status2', 'exception')
+                        ->orderBy('c.name ');
+                },
+                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Capstone Course', 'attr' => array
+                ('class' => 'form-control'),))
+            ->add(
+                'presentation',
+                'choice',
+                array(
+                    'choices' => array(
+                        'Seminar' => 'Seminar',
+                        'Semester In Review' => 'Semester In Review',
+                        'Sustainability Slam' => 'Sustainability Slam',
+                        'Conference' => 'Conference',
+                        'Other' => 'Other',
+                    ),
+                    // *this line is important*
+                    'choices_as_values' => true,
+                    'label' => 'Where did you present your capstone?',
+                    'attr' => array('class' => 'text form-control'),
+                    'required' => false,
+                )
+            )
           ->add('portfolio', 'text', array('required'=> false,'attr' => array('class' => 'text form-control', 'placeholder' =>
             'https://uga.digication.com/'),))
           ->add('post_assess','date', array('attr' => array('class' => ''), 'label'  => 'Post-Certificate Survey 
             Completed', 'required' => false,))
-            ->add('exceptions', 'ckeditor', array('config_name' => 'editor_simple',))
+            ->add('exceptions', 'ckeditor', array('label'  => 'Exceptions:  Please offer any exceptions to the above requirements and the reasons for them.','config_name' => 'editor_simple',))
 
         ;
     }

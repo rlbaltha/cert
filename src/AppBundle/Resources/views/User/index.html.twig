@@ -42,35 +42,55 @@
                 <tr>
                     <th>Name (Email)</th>
                     <th>School: Program</th>
-                    <th>Expected Graduation</th>
+                    <th>Capstone Term</th>
+                    <th>Graduation Term</th>
                     <th>Progress</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}, {{ entity.firstname }}</a> ({{ entity.email }})</td>
+                        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
+                                , {{ entity.firstname }}</a> ({{ entity.email }})
+                        </td>
                         <td>{% if entity.program %}{{ entity.program.school }}: {{ entity.program.program }}{% endif %}</td>
-                        <td>{% if entity.program %}{{ entity.program.graddate }} {{ entity.program.gradterm }}{% endif %}</td>
-                        <td>{% if entity.progress %}{{ entity.progress.name }}{% else %}Account Created{% endif %}</td>
+                        <td>
+                            {% if entity.checklist %}
+                                {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if entity.program %}
+                                <a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>
+                            {% endif %}
+                        </td>
+                        <td>{% if entity.progress %}
+                                <a href="{{ path('user', { 'type': entity.progress.id }) }}">{{ entity.progress.name }}</a>
+                            {% else %}
+                                Account Created
+                            {% endif %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            <p>Email list: {% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
+            <p>Email
+                list: {% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
         </div>
         <div class="col-sm-3">
             <div class="bootstrap-vertical-nav">
                 <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
                         &#9776;
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
                             {% for status in status %}
-                                <li class="nav-item"><a href="{{ path('user', { 'type': status.id }) }}">{{ status.name }}</a></li>
+                                <li class="nav-item"><a
+                                            href="{{ path('user', { 'type': status.id }) }}">{{ status.name }}</a></li>
                             {% endfor %}
-                            <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All Students</a></li>
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All Students</a>
+                            </li>
                             <li class="nav-item"><a href="{{ path('user', { 'type': 'all' }) }}">All Accounts</a></li>
                         </ul>
                     </div>

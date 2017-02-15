@@ -3,16 +3,18 @@
 {% block body -%}
     <div class="row">
         <div class="col-sm-8 offset-sm-1">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <div class="btn-group float-sm-right" role="group" aria-label="Basic example">
-                        <a class="btn btn-primary"
-                           href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
-                        <a class="btn btn-primary"
-                           href="{{ path('course_approval', {'state':'approved', 'id': entity.id }) }}">Approve</a>
-                        <a class="btn btn-primary"
-                           href="{{ path('course_approval', { 'state':'denied', 'id': entity.id }) }}">Deny</a>
-                    </div>
-                {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="btn-group float-sm-right" role="group" aria-label="Course Actions">
+                    <a class="btn btn-primary"
+                       href="{{ path('upload_new', { 'courseid': entity.id }) }}">Upload Syllabus</a>
+                    <a class="btn btn-primary"
+                       href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
+                    <a class="btn btn-primary"
+                       href="{{ path('course_approval', {'state':'approved', 'id': entity.id }) }}">Approve</a>
+                    <a class="btn btn-primary"
+                       href="{{ path('course_approval', { 'state':'denied', 'id': entity.id }) }}">Deny</a>
+                </div>
+            {% endif %}
             <h1>{{ entity.name }}</h1>
             <table class="table">
                 <thead>
@@ -40,8 +42,34 @@
             <div class="card card-block">{{ entity.description|raw }}</div>
             {% if entity.syllabus|length > 10 %}
                 <div class="card card-block">
-                    <p>Contact:  {{ entity.contact }}</p>
+                    <p>Contact: {{ entity.contact }}</p>
                     {{ entity.syllabus|raw }}</div>
+            {% endif %}
+
+            {% if entity.uploads|length > 0 %}
+                <table class="table well">
+                    <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>Uploaded</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Actions</th>{% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entity.uploads %}
+                        <tr>
+                            <td><a href="{{ path('upload_get', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                            <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td class="btn-group">
+                                    <a class="btn btn-secondary" href="{{ path('upload_edit', { 'id': entity.id }) }}">Delete</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             {% endif %}
 
         </div>

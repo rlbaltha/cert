@@ -78,6 +78,84 @@ class UserController extends Controller
     }
 
     /**
+     * Lists all User entities.
+     *
+     * @Route("/network/{type}", name="network", defaults={"type" = "students"})
+     * @Method("GET")
+     * @Template("AppBundle:User:network.html.twig")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function networkAction($type)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($type == 'all') {
+            $entities = $em->getRepository('AppBundle:User')->findAll();
+        }
+        elseif ($type == 'students') {
+            $entities = $em->getRepository('AppBundle:User')->findStudents();
+        }
+        else {
+            $type = $em->getRepository('AppBundle:Status')->find($type);
+            $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
+        }
+        $status = $em->getRepository('AppBundle:Status')->findAll();
+        return array(
+            'entities' => $entities,
+            'status' => $status,
+        );
+    }
+
+    /**
+     * Lists all User entities.
+     *
+     * @Route("/table/{type}", name="user_table", defaults={"type" = "all"})
+     * @Method("GET")
+     * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function tableAction($type)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($type == 'all') {
+            $entities = $em->getRepository('AppBundle:User')->findAll();
+        }
+        elseif ($type == 'students') {
+            $entities = $em->getRepository('AppBundle:User')->findStudents();
+        }
+        else {
+            $type = $em->getRepository('AppBundle:Status')->find($type);
+            $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
+        }
+        $status = $em->getRepository('AppBundle:Status')->findAll();
+        return array(
+            'entities' => $entities,
+            'status' => $status,
+        );
+    }
+
+    /**
+     * Lists  User entities.
+     *
+     * @Route("/list/{date}/{term}", name="user_graddate")
+     * @Method("GET")
+     * @Template("AppBundle:User:index.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function indexByTermAction($term, $date)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppBundle:User')->findUsersByTerm($term, $date);
+
+        $status = $em->getRepository('AppBundle:Status')->findAll();
+        return array(
+            'entities' => $entities,
+            'status' => $status,
+        );
+    }
+
+
+    /**
      * Finds and displays a User entity.
      *
      * @Route("/{id}", name="user_show")
