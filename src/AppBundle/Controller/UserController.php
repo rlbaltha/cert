@@ -80,6 +80,34 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
+     * @Route("/network/{type}", name="network", defaults={"type" = "students"})
+     * @Method("GET")
+     * @Template("AppBundle:User:network.html.twig")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function networkAction($type)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($type == 'all') {
+            $entities = $em->getRepository('AppBundle:User')->findAll();
+        }
+        elseif ($type == 'students') {
+            $entities = $em->getRepository('AppBundle:User')->findStudents();
+        }
+        else {
+            $type = $em->getRepository('AppBundle:Status')->find($type);
+            $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
+        }
+        $status = $em->getRepository('AppBundle:Status')->findAll();
+        return array(
+            'entities' => $entities,
+            'status' => $status,
+        );
+    }
+
+    /**
+     * Lists all User entities.
+     *
      * @Route("/table/{type}", name="user_table", defaults={"type" = "all"})
      * @Method("GET")
      * @Template()
