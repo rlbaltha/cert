@@ -223,7 +223,6 @@ class UploadController extends Controller
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:Upload')->find($id);
-        $courseid = $entity->getCourse()->getId();
 
         if ($form->isValid()) {
 
@@ -235,7 +234,7 @@ class UploadController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('course_show', array('id' => $courseid)));
+        return $this->redirect($this->generateUrl('upload'));
     }
 
     /**
