@@ -112,6 +112,9 @@ class UploadController extends Controller
 
         $course = $em->getRepository('AppBundle:Course')->find($courseid);
         $entity->setCourse($course);
+        if ($courseid==0) {
+            $entity->setType('Image');
+        }
         $form = $this->createCreateForm($entity);
         $headerText = 'Upload New';
 
