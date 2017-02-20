@@ -17,7 +17,8 @@ class UploadType extends AbstractType
         $builder
             ->add('file','file', array('label'  => 'File to Upload', 'attr' =>array('class' => '')))
             ->add('type', 'choice', array('choices'   => array('Syllabus' =>
-              'Syllabus'),'required' => true,
+              'Syllabus','Image' =>
+                'Image'),'required' => true,
               'expanded'=>FALSE,'multiple'=>false,'label'  => 'Type',
               'attr' => array('class' => 'form-control'),))
             ->add('course', 'entity', array(
