@@ -20,9 +20,6 @@ class UserType extends BaseType
         $builder
             ->add('firstname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Firstname'),))
             ->add('lastname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),))
-            ->add('organizations', 'entity', array('class' => 'AppBundle\Entity\Organization',
-                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Organizations', 'attr' => array('class' =>
-                    ''),))
             ;
     }
 

@@ -15,7 +15,7 @@
                                class="float-sm-right btn btn-primary">Edit</a>
                         {% endif %}
                         <h4 class="card-title">
-                            {{ entity.title }}
+                            <a href="{{ path('organization_show', { 'id': entity.id }) }}">{{ entity.title }}</a>
                         </h4>
                     </div>
                     <div class="card-block">
