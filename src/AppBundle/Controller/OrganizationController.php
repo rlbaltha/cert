@@ -40,7 +40,7 @@ class OrganizationController extends Controller
      *
      * @Route("/", name="organization_create")
      * @Method("POST")
-     * @Template("AppBundle:Organization:new.html.twig")
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -53,7 +53,7 @@ class OrganizationController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('organization_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('organization'));
         }
 
         return array(
@@ -86,7 +86,7 @@ class OrganizationController extends Controller
      *
      * @Route("/new", name="organization_new")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
@@ -129,7 +129,7 @@ class OrganizationController extends Controller
      *
      * @Route("/{id}/edit", name="organization_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -174,7 +174,7 @@ class OrganizationController extends Controller
      *
      * @Route("/{id}", name="organization_update")
      * @Method("PUT")
-     * @Template("AppBundle:Organization:edit.html.twig")
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -193,7 +193,7 @@ class OrganizationController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('organization_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('organization'));
         }
 
         return array(

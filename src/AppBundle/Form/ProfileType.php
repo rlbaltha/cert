@@ -17,7 +17,11 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('firstname', 'text', array('label' => 'First Name', 'attr' => array('class' => 'form-control'),))
-            ->add('lastname', 'text', array('label' => 'Last Name','attr' => array('class' => 'form-control'),));
+            ->add('lastname', 'text', array('label' => 'Last Name','attr' => array('class' => 'form-control'),))
+            ->add('organizations', 'entity', array('class' => 'AppBundle\Entity\Organization',
+                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Organizations', 'attr' => array('class' =>
+                    ''),))
+        ;
     }
 
     /**

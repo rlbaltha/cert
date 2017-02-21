@@ -21,7 +21,11 @@ class AdminType extends AbstractType
             ->add('progress', 'entity', array('required' => true, 'class' => 'AppBundle\Entity\Status',
                 'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Status', 'attr' => array
                 ('class' => 'form-control'),))
-            ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',));
+            ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
+            ->add('organizations', 'entity', array('class' => 'AppBundle\Entity\Organization',
+                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Organizations', 'attr' => array('class' =>
+                    ''),))
+        ;
     }
 
     /**
