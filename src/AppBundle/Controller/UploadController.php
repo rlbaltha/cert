@@ -13,6 +13,7 @@ use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Upload controller.
@@ -28,6 +29,7 @@ class UploadController extends Controller
      * @Route("/", name="upload")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()
     {
@@ -46,6 +48,7 @@ class UploadController extends Controller
      * @Route("/", name="upload_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function createAction(Request $request)
     {
@@ -59,7 +62,13 @@ class UploadController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('course_show', array('id' => $entity->getCourse()->getId())));
+            if ($entity->getType()=='Image') {
+                return $this->redirect($this->generateUrl('upload'));
+            }
+            else {
+                return $this->redirect($this->generateUrl('course_show', array('id' => $entity->getCourse()->getId())));
+            }
+
         }
 
         return array(
@@ -98,6 +107,7 @@ class UploadController extends Controller
      * @Route("/new/{courseid}", name="upload_new" , defaults={"courseid" = 0}))
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction($courseid)
     {
@@ -106,6 +116,9 @@ class UploadController extends Controller
 
         $course = $em->getRepository('AppBundle:Course')->find($courseid);
         $entity->setCourse($course);
+        if ($courseid==0) {
+            $entity->setType('Image');
+        }
         $form = $this->createCreateForm($entity);
         $headerText = 'Upload New';
 
@@ -123,6 +136,7 @@ class UploadController extends Controller
      * @Route("/{id}/edit", name="upload_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction($id)
     {
@@ -175,6 +189,7 @@ class UploadController extends Controller
      * @Route("/{id}", name="upload_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -210,6 +225,7 @@ class UploadController extends Controller
      *
      * @Route("/{id}", name="upload_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -217,7 +233,6 @@ class UploadController extends Controller
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:Upload')->find($id);
-        $courseid = $entity->getCourse()->getId();
 
         if ($form->isValid()) {
 
@@ -229,7 +244,7 @@ class UploadController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('course_show', array('id' => $courseid)));
+        return $this->redirect($this->generateUrl('upload'));
     }
 
     /**

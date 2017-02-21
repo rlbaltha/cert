@@ -10,11 +10,13 @@
                 </a>
             {% endif %}
 
+            <div class="alert alert-info">N.B.:  Syllabi should be uploaded from the course to which it belongs.</div>
             <table class="table well">
                 <thead>
                 <tr>
                     <th>Name</th>
                     <th>Type</th>
+                    <th>Path</th>
                     <th>Created</th>
                     <th>Actions</th>
                 </tr>
@@ -24,6 +26,7 @@
                     <tr>
                         <td>{{ entity.name }}</td>
                         <td>{{ entity.type }}</td>
+                        <td><a href="{{ app.request.uri }}{{ entity.id }}/get">{{ app.request.uri }}{{ entity.id }}/get</a></td>
                         <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                         <td class="btn-group">
                             <a class="btn btn-secondary" href="{{ path('upload_edit', { 'id': entity.id }) }}">Delete</a>
