@@ -10,7 +10,7 @@ security:
 #                default_target_path: /user/home
 #            logout:
 #                path:   /logout
-#                target: /home
+#                target: /
 #            anonymous:    true
 #            switch_user: true
 #    providers:
@@ -67,7 +67,6 @@ security:
         - { path: ^/questionset/, role: ROLE_USER }
         - { path: ^/response/, role: ROLE_USER }
         - { path: ^/responseset/, role: ROLE_USER }
-        - { path: ^/upload/, role: ROLE_ADMIN }
         - { path: ^/forum/, role: ROLE_USER }
         - { path: edit$, role: ROLE_ADMIN }
         - { path: new$, role: ROLE_ADMIN }

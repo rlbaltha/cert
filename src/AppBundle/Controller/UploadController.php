@@ -13,6 +13,7 @@ use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Upload controller.
@@ -28,6 +29,7 @@ class UploadController extends Controller
      * @Route("/", name="upload")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()
     {
@@ -46,6 +48,7 @@ class UploadController extends Controller
      * @Route("/", name="upload_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function createAction(Request $request)
     {
@@ -104,6 +107,7 @@ class UploadController extends Controller
      * @Route("/new/{courseid}", name="upload_new" , defaults={"courseid" = 0}))
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction($courseid)
     {
@@ -132,6 +136,7 @@ class UploadController extends Controller
      * @Route("/{id}/edit", name="upload_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction($id)
     {
@@ -184,6 +189,7 @@ class UploadController extends Controller
      * @Route("/{id}", name="upload_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -219,6 +225,7 @@ class UploadController extends Controller
      *
      * @Route("/{id}", name="upload_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {
