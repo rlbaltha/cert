@@ -415,7 +415,7 @@
                         <h5 class="mb-0">
                             <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
                                aria-expanded="false" aria-controls="collapseFour">
-                                Capstone
+                                Capstone {% if entity.capstone %}(Workplan {{ entity.capstone.status }}){% endif %}
                             </a>
                         </h5>
                     </div>
@@ -435,25 +435,25 @@
                                 resources/partners, personal objectives, and success metrics.</p>
                             <p>Once your work plan is complete, mark it <strong>Ready for Peer Review</strong></p>
 
-                            {% if entity.capstone.responsesets %}
-                                <p>You currently have {% if entity.capstone.responsesets|length == 1 %}a{% endif %} review{% if entity.capstone.responsesets|length > 1 %}s{% endif %} from <strong>
-                                {% for responseset in entity.capstone.responsesets %}
-                                    {% if loop.last and entity.capstone.responsesets|length > 1 %}and {% endif %}{{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
-                                {% endfor %}</strong> <a href="#reviews" >listed after your workplan</a>.
-                            {% endif %}
-                            <p>When you have received feedback from your peers, revise and polish your work plan. Then
-                                mark it <strong>Ready for Director Review</strong></p>
-
-                            <p>You will be notified by the director when your work plan is approved.</p>
-
-                            <p>Students are expected to give feedback on one another’s work plans. Peer review
-                                should be completed before final work plans are submitted.
-                                At least two of the three peer reviewers should be outside of
-                                the student's home discipline/department.
-                            </p>
-
 
                             {% if entity.capstone %}
+                                {% if entity.capstone.responsesets %}
+                                    <p>You currently have {% if entity.capstone.responsesets|length == 1 %}a{% endif %} review{% if entity.capstone.responsesets|length > 1 %}s{% endif %} from <strong>
+                                    {% for responseset in entity.capstone.responsesets %}
+                                        {% if loop.last and entity.capstone.responsesets|length > 1 %}and {% endif %}{{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}</strong> <a href="#reviews" >listed after your workplan</a>.
+                                {% endif %}
+
+                                <p>When you have received feedback from your peers, revise and polish your work plan. Then
+                                    mark it <strong>Ready for Director Review</strong></p>
+
+                                <p>You will be notified by the director when your work plan is approved.</p>
+
+                                <p>Students are expected to give feedback on one another’s work plans. Peer review
+                                    should be completed before final work plans are submitted.
+                                    At least two of the three peer reviewers should be outside of
+                                    the student's home discipline/department.
+                                </p>
 
                                 {% if entity.responsesets|length > 0  and app.user.username==entity.capstone.user.username %}
                                     <p>You have offered peer reviews for:
@@ -494,10 +494,12 @@
                                             Ready for Peer Review
                                         </a>
                                     {% endif %}
+                                    {% if entity.capstone.status != 'Ready for Director Review' and app.user.username==entity.capstone.user.username %}
                                     <a class="btn btn-primary  align-right {% if entity.responsesets|length < 2 %}disabled{% endif %}"
                                        href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
                                         Ready for Director Review
                                     </a>
+                                    {% endif %}
                                 {% endif %}
 
 
