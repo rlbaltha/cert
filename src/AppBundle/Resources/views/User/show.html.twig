@@ -494,7 +494,7 @@
                                             Ready for Peer Review
                                         </a>
                                     {% endif %}
-                                    <a class="btn btn-primary  align-right {% if entity.responsesets|length < 3 %}disabled{% endif %}"
+                                    <a class="btn btn-primary  align-right {% if entity.responsesets|length < 2 %}disabled{% endif %}"
                                        href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
                                         Ready for Director Review
                                     </a>
