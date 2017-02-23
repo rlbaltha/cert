@@ -42,10 +42,6 @@ class Event
      */
     private $datetime;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Organization")
-     */
-    protected $organization;
 
     /**
      * Get id
@@ -56,6 +52,7 @@ class Event
     {
         return $this->id;
     }
+
 
     /**
      * Set title
@@ -129,27 +126,4 @@ class Event
         return $this->datetime;
     }
 
-    /**
-     * Set organization
-     *
-     * @param \AppBundle\Entity\Organization $organization
-     *
-     * @return Event
-     */
-    public function setOrganization(\AppBundle\Entity\Organization $organization = null)
-    {
-        $this->organization = $organization;
-
-        return $this;
-    }
-
-    /**
-     * Get organization
-     *
-     * @return \AppBundle\Entity\Organization
-     */
-    public function getOrganization()
-    {
-        return $this->organization;
-    }
 }

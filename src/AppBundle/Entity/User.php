@@ -27,6 +27,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * User
@@ -43,10 +44,12 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
-        // your own logic
     }
 
     /**
@@ -99,10 +102,6 @@ class User extends BaseUser
      */
     private $responsesets;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Organization", mappedBy="users")
-     */
-    private $organizations;
 
     /**
      * @ORM\ManyToOne(targetEntity="Status")
@@ -414,37 +413,4 @@ class User extends BaseUser
         return $this->responsesets;
     }
 
-    /**
-     * Add organization
-     *
-     * @param \AppBundle\Entity\Organization $organization
-     *
-     * @return User
-     */
-    public function addOrganization(\AppBundle\Entity\Organization $organization)
-    {
-        $this->organizations[] = $organization;
-
-        return $this;
-    }
-
-    /**
-     * Remove organization
-     *
-     * @param \AppBundle\Entity\Organization $organization
-     */
-    public function removeOrganization(\AppBundle\Entity\Organization $organization)
-    {
-        $this->organizations->removeElement($organization);
-    }
-
-    /**
-     * Get organizations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getOrganizations()
-    {
-        return $this->organizations;
-    }
 }

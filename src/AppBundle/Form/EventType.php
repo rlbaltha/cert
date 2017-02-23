@@ -19,9 +19,6 @@ class EventType extends AbstractType
             ->add('title', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),))
             ->add('body', 'ckeditor', array('config_name' => 'editor_default',))
             ->add('datetime','datetime', array('attr' => array('class' => ''),))
-            ->add('organization', 'entity', array('class' => 'AppBundle\Entity\Organization',
-                'property' => 'title', 'required'=>false,'expanded'=>true,'multiple'=>false,'label'  => 'Organization', 'attr' => array('class' =>
-                    ''),))
         ;
     }
     
