@@ -43,6 +43,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Major</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,6 +51,7 @@
                     <tr>
                         <td>{{ entity.lastname }}, {{ entity.firstname }} </td>
                         <td>{{ entity.email }}</td>
+                        <td>{{ entity.program.school }}:{{ entity.program.program }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
