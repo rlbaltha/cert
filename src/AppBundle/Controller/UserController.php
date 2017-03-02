@@ -88,6 +88,7 @@ class UserController extends Controller
     public function networkAction($type)
     {
         $em = $this->getDoctrine()->getManager();
+        $forums = $em->getRepository('AppBundle:Forum')->findNetwork();
         if ($type == 'all') {
             $entities = $em->getRepository('AppBundle:User')->findAll();
         }
@@ -101,6 +102,7 @@ class UserController extends Controller
         $status = $em->getRepository('AppBundle:Status')->findAll();
         return array(
             'entities' => $entities,
+            'forums' => $forums,
             'status' => $status,
         );
     }

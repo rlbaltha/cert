@@ -25,4 +25,18 @@ class ForumRepository extends \Doctrine\ORM\EntityRepository
         return $forums;
     }
 
+    /**
+     * find forum entities with no parent
+     *
+     * @return Forum
+     */
+    public function findNetwork() {
+        $forums = $this->createQueryBuilder('f')
+            ->andWhere('f.parent is NULL and f.network=0')
+            ->orderBy('f.title')
+            ->getQuery()
+            ->getResult();
+        return $forums;
+    }
+
 }

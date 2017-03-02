@@ -37,6 +37,13 @@ class Forum
     private $body;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="network", type="integer")
+     */
+    private $network=0;
+
+    /**
      * @ORM\OneToMany(targetEntity="Forum", mappedBy="parent")
      */
     protected $children;
@@ -261,5 +268,29 @@ class Forum
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set network
+     *
+     * @param integer $network
+     *
+     * @return Forum
+     */
+    public function setNetwork($network)
+    {
+        $this->network = $network;
+
+        return $this;
+    }
+
+    /**
+     * Get network
+     *
+     * @return integer
+     */
+    public function getNetwork()
+    {
+        return $this->network;
     }
 }

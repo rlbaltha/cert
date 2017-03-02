@@ -66,22 +66,15 @@
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
-
-                        </ul>
-
-
-                        <ul class="nav navbar-sidenav">
-                            <li class="nav-item"><a href="{{ path('organization') }}">
-                                    Organizations
-                                </a></li>
                             <li class="nav-item"><a href="{{ path('network') }}">
                                     Certificate Students
                                 </a></li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item"><a href="{{ path('organization_new') }}">
-                                        New Organization
-                                    </a></li>
-                            {% endif %}
+                            {% for entity in forums %}
+                                <li class="nav-item">
+                                    <a href="{{ path('forum_show', { 'id': entity.id }) }}">{{ entity.title }}</a>
+                                </li>
+                            {% endfor %}
+
                         </ul>
 
                     </div>

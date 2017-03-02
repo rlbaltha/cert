@@ -24,6 +24,14 @@ class ForumType extends AbstractType
                 'choice_label' => 'title',
                 'label' => 'Forum',
                 'attr' => array('class' => 'form-control'),))
+            ->add('network', 'choice', array(
+                'attr' => array('class' => 'form-control'),
+                'choices'  => array(
+                    'Yes' => 0,
+                    'No' => 1,
+                ),
+                // *this line is important*
+                'choices_as_values' => true,))
         ;
     }
     
