@@ -129,6 +129,7 @@ class ForumController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Forum')->find($id);
+        $forums = $em->getRepository('AppBundle:Forum')->findNetwork();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Forum entity.');
@@ -138,6 +139,7 @@ class ForumController extends Controller
 
         return array(
             'entity'      => $entity,
+            'forums'      => $forums,
             'delete_form' => $deleteForm->createView(),
         );
     }

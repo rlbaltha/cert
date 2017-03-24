@@ -110,9 +110,9 @@ body {
     border-bottom: #cccccc solid 1px;
 }
 
-
 .bootstrap-vertical-nav > .navbar {
     padding: 1rem;
+    padding-left: 2rem;
     background-color: #fff;
 }
 

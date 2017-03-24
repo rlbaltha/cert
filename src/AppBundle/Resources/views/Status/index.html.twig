@@ -3,7 +3,23 @@
 {% block body -%}
 
     <div class="row">
-        <div class="col-sm-8 offset-sm-1"><h1>Status list</h1>
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            <li><a href="{{ path('status_new' )}}">New Status</a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <h1>Status list</h1>
             <table class="table">
                 <thead>
                 <tr>
@@ -23,21 +39,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-3">
-            <div class="bootstrap-vertical-nav">
-                <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-sidenav">
-                            <li><a href="{{ path('status_new' )}}">New Status</a></li>
-                        </ul>
-                    </div>
-                </nav>
 
-            </div>
-        </div>
     </div>
 
 {% endblock %}

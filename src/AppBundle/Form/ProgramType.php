@@ -39,6 +39,18 @@ class ProgramType extends AbstractType
                 'attr' => array('class' =>'form-control'),
             ))
             ->add('program', 'text', array('label' => 'Major/Degree Program', 'attr' => array('class' => 'form-control'),))
+            ->add('school1', 'entity', array('required' => true,'class' => 'AppBundle\Entity\School',
+                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
+                    'form-control'),))
+            ->add('major1', 'entity', array('required' => true,'class' => 'AppBundle\Entity\Major',
+                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Major/Degree Program', 'attr' => array('class' =>
+                    'form-control'),))
+            ->add('school2', 'entity', array('required' => false,'class' => 'AppBundle\Entity\School',
+                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => '2nd School/College', 'attr' => array('class' =>
+                    'form-control'),))
+            ->add('major2', 'entity', array('required' => false,'class' => 'AppBundle\Entity\Major',
+                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => '2nd Major/Degree Program', 'attr' => array('class' =>
+                    'form-control'),))
             ->add('ugaid', 'text', array('label' => 'UGA ID ', 'attr' => array('class' => 'form-control',
                 'placeholder' => '811000000'),))
             ->add('level', 'choice', array(

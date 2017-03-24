@@ -2,7 +2,30 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-8 offset-sm-1 col-xs-12">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <ul class="nav navbar-sidenav">
+                                <li class="nav-item"><a href="{{ path('event') }}">
+                                        Calendar
+                                    </a></li>
+                                <li class="nav-item"><a href="{{ path('event_new') }}">
+                                        New Event
+                                    </a></li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+        <div class="col-sm-9 col-xs-12">
             <h1>Event</h1>
 
             <table class="table">
@@ -28,28 +51,6 @@
                     {{ form(delete_form) }}
             </ul>
         </div>
-        <div class="col-sm-3">
-            <div class="bootstrap-vertical-nav">
-                <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
-                            data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <ul class="nav navbar-sidenav">
-                                <li class="nav-item"><a href="{{ path('event') }}">
-                                        Calendar
-                                    </a></li>
-                                <li class="nav-item"><a href="{{ path('event_new') }}">
-                                        New Event
-                                    </a></li>
-                            </ul>
-                        {% endif %}
-                    </div>
-                </nav>
 
-            </div>
-        </div>
     </div>
 {% endblock %}

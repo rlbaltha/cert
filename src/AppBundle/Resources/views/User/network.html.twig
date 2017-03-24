@@ -32,31 +32,6 @@
 
 {% block body -%}
     <div class="row">
-
-        <div class="col-sm-8 offset-sm-1">
-            <h1>{% if app.request.get('type')=='all' %}All Accounts{% elseif app.request.get('type')=='students' %}Certificate Students{% else %}
-                    {% if entities %}{{ entities[0].progress.name }}{% else %}Nothing found{% endif %}
-                {% endif %}
-            </h1>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Major</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for entity in entities %}
-                    <tr>
-                        <td>{{ entity.lastname }}, {{ entity.firstname }} </td>
-                        <td>{{ entity.email }}</td>
-                        <td>{{ entity.program.school }}:{{ entity.program.program }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
         <div class="col-sm-3">
             <div class="bootstrap-vertical-nav">
                 <nav class="navbar navbar-dark">
@@ -82,5 +57,30 @@
 
             </div>
         </div>
+        <div class="col-sm-9">
+            <h1>{% if app.request.get('type')=='all' %}All Accounts{% elseif app.request.get('type')=='students' %}Certificate Students{% else %}
+                    {% if entities %}{{ entities[0].progress.name }}{% else %}Nothing found{% endif %}
+                {% endif %}
+            </h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Major</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.lastname }}, {{ entity.firstname }} </td>
+                        <td>{{ entity.email }}</td>
+                        <td>{{ entity.program.school }}:{{ entity.program.program }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
     </div>
 {% endblock %}

@@ -32,89 +32,6 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-8 offset-sm-1">
-            <h1>
-                Courses
-                {% if entities|length != 0 %}
-                    {% if app.request.attributes.get('_route') == 'course' %}
-                        ({{ app.request.get('level') }}: {{ app.request.get('pillar') }})
-                    {% elseif app.request.attributes.get('_route') == 'course_listbylocation' %}
-                        (study abroad)
-                    {% elseif app.request.attributes.get('_route') == 'course_listall' %}
-                        (all)
-                    {% else %}
-                        ({{ entities[0].status }})
-                    {% endif %}
-                {% endif %}
-            </h1>
-
-            {% if app.request.get('status') == 'exception' %}
-                <div class="alert alert-warning" role="alert">
-                    <strong>Note!</strong> Exceptions may be used for the certificate only if they meet particular
-                    requirements noted
-                    in the description.
-                </div>
-            {% endif %}
-
-            <p>Students are required to take a minimum of 17 credit hours to earn the Sustainability Certificate.
-                <a href="{{ path('page_show', { 'id': '19' }) }}">See the Requirements page for details.</a> The
-                Certificate consists of the following components:
-            <ul>
-                <li><a href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor course</a> (3
-                    credit hours)
-                </li>
-                <li>One course from each of 3 spheres
-                    (<a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">Ecological</a>,
-                    <a href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>,
-                    <a href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a>) (9 credit
-                    hours)
-                </li>
-                <li>Two semseters of the <a href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">Seminar</a>
-                    (2 credit hours)
-                </li>
-                <li><a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a> (3 credit
-                    hours)
-                </li>
-                <li>Portfolio</li>
-            </ul>
-            </p>
-            {% if entities|length > 0 %}
-                <table class="table sort">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Title</th>
-                        <th class="hidden-xs-down">Offered</th>
-                        <th class="hidden-xs-down">Prereqs</th>
-                        <th class="hidden-xs-down">Requirement</th>
-                        <th class="hidden-xs-down">Level</th>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <th class="hidden-xs-down">Status</th>
-                        {% endif %}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for entity in entities %}
-                        <tr>
-                            <td>
-                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
-                            </td>
-                            <td>{{ entity.title }}</td>
-                            <td class="hidden-xs-down">{{ entity.offered }}</td>
-                            <td class="hidden-xs-down">{{ entity.prereqs }}</td>
-                            <td class="hidden-xs-down">{{ entity.pillar }}</td>
-                            <td class="hidden-xs-down">{{ entity.level }}</td>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <td class="hidden-xs-down">{{ entity.status }}</td>
-                            {% endif %}
-                        </tr>
-
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
-        </div>
-
         <div class="col-sm-3">
             <div class="bootstrap-vertical-nav">
 
@@ -208,8 +125,88 @@
 
             </div>
         </div>
+        <div class="col-sm-9">
+            <h1>
+                Courses
+                {% if entities|length != 0 %}
+                    {% if app.request.attributes.get('_route') == 'course' %}
+                        ({{ app.request.get('level') }}: {{ app.request.get('pillar') }})
+                    {% elseif app.request.attributes.get('_route') == 'course_listbylocation' %}
+                        (study abroad)
+                    {% elseif app.request.attributes.get('_route') == 'course_listall' %}
+                        (all)
+                    {% else %}
+                        ({{ entities[0].status }})
+                    {% endif %}
+                {% endif %}
+            </h1>
 
+            {% if app.request.get('status') == 'exception' %}
+                <div class="alert alert-warning" role="alert">
+                    <strong>Note!</strong> Exceptions may be used for the certificate only if they meet particular
+                    requirements noted
+                    in the description.
+                </div>
+            {% endif %}
 
+            <p>Students are required to take a minimum of 17 credit hours to earn the Sustainability Certificate.
+                <a href="{{ path('page_show', { 'id': '19' }) }}">See the Requirements page for details.</a> The
+                Certificate consists of the following components:
+            <ul>
+                <li><a href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor course</a> (3
+                    credit hours)
+                </li>
+                <li>One course from each of 3 spheres
+                    (<a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">Ecological</a>,
+                    <a href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>,
+                    <a href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a>) (9 credit
+                    hours)
+                </li>
+                <li>Two semseters of the <a href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">Seminar</a>
+                    (2 credit hours)
+                </li>
+                <li><a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a> (3 credit
+                    hours)
+                </li>
+                <li>Portfolio</li>
+            </ul>
+            </p>
+            {% if entities|length > 0 %}
+                <table class="table sort">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th class="hidden-xs-down">Offered</th>
+                        <th class="hidden-xs-down">Prereqs</th>
+                        <th class="hidden-xs-down">Requirement</th>
+                        <th class="hidden-xs-down">Level</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th class="hidden-xs-down">Status</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
+                            </td>
+                            <td>{{ entity.title }}</td>
+                            <td class="hidden-xs-down">{{ entity.offered }}</td>
+                            <td class="hidden-xs-down">{{ entity.prereqs }}</td>
+                            <td class="hidden-xs-down">{{ entity.pillar }}</td>
+                            <td class="hidden-xs-down">{{ entity.level }}</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td class="hidden-xs-down">{{ entity.status }}</td>
+                            {% endif %}
+                        </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
 
     </div>
 {% endblock %}

@@ -40,7 +40,7 @@ class SchoolController extends Controller
      *
      * @Route("/", name="school_create")
      * @Method("POST")
-     * @Template("AppBundle:School:new.html.twig")
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -53,7 +53,7 @@ class SchoolController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('school_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('school'));
         }
 
         return array(
@@ -86,7 +86,7 @@ class SchoolController extends Controller
      *
      * @Route("/new", name="school_new")
      * @Method("GET")
-     * @Template()
+     * * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
@@ -100,36 +100,11 @@ class SchoolController extends Controller
     }
 
     /**
-     * Finds and displays a School entity.
-     *
-     * @Route("/{id}", name="school_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:School')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find School entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
      * Displays a form to edit an existing School entity.
      *
      * @Route("/{id}/edit", name="school_edit")
      * @Method("GET")
-     * @Template()
+     * * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -174,7 +149,7 @@ class SchoolController extends Controller
      *
      * @Route("/{id}", name="school_update")
      * @Method("PUT")
-     * @Template("AppBundle:School:edit.html.twig")
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -193,7 +168,7 @@ class SchoolController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('school_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('school'));
         }
 
         return array(
