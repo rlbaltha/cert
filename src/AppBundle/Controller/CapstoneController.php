@@ -306,12 +306,13 @@ class CapstoneController extends Controller
 
         $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
         $email = $user_entity->getEmail();
-        $text = ', your capstone application for the Sustainability Certficate has been approved.  Congrats.';
+        $text = ', your capstone workplan for the Sustainability Certificate has been approved.  Congrats.';
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Certificate Capstone Approved')
             ->setFrom('scdirector@uga.edu')
             ->setTo($email)
+            ->setBcc('scdirector@uga.edu')
             ->setBody(
                 $this->renderView(
 
