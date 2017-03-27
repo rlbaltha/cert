@@ -57,7 +57,7 @@
 
             </div>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-8">
             <h1>{% if app.request.get('type')=='all' %}All Accounts{% elseif app.request.get('type')=='students' %}Certificate Students{% else %}
                     {% if entities %}{{ entities[0].progress.name }}{% else %}Nothing found{% endif %}
                 {% endif %}

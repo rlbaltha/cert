@@ -33,7 +33,7 @@
 
             </div>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-8">
             {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-primary pull-xs-right"
                                                 href="{{ path('faculty_edit', { 'id': entity.id }) }}">
                     Edit</a>{% endif %}
