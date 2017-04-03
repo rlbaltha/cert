@@ -4,7 +4,7 @@ body {
 
 .container-fluid {
     padding: 0;
-    margin-top: 3.5rem;
+    margin-top: 5em;
 }
 
 
@@ -16,6 +16,10 @@ body {
 .padding {
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.col-sm-8 {
+    padding: 2em;
 }
 
 
@@ -150,8 +154,13 @@ input + label {
 }
 /********** homepage ***********/
 
+
 .marketing {
     margin-top: 3rem;
+}
+
+#myCarousel {
+    margin-top: -1.5em;
 }
 
 .carousel-caption p {

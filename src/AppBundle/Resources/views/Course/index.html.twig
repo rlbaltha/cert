@@ -36,8 +36,7 @@
             <div class="bootstrap-vertical-nav">
 
                 <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
-                            data-target="#exCollapsingNavbar2">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
                         &#9776;
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
@@ -173,16 +172,16 @@
             </p>
             {% if entities|length > 0 %}
                 <table class="table sort">
-                    <thead>
+                    <thead class="hidden-xs-down">
                     <tr>
                         <th>Name</th>
                         <th>Title</th>
-                        <th class="hidden-xs-down">Offered</th>
-                        <th class="hidden-xs-down">Prereqs</th>
-                        <th class="hidden-xs-down">Requirement</th>
-                        <th class="hidden-xs-down">Level</th>
+                        <th>Offered</th>
+                        <th>Prereqs</th>
+                        <th>Requirement</th>
+                        <th>Level</th>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <th class="hidden-xs-down">Status</th>
+                            <th>Status</th>
                         {% endif %}
                     </tr>
                     </thead>
