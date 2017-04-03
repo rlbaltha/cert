@@ -39,6 +39,7 @@ class ProgramType extends AbstractType
                 'attr' => array('class' =>'form-control'),
             ))
             ->add('program', 'text', array('label' => 'Major/Degree Program', 'attr' => array('class' => 'form-control'),))
+// Migrating to explicit school and major from drop down for data integrity
 //            ->add('school1', 'entity', array('required' => true,'class' => 'AppBundle\Entity\School',
 //                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
 //                    'form-control'),))
