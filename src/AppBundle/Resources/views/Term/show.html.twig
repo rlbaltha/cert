@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+<div class="row">
+    <div class="col-sm-3">
+        <div class="bootstrap-vertical-nav">
+
+            <nav class="navbar navbar-dark">
+                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                    &#9776;
+                </button>
+                <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                    <ul class="nav navbar-sidenav">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a href="{{ path('term_new') }}">New Term</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+
+
+    <div class="col-sm-8">
+        <h1>{{ entity.name }}</h1>
+
+        {% if entity.courses|length > 0 %}
+            <table class="table sort">
+                <thead class="hidden-xs-down">
+                <tr>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Offered</th>
+                    <th>Prereqs</th>
+                    <th>Requirement</th>
+                    <th>Level</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Status</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entity.courses %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
+                        </td>
+                        <td>{{ entity.title }}</td>
+                        <td class="hidden-xs-down">{{ entity.offered }}</td>
+                        <td class="hidden-xs-down">{{ entity.prereqs }}</td>
+                        <td class="hidden-xs-down">{{ entity.pillar }}</td>
+                        <td class="hidden-xs-down">{{ entity.level }}</td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td class="hidden-xs-down">{{ entity.status }}</td>
+                        {% endif %}
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

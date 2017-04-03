@@ -75,6 +75,9 @@ security:
         - { path: update$, role: ROLE_ADMIN }
         - { path: approve$, role: ROLE_ADMIN }
         - { path: ^/status/, role: ROLE_ADMIN }
+        - { path: ^/major/, role: ROLE_ADMIN }
+        - { path: ^/school/, role: ROLE_ADMIN }
+        - { path: ^/term/, role: ROLE_ADMIN }
         - { path: ^/course/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
         - { path: ^/page/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
         - { path: ^/section/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
