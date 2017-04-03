@@ -40,7 +40,7 @@ class MajorController extends Controller
      *
      * @Route("/", name="major_create")
      * @Method("POST")
-     * @Template("AppBundle:Major:new.html.twig")
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -129,7 +129,7 @@ class MajorController extends Controller
      *
      * @Route("/{id}/edit", name="major_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -174,7 +174,7 @@ class MajorController extends Controller
      *
      * @Route("/{id}", name="major_update")
      * @Method("PUT")
-     * @Template("AppBundle:Major:edit.html.twig")
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
