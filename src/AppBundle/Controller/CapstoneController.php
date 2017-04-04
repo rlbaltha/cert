@@ -306,7 +306,7 @@ class CapstoneController extends Controller
 
         $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
         $email = $user_entity->getEmail();
-        $text = ', your capstone workplan for the Sustainability Certificate has been approved.  Congrats.';
+        $text = $name.', your capstone workplan for the Sustainability Certificate has been approved.  Congrats.';
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Certificate Capstone Approved')
@@ -317,8 +317,7 @@ class CapstoneController extends Controller
                 $this->renderView(
 
                     'AppBundle:Email:apply.html.twig',
-                    array('name' => $name,
-                        'text' => $text)
+                    array('text' => $text)
                 ),
                 'text/html'
             )
