@@ -1,5 +1,35 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "filter", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"],
+                    filter_reset: ".reset",
+                    filter_cssFilter: "form-control",
+                },
+                headers: {
+                    5: {sorter: false, filter: false},
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body -%}
 <div class="row">
     <div class="col-sm-3">
@@ -26,6 +56,7 @@
 
     <div class="col-sm-8">
         <h1>{{ entity.name }}</h1>
+        <div class="alert alert-warning">This course list is preliminary and subject to change.  Please check Athena.</div>
 
         {% if entity.courses|length > 0 %}
             <table class="table sort">
