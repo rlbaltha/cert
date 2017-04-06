@@ -29,12 +29,12 @@ class Major
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Program", inversedBy="major1" )
+     * @ORM\OneToMany(targetEntity="Program", mappedBy="major1" )
      */
     protected $program1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Program", inversedBy="major2" )
+     * @ORM\OneToMany(targetEntity="Program", mappedBy="major2" )
      */
     protected $program2;
 
@@ -87,9 +87,42 @@ class Major
     }
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->program1 = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->program2 = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add program1
+     *
+     * @param \AppBundle\Entity\Program $program1
+     *
+     * @return Major
+     */
+    public function addProgram1(\AppBundle\Entity\Program $program1)
+    {
+        $this->program1[] = $program1;
+
+        return $this;
+    }
+
+    /**
+     * Remove program1
+     *
+     * @param \AppBundle\Entity\Program $program1
+     */
+    public function removeProgram1(\AppBundle\Entity\Program $program1)
+    {
+        $this->program1->removeElement($program1);
+    }
+
+    /**
      * Get program1
      *
-     * @return \AppBundle\Entity\Program
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProgram1()
     {
@@ -97,23 +130,33 @@ class Major
     }
 
     /**
-     * Set program2
+     * Add program2
      *
      * @param \AppBundle\Entity\Program $program2
      *
      * @return Major
      */
-    public function setProgram2(\AppBundle\Entity\Program $program2 = null)
+    public function addProgram2(\AppBundle\Entity\Program $program2)
     {
-        $this->program2 = $program2;
+        $this->program2[] = $program2;
 
         return $this;
     }
 
     /**
+     * Remove program2
+     *
+     * @param \AppBundle\Entity\Program $program2
+     */
+    public function removeProgram2(\AppBundle\Entity\Program $program2)
+    {
+        $this->program2->removeElement($program2);
+    }
+
+    /**
      * Get program2
      *
-     * @return \AppBundle\Entity\Program
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProgram2()
     {
