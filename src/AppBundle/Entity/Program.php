@@ -156,22 +156,22 @@ class Program
 
 
     /**
-     * @ORM\OneToMany(targetEntity="School", mappedBy="program1")
+     * @ORM\ManyToOne(targetEntity="School", inversedBy="program1")
      */
     private $school1;
 
     /**
-     * @ORM\OneToMany(targetEntity="School", mappedBy="program2")
+     * @ORM\ManyToOne(targetEntity="School", inversedBy="program2")
      */
     private $school2;
 
     /**
-     * @ORM\OneToMany(targetEntity="Major", mappedBy="program1")
+     * @ORM\ManyToOne(targetEntity="Major", inversedBy="program1")
      */
     private $major1;
 
     /**
-     * @ORM\OneToMany(targetEntity="Major", mappedBy="program2")
+     * @ORM\ManyToOne(targetEntity="Major", inversedBy="program2")
      */
     private $major2;
 
@@ -721,40 +721,29 @@ class Program
      */
     public function __construct()
     {
-        $this->school1 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->school2 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->major1 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->major2 = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
+
+
     /**
-     * Add school1
+     * Set school1
      *
      * @param \AppBundle\Entity\School $school1
      *
      * @return Program
      */
-    public function addSchool1(\AppBundle\Entity\School $school1)
+    public function setSchool1(\AppBundle\Entity\School $school1 = null)
     {
-        $this->school1[] = $school1;
+        $this->school1 = $school1;
 
         return $this;
     }
 
     /**
-     * Remove school1
-     *
-     * @param \AppBundle\Entity\School $school1
-     */
-    public function removeSchool1(\AppBundle\Entity\School $school1)
-    {
-        $this->school1->removeElement($school1);
-    }
-
-    /**
      * Get school1
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\School
      */
     public function getSchool1()
     {
@@ -762,33 +751,23 @@ class Program
     }
 
     /**
-     * Add school2
+     * Set school2
      *
      * @param \AppBundle\Entity\School $school2
      *
      * @return Program
      */
-    public function addSchool2(\AppBundle\Entity\School $school2)
+    public function setSchool2(\AppBundle\Entity\School $school2 = null)
     {
-        $this->school2[] = $school2;
+        $this->school2 = $school2;
 
         return $this;
     }
 
     /**
-     * Remove school2
-     *
-     * @param \AppBundle\Entity\School $school2
-     */
-    public function removeSchool2(\AppBundle\Entity\School $school2)
-    {
-        $this->school2->removeElement($school2);
-    }
-
-    /**
      * Get school2
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\School
      */
     public function getSchool2()
     {
@@ -796,33 +775,23 @@ class Program
     }
 
     /**
-     * Add major1
+     * Set major1
      *
      * @param \AppBundle\Entity\Major $major1
      *
      * @return Program
      */
-    public function addMajor1(\AppBundle\Entity\Major $major1)
+    public function setMajor1(\AppBundle\Entity\Major $major1 = null)
     {
-        $this->major1[] = $major1;
+        $this->major1 = $major1;
 
         return $this;
     }
 
     /**
-     * Remove major1
-     *
-     * @param \AppBundle\Entity\Major $major1
-     */
-    public function removeMajor1(\AppBundle\Entity\Major $major1)
-    {
-        $this->major1->removeElement($major1);
-    }
-
-    /**
      * Get major1
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\Major
      */
     public function getMajor1()
     {
@@ -830,33 +799,23 @@ class Program
     }
 
     /**
-     * Add major2
+     * Set major2
      *
      * @param \AppBundle\Entity\Major $major2
      *
      * @return Program
      */
-    public function addMajor2(\AppBundle\Entity\Major $major2)
+    public function setMajor2(\AppBundle\Entity\Major $major2 = null)
     {
-        $this->major2[] = $major2;
+        $this->major2 = $major2;
 
         return $this;
     }
 
     /**
-     * Remove major2
-     *
-     * @param \AppBundle\Entity\Major $major2
-     */
-    public function removeMajor2(\AppBundle\Entity\Major $major2)
-    {
-        $this->major2->removeElement($major2);
-    }
-
-    /**
      * Get major2
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\Major
      */
     public function getMajor2()
     {
