@@ -49,6 +49,13 @@ class Upload
     private $type;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="color", type="string", length=255)
+     */
+    private $color;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
@@ -197,5 +204,29 @@ class Upload
     public function getCourse()
     {
         return $this->course;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     *
+     * @return Upload
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 }

@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class UploadRepository extends EntityRepository
 {
+    /**
+     * Find all uploaded ics files
+     *
+     * @return Upload
+     */
+    public function findIcsSources() {
+        $ics_sources = $this->createQueryBuilder('u')
+            ->andWhere('u.type = :type')
+            ->setParameter('type','iCal')
+            ->getQuery()
+            ->getResult();
+        return $ics_sources;
+    }
 }

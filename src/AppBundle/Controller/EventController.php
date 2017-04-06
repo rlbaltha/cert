@@ -31,10 +31,12 @@ class EventController extends Controller
 
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Events');
+        $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 
         return array(
             'entities' => $entities,
             'section' => $section,
+            'ics_sources' => $ics_sources,
         );
     }
     /**
@@ -108,22 +110,28 @@ class EventController extends Controller
      *
      * @Route("/{id}", name="event_show")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Event:index.html.twig")
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Event')->find($id);
+        $event = $em->getRepository('AppBundle:Event')->find($id);
+        $entities = $em->getRepository('AppBundle:Event')->findCurrent();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Events');
+        $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 
-        if (!$entity) {
+        if (!$event) {
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entities' => $entities,
+            'section' => $section,
+            'ics_sources' => $ics_sources,
+            'event'      => $event,
             'delete_form' => $deleteForm->createView(),
         );
     }

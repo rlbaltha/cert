@@ -15,23 +15,23 @@ class UploadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file','file', array('label'  => 'File to Upload', 'attr' =>array('class' => '')))
-            ->add('type', 'choice', array('choices'   => array('Syllabus' =>
-              'Syllabus','Image' =>
-                'Image'),'required' => true,
-              'expanded'=>FALSE,'multiple'=>false,'label'  => 'Type',
-              'attr' => array('class' => 'form-control'),))
+            ->add('file', 'file', array('label' => 'File to Upload', 'attr' => array('class' => '')))
+            ->add('type', 'choice', array('choices' => array('Syllabus' =>
+                'Syllabus', 'Image' =>
+                'Image', 'iCal' =>
+                'iCal'), 'required' => true,
+                'expanded' => FALSE, 'multiple' => false, 'label' => 'Type',
+                'attr' => array('class' => 'form-control'),))
+            ->add('color', 'text', array('required' => false, 'label' => 'Calendar Color', 'attr' => array('class' => 'form-control'),))
             ->add('course', 'entity', array(
-                'required'    => false,
-                'empty_data'  => null,
+                'required' => false,
+                'empty_data' => null,
                 'class' => 'AppBundle:Course',
                 'choice_label' => 'title',
                 'label' => 'Course',
-                'attr' => array('class' => 'form-control'),))
-        ;
-        ;
+                'attr' => array('class' => 'form-control'),));;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -62,7 +62,7 @@ class UploadController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            if ($entity->getType()=='Image') {
+            if ($entity->getType()!='Course') {
                 return $this->redirect($this->generateUrl('upload'));
             }
             else {
