@@ -89,52 +89,83 @@
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/ical.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/ical_events.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/ical_fullcalendar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/colorize_fullcalendar.js') }}"></script>
+
+
     <script language="javascript">
-        $(function () {
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
 
-            $('#calendar-holder').fullCalendar({
-                header: {
-                    left: 'prev, next',
-                    center: 'title',
-                    right: 'month, basicWeek, basicDay,'
+        ics_sources = [
+            {url:'https://localhost/cert/web/events.ics',event_properties:{color:'green'}},
+        ]
+
+
+        function data_req (url, callback) {
+            req = new XMLHttpRequest()
+            req.addEventListener('load', callback)
+            req.open('GET', url)
+            req.send()
+        }
+
+        function add_recur_events() {
+            if (sources_to_load_cnt < 1) {
+                $('#calendar').fullCalendar('addEventSource', expand_recur_events)
+            } else {
+                setTimeout(add_recur_events, 30)
+            }
+        }
+
+        function load_ics(ics){
+            data_req(ics.url, function(){
+                $('#calendar-holder').fullCalendar('addEventSource', fc_events(this.response, ics.event_properties))
+                sources_to_load_cnt -= 1
+            })
+        }
+
+
+        $('#calendar-holder').fullCalendar({
+            header: {
+                left: 'prev, next',
+                center: 'title',
+                right: 'month, basicWeek, basicDay,'
+            },
+            lazyFetching: true,
+            timeFormat: {
+                // for agendaWeek and agendaDay
+                agenda: 'h:mmt',    // 5:00 - 6:30
+
+                // for all other views
+                '': 'h:mmt'         // 7p
+            },
+            eventClick: function(calEvent, jsEvent, view) {
+                jQuery.noConflict();
+                $('#myModal').modal('show');
+                var eventid = '#' + calEvent.id;
+                var htmlString = $( eventid ).html();
+                $( ".modal-body" ).html( htmlString);
+
+            },
+            events: [
+                {% for event in entities %}
+                {
+                    title  : '{{ event.title| escape('js') }}',
+                    start  : '{{ event.datetime|date('j M Y') }} {{ event.datetime|date('H:i:s', false) }}',
+                    allDay : false,
+                    textColor: 'white',
+                    backgroundColor: '#971c1e',
+                    borderColor: '#971c1e',
+                    body: '{{ event.body| escape('js') }}',
+                    id: '{{ event.id }}',
                 },
-                lazyFetching: true,
-                timeFormat: {
-                    // for agendaWeek and agendaDay
-                    agenda: 'h:mmt',    // 5:00 - 6:30
-
-                    // for all other views
-                    '': 'h:mmt'         // 7p
-                },
-                eventClick: function(calEvent, jsEvent, view) {
-                    jQuery.noConflict();
-                    $('#myModal').modal('show');
-                    var eventid = '#' + calEvent.id;
-                    var htmlString = $( eventid ).html();
-                    $( ".modal-body" ).html( htmlString);
-
-                },
-                events: [
-                    {% for event in entities %}
-                    {
-                        title  : '{{ event.title| escape('js') }}',
-                        start  : '{{ event.datetime|date('j M Y') }} {{ event.datetime|date('H:i:s', false) }}',
-                        allDay : false,
-                        textColor: 'white',
-                        backgroundColor: '#971c1e',
-                        borderColor: '#971c1e',
-                        body: '{{ event.body| escape('js') }}',
-                        id: '{{ event.id }}',
-                    },
-                    {% endfor %}
-                ],
-            });
-        });
-
+                {% endfor %}
+            ],
+        })
+        sources_to_load_cnt = ics_sources.length
+        for (ics of ics_sources) {
+            load_ics(ics)
+        }
 
     </script>
 {% endblock %}
