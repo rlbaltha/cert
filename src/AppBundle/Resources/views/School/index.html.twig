@@ -26,22 +26,25 @@
         </div>
         <div class="col-sm-8">
             <h1>Schools</h1>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Edit</th>
-                </tr>
-                </thead>
-                <tbody>
+
+            <div class="col-sm-8">
                 {% for entity in entities %}
-                    <tr>
-                        <td>{{ entity.name }}</td>
-                        <td><a class="btn btn-primary" href="{{ path('school_edit', { 'id': entity.id }) }}">Edit</a></td>
-                    </tr>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>{{ entity.name }} ({{ entity.program1|length }})</h2><a class="btn btn-primary float-sm-right" href="{{ path('school_edit', { 'id': entity.id }) }}">Edit</a>
+                    </div>
+                    <div class="card-block">
+                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                            {% for entity in entity.program1 %}
+                                 <p>{{ entity.user.lastname }}, {{ entity.user.firstname }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
-                </tbody>
-            </table>
+            </div>
+
+
         </div>
     </div>
 
