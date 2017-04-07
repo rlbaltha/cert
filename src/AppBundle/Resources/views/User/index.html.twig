@@ -75,7 +75,16 @@
                         <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
                                 , {{ entity.firstname }}</a> ({{ entity.email }})
                         </td>
-                        <td>{% if entity.program %}{{ entity.program.school }}: {{ entity.program.program }}{% endif %}</td>
+                        <td>
+                            {% if entity.program %}
+                                {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
+                                {% if entity.program.major1 %}: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
+                                {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
+                                {% if entity.program.major2 %}: {{ entity.program.major2.name }}{% endif %}
+                            {% endif %}
+
+
+                        </td>
                         <td>
                             {% if entity.checklist %}
                                 {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
