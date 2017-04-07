@@ -22,7 +22,9 @@
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
-
+                            <li class="nav-item"><a
+                                        href="{{ path('term_current') }}">Courses Offered Next Term</a>
+                            </li>
                             <li class="nav nav-header">Undergraduate</li>
                             <li class="nav-item"><a
                                         href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor</a>

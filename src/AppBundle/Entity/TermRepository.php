@@ -10,4 +10,17 @@ namespace AppBundle\Entity;
  */
 class TermRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Find current term
+     *
+     * @return Term
+     */
+    public function findCurrent() {
+        $current_term = $this->createQueryBuilder('t')
+            ->andWhere('t.status = :status')
+            ->setParameter('status','Current')
+            ->getQuery()
+            ->getSingleResult();
+        return $current_term;
+    }
 }

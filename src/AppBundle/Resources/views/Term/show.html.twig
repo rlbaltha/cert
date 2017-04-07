@@ -41,22 +41,98 @@
                 </button>
                 <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                     <ul class="nav navbar-sidenav">
-                        {% if is_granted('ROLE_ADMIN') %}
+                        {% if section %}
+                            {% for page in section.pages if section %}
+                                {% if (page.link is null or page.link == '') %}
+                                    <li class="nav-item"><a
+                                                href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <li class="nav-item"><a
+                                    href="{{ path('term_current') }}">Courses Offered Next Term</a>
+                        </li>
+                        <li class="nav nav-header">Undergraduate</li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">Anchor</a>
+                        </li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">Seminar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">Ecological</a>
+                        </li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">Economic</a>
+                        </li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">Social</a>
+                        </li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">Capstone</a>
+                        </li>
+                        {% if is_granted('ROLE_USER') %}
+                            <li class="nav-item"><a
+                                        href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item"><a
+                                    href="{{ path('course_listbylocation', { 'location':'Abroad', 'status':'approved' }) }}">Study
+                                Abroad</a>
+                        </li>
+
+                        <li class="nav nav-header">Graduate</li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'anchor', 'level':'grad' }) }}">Anchor</a>
+                        </li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'seminar', 'level':'grad' }) }}">Seminar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('course', { 'pillar':'ecological', 'level':'grad' }) }}">Ecological</a>
+                        </li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'economic', 'level':'grad' }) }}">Economic</a>
+                        </li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'social', 'level':'grad' }) }}">Social</a>
+                        </li>
+                        <li class="nav-item"><a
+                                    href="{{ path('course', { 'pillar':'capstone', 'level':'grad' }) }}">Capstone</a>
+                        </li>
+
+
+                    </ul>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <ul class="nav navbar-sidenav">
+                            <li class="nav nav-header">Admin</li>
+                            <li class="nav-item"><a href="{{ path('course_new') }}">
+                                    New Course
+                                </a></li>
                             <li class="nav-item">
                                 <a href="{{ path('term_new') }}">New Term</a>
                             </li>
-                        {% endif %}
-                    </ul>
+                            <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'pending'}) }}">Pending</a>
+                            </li>
+                            <li class="nav-item"><a href="{{ path('course_listbystatus', { 'status':'denied'}) }}">Denied</a>
+                            </li>
+                            <li class="nav-item"><a href="{{ path('course_listall') }}">All</a>
+                            </li>
+                        </ul>
+                    {% endif %}
                 </div>
             </nav>
 
         </div>
     </div>
 
-
     <div class="col-sm-8">
         <h1>{{ entity.name }}</h1>
-        <div class="alert alert-warning">This course list is preliminary and subject to change.  Please check Athena.</div>
+        <div class="alert alert-success">This course list is preliminary and subject to change.  Please check Athena.</div>
 
         {% if entity.courses|length > 0 %}
             <table class="table sort">

@@ -99,6 +99,30 @@ class TermController extends Controller
         );
     }
 
+    /**
+     * Finds and displays the current Term entity.
+     *
+     * @Route("/current", name="term_current")
+     * @Method("GET")
+     * @Template("AppBundle:Term:show.html.twig")
+     */
+    public function currentAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Term')->findCurrent();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Term entity.');
+        }
+
+
+        return array(
+            'entity'      => $entity,
+            'section'      => $section,
+        );
+    }
 
     /**
      * Finds and displays a Term entity.
