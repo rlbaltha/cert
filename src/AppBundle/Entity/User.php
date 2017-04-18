@@ -102,6 +102,15 @@ class User extends BaseUser
      */
     private $responsesets;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="user")
+     */
+    private $projects;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Checkpoint", mappedBy="reviewers")
+     */
+    protected $checkpoints;
 
     /**
      * @ORM\ManyToOne(targetEntity="Status")
@@ -413,4 +422,87 @@ class User extends BaseUser
         return $this->responsesets;
     }
 
+
+    /**
+     * Add project
+     *
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return User
+     */
+    public function addProject(\AppBundle\Entity\Project $project)
+    {
+        $this->projects[] = $project;
+
+        return $this;
+    }
+
+    /**
+     * Remove project
+     *
+     * @param \AppBundle\Entity\Project $project
+     */
+    public function removeProject(\AppBundle\Entity\Project $project)
+    {
+        $this->projects->removeElement($project);
+    }
+
+    /**
+     * Get projects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProjects()
+    {
+        return $this->projects;
+    }
+
+
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        $name = $this->getFirstname().' '.$this->getLastname();
+        return $name;
+    }
+
+
+
+    /**
+     * Add checkpoint
+     *
+     * @param \AppBundle\Entity\Checkpoint $checkpoint
+     *
+     * @return User
+     */
+    public function addCheckpoint(\AppBundle\Entity\Checkpoint $checkpoint)
+    {
+        $this->checkpoints[] = $checkpoint;
+
+        return $this;
+    }
+
+    /**
+     * Remove checkpoint
+     *
+     * @param \AppBundle\Entity\Checkpoint $checkpoint
+     */
+    public function removeCheckpoint(\AppBundle\Entity\Checkpoint $checkpoint)
+    {
+        $this->checkpoints->removeElement($checkpoint);
+    }
+
+    /**
+     * Get checkpoints
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCheckpoints()
+    {
+        return $this->checkpoints;
+    }
 }
