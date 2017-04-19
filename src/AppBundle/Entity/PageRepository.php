@@ -22,6 +22,7 @@ public function findCurrent() {
 		->andWhere('s.title = :title')
 		->setParameter('title', 'Newsletter')
 		->orderBy('p.sortorder')
+		->setMaxResults(1)
 		->getQuery()
 		->getSingleResult();
 	return $page;
