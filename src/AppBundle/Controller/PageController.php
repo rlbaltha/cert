@@ -98,6 +98,29 @@ class PageController extends Controller
             'form'   => $form->createView(),
         );
     }
+	
+		/**
+     * Finds and displays the current newsletter page.
+     *
+     * @Route("/newsletter", name="page_newsletter")
+     * @Method("GET")
+     * @Template("AppBundle:Page:show.html.twig")
+     */
+    public function newsletterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Page')->findCurrent();
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
+        }
+
+        return array(
+            'entity'      => $entity,
+        );
+    }
+
 
     /**
      * Finds and displays a Page entity.
@@ -122,7 +145,7 @@ class PageController extends Controller
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         );
-    }
+    }	
 
     /**
      * Displays a form to edit an existing Page entity.

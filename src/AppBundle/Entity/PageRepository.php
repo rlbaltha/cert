@@ -10,4 +10,21 @@ namespace AppBundle\Entity;
  */
 class PageRepository extends \Doctrine\ORM\EntityRepository
 {
+	
+	/**
+* find newsletter by sortorder
+*
+* @return Course
+*/
+public function findCurrent() {
+	$page = $this->createQueryBuilder('p')
+		->join('p.section', 's')
+		->andWhere('s.title = :title')
+		->setParameter('title', 'Newsletter')
+		->orderBy('p.sortorder')
+		->getQuery()
+		->getSingleResult();
+	return $page;
+}
+	
 }
