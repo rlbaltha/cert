@@ -136,6 +136,7 @@ class TermController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Term')->find($id);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Term entity.');
@@ -144,6 +145,7 @@ class TermController extends Controller
 
         return array(
             'entity'      => $entity,
+            'section'      => $section,
         );
     }
 

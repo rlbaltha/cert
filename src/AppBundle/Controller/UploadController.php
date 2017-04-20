@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Upload;
 use AppBundle\Form\UploadType;
-use Ddeboer\DataImport\Workflow;
+use Ddeboer\DataImport\Workflow\StepAggregator as Workflow;
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Symfony\Component\HttpFoundation\Response;
@@ -360,5 +360,41 @@ class UploadController extends Controller
         $response->setContent(file_get_contents($path));
 
         return $response;
+    }
+
+    /**
+     * Import  from csv
+     * using https://github.com/ddeboer/data-import
+     *
+     * @Route("/import/{filetype}/{entity}/{id}", name="import_upload")
+     */
+    public function importAction($id, $filetype, $entity) {
+        $em = $this->getDoctrine()->getManager();
+        // Create and configure the reader
+        $upload = $em->getRepository('AppBundle:Upload')->find($id);
+        $path = $this->get('kernel')->getRootDir() . '/../upload/files/'
+            . $upload->getName();
+        $entity_namespace = 'AppBundle:' . $entity;
+        $entity_redirect = $entity . '_pending';
+        $file = new \SplFileObject($path);
+        $csvReader = new CsvReader($file);
+
+        // Tell the reader that the first row in the CSV file contains column headers
+        $csvReader->setHeaderRowNumber(0);
+        $csvReader->setStrict(FALSE);
+
+        // Create the workflow from the reader
+        $workflow = new Workflow($csvReader);
+
+        // Create a writer: you need Doctrine’s EntityManager.
+        $doctrineWriter = new DoctrineWriter($em, $entity_namespace);
+        $doctrineWriter->disableTruncate();
+        $workflow->addWriter($doctrineWriter);
+
+
+        // Process the workflow
+        $workflow->process();
+
+        return $this->redirect($this->generateUrl(strtolower($entity_redirect)));
     }
 }
