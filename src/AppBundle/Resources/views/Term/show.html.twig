@@ -153,7 +153,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for entity in entity.courses %}
+                {% for entity in entity.courses  if entity.pillar != 'Capstone' %}
                     <tr>
                         <td>
                             <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
