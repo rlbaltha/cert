@@ -15,13 +15,20 @@ class ReviewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('reviewer', 'entity', array('class' => 'AppBundle\Entity\User',
+                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Reviewer', 'attr' => array('class' =>
+                    'form-control'),'disabled' => false))
+            ->add('checkpoint', 'entity', array('class' => 'AppBundle\Entity\Checkpoint',
+                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Checkpoint', 'attr' => array('class' =>
+                    'form-control'),'disabled' => false))
             ->add('status', 'choice', array('choices' => array('Complete' => 'Complete','Incomplete' => 'Incomplete','Close' => 'Closed',),
                 'required' =>  true,
                 'expanded' => false,
                 'multiple' => false,
-                'label' => 'Status',
+                'label' => 'Recommended Status for this Checkpoint',
                 'attr' => array('class' => 'form-control'),))
             ->add('body', 'ckeditor', array('config_name' => 'editor_simple',))
+
         ;
     }
     

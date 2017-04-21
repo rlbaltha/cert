@@ -108,6 +108,11 @@ class User extends BaseUser
     private $projects;
 
     /**
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="user")
+     */
+    private $reviews;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Checkpoint", mappedBy="reviewers")
      */
     protected $checkpoints;
@@ -504,5 +509,39 @@ class User extends BaseUser
     public function getCheckpoints()
     {
         return $this->checkpoints;
+    }
+
+    /**
+     * Add review
+     *
+     * @param \AppBundle\Entity\Review $review
+     *
+     * @return User
+     */
+    public function addReview(\AppBundle\Entity\Review $review)
+    {
+        $this->reviews[] = $review;
+
+        return $this;
+    }
+
+    /**
+     * Remove review
+     *
+     * @param \AppBundle\Entity\Review $review
+     */
+    public function removeReview(\AppBundle\Entity\Review $review)
+    {
+        $this->reviews->removeElement($review);
+    }
+
+    /**
+     * Get reviews
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
     }
 }

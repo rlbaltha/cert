@@ -41,6 +41,11 @@ class Review
     protected $checkpoint;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="reviews")
+     */
+    protected $reviewer;
+
+    /**
      * Get id
      *
      * @return integer
@@ -120,5 +125,29 @@ class Review
     public function getCheckpoint()
     {
         return $this->checkpoint;
+    }
+
+    /**
+     * Set reviewer
+     *
+     * @param \AppBundle\Entity\User $reviewer
+     *
+     * @return Review
+     */
+    public function setReviewer(\AppBundle\Entity\User $reviewer = null)
+    {
+        $this->reviewer = $reviewer;
+
+        return $this;
+    }
+
+    /**
+     * Get reviewer
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getReviewer()
+    {
+        return $this->reviewer;
     }
 }
