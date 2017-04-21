@@ -38,7 +38,7 @@
 
             {% for checkpoint in entity.checkpoints %}
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header" style="background-color: #e2ffd9">
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
                                class="float-sm-right btn btn-primary">Edit</a>
@@ -64,7 +64,7 @@
 
                         {% for review in checkpoint.reviews %}
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header" style="background-color: #eaf2ff">
                                     Review by {{ review.reviewer.name }} Recommended Status: {{ review.status }}
                                     {% if app.user.username == review.reviewer.username %}
                                     <a href="{{ path('review_edit', { 'id': review.id }) }}"
