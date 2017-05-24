@@ -134,7 +134,7 @@
         <h1>{{ entity.name }}</h1>
         <div class="alert alert-success">
             <p>This course list is preliminary and subject to change.  Please check Athena.</p>
-            <p>Type in the forms in the header to filter the display.</p>
+            <p>Type in the forms in the header to filter the display.  Capstone options are not included.</p>
         </div>
 
         {% if entity.courses|length > 0 %}
@@ -152,8 +152,10 @@
                     {% endif %}
                 </tr>
                 </thead>
+                </thead>
                 <tbody>
-                {% for entity in entity.courses  if entity.pillar != 'Capstone' %}
+
+                {% for entity in entity.courses if entity.pillar != 'Capstone' %}
                     <tr>
                         <td>
                             <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>

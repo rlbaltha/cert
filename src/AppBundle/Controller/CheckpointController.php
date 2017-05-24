@@ -7,21 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Term;
-use AppBundle\Form\TermType;
+use AppBundle\Entity\Checkpoint;
+use AppBundle\Form\CheckpointType;
 
 /**
- * Term controller.
+ * Checkpoint controller.
  *
- * @Route("/term")
+ * @Route("/checkpoint")
  */
-class TermController extends Controller
+class CheckpointController extends Controller
 {
 
     /**
-     * Lists all Term entities.
+     * Lists all Checkpoint entities.
      *
-     * @Route("/", name="term")
+     * @Route("/", name="checkpoint")
      * @Method("GET")
      * @Template()
      */
@@ -29,31 +29,38 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Term')->findAll();
+        $entities = $em->getRepository('AppBundle:Checkpoint')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Term entity.
+     * Creates a new Checkpoint entity.
      *
-     * @Route("/", name="term_create")
+     * @Route("/{id}/create", name="checkpoint_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $id)
     {
-        $entity = new Term();
+        $em = $this->getDoctrine()->getManager();
+
+
+
+        $entity = new Checkpoint();
+        $project = $em->getRepository('AppBundle:Project')->find($id);
+        $entity->setProject($project);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
+
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
+
+             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('term'));
+            return $this->redirect($this->generateUrl('project_show', array('id' => $id)));
         }
 
         return array(
@@ -63,16 +70,16 @@ class TermController extends Controller
     }
 
     /**
-     * Creates a form to create a Term entity.
+     * Creates a form to create a Checkpoint entity.
      *
-     * @param Term $entity The entity
+     * @param Checkpoint $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Term $entity)
+    private function createCreateForm(Checkpoint $entity)
     {
-        $form = $this->createForm(new TermType(), $entity, array(
-            'action' => $this->generateUrl('term_create'),
+        $form = $this->createForm(new CheckpointType(), $entity, array(
+            'action' => $this->generateUrl('checkpoint_create', array('id'=>$entity->getProject()->getId())),
             'method' => 'POST',
         ));
 
@@ -82,15 +89,20 @@ class TermController extends Controller
     }
 
     /**
-     * Displays a form to create a new Term entity.
+     * Displays a form to create a new Checkpoint entity.
      *
-     * @Route("/new", name="term_new")
+     * @Route("/{id}/new", name="checkpoint_new")
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
      */
-    public function newAction()
+    public function newAction($id)
     {
-        $entity = new Term();
+        $em = $this->getDoctrine()->getManager();
+
+        $project = $em->getRepository('AppBundle:Project')->find($id);
+
+        $entity = new Checkpoint();
+        $entity->setProject($project);
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -100,34 +112,9 @@ class TermController extends Controller
     }
 
     /**
-     * Finds and displays the current Term entity.
+     * Finds and displays a Checkpoint entity.
      *
-     * @Route("/current", name="term_current")
-     * @Method("GET")
-     * @Template("AppBundle:Term:show.html.twig")
-     */
-    public function currentAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Term')->findCurrent();
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Term entity.');
-        }
-
-
-        return array(
-            'entity'      => $entity,
-            'section'      => $section,
-        );
-    }
-
-    /**
-     * Finds and displays a Term entity.
-     *
-     * @Route("/{id}", name="term_show")
+     * @Route("/{id}", name="checkpoint_show")
      * @Method("GET")
      * @Template()
      */
@@ -135,25 +122,24 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Term')->find($id);
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
+        $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Term entity.');
+            throw $this->createNotFoundException('Unable to find Checkpoint entity.');
         }
 
+        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
-            'section'      => $section,
+            'delete_form' => $deleteForm->createView(),
         );
     }
 
-
     /**
-     * Displays a form to edit an existing Term entity.
+     * Displays a form to edit an existing Checkpoint entity.
      *
-     * @Route("/{id}/edit", name="term_edit")
+     * @Route("/{id}/edit", name="checkpoint_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -161,10 +147,10 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Term')->find($id);
+        $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Term entity.');
+            throw $this->createNotFoundException('Unable to find Checkpoint entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -178,16 +164,16 @@ class TermController extends Controller
     }
 
     /**
-    * Creates a form to edit a Term entity.
+    * Creates a form to edit a Checkpoint entity.
     *
-    * @param Term $entity The entity
+    * @param Checkpoint $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Term $entity)
+    private function createEditForm(Checkpoint $entity)
     {
-        $form = $this->createForm(new TermType(), $entity, array(
-            'action' => $this->generateUrl('term_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new CheckpointType(), $entity, array(
+            'action' => $this->generateUrl('checkpoint_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -196,9 +182,9 @@ class TermController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Term entity.
+     * Edits an existing Checkpoint entity.
      *
-     * @Route("/{id}", name="term_update")
+     * @Route("/{id}", name="checkpoint_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -206,10 +192,10 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Term')->find($id);
+        $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Term entity.');
+            throw $this->createNotFoundException('Unable to find Checkpoint entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -219,7 +205,7 @@ class TermController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('term'));
+            return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getProject()->getId())));
         }
 
         return array(
@@ -229,9 +215,9 @@ class TermController extends Controller
         );
     }
     /**
-     * Deletes a Term entity.
+     * Deletes a Checkpoint entity.
      *
-     * @Route("/{id}", name="term_delete")
+     * @Route("/{id}", name="checkpoint_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -241,21 +227,21 @@ class TermController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Term')->find($id);
+            $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Term entity.');
+                throw $this->createNotFoundException('Unable to find Checkpoint entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('term'));
+        return $this->redirect($this->generateUrl('checkpoint'));
     }
 
     /**
-     * Creates a form to delete a Term entity by id.
+     * Creates a form to delete a Checkpoint entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -264,7 +250,7 @@ class TermController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('term_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('checkpoint_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

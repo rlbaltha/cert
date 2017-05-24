@@ -7,21 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Term;
-use AppBundle\Form\TermType;
+use AppBundle\Entity\Review;
+use AppBundle\Form\ReviewType;
 
 /**
- * Term controller.
+ * Review controller.
  *
- * @Route("/term")
+ * @Route("/review")
  */
-class TermController extends Controller
+class ReviewController extends Controller
 {
 
     /**
-     * Lists all Term entities.
+     * Lists all Review entities.
      *
-     * @Route("/", name="term")
+     * @Route("/", name="review")
      * @Method("GET")
      * @Template()
      */
@@ -29,22 +29,22 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Term')->findAll();
+        $entities = $em->getRepository('AppBundle:Review')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Term entity.
+     * Creates a new Review entity.
      *
-     * @Route("/", name="term_create")
+     * @Route("/", name="review_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Term();
+        $entity = new Review();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -53,7 +53,7 @@ class TermController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('term'));
+            return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getCheckpoint()->getProject()->getId())));
         }
 
         return array(
@@ -63,16 +63,16 @@ class TermController extends Controller
     }
 
     /**
-     * Creates a form to create a Term entity.
+     * Creates a form to create a Review entity.
      *
-     * @param Term $entity The entity
+     * @param Review $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Term $entity)
+    private function createCreateForm(Review $entity)
     {
-        $form = $this->createForm(new TermType(), $entity, array(
-            'action' => $this->generateUrl('term_create'),
+        $form = $this->createForm(new ReviewType(), $entity, array(
+            'action' => $this->generateUrl('review_create'),
             'method' => 'POST',
         ));
 
@@ -82,15 +82,22 @@ class TermController extends Controller
     }
 
     /**
-     * Displays a form to create a new Term entity.
+     * Displays a form to create a new Review entity.
      *
-     * @Route("/new", name="term_new")
+     * @Route("/new/{checkpointid}/{reviewerid}", name="review_new", defaults = {"checkpointid" = 0, "reviewerid" = 0})
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
      */
-    public function newAction()
+    public function newAction($checkpointid, $reviewerid)
     {
-        $entity = new Term();
+        $entity = new Review();
+
+        $em = $this->getDoctrine()->getManager();
+        $reviewer = $em->getRepository('AppBundle:User')->find($reviewerid);
+        $checkpoint = $em->getRepository('AppBundle:Checkpoint')->find($checkpointid);
+        $entity->setCheckpoint($checkpoint);
+        $entity->setReviewer($reviewer);
+
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -100,34 +107,9 @@ class TermController extends Controller
     }
 
     /**
-     * Finds and displays the current Term entity.
+     * Finds and displays a Review entity.
      *
-     * @Route("/current", name="term_current")
-     * @Method("GET")
-     * @Template("AppBundle:Term:show.html.twig")
-     */
-    public function currentAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Term')->findCurrent();
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Term entity.');
-        }
-
-
-        return array(
-            'entity'      => $entity,
-            'section'      => $section,
-        );
-    }
-
-    /**
-     * Finds and displays a Term entity.
-     *
-     * @Route("/{id}", name="term_show")
+     * @Route("/{id}", name="review_show")
      * @Method("GET")
      * @Template()
      */
@@ -135,25 +117,24 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Term')->find($id);
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
+        $entity = $em->getRepository('AppBundle:Review')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Term entity.');
+            throw $this->createNotFoundException('Unable to find Review entity.');
         }
 
+        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
-            'section'      => $section,
+            'delete_form' => $deleteForm->createView(),
         );
     }
 
-
     /**
-     * Displays a form to edit an existing Term entity.
+     * Displays a form to edit an existing Review entity.
      *
-     * @Route("/{id}/edit", name="term_edit")
+     * @Route("/{id}/edit", name="review_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -161,10 +142,10 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Term')->find($id);
+        $entity = $em->getRepository('AppBundle:Review')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Term entity.');
+            throw $this->createNotFoundException('Unable to find Review entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -178,16 +159,16 @@ class TermController extends Controller
     }
 
     /**
-    * Creates a form to edit a Term entity.
+    * Creates a form to edit a Review entity.
     *
-    * @param Term $entity The entity
+    * @param Review $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Term $entity)
+    private function createEditForm(Review $entity)
     {
-        $form = $this->createForm(new TermType(), $entity, array(
-            'action' => $this->generateUrl('term_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new ReviewType(), $entity, array(
+            'action' => $this->generateUrl('review_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -196,9 +177,9 @@ class TermController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Term entity.
+     * Edits an existing Review entity.
      *
-     * @Route("/{id}", name="term_update")
+     * @Route("/{id}", name="review_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -206,10 +187,10 @@ class TermController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Term')->find($id);
+        $entity = $em->getRepository('AppBundle:Review')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Term entity.');
+            throw $this->createNotFoundException('Unable to find Review entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -219,7 +200,7 @@ class TermController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('term'));
+            return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getCheckpoint()->getProject()->getId())));
         }
 
         return array(
@@ -229,9 +210,9 @@ class TermController extends Controller
         );
     }
     /**
-     * Deletes a Term entity.
+     * Deletes a Review entity.
      *
-     * @Route("/{id}", name="term_delete")
+     * @Route("/{id}", name="review_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -241,21 +222,22 @@ class TermController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Term')->find($id);
+            $entity = $em->getRepository('AppBundle:Review')->find($id);
+            $projectid = $entity->getCheckpoint()->getProject()->getId();
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Term entity.');
+                throw $this->createNotFoundException('Unable to find Review entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('term'));
+        return $this->redirect($this->generateUrl('project_show', array('id' => $projectid)));
     }
 
     /**
-     * Creates a form to delete a Term entity by id.
+     * Creates a form to delete a Review entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -264,7 +246,7 @@ class TermController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('term_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('review_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

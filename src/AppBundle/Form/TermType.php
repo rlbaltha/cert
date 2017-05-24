@@ -19,7 +19,8 @@ class TermType extends AbstractType
             ->add('status', 'choice', array(
                 'choices' => array(
                     'Current' => 'Current',
-                    'Archive' => 'Archive'
+                    'Archive' => 'Archive',
+                    'Display' => 'Display'
                 ),
                 // *this line is important*
                 'choices_as_values' => true,
