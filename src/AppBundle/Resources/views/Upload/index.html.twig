@@ -2,13 +2,32 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item">
+                                    <a class="" href="{{ path('upload_new') }}">
+                                        New Upload
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+
+        <div class="col-sm-8">
             <h1>Files Uploaded</h1>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-primary" href="{{ path('upload_new') }}">
-                    Upload New
-                </a>
-            {% endif %}
 
             <div class="alert alert-info">N.B.:  Syllabi should be uploaded from the course to which it belongs.</div>
             <table class="table well">

@@ -26,7 +26,7 @@
             {% endif %}
 
             <div class="btn-group float-sm-right" role="group" aria-label="Basic Functions">
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <a class="btn btn-primary" style="margin-left: 10px;"
                        href="{{ path('user_edit', { 'id': entity.id }) }}">
                         Update
@@ -56,7 +56,7 @@
              <div id="accordion" role="tablist" aria-multiselectable="true">
 
                 {# Director Notes #}
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <div class="card">
                         <div class="card-header" role="tab" id="headingOne">
                             <h5 class="mb-0">
@@ -83,7 +83,7 @@
 
                 {# Applcation #}
                 {# check to see if profile matches currrent user #}
-                {% if app.user.username == entity.username  or is_granted('ROLE_ADMIN') %}
+                {% if app.user.username == entity.username  or is_granted('ROLE_SUPER_ADMIN') %}
                     <div class="card">
                         <div class="card-header" role="tab" id="headingTwo">
                             <h5 class="mb-0">
@@ -103,14 +103,14 @@
                                     You will be notified by the Director when your application is approved.</p>
 
                                 {% if entity.program %}
-                                    {% if is_granted('ROLE_ADMIN') and entity.program.status != 'Approved' %}
+                                    {% if is_granted('ROLE_SUPER_ADMIN') and entity.program.status != 'Approved' %}
                                         <a title="Approve this application" class="btn btn-primary  align-right"
                                            href="{{ path('program_approve',  { 'id': entity.program.id }) }}">
                                             Approve App
                                         </a>
                                     {% endif %}
 
-                                    {% if is_granted('ROLE_ADMIN') or entity.program.status == 'Created' %}
+                                    {% if is_granted('ROLE_SUPER_ADMIN') or entity.program.status == 'Created' %}
                                         <a class="btn btn-primary  align-right "
                                            href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
                                             Update Application
@@ -465,7 +465,7 @@
                                     </p>
                                 {% endif %}
 
-                                {% if is_granted('ROLE_ADMIN') and entity.capstone.status != 'Approved' %}
+                                {% if is_granted('ROLE_SUPER_ADMIN') and entity.capstone.status != 'Approved' %}
                                     <a title="Approve this capstone" class="btn btn-primary  align-right"
                                        href="{{ path('capstone_approve',  { 'id': entity.capstone.id }) }}">
                                         Approve Workplan

@@ -77,7 +77,7 @@
 
                         </ul>
 
-                        {% if is_granted('ROLE_ADMIN') %}
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
                             <ul class="nav navbar-sidenav">
                                 <li class="nav nav-header">Admin</li>
                                 <li class="nav-item"><a href="{{ path('course_new') }}">
@@ -97,7 +97,7 @@
             </div>
         </div>
         <div class="col-sm-8">
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <div class="btn-group float-sm-right" role="group" aria-label="Course Actions">
                     <a class="btn btn-primary"
                        href="{{ path('upload_new', { 'courseid': entity.id }) }}">Upload Syllabus</a>
