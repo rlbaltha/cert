@@ -1,0 +1,75 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            <li class="nav-item"><a href="{{ path('idea_new') }}">
+                                    New Idea
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('idea') }}">
+                                    Back to the list
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+        <div class="col-sm-8">
+
+            <h1>{{ entity.title }}</h1>
+
+            {{ entity.description|raw }}
+            <a class="float-sm-right btn btn-primary" href="{{ path('idea_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+
+            {{ form(delete_form) }}
+
+                <h1>Resource list</h1>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Organization</th>
+                        <th>Type</th>
+                        <th>Title</th>
+                        <th>Contact</th>
+                        <th>Tags</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tag in entity.tags %}
+                    {% for source in tag.sources %}
+                        <tr>
+                            <td><a href="{{ path('source_show', { 'id': source.id }) }}">{{ source.name }}</a></td>
+                            <td>{{ source.organization }}</td>
+                            <td>{{ source.type }}</td>
+                            <td>{{ source.title }}</td>
+                            <td>{{ source.contact }}</td>
+                            <td>{% for tag in source.tags %}<div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+
+
+        </div>
+{% endblock %}
