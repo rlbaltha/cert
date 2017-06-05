@@ -144,6 +144,7 @@
                     id: '{{ event.id }}',
                 },
                 {% endfor %}
+                {% if is_granted('ROLE_ADMIN') %}
                 {% for checkpoint in checkpoints %}
                 {
                     title: '{{ checkpoint.name| escape('js') }}',
@@ -157,6 +158,7 @@
                     id: '{{ checkpoint.id }}',
                 },
                 {% endfor %}
+                {% endif %}
             ],
             eventClick: function(event) {
                 // if (event.url) {
