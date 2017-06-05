@@ -17,6 +17,9 @@ class TagType extends AbstractType
         $builder
             ->add('title', 'text', array('attr' => array('class' => 'text form-control'),))
             ->add('color', 'text', array('attr' => array('class' => 'text form-control'),))
+            ->add('top', 'entity', array('class' => 'AppBundle\Entity\Tag',
+                'property' => 'title','required'=>false,'expanded'=>false,'multiple'=>false,'label'  => 'Super', 'attr' => array('class' =>
+                    'form-control'),))
         ;
     }
     

@@ -30,11 +30,13 @@ class EventController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
+        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent();
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Events');
         $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 
         return array(
             'entities' => $entities,
+            'checkpoints' => $checkpoints,
             'section' => $section,
             'ics_sources' => $ics_sources,
         );
@@ -118,6 +120,7 @@ class EventController extends Controller
 
         $event = $em->getRepository('AppBundle:Event')->find($id);
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
+        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent();
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Events');
         $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 
@@ -129,6 +132,7 @@ class EventController extends Controller
 
         return array(
             'entities' => $entities,
+            'checkpoints' => $checkpoints,
             'section' => $section,
             'ics_sources' => $ics_sources,
             'event'      => $event,

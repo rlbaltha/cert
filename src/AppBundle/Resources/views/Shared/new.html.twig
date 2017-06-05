@@ -1,5 +1,15 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+{% endblock %}
+
 {% block body -%}
     <div class="row">
         <div class="col-sm-10 offset-sm-1 col-xs-12">

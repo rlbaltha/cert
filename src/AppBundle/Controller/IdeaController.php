@@ -30,9 +30,11 @@ class IdeaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Idea')->findAll();
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(
             'entities' => $entities,
+            'tags' => $tags,
         );
     }
     /**

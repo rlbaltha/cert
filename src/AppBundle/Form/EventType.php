@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use AppBundle\Form\OrganizationType;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 
 class EventType extends AbstractType
 {
@@ -18,7 +19,10 @@ class EventType extends AbstractType
         $builder
             ->add('title', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),))
             ->add('body', 'ckeditor', array('config_name' => 'editor_default',))
-            ->add('datetime','datetime', array('attr' => array('class' => ''),))
+            ->add('datetime', DatetimeType::class, array('pickerOptions' =>
+                array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
+                ),
+                'attr' => array('class' => 'form-control'),))
         ;
     }
     

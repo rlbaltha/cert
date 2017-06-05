@@ -30,9 +30,11 @@ class SourceController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Source')->findAll();
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(
             'entities' => $entities,
+            'tags' => $tags,
         );
     }
     /**

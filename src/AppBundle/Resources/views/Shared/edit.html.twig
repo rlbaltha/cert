@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(edit_form) }}
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
     <script language="javascript">
@@ -9,9 +14,13 @@
                 $('#edit_form').toggle();
                 $('#delete_form').toggle();
             });
+            $( 'i' ).switchClass(  'glyphicon', 'fa' );
+            $( 'i' ).switchClass( 'glyphicon-arrow-right', 'fa-angle-right' );
+
             $("form:not(.filter) :input:visible:enabled:first").focus();
         });
     </script>
+    {{ form_javascript(edit_form) }}
 {% endblock %}
 
 {% block body -%}

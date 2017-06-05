@@ -58,6 +58,22 @@
                                     Tags
                                 </a>
                             </li>
+                            {% for tag in tags if tag.subs|length > 0 %}
+                                <li class="nav-item">
+                                    <div class="btn btn-primary btn-sm"
+                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                    {% for tag in tag.subs %}
+                                        <div class="btn btn-primary btn-sm"
+                                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                            <li class="nav-item">
+                                {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                                    <div class="btn btn-primary btn-sm"
+                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                {% endfor %}
+                            </li>
                         </ul>
                     </div>
                 </nav>

@@ -45,6 +45,16 @@ class Tag
      */
     protected $sources;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Tag", mappedBy="top")
+     */
+    private $subs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Tag", inversedBy="subs")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $top;
 
     /**
      * Get id
@@ -178,5 +188,63 @@ class Tag
     public function getSources()
     {
         return $this->sources;
+    }
+
+    /**
+     * Add sub
+     *
+     * @param \AppBundle\Entity\Tag $sub
+     *
+     * @return Tag
+     */
+    public function addSub(\AppBundle\Entity\Tag $sub)
+    {
+        $this->subs[] = $sub;
+
+        return $this;
+    }
+
+    /**
+     * Remove sub
+     *
+     * @param \AppBundle\Entity\Tag $sub
+     */
+    public function removeSub(\AppBundle\Entity\Tag $sub)
+    {
+        $this->subs->removeElement($sub);
+    }
+
+    /**
+     * Get subs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubs()
+    {
+        return $this->subs;
+    }
+
+    /**
+     * Set top
+     *
+     * @param \AppBundle\Entity\Tag $top
+     *
+     * @return Tag
+     */
+    public function setTop(\AppBundle\Entity\Tag $top = null)
+    {
+        $this->top = $top;
+
+        return $this;
+    }
+
+    /**
+     * Get top
+     *
+     * @return \AppBundle\Entity\Tag
+     */
+    public function getTop()
+    {
+        return $this->top;
     }
 }

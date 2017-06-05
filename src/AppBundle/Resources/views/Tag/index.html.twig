@@ -48,12 +48,26 @@
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('tag_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                <td>{{ entity.color }}</td>
-                <td><a href="{{ path('tag_edit', { 'id': entity.id }) }}">edit</a></td>
+        {% for tag in entities if tag.subs|length > 0%}
+            <tr style="background-color: #e0e0e0">
+                <td><div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div></td>
+                <td>{{ tag.color }}</td>
+                <td><a href="{{ path('tag_edit', { 'id': tag.id }) }}">edit</a></td>
             </tr>
+            {% for tag in tag.subs %}
+                <tr>
+                    <td><div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div></td>
+                    <td>{{ tag.color }}</td>
+                    <td><a href="{{ path('tag_edit', { 'id': tag.id }) }}">edit</a></td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+        {% for tag in entities if tag.top|length == 0 and tag.subs|length == 0%}
+        <tr style="background-color: #e0e0e0">
+            <td><div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div></td>
+            <td>{{ tag.color }}</td>
+            <td><a href="{{ path('tag_edit', { 'id': tag.id }) }}">edit</a></td>
+        </tr>
         {% endfor %}
         </tbody>
     </table>
