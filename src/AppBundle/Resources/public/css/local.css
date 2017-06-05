@@ -7,7 +7,6 @@ body {
     margin-top: 5em;
 }
 
-
 .navbar-brand, h1, h2, h3, h4, h5 {
     font-family: 'Roboto Slab', serif;
     padding: .5rem;
@@ -22,16 +21,14 @@ body {
     padding: 2em;
 }
 
-
 /**********  Accessibility **********/
-#skip a, #skip a:hover, #skip a:visited
-{
-    position:absolute;
-    left:0;
-    top:-500px;
-    width:1px;
-    height:1px;
-    overflow:hidden;
+#skip a, #skip a:hover, #skip a:visited {
+    position: absolute;
+    left: 0;
+    top: -500px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
 
 #skip a:active, #skip a:focus {
@@ -47,6 +44,7 @@ body {
     padding: 1rem;
     background-color: #567f20;
 }
+
 .navbar-nav li a {
     color: #fff;
     font-size: 11pt;
@@ -57,6 +55,7 @@ body {
     font-size: 12pt;
     font-weight: 600;
 }
+
 .nav-header {
     font-size: 12pt;
     font-weight: 600;
@@ -88,9 +87,7 @@ body {
     background-color: #fff;
 }
 
-
 /**********  Forms **********/
-
 
 div.radio > label {
     padding-left: 5px;
@@ -130,7 +127,7 @@ input + label {
 /********** forum ***********/
 .card-forum {
     margin-top: 2rem;
-    }
+}
 
 /********** utlilites ***********/
 
@@ -152,8 +149,8 @@ input + label {
     padding-top: 0;
     padding-bottom: 0;
 }
-/********** homepage ***********/
 
+/********** homepage ***********/
 
 .marketing {
     margin-top: 3rem;
@@ -183,6 +180,20 @@ footer a {
     margin-top: 8rem;
 }
 
+/********** datetimepicker *************/
+.datetimepicker table {
+    margin: 0;
+}
+.datetimepicker td {
+    padding: 10px;
+}
 
+.datetimepicker .next {
+    background-color: #eaeaea;
+}
+
+.datetimepicker .prev {
+    background-color: #eaeaea;
+}
 
 

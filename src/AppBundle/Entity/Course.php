@@ -100,10 +100,9 @@ class Course
      */
     private $pillar;
 
+
     /**
-     * @var string
-     *
-     * @ORM\Column(name="school", type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="School", inversedBy="courses")
      */
     private $school;
 
@@ -332,39 +331,6 @@ class Course
         return $this;
     }
 
-    /**
-     * Get level
-     *
-     * @return string
-     */
-    public function getLevel()
-    {
-        return $this->level;
-    }
-
-    /**
-     * Set school
-     *
-     * @param string $school
-     *
-     * @return Course
-     */
-    public function setSchool($school)
-    {
-        $this->school = $school;
-
-        return $this;
-    }
-
-    /**
-     * Get school
-     *
-     * @return string
-     */
-    public function getSchool()
-    {
-        return $this->school;
-    }
 
     /**
      * Set status
@@ -586,5 +552,39 @@ class Course
     public function getTerms()
     {
         return $this->terms;
+    }
+
+    /**
+     * Get level
+     *
+     * @return string
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * Set school
+     *
+     * @param \AppBundle\Entity\School $school
+     *
+     * @return Course
+     */
+    public function setSchool(\AppBundle\Entity\School $school = null)
+    {
+        $this->school = $school;
+
+        return $this;
+    }
+
+    /**
+     * Get school
+     *
+     * @return \AppBundle\Entity\School
+     */
+    public function getSchool()
+    {
+        return $this->school;
     }
 }

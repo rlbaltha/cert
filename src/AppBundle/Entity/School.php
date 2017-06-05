@@ -39,6 +39,11 @@ class School
     protected $program2;
 
     /**
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="school" )
+     */
+    protected $courses;
+
+    /**
      * Get id
      *
      * @return integer
@@ -148,5 +153,39 @@ class School
     public function getProgram2()
     {
         return $this->program2;
+    }
+
+    /**
+     * Add course
+     *
+     * @param \AppBundle\Entity\Course $course
+     *
+     * @return School
+     */
+    public function addCourse(\AppBundle\Entity\Course $course)
+    {
+        $this->courses[] = $course;
+
+        return $this;
+    }
+
+    /**
+     * Remove course
+     *
+     * @param \AppBundle\Entity\Course $course
+     */
+    public function removeCourse(\AppBundle\Entity\Course $course)
+    {
+        $this->courses->removeElement($course);
+    }
+
+    /**
+     * Get courses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCourses()
+    {
+        return $this->courses;
     }
 }

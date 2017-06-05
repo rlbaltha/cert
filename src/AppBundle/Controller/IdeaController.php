@@ -7,21 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Event;
-use AppBundle\Form\EventType;
+use AppBundle\Entity\Idea;
+use AppBundle\Form\IdeaType;
 
 /**
- * Event controller.
+ * Idea controller.
  *
- * @Route("/event")
+ * @Route("/idea")
  */
-class EventController extends Controller
+class IdeaController extends Controller
 {
 
     /**
-     * Lists all Event entities.
+     * Lists all Idea entities.
      *
-     * @Route("/", name="event")
+     * @Route("/", name="idea")
      * @Method("GET")
      * @Template()
      */
@@ -29,28 +29,24 @@ class EventController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Event')->findCurrent();
-        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent();
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Events');
-        $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
+        $entities = $em->getRepository('AppBundle:Idea')->findAll();
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(
             'entities' => $entities,
-            'checkpoints' => $checkpoints,
-            'section' => $section,
-            'ics_sources' => $ics_sources,
+            'tags' => $tags,
         );
     }
     /**
-     * Creates a new Event entity.
+     * Creates a new Idea entity.
      *
-     * @Route("/", name="event_create")
+     * @Route("/", name="idea_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Event();
+        $entity = new Idea();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -59,7 +55,7 @@ class EventController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('event_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('idea_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -69,36 +65,34 @@ class EventController extends Controller
     }
 
     /**
-     * Creates a form to create a Event entity.
+     * Creates a form to create a Idea entity.
      *
-     * @param Event $entity The entity
+     * @param Idea $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Event $entity)
+    private function createCreateForm(Idea $entity)
     {
-        $form = $this->createForm(new EventType(), $entity, array(
-            'action' => $this->generateUrl('event_create'),
+        $form = $this->createForm(new IdeaType(), $entity, array(
+            'action' => $this->generateUrl('idea_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
 
     /**
-     * Displays a form to create a new Event entity.
+     * Displays a form to create a new Idea entity.
      *
-     * @Route("/new", name="event_new")
+     * @Route("/new", name="idea_new")
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
-        $entity = new Event();
-        $today = date_create();
-        $entity->setDatetime($today);
+        $entity = new Idea();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -108,42 +102,35 @@ class EventController extends Controller
     }
 
     /**
-     * Finds and displays a Event entity.
+     * Finds and displays a Idea entity.
      *
-     * @Route("/{id}", name="event_show")
+     * @Route("/{id}", name="idea_show")
      * @Method("GET")
-     * @Template("AppBundle:Event:index.html.twig")
+     * @Template()
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $event = $em->getRepository('AppBundle:Event')->find($id);
-        $entities = $em->getRepository('AppBundle:Event')->findCurrent();
-        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent();
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Events');
-        $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
+        $entity = $em->getRepository('AppBundle:Idea')->find($id);
 
-        if (!$event) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Idea entity.');
         }
+
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entities' => $entities,
-            'checkpoints' => $checkpoints,
-            'section' => $section,
-            'ics_sources' => $ics_sources,
-            'event'      => $event,
+            'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Displays a form to edit an existing Event entity.
+     * Displays a form to edit an existing Idea entity.
      *
-     * @Route("/{id}/edit", name="event_edit")
+     * @Route("/{id}/edit", name="idea_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -151,10 +138,10 @@ class EventController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Event')->find($id);
+        $entity = $em->getRepository('AppBundle:Idea')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
+            throw $this->createNotFoundException('Unable to find Idea entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -168,27 +155,27 @@ class EventController extends Controller
     }
 
     /**
-    * Creates a form to edit a Event entity.
+    * Creates a form to edit a Idea entity.
     *
-    * @param Event $entity The entity
+    * @param Idea $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Event $entity)
+    private function createEditForm(Idea $entity)
     {
-        $form = $this->createForm(new EventType(), $entity, array(
-            'action' => $this->generateUrl('event_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new IdeaType(), $entity, array(
+            'action' => $this->generateUrl('idea_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
     /**
-     * Edits an existing Event entity.
+     * Edits an existing Idea entity.
      *
-     * @Route("/{id}", name="event_update")
+     * @Route("/{id}", name="idea_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
@@ -196,10 +183,10 @@ class EventController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Event')->find($id);
+        $entity = $em->getRepository('AppBundle:Idea')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
+            throw $this->createNotFoundException('Unable to find Idea entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -209,7 +196,7 @@ class EventController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('event_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('idea_show', array('id' => $id)));
         }
 
         return array(
@@ -219,9 +206,9 @@ class EventController extends Controller
         );
     }
     /**
-     * Deletes a Event entity.
+     * Deletes a Idea entity.
      *
-     * @Route("/{id}", name="event_delete")
+     * @Route("/{id}", name="idea_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -231,21 +218,21 @@ class EventController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Event')->find($id);
+            $entity = $em->getRepository('AppBundle:Idea')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Event entity.');
+                throw $this->createNotFoundException('Unable to find Idea entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('event'));
+        return $this->redirect($this->generateUrl('idea'));
     }
 
     /**
-     * Creates a form to delete a Event entity by id.
+     * Creates a form to delete a Idea entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -254,7 +241,7 @@ class EventController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('event_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('idea_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()

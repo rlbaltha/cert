@@ -32,6 +32,10 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item"><a href="{{ path('event_new') }}">New Event</a></li>
                             {% endif %}
+                            <li class="nav-item"><a
+                                        href="{{ path('event') }}">Month</a>
+                            </li>
+
                         </ul>
                     </div>
                 </nav>
@@ -132,20 +136,33 @@
                     title: '{{ event.title| escape('js') }}',
                     start: '{{ event.datetime|date('j M Y') }} {{ event.datetime|date('H:i:s', false) }}',
                     allDay: false,
-                    textColor: 'white',
-                    backgroundColor: '#971c1e',
-                    borderColor: '#971c1e',
+                    textColor: 'black',
+                    backgroundColor: '#fdcfc0',
+                    borderColor: '#fdcfc0',
                     url: '{{ app.request.uri }}{{ event.id }}',
                     body: '{{ event.body| escape('js') }}',
                     id: '{{ event.id }}',
                 },
                 {% endfor %}
+                {% for checkpoint in checkpoints %}
+                {
+                    title: '{{ checkpoint.name| escape('js') }}',
+                    start: '{{ checkpoint.deadline|date('j M Y') }} {{ checkpoint.deadline|date('H:i:s', false) }}',
+                    allDay: false,
+                    textColor: 'black',
+                    backgroundColor: '#e4ffe8',
+                    borderColor: '#e4ffe8',
+                    url: '{{ app.request.uri }}../project/{{ checkpoint.project.id }}',
+                    body: '{{ checkpoint.description| escape('js') }}',
+                    id: '{{ checkpoint.id }}',
+                },
+                {% endfor %}
             ],
             eventClick: function(event) {
-                if (event.url) {
-                    window.open(event.url, "_blank");
-                    return false;
-                }
+                // if (event.url) {
+                    // window.open(event.url, "_blank");
+                    // return false;
+                // }
             }
         })
         sources_to_load_cnt = ics_sources.length

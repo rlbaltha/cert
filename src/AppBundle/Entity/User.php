@@ -108,7 +108,7 @@ class User extends BaseUser
     private $projects;
 
     /**
-     * @ORM\OneToMany(targetEntity="Review", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="reviewer")
      */
     private $reviews;
 

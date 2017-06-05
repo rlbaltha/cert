@@ -1,0 +1,82 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+<div class="row">
+    <div class="col-sm-3">
+        <div class="bootstrap-vertical-nav">
+            <nav class="navbar navbar-dark">
+                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                        data-target="#exCollapsingNavbar2">
+                    &#9776;
+                </button>
+                <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                    <ul class="nav navbar-sidenav">
+                        <li class="nav-item"><a href="{{ path('tag_new') }}">
+                                New Tag
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('idea') }}">
+                                Ideas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('source') }}">
+                                Resources
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('tag') }}">
+                                Tags
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+    <div class="col-sm-8">
+    <h1>Tag list</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Color</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tag in entities if tag.subs|length > 0%}
+            <tr style="background-color: #e0e0e0">
+                <td><div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div></td>
+                <td>{{ tag.color }}</td>
+                <td><a href="{{ path('tag_edit', { 'id': tag.id }) }}">edit</a></td>
+            </tr>
+            {% for tag in tag.subs %}
+                <tr>
+                    <td><div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div></td>
+                    <td>{{ tag.color }}</td>
+                    <td><a href="{{ path('tag_edit', { 'id': tag.id }) }}">edit</a></td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+        {% for tag in entities if tag.top|length == 0 and tag.subs|length == 0%}
+        <tr style="background-color: #e0e0e0">
+            <td><div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div></td>
+            <td>{{ tag.color }}</td>
+            <td><a href="{{ path('tag_edit', { 'id': tag.id }) }}">edit</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('tag_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
