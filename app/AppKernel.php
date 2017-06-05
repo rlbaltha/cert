@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new BeSimple\SsoAuthBundle\BeSimpleSsoAuthBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new AppBundle\AppBundle(),
         );
 
