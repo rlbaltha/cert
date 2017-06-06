@@ -31,6 +31,9 @@
                 $('.idea_row').hide();
                 $(row_selector).parent().parent().show();
             });
+            $('#tag_showall').click(function() {
+                $('.idea_row').show();
+            });
         });
     </script>
 {% endblock %}
@@ -64,7 +67,11 @@
                                     Tags
                                 </a>
                             </li>
-
+                            <li class="nav-item">
+                                <a id="tag_showall" href="javascript:void(0)">
+                                    Show all
+                                </a>
+                            </li>
                             {% for tag in tags if tag.subs|length > 0 %}
                                 <li class="nav-item">
                                     <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
