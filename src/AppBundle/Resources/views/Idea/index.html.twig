@@ -26,6 +26,11 @@
                     3: {sorter: false, filter: false},
                 }
             });
+            $('.tag_filter').click(function(event) {
+                var row_selector = 'div.tag' + event.target.id;
+                $('.idea_row').hide();
+                $(row_selector).parent().parent().show();
+            });
         });
     </script>
 {% endblock %}
@@ -62,17 +67,17 @@
 
                             {% for tag in tags if tag.subs|length > 0 %}
                                 <li class="nav-item">
-                                    <div class="btn btn-primary btn-sm"
+                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
                                          style="background-color: {{ tag.color }}">{{ tag.title }}</div>
                                     {% for tag in tag.subs %}
-                                        <div class="btn btn-primary btn-sm"
+                                        <div id="{{ tag.id }}" class="btn btn-primary btn-sm  tag_filter"
                                              style="background-color: {{ tag.color }}">{{ tag.title }}</div>
                                     {% endfor %}
                                 </li>
                             {% endfor %}
                             <li class="nav-item">
                                 {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
-                                    <div class="btn btn-primary btn-sm"
+                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm"
                                          style="background-color: {{ tag.color }}">{{ tag.title }}</div>
                                 {% endfor %}
                             </li>
@@ -96,11 +101,11 @@
                 </thead>
                 <tbody>
                 {% for entity in entities %}
-                    <tr>
+                    <tr class="idea_row" id="{{ entity.id }}">
                         <td><a href="{{ path('idea_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
                         <td>{{ entity.description|raw }}</td>
                         <td>{% for tag in entity.tags %}
-                                <div class="btn btn-primary btn-sm"
+                                <div class="btn btn-primary btn-sm tag{{ tag.id }}"
                                      style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
                         </td>
                     </tr>
