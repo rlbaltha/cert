@@ -29,7 +29,7 @@ class SourceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Source')->findAll();
+        $entities = $em->getRepository('AppBundle:Source')->findSourcesSorted();
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(

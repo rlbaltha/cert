@@ -10,4 +10,17 @@ namespace AppBundle\Entity;
  */
 class SourceRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Find sources
+     *
+     * @return Source
+     */
+    public function findSourcesSorted()
+    {
+        $sources = $this->createQueryBuilder('s')
+            ->addOrderBy('s.type', 'DESC')
+            ->getQuery()
+            ->getResult();
+        return $sources;
+    }
 }
