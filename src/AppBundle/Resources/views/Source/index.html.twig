@@ -102,8 +102,6 @@
                 <tr>
                     <th>Name</th>
                     <th>Organization</th>
-                    <th>Type</th>
-                    <th>Title</th>
                     <th>Contact</th>
                     <th>Tags</th>
                 </tr>
@@ -112,9 +110,7 @@
                 {% for entity in entities %}
                     <tr class="source_row">
                         <td><a href="{{ path('source_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-                        <td>{{ entity.organization }}</td>
-                        <td>{{ entity.type }}</td>
-                        <td>{{ entity.title }}</td>
+                        <td><a href="{{ path('source_show', { 'id': entity.id }) }}">{{ entity.organization }}</a></td>
                         <td>{{ entity.contact }}</td>
                         <td>{% for tag in entity.tags %}<div class="btn btn-primary btn-sm tag{{ tag.id }}" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
                         </td>

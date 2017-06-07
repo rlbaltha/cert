@@ -42,8 +42,6 @@
                     <tr>
                         <th>Name</th>
                         <th>Organization</th>
-                        <th>Type</th>
-                        <th>Title</th>
                         <th>Contact</th>
                         <th>Tags</th>
                     </tr>
@@ -53,9 +51,7 @@
                     {% for source in tag.sources %}
                         <tr>
                             <td><a href="{{ path('source_show', { 'id': source.id }) }}">{{ source.name }}</a></td>
-                            <td>{{ source.organization }}</td>
-                            <td>{{ source.type }}</td>
-                            <td>{{ source.title }}</td>
+                            <td><a href="{{ path('source_show', { 'id': source.id }) }}">{{ source.organization }}</a></td>
                             <td>{{ source.contact }}</td>
                             <td>{% for tag in source.tags %}<div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
                             </td>
