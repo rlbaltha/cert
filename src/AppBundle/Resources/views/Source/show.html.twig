@@ -53,8 +53,12 @@
                     <td>{{ entity.title }}</td>
                 </tr>
                 <tr>
-                    <th>Contact</th>
-                    <td>{{ entity.contact }}</td>
+                    <th>Contact/URL</th>
+                    <td>{% if 'http' in entity.contact %}
+                            <a href="{{ entity.contact }}" target="_blank">{{ entity.contact }}</a>
+                        {% else %}
+                            {{ entity.contact }}
+                        {% endif %}</td>
                 </tr>
                 <tr>
                     <th>Description</th>

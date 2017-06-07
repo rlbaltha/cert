@@ -22,15 +22,14 @@
                     filter_reset: ".reset",
                     filter_cssFilter: "form-control",
                 },
-                headers: {
-                }
+                headers: {}
             });
-            $('.tag_filter').click(function(event) {
+            $('.tag_filter').click(function (event) {
                 var row_selector = 'div.tag' + event.target.id;
                 $('.source_row').hide();
                 $(row_selector).parent().parent().show();
             });
-            $('#tag_showall').click(function() {
+            $('#tag_showall').click(function () {
                 $('.source_row').show();
             });
         });
@@ -38,87 +37,95 @@
 {% endblock %}
 
 {% block body -%}
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="bootstrap-vertical-nav">
-                <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
-                            data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-sidenav">
-                            <li class="nav-item"><a href="{{ path('source_new') }}">
-                                    New Resource
-                                </a></li>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="bootstrap-vertical-nav">
+            <nav class="navbar navbar-dark">
+                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                        data-target="#exCollapsingNavbar2">
+                    &#9776;
+                </button>
+                <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                    <ul class="nav navbar-sidenav">
+                        <li class="nav-item"><a href="{{ path('source_new') }}">
+                                New Resource
+                            </a></li>
+                        <li class="nav-item">
+                            <a href="{{ path('idea') }}">
+                                Ideas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('source') }}">
+                                Resources
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('tag') }}">
+                                Tags
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="tag_showall" href="javascript:void(0)">
+                                Show all
+                            </a>
+                        </li>
+                        {% for tag in tags if tag.subs|length > 0 %}
                             <li class="nav-item">
-                                <a href="{{ path('idea') }}">
-                                    Ideas
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('source') }}">
-                                    Resources
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('tag') }}">
-                                    Tags
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a id="tag_showall" href="javascript:void(0)">
-                                    Show all
-                                </a>
-                            </li>
-                            {% for tag in tags if tag.subs|length > 0 %}
-                                <li class="nav-item">
-                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                    {% for tag in tag.subs %}
-                                        <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                    {% endfor %}
-                                </li>
-                            {% endfor %}
-                            <li class="nav-item">
-                                {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                {% for tag in tag.subs %}
                                     <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
                                          style="background-color: {{ tag.color }}">{{ tag.title }}</div>
                                 {% endfor %}
                             </li>
-                        </ul>
-                    </div>
-                </nav>
+                        {% endfor %}
+                        <li class="nav-item">
+                            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-            </div>
-        </div>
-
-        <div class="col-sm-8">
-            <h1>Resource list</h1>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Organization</th>
-                    <th>Contact</th>
-                    <th>Tags</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for entity in entities %}
-                    <tr class="source_row">
-                        <td><a href="{{ path('source_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-                        <td><a href="{{ path('source_show', { 'id': entity.id }) }}">{{ entity.organization }}</a></td>
-                        <td>{{ entity.contact }}</td>
-                        <td>{% for tag in entity.tags %}<div class="btn btn-primary btn-sm tag{{ tag.id }}" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
         </div>
     </div>
+
+    <div class="col-sm-8">
+        <h1>Resource list</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Organization</th>
+                <th>Contact/URL</th>
+                <th>Tags</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+            <tr class="source_row">
+                <td><a href="{{ path('source_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+                <td><a href="{{ path('source_show', { 'id': entity.id }) }}">{{ entity.organization }}</a></td>
+                <td>
+                    {% if 'http' in entity.contact %}
+                    <a href="{{ entity.contact }}" target="_blank">{{ entity.contact }}</a>
+                    {% else %}
+                    {{ entity.contact }}
+                    {% endif %}
+                </td>
+                <td>{% for tag in entity.tags %}
+                        <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 {% endblock %}

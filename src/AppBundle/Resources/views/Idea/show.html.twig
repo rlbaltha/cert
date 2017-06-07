@@ -42,7 +42,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Organization</th>
-                        <th>Contact</th>
+                        <th>Contact/URL</th>
                         <th>Tags</th>
                     </tr>
                     </thead>
@@ -52,7 +52,11 @@
                         <tr>
                             <td><a href="{{ path('source_show', { 'id': source.id }) }}">{{ source.name }}</a></td>
                             <td><a href="{{ path('source_show', { 'id': source.id }) }}">{{ source.organization }}</a></td>
-                            <td>{{ source.contact }}</td>
+                            <td>{% if 'http' in source.contact %}
+                                    <a href="{{ source.contact }}" target="_blank">{{ source.contact }}</a>
+                                {% else %}
+                                    {{ source.contact }}
+                                {% endif %}</td>
                             <td>{% for tag in source.tags %}<div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
                             </td>
                         </tr>
