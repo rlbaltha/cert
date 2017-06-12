@@ -54,14 +54,18 @@
                         {% endif %}
                         <h4 class="card-title">
                             {{ checkpoint.name }}
-
-                        </h4>
-                        <p>Timeframe: {{ checkpoint.timeframe }}
-                            {% if checkpoint.deadline %}Deadline: {{ checkpoint.deadline|date('Y-m-d H:i:s') }}{% endif %}
-                            Status: {{ checkpoint.status }}
                             {% if checkpoint.status=='Approved' %}
-                            <i class="fa fa-check fa-3x" aria-hidden="true"></i>
+                                <i class="fa fa-check fa-2x" aria-hidden="true"></i>
                             {% endif %}
+                        </h4>
+
+                        <p>
+                            <span class="btn btn-secondary">Timeframe: {{ checkpoint.timeframe }}</span>
+
+                            {% if checkpoint.deadline %}<span class="btn btn-secondary">Deadline: {{ checkpoint.deadline|date('Y-m-d h:i A') }}</span>{% endif %}
+
+                            <span class="btn btn-secondary">Status: {{ checkpoint.status }}
+                            </span>
                         </p>
                         <p>Reviewers: {% for reviewer in checkpoint.reviewers %}
                                 {% if app.user.username == reviewer.username %}
@@ -84,13 +88,16 @@
                             {% endset %}
                             <div class="card">
                                 <div class="card-header" style="background-color: {{ review_background }}">
-                                    Review by {{ review.reviewer.name }} Recommended Status: {{ review.status }}
+                                    Review by {{ review.reviewer.name }}
+                                    <span class="btn btn-secondary">
+                                        Recommended Status: {{ review.status }}
+                                    </span>
                                     {% if review.status=='Complete' %}
                                         <i class="fa fa-check fa-2x" aria-hidden="true"></i>
                                     {% endif %}
                                     {% if app.user.username == review.reviewer.username %}
-                                        <a href="{{ path('review_edit', { 'id': review.id }) }}"
-                                           class="float-sm-right btn btn-primary">Edit</a>
+                                    <a href="{{ path('review_edit', { 'id': review.id }) }}"
+                                       class="float-sm-right btn btn-primary">Edit</a>
                                     {% endif %}
                                 </div>
                                 <div class="card-block">

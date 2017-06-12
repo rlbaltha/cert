@@ -147,7 +147,7 @@
                 {% if is_granted('ROLE_ADMIN') %}
                 {% for checkpoint in checkpoints %}
                 {
-                    title: '{{ checkpoint.name| escape('js') }}',
+                    title: ' {{ checkpoint.project.name| escape('js') }}: {{ checkpoint.name| escape('js') }}',
                     start: '{{ checkpoint.deadline|date('j M Y') }} {{ checkpoint.deadline|date('H:i:s', false) }}',
                     allDay: false,
                     textColor: 'black',
