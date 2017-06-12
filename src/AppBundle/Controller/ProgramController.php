@@ -296,19 +296,24 @@ class ProgramController extends Controller
         $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
         $email = $user_entity->getEmail();
         $level = $user_entity->getProgram()->getLevel();
-        $text = '<p>' . $name . ', your application for the Sustainability Certificate has been approved. Congrats and welcome! </p>
-                 <p>Continue by filling in the <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Checklist</a>.</p>
-                 <p>Now that your application has been approved, you may add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena. <a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate in Athena Now</a></p>
-                 <p>We would also like for you to take a survey as part of our assessment of the certificate program: 
-                 <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Pre-Certificate Survey</a>
-                 Be sure to record the date that you took the survey in your <strong>Checklist</strong></p>
+
+        $text = '<p>' . $name . ', your application for the Sustainability Certificate has been approved. Congrats and welcome! </p>';
+        if ($level == 'Grad') {
+            $text = $text . '<p>N.B.  Graduate Students must also apply for the certificate through the Graduate School (there is a $25 application fee): <a href="http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/" target="_blank">http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/</a></p>';
+        } else {
+            $text = $text . '<p>Please add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena. <a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate in Athena Now</a></p>';
+        };
+        $text = $text . '<p>We would also like for you to take a survey as part of our assessment of the certificate program: 
+                 <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Pre-Certificate Survey</a></p>
+                 <p>Be sure to record the date that you took the survey in your <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Checklist</a></p>
                  <p>We will have an orientation at the beginning of each semester, but you are welcome to contact the director at any time: scdirector@uga.edu.</p>
                  <p>The Cert Staff</p>
-                 <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>
-                 ';
-        if ($level=='Grad') {
-            $text == $text. '<p>N.B.  Graduate Students must apply for the certificate through the Graduate School (there is a $25 application fee): <a href="http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/" target="_blank">http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/</a></p>';
-                 }
+                 <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>';
+
+
+        var_dump($text);die;
+
+
         $message = \Swift_Message::newInstance()
             ->setSubject('Certificate Application Approved')
             ->setFrom('scdirector@uga.edu')
