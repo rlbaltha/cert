@@ -295,6 +295,7 @@ class ProgramController extends Controller
 
         $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
         $email = $user_entity->getEmail();
+        $level = $user_entity->getProgram()->getLevel();
         $text = '<p>' . $name . ', your application for the Sustainability Certificate has been approved. Congrats and welcome! </p>
                  <p>Continue by filling in the <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Checklist</a>.</p>
                  <p>Now that your application has been approved, you may add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena. <a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate in Athena Now</a></p>
@@ -305,7 +306,9 @@ class ProgramController extends Controller
                  <p>The Cert Staff</p>
                  <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>
                  ';
-
+        if ($level=='Grad') {
+            $text == $text. '<p>N.B.  Graduate Students must apply for the certificate through the Graduate School (there is a $25 application fee): <a href="http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/" target="_blank">http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/</a></p>';
+                 }
         $message = \Swift_Message::newInstance()
             ->setSubject('Certificate Application Approved')
             ->setFrom('scdirector@uga.edu')
