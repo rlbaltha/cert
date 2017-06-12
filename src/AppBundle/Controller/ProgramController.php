@@ -310,10 +310,6 @@ class ProgramController extends Controller
                  <p>The Cert Staff</p>
                  <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>';
 
-
-        var_dump($text);die;
-
-
         $message = \Swift_Message::newInstance()
             ->setSubject('Certificate Application Approved')
             ->setFrom('scdirector@uga.edu')
