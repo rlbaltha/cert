@@ -299,7 +299,7 @@ class ProgramController extends Controller
 
         $text = '<p>' . $name . ', your application for the Sustainability Certificate has been approved. Congrats and welcome! </p>';
         if ($level == 'Grad') {
-            $text = $text . '<p>N.B.  Graduate Students must also apply for the certificate through the Graduate School (there is a $25 application fee): <a href="http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/" target="_blank">http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/</a></p>';
+            $text = $text . '<p>N.B.  Graduate Students must also apply for the certificate through the Graduate School (there is a $25 application fee): <a href="http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/" target="_blank">http://grad.uga.edu/index.php/prospective-students/domestic-application-information/requirements/application-forms/</a> Note that letters of recommendation and test scores are not needed in the online graduate school application.</p>';
         } else {
             $text = $text . '<p>Please add the Sustainability Certificate to your active curricula program via the MyPrograms option in Athena. <a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate in Athena Now</a></p>';
         };

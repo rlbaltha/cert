@@ -53,243 +53,44 @@
             {% endif %}
             <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
 
-             <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div id="accordion" role="tablist" aria-multiselectable="true">
 
-                 {# Notifications #}
-                 {# check to see if profile matches currrent user #}
-                 {% if app.user.username == entity.username  or is_granted('ROLE_ADMIN') %}
-                     <div class="card">
-                         <div class="card-header" role="tab" id="headingZero">
-                             <h5 class="mb-0">
-                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseZero"
-                                    aria-expanded="false" aria-controls="collapseZero">
-                                     Notifications
-                                 </a>
+                {# Notifications #}
+                {# check to see if profile matches currrent user #}
+                {% if app.user.username == entity.username  or is_granted('ROLE_ADMIN') %}
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingZero">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseZero"
+                                   aria-expanded="false" aria-controls="collapseZero">
+                                    Notifications
+                                </a>
 
-                             </h5>
-                             You have {{ entity.notifications|length }} notifications for review.
-                         </div>
-                         <div id="collapseZero" class="collapse"
-                              role="tabpanel" aria-labelledby="headingZero">
-                             <div class="card-block">
+                            </h5>
+                            You have {{ entity.notifications|length }} notifications for review.
+                        </div>
+                        <div id="collapseZero" class="collapse"
+                             role="tabpanel" aria-labelledby="headingZero">
+                            <div class="card-block">
 
-                                 {% if entity.notifications %}
-                                     <table class="table margin-top">
-                                         <tbody>
-                                         {% for notification in entity.notifications %}
-                                         <tr>
-                                             <td>{{ notification.body|raw }}</td>
-                                             <td>{{ notification.date |date("m/d/Y g:ia") }}</td>
-                                             <td>{{ notification.status }}</td>
-                                         </tr>
-                                         {% endfor %}
-                                         </tbody>
-                                     </table>
-                                 {% endif %}
-                             </div>
-                         </div>
-                     </div>
-
-                     {# Checklist #}
-                     <div class="card">
-                         <div class="card-header" role="tab" id="headingThree">
-                             <h5 class="mb-0">
-                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                    href="#collapseThree"
-                                    aria-expanded="false" aria-controls="collapseThree">
-                                     Checklist
-                                 </a>
-                             </h5>
-                         </div>
-                         <div id="collapseThree"
-                              class="collapse {% if entity.program %}{% if entity.program.status == 'Approved' and not entity.capstone %}in{% endif %}{% endif %}"
-                              role="tabpanel"
-                              aria-labelledby="headingThree">
-                             <div class="card-block">
-                                 <p>The checklist allows you to track your progress through the program. Please update
-                                     regularly.
-                                 </p>
-                                 <p> For details, please
-                                     <a href="{{ path('page_show',  { 'id': '12'}) }}">
-                                         review the
-                                         <strong>Guidelines for the Certificate.</strong>
-                                     </a></p>
-                                 {% if entity.checklist %}
-                                     <a class="btn btn-primary align-right margin-bottom"
-                                        href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
-                                         Update Checklist
-                                     </a>
-                                 {% else %}
-                                     <a title="Get started on your checklist"
-                                        class="btn btn-primary  align-right {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
-                                        href="{{ path('checklist_new') }}">
-                                         Get Started on your Checklist
-                                     </a>
-                                 {% endif %}
-
-                                 {% if entity.checklist %}
-                                     <table class="table margin-top">
-                                         <tbody>
-                                         <tr>
-                                             <th>Certificate added in Athena</th>
-                                             <td>{% if entity.checklist.athena %}{{ entity.checklist.athena|date('m/d/Y') }}
-                                                 {% else %}<p>All students should add the Sustainability Certificate to their active curricula program via the MyPrograms option in Athena.</p><a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate in Athena Now</a>{% endif %}</td>
-                                         </tr>
-                                         <tr>
-                                             <th>Pre-Certificate Survey Completed</th>
-                                             <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}
-                                                 {% else %}<p>This survey is part of our assessment of the certificate.  Please complete it at the beginning of your program. </p><a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Take the Survey Now</a>{% endif %}</td>
-                                         </tr>
-                                         <tr>
-                                             <th>Orientation Completed</th>
-                                             <td>{% if entity.checklist.orientation %}{{ entity.checklist.orientation|date('m/d/Y') }}{% endif %}</td>
-                                         </tr>
-                                         <tr>
-                                             <th>Anchor</th>
-                                             <td>{% if entity.checklist.anchor %}
-                                                     <a href="{{ path('course_show', { 'id': entity.checklist.anchor.id }) }}">
-                                                         {{ entity.checklist.anchor.name }}
-                                                         : {{ entity.checklist.anchor.title }}
-                                                     </a>
-                                                     {% if entity.checklist.anchor.status=='exception' %}
-                                                         <div class="alert alert-warning" role="alert">
-                                                             <strong>Note!</strong> This course has special requirements.
-                                                             Please note
-                                                             how
-                                                             these requirements
-                                                             were met in the exception space below.
-                                                         </div>
-                                                     {% endif %}
-                                                 {% endif %}
-                                             </td>
-                                         </tr>
-                                         <tr>
-                                             <th>Ecological Sphere</th>
-                                             <td>{% if entity.checklist.sphere1 %}
-                                                     <a href="{{ path('course_show', { 'id': entity.checklist.sphere1.id }) }}">
-                                                         {{ entity.checklist.sphere1.name }}
-                                                         : {{ entity.checklist.sphere1.title }}
-                                                     </a>
-                                                     {% if entity.checklist.sphere1.status=='exception' %}
-                                                         <div class="alert alert-warning" role="alert">
-                                                             <strong>Note!</strong> This course has special requirements.
-                                                             Please note
-                                                             how
-                                                             these requirements
-                                                             were met in the exception space below.
-                                                         </div>
-                                                     {% endif %}
-                                                 {% endif %}
-                                             </td>
-                                         </tr>
-                                         <tr>
-                                             <th>Economic Sphere</th>
-                                             <td>{% if entity.checklist.sphere2 %}
-                                                     <a href="{{ path('course_show', { 'id': entity.checklist.sphere2.id }) }}">
-                                                         {{ entity.checklist.sphere2.name }}
-                                                         : {{ entity.checklist.sphere2.title }}
-                                                     </a>
-                                                     {% if entity.checklist.sphere2.status=='exception' %}
-                                                         <div class="alert alert-warning" role="alert">
-                                                             <strong>Note!</strong> This course has special requirements.
-                                                             Please note
-                                                             how
-                                                             these requirements
-                                                             were met in the exception space below.
-                                                         </div>
-                                                     {% endif %}
-                                                 {% endif %}
-                                             </td>
-                                         </tr>
-                                         <tr>
-                                             <th>Social Sphere</th>
-                                             <td>{% if entity.checklist.sphere3 %}
-                                                     <a href="{{ path('course_show', { 'id': entity.checklist.sphere3.id }) }}">
-                                                         {{ entity.checklist.sphere3.name }}
-                                                         : {{ entity.checklist.sphere3.title }}
-                                                     </a>
-                                                     {% if entity.checklist.sphere3.status=='exception' %}
-                                                         <div class="alert alert-warning" role="alert">
-                                                             <strong>Note!</strong> This course has special requirements.
-                                                             Please note
-                                                             how
-                                                             these requirements
-                                                             were met in the exception space below.
-                                                         </div>
-                                                     {% endif %}
-                                                 {% endif %}
-                                             </td>
-                                         </tr>
-                                         <tr>
-                                             <th>Seminar (2 semesters required)</th>
-                                             <td>{% if entity.checklist.seminar %}
-                                                     <a href="{{ path('course_show', { 'id': entity.checklist.seminar.id }) }}">
-                                                         {{ entity.checklist.seminar.name }}
-                                                         : {{ entity.checklist.seminar.title }}
-                                                     </a>
-                                                     {% if entity.checklist.sphere3.status=='exception' %}
-                                                         <div class="alert alert-warning" role="alert">
-                                                             <strong>Note!</strong> This course has special requirements.
-                                                             Please note
-                                                             how
-                                                             these requirements
-                                                             were met in the exception space below.
-                                                         </div>
-                                                     {% endif %}
-                                                 {% endif %}
-                                             </td>
-                                         </tr>
-                                         <tr>
-                                             <th>Capstone Work Plan</th>
-                                             <td>{% if entity.checklist.capstone %}
-                                                     <a href="{{ path('course_show', { 'id': entity.checklist.capstone.id }) }}">
-                                                         {{ entity.checklist.capstone.name }}
-                                                         : {{ entity.checklist.capstone.title }}
-                                                     </a>
-                                                 {% endif %}
-                                                 {% if entity.capstone %}
-                                                     {{ entity.capstone.status }}
-                                                 {% endif %}
-                                             </td>
-                                         </tr>
-                                         <tr>
-                                             <th>Capstone Term</th>
-                                             <td>{{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}</td>
-                                         </tr>
-                                         <tr>
-                                             <th>Presentation</th>
-                                             <td>{{ entity.checklist.presentation }}</td>
-                                         </tr>
-                                         <tr>
-                                             <th>Portfolio</th>
-                                             <td><a href="{{ entity.checklist.portfolio }}"
-                                                    target="_blank">{{ entity.checklist.portfolio }}</a></td>
-                                         </tr>
-                                         <tr>
-                                             <th>Post-Certificate Survey Completed</th>
-                                             <td>{% if entity.checklist.postAssess %}{{ entity.checklist.postAssess|date('m/d/Y') }}
-                                                 {% else %}<p>This survey is part of our assessment of the certificate.  Please complete it at the end of your program.</p>  <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_8vvElrQSuli7Pg1" target="_blank">Take the Survey Now</a>{% endif %}</td>
-                                         </tr>
-                                         <tr>
-                                             <th>Apply for Graduation in Athena</th>
-                                             <td><p>Once you have met all requirements, please remember to apply to graduate with the Sustainability Certificate in Athena for the semester you will graduate from UGA.  <a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Apply for graduation Now</a></p></td>
-                                         </tr>
-                                         <tr>
-                                             <th>Exceptions</th>
-                                             <td>{{ entity.checklist.exceptions | raw }}</td>
-                                         </tr>
-                                         <tr>
-                                             <th>Updated</th>
-                                             <td>{{ entity.checklist.updated | date("m/d/Y g:ia") }}</td>
-                                         </tr>
-                                         </tbody>
-                                     </table>
-                                 {% endif %}
-                             </div>
-                         </div>
-                     </div>
-                 {% endif %}
-
+                                {% if entity.notifications %}
+                                    <table class="table margin-top">
+                                        <tbody>
+                                        {% for notification in entity.notifications %}
+                                            <tr>
+                                                <td>{{ notification.body|raw }}</td>
+                                                <td>{{ notification.date |date("m/d/Y g:ia") }}</td>
+                                                <td>{{ notification.status }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
 
 
                 {# Director Notes #}
@@ -318,9 +119,10 @@
                     </div>
                 {% endif %}
 
-                {# Applcation #}
+
                 {# check to see if profile matches currrent user #}
                 {% if app.user.username == entity.username  or is_granted('ROLE_SUPER_ADMIN') %}
+                    {# Applcation #}
                     <div class="card">
                         <div class="card-header" role="tab" id="headingTwo">
                             <h5 class="mb-0">
@@ -330,7 +132,8 @@
                                 </a>
                             </h5>
                         </div>
-                        <div id="collapseTwo" class="collapse {% if entity.program %}{% if entity.program.status != 'Approved' %}in{% endif %}{% endif %}"
+                        <div id="collapseTwo"
+                             class="collapse {% if entity.program %}{% if entity.program.status != 'Approved' %}in{% endif %}{% endif %}"
                              role="tabpanel" aria-labelledby="headingTwo">
                             <div class="card-block">
 
@@ -446,14 +249,15 @@
                             </div>
                         </div>
                     </div>
-                    {# Checklist #}
+
+                    {# Certificate Checklist #}
                     <div class="card">
                         <div class="card-header" role="tab" id="headingThree">
                             <h5 class="mb-0">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
                                    href="#collapseThree"
                                    aria-expanded="false" aria-controls="collapseThree">
-                                    Checklist
+                                    Certificate Checklist
                                 </a>
                             </h5>
                         </div>
@@ -483,18 +287,26 @@
                                     </a>
                                 {% endif %}
 
-                                {% if entity.checklist %}
+                                {% if entity.capstone %}
                                     <table class="table margin-top">
                                         <tbody>
                                         <tr>
                                             <th>Certificate added in Athena</th>
                                             <td>{% if entity.checklist.athena %}{{ entity.checklist.athena|date('m/d/Y') }}
-                                                {% else %}<p>All students should add the Sustainability Certificate to their active curricula program via the MyPrograms option in Athena.</p><a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Add Certificate in Athena Now</a>{% endif %}</td>
+                                                {% else %}<p>All students should add the Sustainability Certificate to
+                                                    their active curricula program via the MyPrograms option in
+                                                    Athena.</p><a
+                                                        href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage"
+                                                        target="_blank">Add Certificate in Athena Now</a>{% endif %}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Pre-Certificate Survey Completed</th>
                                             <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}
-                                                {% else %}<p>This survey is part of our assessment of the certificate.  Please complete it at the beginning of your program. </p><a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Take the Survey Now</a>{% endif %}</td>
+                                                {% else %}<p>This survey is part of our assessment of the certificate.
+                                                    Please complete it at the beginning of your program. </p><a
+                                                        href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V"
+                                                        target="_blank">Take the Survey Now</a>{% endif %}</td>
                                         </tr>
                                         <tr>
                                             <th>Orientation Completed</th>
@@ -624,11 +436,18 @@
                                         <tr>
                                             <th>Post-Certificate Survey Completed</th>
                                             <td>{% if entity.checklist.postAssess %}{{ entity.checklist.postAssess|date('m/d/Y') }}
-                                                {% else %}<p>This survey is part of our assessment of the certificate.  Please complete it at the end of your program.</p>  <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_8vvElrQSuli7Pg1" target="_blank">Take the Survey Now</a>{% endif %}</td>
+                                                {% else %}<p>This survey is part of our assessment of the certificate.
+                                                    Please complete it at the end of your program.</p>  <a
+                                                        href="https://ugeorgia.qualtrics.com/SE/?SID=SV_8vvElrQSuli7Pg1"
+                                                        target="_blank">Take the Survey Now</a>{% endif %}</td>
                                         </tr>
                                         <tr>
                                             <th>Apply for Graduation in Athena</th>
-                                            <td><p>Once you have met all requirements, please remember to apply to graduate with the Sustainability Certificate in Athena for the semester you will graduate from UGA.  <a href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage" target="_blank">Apply for graduation Now</a></p></td>
+                                            <td><p>Once you have met all requirements, please remember to apply to
+                                                    graduate with the Sustainability Certificate in Athena for the
+                                                    semester you will graduate from UGA. <a
+                                                            href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage"
+                                                            target="_blank">Apply for graduation Now</a></p></td>
                                         </tr>
                                         <tr>
                                             <th>Exceptions</th>
@@ -646,17 +465,18 @@
                     </div>
                 {% endif %}
 
-                {# Capstone #}
+                {# Capstone Workplan#}
                 <div class="card">
                     <div class="card-header" role="tab" id="headingFour">
                         <h5 class="mb-0">
                             <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
                                aria-expanded="false" aria-controls="collapseFour">
-                                Capstone {% if entity.capstone %}(Workplan {{ entity.capstone.status }}){% endif %}
+                                Capstone Workplan {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}
                             </a>
                         </h5>
                     </div>
-                    <div id="collapseFour" class="collapse {% if entity.program %}{% if entity.program.status == 'Approved' %}in{% endif %}{% endif %}"
+                    <div id="collapseFour"
+                         class="collapse {% if entity.program %}{% if entity.program.status == 'Approved' %}in{% endif %}{% endif %}"
                          role="tabpanel" aria-labelledby="headingFour">
                         <div class="card-block">
 
@@ -675,13 +495,15 @@
 
                             {% if entity.capstone %}
                                 {% if entity.capstone.responsesets %}
-                                    <p>You currently have {% if entity.capstone.responsesets|length == 1 %}a{% endif %} review{% if entity.capstone.responsesets|length > 1 %}s{% endif %} from <strong>
-                                    {% for responseset in entity.capstone.responsesets %}
-                                        {% if loop.last and entity.capstone.responsesets|length > 1 %}and {% endif %}{{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
-                                    {% endfor %}</strong> <a href="#reviews" >listed after your workplan</a>.
+                                    <p>You currently have {% if entity.capstone.responsesets|length == 1 %}a{% endif %} review{% if entity.capstone.responsesets|length > 1 %}s{% endif %} from
+                                    <strong>
+                                        {% for responseset in entity.capstone.responsesets %}
+                                            {% if loop.last and entity.capstone.responsesets|length > 1 %}and {% endif %}{{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
+                                        {% endfor %}</strong> <a href="#reviews">listed after your workplan</a>.
                                 {% endif %}
 
-                                <p>When you have received feedback from your peers, revise and polish your work plan. Then
+                                <p>When you have received feedback from your peers, revise and polish your work plan.
+                                    Then
                                     mark it <strong>Ready for Director Review</strong></p>
 
                                 <p>You will be notified by the director when your work plan is approved.</p>
@@ -694,11 +516,11 @@
 
                                 {% if entity.responsesets|length > 0  and app.user.username==entity.capstone.user.username %}
                                     <p>You have offered peer reviews for:
-                                    {% for responseset in entity.responsesets %}
-                                        <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
-                                            {{ responseset.capstone.user.firstname }} {{ responseset.capstone.user.lastname }}{% if not loop.last %}, {% endif %}
-                                        </a>
-                                    {% endfor %}
+                                        {% for responseset in entity.responsesets %}
+                                            <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
+                                                {{ responseset.capstone.user.firstname }} {{ responseset.capstone.user.lastname }}{% if not loop.last %}, {% endif %}
+                                            </a>
+                                        {% endfor %}
                                     </p>
                                 {% endif %}
 
@@ -732,10 +554,10 @@
                                         </a>
                                     {% endif %}
                                     {% if entity.capstone.status != 'Ready for Director Review' and app.user.username==entity.capstone.user.username %}
-                                    <a class="btn btn-primary  align-right {% if entity.responsesets|length < 2 %}disabled{% endif %}"
-                                       href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
-                                        Ready for Director Review
-                                    </a>
+                                        <a class="btn btn-primary  align-right {% if entity.responsesets|length < 2 %}disabled{% endif %}"
+                                           href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
+                                            Ready for Director Review
+                                        </a>
                                     {% endif %}
                                 {% endif %}
 
@@ -822,7 +644,8 @@
                                     <hr/>
                                     {% for responseset in entity.capstone.responsesets %}
                                         {% if app.user.username==responseset.user.username %}
-                                            <a class="btn btn-primary float-sm-right" href="{{ path('responseset_edit', { 'id': responseset.id }) }}">Edit</a>
+                                            <a class="btn btn-primary float-sm-right"
+                                               href="{{ path('responseset_edit', { 'id': responseset.id }) }}">Edit</a>
                                         {% endif %}
                                         <h5>
                                             Review by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
@@ -848,6 +671,30 @@
                                 </a>
                             {% endif %}
 
+                        </div>
+                    </div>
+                </div>
+
+                {# Capstone Checkpoints #}
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingFive">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseFive"
+                               aria-expanded="false" aria-controls="collapseFive">
+                                Capstone Checkpoints
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseFive"
+                         class="collapse"
+                         role="tabpanel"
+                         aria-labelledby="headingFive">
+                        <div class="card-block">
+                            <p>
+                            </p>
+                            {% if entity.capstone %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
