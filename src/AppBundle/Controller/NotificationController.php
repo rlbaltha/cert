@@ -2,27 +2,26 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Notification;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Checkpoint;
-use AppBundle\Form\CheckpointType;
+use AppBundle\Entity\Notification;
+use AppBundle\Form\NotificationType;
 
 /**
- * Checkpoint controller.
+ * Notification controller.
  *
- * @Route("/checkpoint")
+ * @Route("/notification")
  */
-class CheckpointController extends Controller
+class NotificationController extends Controller
 {
 
     /**
-     * Lists all Checkpoint entities.
+     * Lists all Notification entities.
      *
-     * @Route("/", name="checkpoint")
+     * @Route("/", name="notification")
      * @Method("GET")
      * @Template()
      */
@@ -30,42 +29,31 @@ class CheckpointController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Checkpoint')->findAll();
+        $entities = $em->getRepository('AppBundle:Notification')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Checkpoint entity.
+     * Creates a new Notification entity.
      *
-     * @Route("/{id}/create", name="checkpoint_create")
+     * @Route("/", name="notification_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+     * @Template("AppBundle:Notification:new.html.twig")
      */
-    public function createAction(Request $request, $id)
+    public function createAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-
-
-        $entity = new Checkpoint();
-        $project = $em->getRepository('AppBundle:Project')->find($id);
-        $entity->setProject($project);
+        $entity = new Notification();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        $notification = new Notification();
-        $notification->setUser($project->getUser());
-        $notification->setDate($entity->getDeadline());
-        $note = 'You have a <a href="project">checkpoint</a> deadline:  ';
-        $notification->setBody($note);
 
         if ($form->isValid()) {
-
-             $em->persist($entity);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('project_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('notification_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -75,16 +63,16 @@ class CheckpointController extends Controller
     }
 
     /**
-     * Creates a form to create a Checkpoint entity.
+     * Creates a form to create a Notification entity.
      *
-     * @param Checkpoint $entity The entity
+     * @param Notification $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Checkpoint $entity)
+    private function createCreateForm(Notification $entity)
     {
-        $form = $this->createForm(new CheckpointType(), $entity, array(
-            'action' => $this->generateUrl('checkpoint_create', array('id'=>$entity->getProject()->getId())),
+        $form = $this->createForm(new NotificationType(), $entity, array(
+            'action' => $this->generateUrl('notification_create'),
             'method' => 'POST',
         ));
 
@@ -94,20 +82,15 @@ class CheckpointController extends Controller
     }
 
     /**
-     * Displays a form to create a new Checkpoint entity.
+     * Displays a form to create a new Notification entity.
      *
-     * @Route("/{id}/new", name="checkpoint_new")
+     * @Route("/new", name="notification_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
+     * @Template()
      */
-    public function newAction($id)
+    public function newAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $project = $em->getRepository('AppBundle:Project')->find($id);
-
-        $entity = new Checkpoint();
-        $entity->setProject($project);
+        $entity = new Notification();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -117,9 +100,9 @@ class CheckpointController extends Controller
     }
 
     /**
-     * Finds and displays a Checkpoint entity.
+     * Finds and displays a Notification entity.
      *
-     * @Route("/{id}", name="checkpoint_show")
+     * @Route("/{id}", name="notification_show")
      * @Method("GET")
      * @Template()
      */
@@ -127,10 +110,10 @@ class CheckpointController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
+        $entity = $em->getRepository('AppBundle:Notification')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Checkpoint entity.');
+            throw $this->createNotFoundException('Unable to find Notification entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -142,20 +125,20 @@ class CheckpointController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Checkpoint entity.
+     * Displays a form to edit an existing Notification entity.
      *
-     * @Route("/{id}/edit", name="checkpoint_edit")
+     * @Route("/{id}/edit", name="notification_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
+     * @Template()
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
+        $entity = $em->getRepository('AppBundle:Notification')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Checkpoint entity.');
+            throw $this->createNotFoundException('Unable to find Notification entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -169,16 +152,16 @@ class CheckpointController extends Controller
     }
 
     /**
-    * Creates a form to edit a Checkpoint entity.
+    * Creates a form to edit a Notification entity.
     *
-    * @param Checkpoint $entity The entity
+    * @param Notification $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Checkpoint $entity)
+    private function createEditForm(Notification $entity)
     {
-        $form = $this->createForm(new CheckpointType(), $entity, array(
-            'action' => $this->generateUrl('checkpoint_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new NotificationType(), $entity, array(
+            'action' => $this->generateUrl('notification_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -187,20 +170,20 @@ class CheckpointController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Checkpoint entity.
+     * Edits an existing Notification entity.
      *
-     * @Route("/{id}", name="checkpoint_update")
+     * @Route("/{id}", name="notification_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+     * @Template("AppBundle:Notification:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
+        $entity = $em->getRepository('AppBundle:Notification')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Checkpoint entity.');
+            throw $this->createNotFoundException('Unable to find Notification entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -210,7 +193,7 @@ class CheckpointController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getProject()->getId())));
+            return $this->redirect($this->generateUrl('notification_edit', array('id' => $id)));
         }
 
         return array(
@@ -220,9 +203,9 @@ class CheckpointController extends Controller
         );
     }
     /**
-     * Deletes a Checkpoint entity.
+     * Deletes a Notification entity.
      *
-     * @Route("/{id}", name="checkpoint_delete")
+     * @Route("/{id}", name="notification_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -232,21 +215,21 @@ class CheckpointController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
+            $entity = $em->getRepository('AppBundle:Notification')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Checkpoint entity.');
+                throw $this->createNotFoundException('Unable to find Notification entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('checkpoint'));
+        return $this->redirect($this->generateUrl('notification'));
     }
 
     /**
-     * Creates a form to delete a Checkpoint entity by id.
+     * Creates a form to delete a Notification entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -255,7 +238,7 @@ class CheckpointController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('checkpoint_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('notification_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
