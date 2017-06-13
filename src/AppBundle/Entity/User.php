@@ -118,6 +118,11 @@ class User extends BaseUser
     protected $checkpoints;
 
     /**
+     * @ORM\OneToMany(targetEntity="Notification", mappedBy="user")
+     */
+    private $notifications;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Status")
      */
     protected $progress;
@@ -543,5 +548,39 @@ class User extends BaseUser
     public function getReviews()
     {
         return $this->reviews;
+    }
+
+    /**
+     * Add notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     *
+     * @return User
+     */
+    public function addNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notifications[] = $notification;
+
+        return $this;
+    }
+
+    /**
+     * Remove notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     */
+    public function removeNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notifications->removeElement($notification);
+    }
+
+    /**
+     * Get notifications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
     }
 }
