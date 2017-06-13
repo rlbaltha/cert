@@ -78,7 +78,7 @@
                                          <tbody>
                                          {% for notification in entity.notifications %}
                                          <tr>
-                                             <td>{{ notification.body }}</td>
+                                             <td>{{ notification.body|raw }}</td>
                                              <td>{{ notification.date |date("m/d/Y g:ia") }}</td>
                                              <td>{{ notification.status }}</td>
                                          </tr>

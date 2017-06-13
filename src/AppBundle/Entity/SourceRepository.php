@@ -23,4 +23,22 @@ class SourceRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $sources;
     }
+
+
+    /**
+     * Find users by term
+     *
+     * @return User
+     */
+    public function findSourcesByIdea($id)
+    {
+        $course = $this->createQueryBuilder('s')
+            ->join('s.tags', 't')
+            ->join('t.ideas', 'i')
+            ->andWhere("i.id = :idea")
+            ->setParameter('idea', $id)
+            ->getQuery()
+            ->getResult();
+        return $course;
+    }
 }

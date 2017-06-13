@@ -46,7 +46,7 @@ class CheckpointController extends Controller
     public function createAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $user = $this->getUser();
 
 
         $entity = new Checkpoint();
@@ -55,14 +55,16 @@ class CheckpointController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $notification = new Notification();
-        $notification->setUser($project->getUser());
+        $notification->setUser($user);
         $notification->setDate($entity->getDeadline());
         $note = 'You have a <a href="project">checkpoint</a> deadline:  ';
         $notification->setBody($note);
+        $notification->setStatus('New');
 
         if ($form->isValid()) {
 
              $em->persist($entity);
+            $em->persist($notification);
             $em->flush();
 
             return $this->redirect($this->generateUrl('project_show', array('id' => $id)));

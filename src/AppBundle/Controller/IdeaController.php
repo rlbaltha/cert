@@ -113,6 +113,7 @@ class IdeaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Idea')->find($id);
+        $sources = $em->getRepository('AppBundle:Source')->findSourcesByIdea($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Idea entity.');
@@ -123,6 +124,7 @@ class IdeaController extends Controller
 
         return array(
             'entity'      => $entity,
+            'sources'      => $sources,
             'delete_form' => $deleteForm->createView(),
         );
     }

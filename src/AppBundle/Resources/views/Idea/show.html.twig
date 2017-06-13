@@ -47,8 +47,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for tag in entity.tags %}
-                    {% for source in tag.sources %}
+                    {% for source in sources %}
                         <tr>
                             <td><a href="{{ path('source_show', { 'id': source.id }) }}">{{ source.name }}</a></td>
                             <td><a href="{{ path('source_show', { 'id': source.id }) }}">{{ source.organization }}</a></td>
@@ -60,7 +59,6 @@
                             <td>{% for tag in source.tags %}<div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
                             </td>
                         </tr>
-                    {% endfor %}
                     {% endfor %}
                     </tbody>
                 </table>
