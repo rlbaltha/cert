@@ -47,24 +47,28 @@
                 </button>
                 <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                     <ul class="nav navbar-sidenav">
-                        <li class="nav-item"><a href="{{ path('source_new') }}">
-                                New Resource
-                            </a></li>
-                        <li class="nav-item">
-                            <a href="{{ path('idea') }}">
-                                Ideas
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ path('source') }}">
-                                Resources
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ path('tag') }}">
-                                Tags
-                            </a>
-                        </li>
+                        {% if section is defined %}
+                            {% for page in section.pages %}
+                                {% if (page.link is null or page.link == '') %}
+                                    <li class="nav-item"><a
+                                                href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item"><a href="{{ path('source_new') }}">
+                                    New Source
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('tag') }}">
+                                    Tags
+                                </a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a id="tag_showall" href="javascript:void(0)">
                                 Show all

@@ -30,10 +30,12 @@ class SourceController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Source')->findSourcesSorted();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(
             'entities' => $entities,
+            'section' => $section,
             'tags' => $tags,
         );
     }
@@ -113,6 +115,7 @@ class SourceController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Source')->find($id);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Source entity.');
@@ -122,6 +125,7 @@ class SourceController extends Controller
 
         return array(
             'entity'      => $entity,
+            'section' => $section,
             'delete_form' => $deleteForm->createView(),
         );
     }

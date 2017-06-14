@@ -30,10 +30,12 @@ class IdeaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Idea')->findAll();
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(
             'entities' => $entities,
+            'section' => $section,
             'tags' => $tags,
         );
     }
@@ -113,6 +115,7 @@ class IdeaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Idea')->find($id);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
         $sources = $em->getRepository('AppBundle:Source')->findSourcesByIdea($id);
 
         if (!$entity) {
@@ -125,6 +128,7 @@ class IdeaController extends Controller
         return array(
             'entity'      => $entity,
             'sources'      => $sources,
+            'section'      => $section,
             'delete_form' => $deleteForm->createView(),
         );
     }
