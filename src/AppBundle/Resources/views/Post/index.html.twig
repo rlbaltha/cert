@@ -60,7 +60,6 @@
                 <tr>
                     <th>Category</th>
                     <th>Title</th>
-                    <th>Body</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -68,7 +67,6 @@
                     <tr>
                         <td>{{ entity.category }}</td>
                         <td><a href="{{ path('post_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                        <td>{{ entity.body|raw }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
