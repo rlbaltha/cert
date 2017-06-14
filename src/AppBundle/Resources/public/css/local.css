@@ -87,6 +87,9 @@ body {
     background-color: #fff;
 }
 
+.dropdown-item {
+    color:black !important;
+}
 /**********  Forms **********/
 
 div.radio > label {

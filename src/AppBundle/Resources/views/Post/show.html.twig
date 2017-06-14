@@ -1,0 +1,37 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            <li class="nav-item"><a href="{{ path('post_new') }}">
+                                    New Post
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('post') }}">
+                                    All Posts
+                                </a></li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <h1>{{ entity.title }}</h1>
+
+            <p>{{ entity.body|raw }}</p>
+            <a class="btn btn-primary" href="{{ path('post_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+            {{ form(delete_form) }}
+        </div>
+    </div>
+{% endblock %}
