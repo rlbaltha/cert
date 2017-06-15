@@ -111,6 +111,7 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Tags</th>
@@ -119,6 +120,7 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr class="idea_row" id="{{ entity.id }}">
+                        <td>{{ loop.index }}</td>
                         <td><a href="{{ path('idea_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
                         <td>{{ entity.description|raw }}</td>
                         <td>{% for tag in entity.tags %}
