@@ -278,24 +278,25 @@ class CapstoneController extends Controller
         $em->persist($user_entity);
         $em->flush();
 
-        $name = $user_entity->getFirstname().' '.$user_entity->getLastname();
-        $email = 'scdirector@uga.edu';
-        $text = $name.' has submitted an capstone that is ready for ' .$type. 'review.';
+     if ($type != 'Completed') {
+         $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
+         $email = 'scdirector@uga.edu';
+         $text = $name . ' has submitted an capstone that is ready for ' . $type . 'review.';
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Certificate Capstone Ready for ' .$type. ' Review')
-            ->setFrom('scdirector@uga.edu')
-            ->setTo($email)
-            ->setBody(
-                $this->renderView(
+         $message = \Swift_Message::newInstance()
+             ->setSubject('Certificate Capstone Ready for ' . $type . ' Review')
+             ->setFrom('scdirector@uga.edu')
+             ->setTo($email)
+             ->setBody(
+                 $this->renderView(
 
-                    'AppBundle:Email:apply.html.twig',
-                    array('text' => $text)
-                ),
-                'text/html'
-            )
-        ;
-        $this->get('mailer')->send($message);
+                     'AppBundle:Email:apply.html.twig',
+                     array('text' => $text)
+                 ),
+                 'text/html'
+             );
+         $this->get('mailer')->send($message);
+     }
 
         return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
     }
