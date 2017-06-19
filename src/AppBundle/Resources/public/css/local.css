@@ -183,6 +183,9 @@ footer a {
     margin-top: 8rem;
 }
 
+.tag_filter {
+    margin-bottom: .3rem;
+}
 /********** datetimepicker *************/
 .datetimepicker table {
     margin: 0;
