@@ -168,7 +168,11 @@ class CapstoneType extends AbstractType
               'label' => 'Projected completion date',
               'attr' => array('class' => 'text form-control'),
             )
-          );
+          )
+            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
+                    'checkbox'),))
+        ;
     }
 
     /**

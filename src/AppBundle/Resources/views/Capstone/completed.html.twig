@@ -1,0 +1,120 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"],
+                },
+                headers: {
+                }
+            });
+            $('.tag_filter').click(function(event) {
+                var row_selector = 'div.tag' + event.target.id;
+                $('.idea_row').hide();
+                $(row_selector).parent().parent().show();
+            });
+            $('#tag_showall').click(function() {
+                $('.idea_row').show();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            {% if section is defined %}
+                                {% for page in section.pages %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+
+                            <li class="nav-item">
+                                <a id="tag_showall" href="javascript:void(0)">
+                                    Show all
+                                </a>
+                            </li>
+                            {% for tag in tags if tag.subs|length > 0 %}
+                                <li class="nav-item">
+                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                    {% for tag in tag.subs %}
+                                        <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                            <li class="nav-item">
+                                {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                {% endfor %}
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <h1>Completed Capstone</h1>
+            <p>This list is designed to help you get started on imagining a capstone project or an Office of Sustainability grant project
+            (or both).  The tags on the left are clickable.</p>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Tags</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr class="idea_row" id="{{ entity.id }}">
+                        <td>{{ loop.index }}</td>
+                        <td>{{ entity.title }}</td>
+                        <td>{{ entity.description|raw }}</td>
+                        <td>{% for tag in entity.tags %}
+                                <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

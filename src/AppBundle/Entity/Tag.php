@@ -41,6 +41,11 @@ class Tag
     protected $ideas;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Capstone", mappedBy="tags")
+     */
+    protected $capstones;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Source", mappedBy="tags")
      */
     protected $sources;
@@ -246,5 +251,39 @@ class Tag
     public function getTop()
     {
         return $this->top;
+    }
+
+    /**
+     * Add capstone
+     *
+     * @param \AppBundle\Entity\Capstone $capstone
+     *
+     * @return Tag
+     */
+    public function addCapstone(\AppBundle\Entity\Capstone $capstone)
+    {
+        $this->capstones[] = $capstone;
+
+        return $this;
+    }
+
+    /**
+     * Remove capstone
+     *
+     * @param \AppBundle\Entity\Capstone $capstone
+     */
+    public function removeCapstone(\AppBundle\Entity\Capstone $capstone)
+    {
+        $this->capstones->removeElement($capstone);
+    }
+
+    /**
+     * Get capstones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCapstones()
+    {
+        return $this->capstones;
     }
 }

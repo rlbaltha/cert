@@ -20,15 +20,18 @@ class CapstoneRepository extends \Doctrine\ORM\EntityRepository
         if ($type == 'Peer') {
             $status = 'Ready for Peer Review';
         }
+        elseif ($type == 'Completed') {
+            $status = 'Completed';
+        }
         else {
             $status = 'Ready for Director Review';
         }
 
-        $course = $this->createQueryBuilder('c')
+        $capstones = $this->createQueryBuilder('c')
             ->andWhere("c.status = :type")
             ->setParameter('type', $status)
             ->getQuery()
             ->getResult();
-        return $course;
+        return $capstones;
     }
 }
