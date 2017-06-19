@@ -255,23 +255,27 @@ class CapstoneController extends Controller
 
         $user = $entity->getUser();
         $user_entity = $em->getRepository('AppBundle:User')->find($user);
+        $timestamp = date('m/d/Y h:i:s A');
 
         if ($type == 'Director') {
             $status = $em->getRepository('AppBundle:Status')->findByName('Ready for Director Review');
             $entity->setStatus('Ready for Director Review');
+            $note = '<p> Capstone ready for '.$type. ' review. '.$timestamp.'</p>';
         }
         elseif ($type == 'Completed') {
             $status = $em->getRepository('AppBundle:Status')->findByName('Capstone Completed');
             $entity->setStatus('Completed');
+            $note = '<p> Capstone completed. '.$timestamp.'</p>';
         }
         else {
             $status = $em->getRepository('AppBundle:Status')->findByName('Ready for Peer Review');
             $entity->setStatus('Ready for Peer Review');
+            $note = '<p> Capstone ready for '.$type. ' review. '.$timestamp.'</p>';
         }
         $user_entity->setProgress($status);
-        $timestamp = date('m/d/Y h:i:s A');
+
         $notes = $user_entity->getNotes();
-        $user_entity->setNotes($notes.'<p> Capstone ready for '.$type. ' review '.$timestamp.'</p>');
+        $user_entity->setNotes($notes.$note);
 
 
         $em->persist($entity);
