@@ -42,6 +42,13 @@ class Post
      */
     private $body;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="text")
+     */
+    private $email;
+
 
     /**
      * Get id
@@ -123,5 +130,29 @@ class Post
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Post
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

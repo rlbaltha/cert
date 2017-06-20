@@ -32,7 +32,8 @@ class PostType extends AbstractType
                 'expanded' => true,
             ))
             ->add('title','text', array('attr' => array('class' => 'text form-control'),))
-            ->add('body', 'ckeditor', array('config_name' => 'editor_page',))
+            ->add('email', 'ckeditor', array('label'  => 'Email','config_name' => 'editor_default',))
+            ->add('body', 'ckeditor', array('label'  => 'Notification', 'config_name' => 'editor_default',))
         ;
     }
     

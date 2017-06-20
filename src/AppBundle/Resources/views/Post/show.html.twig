@@ -26,8 +26,16 @@
 
         <div class="col-sm-8">
             <h1>{{ entity.title }}</h1>
-
-            <p>{{ entity.body|raw }}</p>
+            <div class="card bg-faded">
+                <div class="card-block">
+                    Email: {{ entity.email|raw }}
+                </div>
+            </div>
+            <div class="card bg-faded">
+                <div class="card-block">
+                    Notification: {{ entity.body|raw }}
+                </div>
+            </div>
             <a class="btn btn-primary" href="{{ path('post_edit', { 'id': entity.id }) }}">
                 Edit
             </a>
