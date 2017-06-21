@@ -20,6 +20,7 @@ class TagType extends AbstractType
             ->add('top', 'entity', array('class' => 'AppBundle\Entity\Tag',
                 'property' => 'title','required'=>false,'expanded'=>false,'multiple'=>false,'label'  => 'Super', 'attr' => array('class' =>
                     'form-control'),))
+            ->add('sortorder', 'number', array('attr' => array('class' => 'text form-control'),))
         ;
     }
     

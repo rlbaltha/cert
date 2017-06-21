@@ -36,6 +36,13 @@ class Tag
     private $color;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="sortorder", type="integer")
+     */
+    private $sortorder;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Idea", mappedBy="tags")
      */
     protected $ideas;
@@ -58,6 +65,7 @@ class Tag
     /**
      * @ORM\ManyToOne(targetEntity="Tag", inversedBy="subs")
      * @ORM\JoinColumn(onDelete="SET NULL")
+     *  @ORM\OrderBy({"sortorder" = "DESC"})
      */
     private $top;
 
@@ -285,5 +293,30 @@ class Tag
     public function getCapstones()
     {
         return $this->capstones;
+    }
+
+
+    /**
+     * Set sortorder
+     *
+     * @param integer $sortorder
+     *
+     * @return Tag
+     */
+    public function setSortorder($sortorder)
+    {
+        $this->sortorder = $sortorder;
+
+        return $this;
+    }
+
+    /**
+     * Get sortorder
+     *
+     * @return integer
+     */
+    public function getSortorder()
+    {
+        return $this->sortorder;
     }
 }
