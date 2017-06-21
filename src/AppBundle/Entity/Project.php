@@ -55,6 +55,11 @@ class Project
     protected $checkpoints;
 
     /**
+     * @ORM\OneToOne(targetEntity="Capstone", inversedBy="project")
+     */
+    private $capstone;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="projects")
      */
     private $user;
@@ -228,5 +233,32 @@ class Project
     public function getUser()
     {
         return $this->user;
+    }
+
+
+
+
+    /**
+     * Set capstone
+     *
+     * @param \AppBundle\Entity\Capstone $capstone
+     *
+     * @return Project
+     */
+    public function setCapstone(\AppBundle\Entity\Capstone $capstone = null)
+    {
+        $this->capstone = $capstone;
+
+        return $this;
+    }
+
+    /**
+     * Get capstone
+     *
+     * @return \AppBundle\Entity\Capstone
+     */
+    public function getCapstone()
+    {
+        return $this->capstone;
     }
 }

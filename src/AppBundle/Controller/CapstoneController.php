@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Capstone;
 use AppBundle\Form\CapstoneType;
+use AppBundle\Entity\Project;
+use AppBundle\Entity\Checkpoint;
 
 /**
  * Capstone controller.
@@ -80,9 +82,41 @@ class CapstoneController extends Controller
             $user_entity = $em->getRepository('AppBundle:User')->find($user);
             $status = $em->getRepository('AppBundle:Status')->findByName('Capstone Created');
             $user_entity->setProgress($status);
-
             $em->persist($entity);
             $em->persist($user_entity);
+
+            $project = new Project();
+            $project->setName('Checkpoints');
+            $project->setUser($user_entity);
+            $project->setType('Capstone');
+            $project->setCapstone($entity);
+            $project->setDescription('Please offer a desccription of your project.');
+            $em->persist($project);
+
+            $checkpoint1 = new Checkpoint();
+            $checkpoint1->setProject($project);
+            $checkpoint1->setName('Design Process');
+            $checkpoint1->setDescription('Create the checkpoints for your capstone.');
+            $em->persist($checkpoint1);
+
+            $checkpoint2 = new Checkpoint();
+            $checkpoint2->setProject($project);
+            $checkpoint2->setName('Project Underway');
+            $checkpoint2->setDescription('Create the list of initial events to be completed in the first month of the term.');
+            $em->persist($checkpoint2);
+
+            $checkpoint3 = new Checkpoint();
+            $checkpoint3->setProject($project);
+            $checkpoint3->setName('Midpoint');
+            $checkpoint3->setDescription('Create the list of events that should be completed or underway by midpoint.');
+            $em->persist($checkpoint3);
+
+            $checkpoint4 = new Checkpoint();
+            $checkpoint4->setProject($project);
+            $checkpoint4->setName('End of term');
+            $checkpoint4->setDescription('Create the list of events for completing your capstone.');
+            $em->persist($checkpoint4);
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('user_profile'));

@@ -153,6 +153,10 @@ input + label {
     padding-bottom: 0;
 }
 
+.subhead {
+    font-size: larger;
+}
+
 /********** homepage ***********/
 
 .marketing {

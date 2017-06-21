@@ -149,6 +149,11 @@ class Capstone
     private $user;
 
     /**
+     * @ORM\OneToOne(targetEntity="Project", mappedBy="capstone")
+     */
+    private $project;
+
+    /**
      * @ORM\OneToMany(targetEntity="Responseset", mappedBy="capstone")
      */
     private $responsesets;
@@ -739,5 +744,32 @@ class Capstone
     public function getTags()
     {
         return $this->tags;
+    }
+
+
+    
+
+    /**
+     * Set project
+     *
+     * @param \AppBundle\Entity\Project $project
+     *
+     * @return Capstone
+     */
+    public function setProject(\AppBundle\Entity\Project $project = null)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * Get project
+     *
+     * @return \AppBundle\Entity\Project
+     */
+    public function getProject()
+    {
+        return $this->project;
     }
 }
