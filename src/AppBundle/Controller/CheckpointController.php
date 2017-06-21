@@ -242,6 +242,8 @@ class CheckpointController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
+            $project = $entity->getProject();
+
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Checkpoint entity.');
@@ -251,7 +253,12 @@ class CheckpointController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('checkpoint'));
+        if ($project->getCapstone()) {
+            return $this->redirect($this->generateUrl('user_profile'));
+        }
+        else {
+            return $this->redirect($this->generateUrl('project_show', array('id' => $project->getId())));
+        }
     }
 
     /**
