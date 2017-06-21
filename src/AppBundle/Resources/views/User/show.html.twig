@@ -11,7 +11,7 @@
                 $("#workplan_table").toggle();
             });
             $("#checkpoints_toggle").click(function () {
-                $("#checkpoints_card").toggle();
+                $(".checkpoints_card").toggle();
             });
         });
     </script>
@@ -715,7 +715,7 @@
                                         {% else %}#dbf8ff
                                         {% endif %}
                                     {% endset %}
-                                    <div id="checkpoints_card" class="card margin-top">
+                                    <div class="card margin-top checkpoints_card">
                                         <div class="card-header" style="background-color: {{ background }} ">
                                             {% if is_granted('ROLE_ADMIN') %}
                                                 <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
