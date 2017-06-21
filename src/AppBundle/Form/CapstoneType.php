@@ -64,33 +64,12 @@ class CapstoneType extends AbstractType
             )
           )
           ->add(
-            'goals',
-            'ckeditor',
-            array(
-              'required' => false,
-              'label' => 'Project Goals for the semester:  What is your
-          concrete and measureable long term goal?  Project goals should be specific, measureable, attainable,
-          relevant, and timely.',
-              'config_name' => 'editor_simple',
-            )
-          )
-          ->add(
             'objectives',
             'ckeditor',
             array(
               'required' => false,
               'label' => 'Key Objectives:  What are 3 objectives that
           you will accomplish as you work towards achieving your overall goal?',
-              'config_name' => 'editor_simple',
-            )
-          )
-          ->add(
-            'timeline',
-            'ckeditor',
-            array(
-              'required' => false,
-              'label' => 'Timeline:  Break down your project into
-          smaller segments.   What do you plan to accomplish in the first weeks, the first half of the term, etc.?',
               'config_name' => 'editor_simple',
             )
           )
@@ -121,15 +100,6 @@ class CapstoneType extends AbstractType
               'required' => false,
               'label' => 'Success Metrics:  How will you know that your project was
            a success?  What are the metrics you will use to decide whether you accomplished your goals?',
-              'config_name' => 'editor_simple',
-            )
-          )
-          ->add(
-            'steps',
-            'ckeditor',
-            array(
-              'required' => false,
-              'label' => 'What are the specific steps you will take to complete your capstone project?',
               'config_name' => 'editor_simple',
             )
           )

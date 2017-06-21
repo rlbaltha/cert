@@ -507,7 +507,8 @@
                                         Guidelines for the Capstone.
                                     </a></p>
                             {% elseif entity.capstone.status == 'Created' %}
-                                <p>Once your work plan is complete, mark it Ready for Peer Review.</p>
+                                <p>You may update your work plan at any time by clicking <strong>Update Work Plan</strong> below.</p>
+                                <p>Once your work plan is complete, mark it <strong>Ready for Peer Review.</strong></p>
 
                             {% elseif entity.capstone.status == 'Ready for Peer Review' %}
                                 <p>Your work plan must receive at least two peer reviews by fellow capstone students.
@@ -590,21 +591,21 @@
                                 {% endif %}
 
                                 <hr/>
-                                <a class="subhead" id="workplan_toggle" href="javascript:void(0);">Work plan</a>
-                                
+                                <a class="subhead" id="workplan_toggle" href="javascript:void(0);">Work Plan</a>
+
                                 {# Director workplan approval #}
                                 {% if is_granted('ROLE_SUPER_ADMIN') and entity.capstone.status != 'Approved' %}
                                     <a title="Approve this capstone"
                                        class="float-sm-right btn btn-primary {% if entity.capstone.status != 'Approved' %}{% else %}disabled{% endif %}"
                                        href="{{ path('capstone_approve',  { 'id': entity.capstone.id }) }}">
-                                        Approve Workplan
+                                        Approve Work Plan
                                     </a>
                                 {% endif %}
 
                                 {# Update the work plan (always available) #}
                                 <a title="Update your capstone" class="float-sm-right btn btn-primary"
                                    href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
-                                    Update Work plan
+                                    Update Work Plan
                                 </a>
 
                                 <table id="workplan_table" class="table margin-top">
@@ -630,16 +631,8 @@
                                         <td>{{ entity.capstone.description |raw }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Goals</th>
-                                        <td>{{ entity.capstone.goals|raw }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Objectives</th>
+                                        <th>Goals and Objectives</th>
                                         <td>{{ entity.capstone.objectives|raw }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Timeline</th>
-                                        <td>{{ entity.capstone.timeline|raw }}</td>
                                     </tr>
                                     <tr>
                                         <th>Resources/Partners</th>
@@ -652,10 +645,6 @@
                                     <tr>
                                         <th>Success Metrics</th>
                                         <td>{{ entity.capstone.successMetrics|raw }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Steps</th>
-                                        <td>{{ entity.capstone.steps|raw }}</td>
                                     </tr>
                                     <tr>
                                         <th>Application</th>
