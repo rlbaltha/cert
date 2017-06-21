@@ -59,13 +59,13 @@ class Tag
 
     /**
      * @ORM\OneToMany(targetEntity="Tag", mappedBy="top")
+     * @ORM\OrderBy({"sortorder" = "ASC"})
      */
     private $subs;
 
     /**
      * @ORM\ManyToOne(targetEntity="Tag", inversedBy="subs")
      * @ORM\JoinColumn(onDelete="SET NULL")
-     *  @ORM\OrderBy({"sortorder" = "DESC"})
      */
     private $top;
 
