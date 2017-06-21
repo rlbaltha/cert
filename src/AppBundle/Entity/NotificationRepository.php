@@ -10,4 +10,19 @@ namespace AppBundle\Entity;
  */
 class NotificationRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * find current notifications
+     *
+     * @return Notification
+     */
+    public function findCurrent($user) {
+        $notifications = $this->createQueryBuilder('n')
+            ->andWhere('n.status != :status')
+            ->andWhere('n.user = :user')
+            ->setParameter('status', 'Dismissed')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+        return $notifications;
+    }
 }

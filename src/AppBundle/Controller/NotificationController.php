@@ -202,6 +202,28 @@ class NotificationController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Dismiss an existing Notification entity.
+     *
+     * @Route("/{id}/dismiss", name="notification_dismiss")
+     * @Method("GET")
+     * @Template()
+     */
+    public function dismissAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $notification = $em->getRepository('AppBundle:Notification')->find($id);
+        $notification->setStatus('Dismissed');
+        $em->persist($notification);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('user_profile'));
+
+    }
+
+
     /**
      * Deletes a Notification entity.
      *

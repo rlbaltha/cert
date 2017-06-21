@@ -74,20 +74,30 @@
                                 </a>
 
                             </h5>
-                            You have {{ entity.notifications|length }} notifications for review.
+                            {% if notifications|length > 0 %}You have {{ notifications|length }} notifications for review.{% endif %}
                         </div>
-                        <div id="collapseZero" class="collapse"
+                        <div id="collapseZero" class="collapse {% if notifications|length > 0 %}in{% endif %}"
                              role="tabpanel" aria-labelledby="headingZero">
-                            <div class="card-block">
+                            <div class="card-block" style="padding: 0">
 
                                 {% if entity.notifications %}
-                                    <table class="table margin-top">
+                                    <table class="table" style="margin-bottom: 0">
                                         <tbody>
-                                        {% for notification in entity.notifications %}
-                                            <tr>
+                                        {% for notification in notifications %}
+                                            {% set background %}
+                                                {% if notification.status=='New' %}#e4ffe8
+                                                {% else %}#dbf8ff
+                                                {% endif %}
+                                            {% endset %}
+                                            <tr style="background-color: {{ background }}">
                                                 <td>{{ notification.body|raw }}</td>
                                                 <td>{{ notification.date |date("m/d/Y g:ia") }}</td>
-                                                <td>{{ notification.status }}</td>
+                                                <td>
+                                                    <a  class="btn btn-primary  lign-right"
+                                                       href="{{ path('notification_dismiss',  { 'id': notification.id }) }}">
+                                                        Dismiss
+                                                    </a>
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

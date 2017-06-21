@@ -23,7 +23,7 @@ class CapstoneType extends AbstractType
               'choices' => array(
                 'Research' => 'Research',
                 'Internship' => 'Internship',
-                'Other' => 'Other',
+                'Independent/Group Project' => 'Independent/Group Project',
               ),
                 // *this line is important*
               'choices_as_values' => true,
@@ -31,6 +31,36 @@ class CapstoneType extends AbstractType
               'attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),
             )
           )
+            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags: Please select as many as are appropriate (limit 5)', 'attr' => array('class' =>
+                    'checkbox'),))
+            ->add(
+                'description',
+                'ckeditor',
+                array(
+                    'required' => false,
+                    'label' => 'Project Description:  What will you do and how does the project relate to all three spheres of sustainability?',
+                    'config_name' => 'editor_simple',
+                )
+            )
+            ->add(
+                'mentor',
+                'text',
+                array(
+                    'required' => false,
+                    'label' => 'Campus/Community mentor',
+                    'attr' => array('class' => 'text form-control'),
+                )
+            )
+            ->add(
+                'mentor_email',
+                'text',
+                array(
+                    'required' => false,
+                    'label' => 'Mentor email',
+                    'attr' => array('class' => 'text form-control'),
+                )
+            )
             ->add(
                 'group_project',
                 'choice',
@@ -54,42 +84,32 @@ class CapstoneType extends AbstractType
                     'config_name' => 'editor_simple',
                 )
             )
-          ->add(
-            'description',
-            'ckeditor',
-            array(
-              'required' => false,
-              'label' => 'Project Description:  What will you do and how does the project relate to sustainability?',
-              'config_name' => 'editor_simple',
+            ->add(
+                'partners',
+                'ckeditor',
+                array(
+                    'required' => false,
+                    'label' => 'Resources and Project Partners: What and who will help you complete your project and achieve your goals? ',
+                    'config_name' => 'editor_simple',
+                )
             )
-          )
           ->add(
             'objectives',
             'ckeditor',
             array(
               'required' => false,
-              'label' => 'Key Objectives:  What are 3 objectives that
-          you will accomplish as you work towards achieving your overall goal?',
+              'label' => 'Project Goals: What are at least 3 long-term, concrete goals? Project goals should be Specific, Measurable, Attainable, Relevant, and Timely (SMART).',
               'config_name' => 'editor_simple',
             )
           )
-          ->add(
-            'partners',
-            'ckeditor',
-            array(
-              'required' => false,
-              'label' => 'Resources and Project Partners: What and who
-          will help you complete your project and achieve your goals?',
-              'config_name' => 'editor_simple',
-            )
-          )
+
           ->add(
             'personal_objectives',
             'ckeditor',
             array(
               'required' => false,
-              'label' => 'Personal Objectives:  What are the job skills,
-          experience, and knowledge that you hope to gain in the course of your project?',
+              'label' => 'Personal Objectives:  What are the job skills, experience, and knowledge that you hope to gain in the course of your project?
+',
               'config_name' => 'editor_simple',
             )
           )
@@ -98,8 +118,7 @@ class CapstoneType extends AbstractType
             'ckeditor',
             array(
               'required' => false,
-              'label' => 'Success Metrics:  How will you know that your project was
-           a success?  What are the metrics you will use to decide whether you accomplished your goals?',
+              'label' => 'Success Metrics: How will you know that your project was a success? What qualitative/quantitative metrics will you use to demonstrate this?',
               'config_name' => 'editor_simple',
             )
           )
@@ -113,24 +132,6 @@ class CapstoneType extends AbstractType
             )
           )
           ->add(
-            'mentor',
-            'text',
-            array(
-              'required' => false,
-              'label' => 'Faculty/Community mentor',
-              'attr' => array('class' => 'text form-control'),
-            )
-          )
-          ->add(
-            'mentor_email',
-            'text',
-            array(
-              'required' => false,
-              'label' => 'Mentor email',
-              'attr' => array('class' => 'text form-control'),
-            )
-          )
-          ->add(
             'timeframe',
             'text',
             array(
@@ -139,9 +140,7 @@ class CapstoneType extends AbstractType
               'attr' => array('class' => 'text form-control'),
             )
           )
-            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
-                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
-                    'checkbox'),))
+
         ;
     }
 

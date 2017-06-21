@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Checkpoint;
 use AppBundle\Form\CheckpointType;
+use AppBundle\Notifier\NotifierManager;
 
 /**
  * Checkpoint controller.
@@ -54,20 +55,26 @@ class CheckpointController extends Controller
         $entity->setProject($project);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        $notification = new Notification();
-        $notification->setUser($user);
-        $notification->setDate($entity->getDeadline());
-        $note = 'You have a <a href="project">checkpoint</a> deadline:  ';
-        $notification->setBody($note);
-        $notification->setStatus('New');
+
+        // create notification
+        $post = $em->getRepository('AppBundle:Post')->find(1)->getBody();
+        $date = $entity->getDeadline();
+        $href_id = $entity->getId();
+        $notifierManager = new NotifierManager($em);
+        $notifierManager->createNotifier($date, $user, $post);
 
         if ($form->isValid()) {
 
-             $em->persist($entity);
-            $em->persist($notification);
+            $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('project_show', array('id' => $id)));
+            if ($project->getCapstone()) {
+                return $this->redirect($this->generateUrl('user_profile'));
+            }
+            else {
+                return $this->redirect($this->generateUrl('project_show', array('id' => $id)));
+            }
+
         }
 
         return array(

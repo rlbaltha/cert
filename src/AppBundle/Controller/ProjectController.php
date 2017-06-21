@@ -30,7 +30,7 @@ class ProjectController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Project')->findAll();
+        $entities = $em->getRepository('AppBundle:Project')->findAdmin();
 
         return array(
             'entities' => $entities,

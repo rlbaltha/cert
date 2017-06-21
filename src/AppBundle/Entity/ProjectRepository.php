@@ -10,4 +10,18 @@ namespace AppBundle\Entity;
  */
 class ProjectRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * find admin projects
+     *
+     * @return Project
+     */
+    public function findAdmin() {
+        $type = 'Admin';
+        $projects = $this->createQueryBuilder('p')
+            ->andWhere('p.type = :type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getResult();
+        return $projects;
+    }
 }

@@ -32,20 +32,22 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user=$this->getUser();
+        $user = $this->getUser();
 
         $entity = $em->getRepository('AppBundle:User')->find($user);
+        $notifications = $em->getRepository('AppBundle:Notification')->findCurrent($user);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        if ($entity->getLastname()==''){
+        if ($entity->getLastname() == '') {
             return $this->redirect($this->generateUrl('user_edit', array('id' => $entity->getId())));
         }
 
         return array(
-          'entity' => $entity,
+            'entity' => $entity,
+            'notifications' => $notifications,
         );
     }
 
@@ -62,11 +64,9 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         if ($type == 'all') {
             $entities = $em->getRepository('AppBundle:User')->findAll();
-        }
-        elseif ($type == 'students') {
+        } elseif ($type == 'students') {
             $entities = $em->getRepository('AppBundle:User')->findStudents();
-        }
-        else {
+        } else {
             $type = $em->getRepository('AppBundle:Status')->find($type);
             $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
         }
@@ -91,11 +91,9 @@ class UserController extends Controller
         $forums = $em->getRepository('AppBundle:Forum')->findNetwork();
         if ($type == 'all') {
             $entities = $em->getRepository('AppBundle:User')->findAll();
-        }
-        elseif ($type == 'students') {
+        } elseif ($type == 'students') {
             $entities = $em->getRepository('AppBundle:User')->findStudents();
-        }
-        else {
+        } else {
             $type = $em->getRepository('AppBundle:Status')->find($type);
             $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
         }
@@ -120,11 +118,9 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         if ($type == 'all') {
             $entities = $em->getRepository('AppBundle:User')->findAll();
-        }
-        elseif ($type == 'students') {
+        } elseif ($type == 'students') {
             $entities = $em->getRepository('AppBundle:User')->findStudents();
-        }
-        else {
+        } else {
             $type = $em->getRepository('AppBundle:Status')->find($type);
             $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
         }
@@ -177,7 +173,7 @@ class UserController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -196,7 +192,7 @@ class UserController extends Controller
         $entity = $em->getRepository('AppBundle:User')->find($id);
 
         $name = $entity->getLastname();
-        $filename = 'attachment; filename="'.$name.'.pdf"';
+        $filename = 'attachment; filename="' . $name . '.pdf"';
 
 
         $html = $this->renderView('AppBundle:User:pdf.html.twig', array(
@@ -207,13 +203,12 @@ class UserController extends Controller
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => $filename
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => $filename
             )
         );
 
     }
-
 
 
     /**
@@ -237,19 +232,19 @@ class UserController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a User entity.
-    *
-    * @param User $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a User entity.
+     *
+     * @param User $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(User $entity)
     {
 
@@ -258,8 +253,7 @@ class UserController extends Controller
                 'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             ));
-        }
-        else {
+        } else {
             $form = $this->createForm(new ProfileType(), $entity, array(
                 'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
@@ -267,7 +261,7 @@ class UserController extends Controller
         }
 
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -300,11 +294,12 @@ class UserController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a User entity.
      *
@@ -344,8 +339,7 @@ class UserController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('user_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
+            ->getForm();
     }
 }
