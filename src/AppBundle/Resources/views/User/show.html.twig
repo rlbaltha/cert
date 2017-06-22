@@ -91,7 +91,7 @@
                                             {% endset %}
                                             <tr style="background-color: {{ background }}">
                                                 <td>{{ notification.body|raw }}</td>
-                                                <td>{{ notification.date |date("m/d/Y g:ia") }}</td>
+                                                <td>Deadline:  {{ notification.date |date("m/d/Y g:ia") }}</td>
                                                 <td>
                                                     <a  class="btn btn-primary  lign-right"
                                                        href="{{ path('notification_dismiss',  { 'id': notification.id }) }}">
