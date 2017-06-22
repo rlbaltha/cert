@@ -84,6 +84,31 @@ class CheckpointController extends Controller
     }
 
     /**
+     * Mark an existing Checkpoint entity complete.
+     *
+     * @Route("/{id}/complete", name="checkpoint_complete")
+     * @Method("GET")
+     * @Template()
+     */
+    public function completeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $checkpoint = $em->getRepository('AppBundle:Checkpoint')->find($id);
+        $checkpoint->setStatus('Complete');
+        $em->persist($checkpoint);
+        $em->flush();
+
+        if ($checkpoint->getProject()->getCapstone()) {
+            return $this->redirect($this->generateUrl('user_profile'));
+        }
+        else {
+            return $this->redirect($this->generateUrl('project_show', array('id' => $checkpoint->getProject()->getId())));
+        }
+
+    }
+
+    /**
      * Creates a form to create a Checkpoint entity.
      *
      * @param Checkpoint $entity The entity
@@ -227,7 +252,12 @@ class CheckpointController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getProject()->getId())));
+            if ($entity->getProject()->getCapstone()) {
+                return $this->redirect($this->generateUrl('user_profile'));
+            }
+            else {
+                return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getProject()->getId())));
+            }
         }
 
         return array(

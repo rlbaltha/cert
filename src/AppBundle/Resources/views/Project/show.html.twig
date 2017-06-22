@@ -1,5 +1,19 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $(".hidden").hide();
+            $(".card-title").click(function () {
+                $(this).parent().next().toggle();
+                $(this).next().toggle();
+            });
+        });
+    </script>
+{% endblock %}
+
+
 {% block body -%}
     <div class="row">
         <div class="col-sm-3">
@@ -41,7 +55,7 @@
 
             {% for checkpoint in entity.checkpoints %}
                 {% set background %}
-                    {% if checkpoint.status=='Approved' %}#e4ffe8
+                    {% if checkpoint.status=='Complete' %}#e4ffe8
                     {% elseif checkpoint.status=='Reviewed' %}#fff8e1
                     {% else %}#dbf8ff
                     {% endif %}
@@ -49,35 +63,42 @@
                 <div class="card">
                     <div class="card-header" style="background-color: {{ background }} ">
                         {% if is_granted('ROLE_ADMIN') %}
+                            {% if checkpoint.status!='Complete' %}
+                                <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
+                                   class="float-sm-right btn btn-primary">Complete</a>
+                            {% endif %}
                             <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
                                class="float-sm-right btn btn-primary">Edit</a>
                         {% endif %}
+
                         <h4 class="card-title">
-                            {{ checkpoint.name }}
-                            {% if checkpoint.status=='Approved' %}
+                            <a href="javascript:void(0)" title="click to toggle">
+                                {{ checkpoint.name }}
+                            </a>
+                            {% if checkpoint.status=='Complete' %}
                                 <i class="fa fa-check fa-2x" aria-hidden="true"></i>
                             {% endif %}
                         </h4>
 
-                        <p>
-                            <span class="btn btn-secondary">Timeframe: {{ checkpoint.timeframe }}</span>
-
+                        <p class="{% if checkpoint.status=='Complete' %}hidden{% endif %}">
                             {% if checkpoint.deadline %}<span class="btn btn-secondary">Deadline: {{ checkpoint.deadline|date('Y-m-d h:i A') }}</span>{% endif %}
-
-                            <span class="btn btn-secondary">Status: {{ checkpoint.status }}
-                            </span>
+                            <span class="btn btn-secondary">Status: {{ checkpoint.status }}</span>
                         </p>
-                        <p>Reviewers: {% for reviewer in checkpoint.reviewers %}
+                    </div>
+                    <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
+
+                        {{ checkpoint.description |raw }}
+
+                        <hr/>
+                        <p>
+                            Reviewers:
+                            {% for reviewer in checkpoint.reviewers %}
                                 {% if app.user.username == reviewer.username %}
                                     <a
                                     href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': reviewer.id }) }}"
                                     class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
                             {% endfor %}
                         </p>
-                    </div>
-                    <div class="card-block">
-
-                        {{ checkpoint.description |raw }}
 
                         {% for review in checkpoint.reviews %}
                             {% set review_background %}
@@ -105,7 +126,6 @@
                                 </div>
                             </div>
                         {% endfor %}
-
                     </div>
                 </div>
             {% endfor %}

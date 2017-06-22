@@ -62,7 +62,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="Students">
                         <a class="dropdown-item" href="{{ path('page_show', { 'id': '10' }) }}">Info</a>
-                        <a class="dropdown-item" href="{{ path('event') }}">Events</a>
+                        <a class="dropdown-item" href="{{ path('event') }}">Calendar</a>
                         {% if is_granted('ROLE_USER') %}
                             <a class="dropdown-item" href="{{ path('network') }}">Network</a>
                             <a class="dropdown-item" href="{{ path('page_show', { 'id': '17' }) }}">Capstones</a>

@@ -43,13 +43,6 @@ class Checkpoint
     private $type='NA';
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="timeframe", type="string", length=255)
-     */
-    private $timeframe='Current';
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="deadline", type="datetime", nullable=true)
@@ -158,30 +151,6 @@ class Checkpoint
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set timeframe
-     *
-     * @param string $timeframe
-     *
-     * @return Checkpoint
-     */
-    public function setTimeframe($timeframe)
-    {
-        $this->timeframe = $timeframe;
-
-        return $this;
-    }
-
-    /**
-     * Get timeframe
-     *
-     * @return string
-     */
-    public function getTimeframe()
-    {
-        return $this->timeframe;
     }
 
     /**

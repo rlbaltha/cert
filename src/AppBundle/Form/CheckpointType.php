@@ -20,23 +20,11 @@ class CheckpointType extends AbstractType
         $builder
             ->add('name', 'text', array('attr' => array('class' => 'text form-control'),))
             ->add('description', 'ckeditor', array('config_name' => 'editor_simple',))
-            ->add('type', 'choice', array('choices' => array('Admin' => 'Admin', 'Capstone' => 'Capstone'),
-                'required' => true,
-                'expanded' => false,
-                'multiple' => false,
-                'label' => 'Type',
-                'attr' => array('class' => 'form-control'),))
-            ->add('timeframe', 'choice', array('choices' => array('Once' => 'Once', 'Semester' => 'Semester', 'Annual' => 'Annual'),
-                'required' => true,
-                'expanded' => false,
-                'multiple' => false,
-                'label' => 'Timeframe',
-                'attr' => array('class' => 'form-control'),))
             ->add('deadline', DatetimeType::class, array('pickerOptions' =>
                 array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
                 ),
                 'attr' => array('class' => 'form-control'),))
-            ->add('status', 'choice', array('choices' => array('Opened' => 'Opened', 'Reviewed' => 'Reviewed', 'Approved' => 'Approved'),
+            ->add('status', 'choice', array('choices' => array('Opened' => 'Opened', 'Complete' => 'Complete'),
                 'required' => true,
                 'expanded' => true,
                 'multiple' => false,
