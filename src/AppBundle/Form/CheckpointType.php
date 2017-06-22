@@ -36,7 +36,7 @@ class CheckpointType extends AbstractType
                 array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
                 ),
                 'attr' => array('class' => 'form-control'),))
-            ->add('status', 'choice', array('choices' => array('Opened' => 'Opened', 'Assigned' => 'Assigned', 'Reviewed' => 'Reviewed', 'Approved' => 'Approved'),
+            ->add('status', 'choice', array('choices' => array('Opened' => 'Opened', 'Reviewed' => 'Reviewed', 'Approved' => 'Approved'),
                 'required' => true,
                 'expanded' => true,
                 'multiple' => false,

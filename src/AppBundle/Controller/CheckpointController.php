@@ -117,6 +117,14 @@ class CheckpointController extends Controller
 
         $entity = new Checkpoint();
         $entity->setProject($project);
+        $deadline =  date_create();
+        $entity->setDeadline($deadline);
+        if ($project->getCapstone()) {
+            $entity->setType('Capstone');
+        }
+        else {
+            $entity->setType('Admin');
+        }
         $form   = $this->createCreateForm($entity);
 
         return array(

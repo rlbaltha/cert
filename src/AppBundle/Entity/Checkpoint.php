@@ -26,7 +26,7 @@ class Checkpoint
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name='First Checkpoint';
+    private $name='Checkpoint';
 
     /**
      * @var string
