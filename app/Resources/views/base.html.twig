@@ -54,20 +54,28 @@
                     <a id="main_nav" href="#main_content">Skip Navigation</a>
                 </li>
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '1' }) }}">About</a></li>
-                <li class="nav-item"><a href="{{ path('page_show', { 'id': '10' }) }}">Students</a></li>
+                <li class="nav-item"><a href="">Students</a></li>
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" id="Students" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        Students
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="Students">
+                        <a class="dropdown-item" href="{{ path('page_show', { 'id': '10' }) }}">Info</a>
+                        <a class="dropdown-item" href="{{ path('event') }}">Events</a>
+                        {% if is_granted('ROLE_USER') %}
+                            <a class="dropdown-item" href="{{ path('network') }}">Network</a>
+                            <a class="dropdown-item" href="{{ path('page_show', { 'id': '17' }) }}">Capstones</a>
+                        {% endif %}
+                    </div>
+                </li>
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '7' }) }}">Faculty</a></li>
                 <li class="nav-item"><a href="{{ path('course') }}">Courses</a></li>
-                <li class="nav-item"><a href="{{ path('event') }}">Events</a></li>
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <li class="nav-item"><a href="{{ path('forum') }}">Forum</a></li>
-                {% endif %}
                 <li class="nav-item"><a href="{{ path('page_newsletter') }}">Newsletter</a></li>
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '26' }) }}">Contact Us</a></li>
-                {% if is_granted('ROLE_USER') %}
-                    <li class="nav-item"><a href="{{ path('network') }}">Network</a></li>
-                {% endif %}
+
                 {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-item"><a href="{{ path('page_show', { 'id': '17' }) }}">Capstones</a></li>
+                    <li class="nav-item"></li>
                     <li class="nav-item dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" id="Preview" href="#" role="button"
                            aria-haspopup="true" aria-expanded="false">
