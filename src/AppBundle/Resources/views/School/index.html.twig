@@ -46,7 +46,7 @@
                         {% for entity in entity.program1 if entity.user.progress.name=='Adminstration' %}
                             {% set admin = admin + 1 %}
                         {% endfor %}
-                        {% for entity in entity.program1 if entity.user.program.level=='Graduate' %}
+                        {% for entity in entity.program1 if entity.user.program.level=='Graduate' and entity.user.progress.name!='Inactive'%}
                             {% set grad = grad + 1 %}
                         {% endfor %}
                         <p> Graduates:{{ graduated }} Inactive:{{ inactive }} Grad Student:{{ grad }} Admin:{{ admin }}</p>
