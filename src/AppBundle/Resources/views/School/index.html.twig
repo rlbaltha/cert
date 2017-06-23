@@ -31,12 +31,28 @@
                 {% for entity in entities %}
                 <div class="card">
                     <div class="card-header">
-                        <h2>{{ entity.name }} ({{ entity.program1|length }})</h2><a class="btn btn-primary float-sm-right" href="{{ path('school_edit', { 'id': entity.id }) }}">Edit</a>
+                        <a class="btn btn-primary float-sm-right" href="{{ path('school_edit', { 'id': entity.id }) }}">Edit</a>
+                        <h2>{{ entity.name }} </h2>
+                        {% set graduated = 0 %}
+                        {% set inactive = 0 %}
+                        {% for entity in entity.program1 if entity.user.progress.name=='Graduated' %}
+                        {% set graduated = graduated + 1 %}
+                        {% endfor %}
+                        {% for entity in entity.program1 if entity.user.progress.name=='Inactive' %}
+                            {% set inactive = inactive + 1 %}
+                        {% endfor %}
+                        <p>Active:  {{ entity.program1|length - (inactive + graduated) }}</p>
+                        <p>Graduates:  {{ graduated }}</p>
+                        <p>Inactive:  {{ inactive }}</p>
+                        <p>Total:{{ entity.program1|length }}</p>
+
+
                     </div>
                     <div class="card-block">
                         <div id="accordion" role="tablist" aria-multiselectable="true">
                             {% for entity in entity.program1 %}
-                                 <p>{{ entity.user.lastname }}, {{ entity.user.firstname }}</p>
+                                {% set graduated = graduated + 1 %}
+                                 <p>{{ entity.user.lastname }}, {{ entity.user.firstname }} (Progress: {{ entity.user.progress.name }})</p>
                             {% endfor %}
                         </div>
                     </div>

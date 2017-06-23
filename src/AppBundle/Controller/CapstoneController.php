@@ -96,25 +96,37 @@ class CapstoneController extends Controller
             $checkpoint1 = new Checkpoint();
             $checkpoint1->setProject($project);
             $checkpoint1->setName('Design Process');
-            $checkpoint1->setDescription('Create the checkpoints for your capstone.');
+            $checkpoint1->setDescription('<p>Please complete this checkpoint by the first day of the semester.</p>
+                                            <ul>
+                                            <li>Completed work plan including checkpoints</li>
+                                            <li>Received two peer reviews</li>
+                                            <li>Provided two peer reviews</li>
+                                            <li>Marked work plan as <strong>Ready for Director Review</strong></li>
+                                            <li>Enrolled in a capstone course</li>
+                                            </ul>');
             $em->persist($checkpoint1);
 
             $checkpoint2 = new Checkpoint();
             $checkpoint2->setProject($project);
-            $checkpoint2->setName('Project Underway');
-            $checkpoint2->setDescription('Create the list of initial events to be completed in the first month of the term.');
+            $checkpoint2->setName('One Month Check-in');
+            $checkpoint2->setDescription('List of tasks/events that should be completed or underway by one month in.');
             $em->persist($checkpoint2);
 
             $checkpoint3 = new Checkpoint();
             $checkpoint3->setProject($project);
-            $checkpoint3->setName('Midpoint');
-            $checkpoint3->setDescription('Create the list of events that should be completed or underway by midpoint.');
+            $checkpoint3->setName('Midpoint Check-in');
+            $checkpoint3->setDescription('List of tasks/events that should be completed or underway by midpoint.');
             $em->persist($checkpoint3);
 
             $checkpoint4 = new Checkpoint();
             $checkpoint4->setProject($project);
-            $checkpoint4->setName('End of term');
-            $checkpoint4->setDescription('Create the list of events for completing your capstone.');
+            $checkpoint4->setName('Capstone Completion');
+            $checkpoint4->setDescription('<ul>
+                                            <li>Capstone project is complete</li>
+                                            <li>Reflection is complete</li>
+                                            <li>Presentation is complete or scheduled</li>
+                                            <li>Portfolio is complete</li>
+                                            </ul>');
             $em->persist($checkpoint4);
 
             $em->flush();
