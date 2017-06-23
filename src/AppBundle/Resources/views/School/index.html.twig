@@ -43,7 +43,7 @@
                         {% for entity in entity.program1 if entity.user.progress.name=='Inactive' %}
                             {% set inactive = inactive + 1 %}
                         {% endfor %}
-                        {% for entity in entity.program1 if entity.user.progress.name=='Adminstration' %}
+                        {% for entity in entity.program1 if entity.user.progress.name=='Administration' %}
                             {% set admin = admin + 1 %}
                         {% endfor %}
                         {% for entity in entity.program1 if entity.user.program.level=='Grad' and entity.user.progress.name!='Inactive'%}
