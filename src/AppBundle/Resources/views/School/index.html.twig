@@ -35,16 +35,18 @@
                         <h2>{{ entity.name }} </h2>
                         {% set graduated = 0 %}
                         {% set inactive = 0 %}
+                        {% set admin = 0 %}
                         {% for entity in entity.program1 if entity.user.progress.name=='Graduated' %}
                         {% set graduated = graduated + 1 %}
                         {% endfor %}
                         {% for entity in entity.program1 if entity.user.progress.name=='Inactive' %}
                             {% set inactive = inactive + 1 %}
                         {% endfor %}
-                        <p>Active:  {{ entity.program1|length - (inactive + graduated) }}</p>
-                        <p>Graduates:  {{ graduated }}</p>
-                        <p>Inactive:  {{ inactive }}</p>
-                        <p>Total:{{ entity.program1|length }}</p>
+                        {% for entity in entity.program1 if entity.user.progress.name=='Adminstration' %}
+                            {% set admin = admin + 1 %}
+                        {% endfor %}
+                        <p> Graduates:{{ graduated }} Inactive:{{ inactive }} Admin:{{ admin }}</p>
+                        <p>Active:{{ entity.program1|length - (inactive + graduated + admin) }} Total:{{ entity.program1|length }}</p>
 
 
                     </div>
