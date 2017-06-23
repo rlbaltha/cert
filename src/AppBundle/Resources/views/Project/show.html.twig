@@ -56,8 +56,7 @@
             {% for checkpoint in entity.checkpoints %}
                 {% set background %}
                     {% if checkpoint.status=='Complete' %}#e4ffe8
-                    {% elseif checkpoint.status=='Reviewed' %}#fff8e1
-                    {% else %}#dbf8ff
+                    {% else %}#ffffe6
                     {% endif %}
                 {% endset %}
                 <div class="card">
@@ -103,8 +102,7 @@
                         {% for review in checkpoint.reviews %}
                             {% set review_background %}
                                 {% if review.status=='Complete' %}#e4ffe8
-                                {% elseif review.status=='Incomplete' %}#fff8e1
-                                {% else %}#dbf8ff
+                                {% else %}#ffffe6
                                 {% endif %}
                             {% endset %}
                             <div class="card">
