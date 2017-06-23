@@ -41,15 +41,21 @@
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
+                            {% if section is defined %}
+                                {% for page in section.pages %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                             <li class="nav-item"><a href="{{ path('network') }}">
                                     Certificate Students
-                                </a></li>
-                            {% for entity in forums %}
-                                <li class="nav-item">
-                                    <a href="{{ path('forum_show', { 'id': entity.id }) }}">{{ entity.title }}</a>
-                                </li>
-                            {% endfor %}
-
+                                </a>
+                            </li>
                         </ul>
 
                     </div>
