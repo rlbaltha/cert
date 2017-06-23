@@ -733,12 +733,10 @@
                             <a class="subhead" id="checkpoints_toggle"
                                href="javascript:void(0);">{{ entity.capstone.project.name }}</a>
 
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('checkpoint_new', { 'id': entity.capstone.project.id }) }}"
+                            <a href="{{ path('checkpoint_new', { 'id': entity.capstone.project.id }) }}"
                                    class="float-sm-right btn btn-primary">
                                     Add Checkpoint
                                 </a>
-                            {% endif %}
                             <hr/>
 
                             <div class="alert alert-info" role="alert">
