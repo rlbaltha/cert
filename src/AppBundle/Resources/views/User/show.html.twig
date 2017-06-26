@@ -44,15 +44,11 @@
 
             <div class="btn-group float-sm-right" role="group" aria-label="Basic Functions">
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <a class="btn btn-primary" style="margin-left: 10px;"
-                       href="{{ path('user_edit', { 'id': entity.id }) }}">
-                        Update
-                    </a>
                     <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
                         As</a>
                 {% endif %}
                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                    <a class="btn btn-primary" href="{{ path('user',  { 'type': 'student' }) }}?_switch_user=_exit">
+                    <a class="btn btn-primary" href="{{ path('user',  { 'type': 'students' }) }}?_switch_user=_exit">
                         Exit
                         login as</a>
                 {% endif %}
@@ -135,7 +131,10 @@
 
                         <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="card-block">
-
+                                <a class="btn btn-primary" style="margin-left: 10px;"
+                                   href="{{ path('user_edit', { 'id': entity.id }) }}">
+                                    Update
+                                </a>
                                 <p>{{ entity.notes |raw }}
                                     {% if entity.notes|length < 1 %}No notes yet.{% endif %}
                                 </p>
@@ -155,7 +154,7 @@
                             <h5 class="mb-0">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    Application
+                                    Application ({{ entity.program.status }})
                                 </a>
                             </h5>
                         </div>
@@ -173,7 +172,7 @@
                                             </a>
                                         {% endif %}
 
-                                        {% if is_granted('ROLE_SUPER_ADMIN') or entity.program.status == 'Created' %}
+                                        {% if app.user.username == entity.username and entity.program.status == 'Created' %}
                                             <a class="btn btn-primary  align-right "
                                                href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
                                                 Update Application
@@ -298,6 +297,7 @@
                              role="tabpanel"
                              aria-labelledby="headingThree">
                             <div class="card-block">
+                                {% if app.user.username == entity.username %}
                                 {% if entity.checklist %}
                                     <a class="btn btn-primary align-right margin-bottom"
                                        href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
@@ -305,10 +305,11 @@
                                     </a>
                                 {% else %}
                                     <a title="Get started on your checklist"
-                                       class="btn btn-primary  align-right {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
+                                       class="btn btn-primary margin-bottom {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
                                        href="{{ path('checklist_new') }}">
-                                        Get Started on your Checklist
+                                        Start your Checklist
                                     </a>
+                                {% endif %}
                                 {% endif %}
 
                                 <div class="alert alert-info" role="alert">
@@ -527,7 +528,7 @@
                                     <a title="Get started on your work plan"
                                        class="btn btn-primary {% if not entity.checklist or entity.capstone %}disabled{% endif %}"
                                        href="{{ path('capstone_new') }}">
-                                        1. Create Work Plan
+                                        1. Start Work Plan
                                     </a>
                                     {% if entity.capstone %}
                                         {# Mark Ready for Peer or Director Review #}
