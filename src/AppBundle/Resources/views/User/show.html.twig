@@ -721,7 +721,8 @@
                                                    href="{{ path('responseset_edit', { 'id': responseset.id }) }}">Edit</a>
                                             {% endif %}
                                             <h5>
-                                                Review by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
+                                                Review
+                                                by {{ responseset.user.firstname }} {{ responseset.user.lastname }}
                                             </h5>
                                             {% for response in responseset.responses %}
                                                 <div class="card">
@@ -736,6 +737,7 @@
                                         {% endfor %}
                                     </div>
                                 {% endif %}
+                                <hr/>
                             {% endif %}
 
                             {#  *********************** Capstone Checkpoints  *********************** #}
@@ -744,10 +746,10 @@
                                href="javascript:void(0);">{{ entity.capstone.project.name }}</a>
 
                             {% if app.user.username == entity.username %}
-                            <a href="{{ path('checkpoint_new', { 'id': entity.capstone.project.id }) }}"
-                               class="float-sm-right btn btn-primary">
-                                Add Checkpoint
-                            </a>
+                                <a href="{{ path('checkpoint_new', { 'id': entity.capstone.project.id }) }}"
+                                   class="float-sm-right btn btn-primary">
+                                    Add Checkpoint
+                                </a>
                             {% endif %}
                             <hr/>
 
