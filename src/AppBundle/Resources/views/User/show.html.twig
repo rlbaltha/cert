@@ -298,29 +298,30 @@
                              aria-labelledby="headingThree">
                             <div class="card-block">
                                 {% if app.user.username == entity.username %}
-                                {% if entity.checklist %}
-                                    <a class="btn btn-primary align-right margin-bottom"
-                                       href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
-                                        Update Checklist
-                                    </a>
-                                {% else %}
-                                    <a title="Get started on your checklist"
-                                       class="btn btn-primary margin-bottom {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
-                                       href="{{ path('checklist_new') }}">
-                                        Start your Checklist
-                                    </a>
-                                {% endif %}
+                                    {% if entity.checklist %}
+                                        <a class="btn btn-primary align-right margin-bottom"
+                                           href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
+                                            Update Checklist
+                                        </a>
+                                    {% else %}
+                                        <a title="Get started on your checklist"
+                                           class="btn btn-primary margin-bottom {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
+                                           href="{{ path('checklist_new') }}">
+                                            Start your Checklist
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
 
                                 <div class="alert alert-info" role="alert">
-                                <p>The checklist allows you to track your progress through the program. Please update
-                                    regularly.
-                                </p>
-                                <p> For details, please
-                                    <a href="{{ path('page_show',  { 'id': '12'}) }}">
-                                        review the
-                                        <strong>Guidelines for the Certificate.</strong>
-                                    </a></p>
+                                    <p>The checklist allows you to track your progress through the program. Please
+                                        update
+                                        regularly.
+                                    </p>
+                                    <p> For details, please
+                                        <a href="{{ path('page_show',  { 'id': '12'}) }}">
+                                            review the
+                                            <strong>Guidelines for the Certificate.</strong>
+                                        </a></p>
                                 </div>
 
                                 {% if entity.checklist %}
@@ -639,10 +640,12 @@
                                 {% endif %}
 
                                 {# Update the work plan (always available) #}
-                                <a title="Update your capstone" class="float-sm-right btn btn-primary"
-                                   href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
-                                    Update Work Plan
-                                </a>
+                                {% if app.user.username == entity.username %}
+                                    <a title="Update your capstone" class="float-sm-right btn btn-primary"
+                                       href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
+                                        Update Work Plan
+                                    </a>
+                                {% endif %}
 
                                 <table id="workplan_table" class="table margin-top">
                                     <tbody>
@@ -734,23 +737,28 @@
                             <a class="subhead" id="checkpoints_toggle"
                                href="javascript:void(0);">{{ entity.capstone.project.name }}</a>
 
+                            {% if app.user.username == entity.username %}
                             <a href="{{ path('checkpoint_new', { 'id': entity.capstone.project.id }) }}"
-                                   class="float-sm-right btn btn-primary">
-                                    Add Checkpoint
-                                </a>
+                               class="float-sm-right btn btn-primary">
+                                Add Checkpoint
+                            </a>
+                            {% endif %}
                             <hr/>
 
                             <div class="alert alert-info" role="alert">
-                                <p>Checkpoints display the timeline and goals for your project and help you, your mentor, and the
+                                <p>Checkpoints display the timeline and goals for your project and help you, your
+                                    mentor, and the
                                     certificate director monitor your progress.
                                 </p>
                                 <p>
-                                    Please fill in the the checkpoints created for you with the details of your project, including deadlines
-                                    for each checkpoint.  You are welcome to add more checkpoints if you find them helpful.
+                                    Please fill in the the checkpoints created for you with the details of your project,
+                                    including deadlines
+                                    for each checkpoint. You are welcome to add more checkpoints if you find them
+                                    helpful.
                                 </p>
-                                <p>When your mentor and the director have reviewed the checkpoint, mark it <strong>Complete</strong>.</p>
+                                <p>When your mentor and the director have reviewed the checkpoint, mark it <strong>Complete</strong>.
+                                </p>
                             </div>
-
 
 
                             {% for checkpoint in entity.capstone.project.checkpoints %}
