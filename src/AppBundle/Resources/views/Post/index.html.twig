@@ -39,11 +39,23 @@
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
+                            <li class="nav-item"><a href="{{ path('notification_new') }}">
+                                    Create Notification
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('notification', {'status':'Shared'}) }}">
+                                    Shared Notifications
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('notification', {'status':'New'}) }}">
+                                    New Notifications
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('notification', {'status':'Dismissed'}) }}">
+                                    Dismissed Notifications
+                                </a></li>
                             <li class="nav-item"><a href="{{ path('post_new') }}">
                                     New Post
                                 </a></li>
                             <li class="nav-item"><a href="{{ path('post') }}">
-                                    All Posts
+                                    List Posts
                                 </a></li>
                         </ul>
                     </div>
