@@ -49,6 +49,11 @@ class Post
      */
     private $email;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Notification", mappedBy="post")
+     */
+    private $notifications;
+
 
     /**
      * Get id
@@ -154,5 +159,46 @@ class Post
     public function getEmail()
     {
         return $this->email;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->notifications = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     *
+     * @return Post
+     */
+    public function addNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notifications[] = $notification;
+
+        return $this;
+    }
+
+    /**
+     * Remove notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     */
+    public function removeNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notifications->removeElement($notification);
+    }
+
+    /**
+     * Get notifications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
     }
 }

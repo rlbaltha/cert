@@ -43,6 +43,11 @@ class Notification
     private $status;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="notifications")
+     */
+    private $post;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="notifications")
      */
     private $user;
@@ -152,5 +157,29 @@ class Notification
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return Notification
+     */
+    public function setPost(\AppBundle\Entity\Post $post = null)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return \AppBundle\Entity\Post
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 }

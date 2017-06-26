@@ -1,40 +1,67 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Notification</h1>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            <li class="nav-item"><a href="{{ path('notification_new') }}">
+                                    Create Notification
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('notification', {'status':'Shared'}) }}">
+                                    Shared Notifications
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('notification', {'status':'New'}) }}">
+                                    New Notifications
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('notification', {'status':'Dismissed'}) }}">
+                                    Dismissed Notifications
+                                </a></li>
+                        </ul>
+                    </div>
+                </nav>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Body</th>
-                <td>{{ entity.body }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ entity.status }}</td>
-            </tr>
-        </tbody>
-    </table>
+            </div>
+        </div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('notification') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('notification_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        <div class="col-sm-8">
+            <h1>Notification</h1>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Post</th>
+                    <td>{{ entity.post.body|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Body</th>
+                    <td>{{ entity.body|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ entity.status }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-primary" href="{{ path('notification_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+
+            {{ form(delete_form) }}
+        </div>
+    </div>
 {% endblock %}

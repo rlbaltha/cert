@@ -1,45 +1,61 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Notification list</h1>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            <li class="nav-item"><a href="{{ path('notification_new') }}">
+                                    Create Notification
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('notification', {'status':'Shared'}) }}">
+                                    Shared Notifications
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('notification', {'status':'New'}) }}">
+                                    New Notifications
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('notification', {'status':'Dismissed'}) }}">
+                                    Dismissed Notifications
+                                </a></li>
+                        </ul>
+                    </div>
+                </nav>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Body</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('notification_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.body }}</td>
-                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.status }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('notification_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('notification_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </div>
+        </div>
 
-        <ul>
-        <li>
-            <a href="{{ path('notification_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+        <div class="col-sm-8">
+            <h1>Notifications</h1>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Post</th>
+                    <th>Body</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('notification_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.post.body|raw }}</td>
+                        <td>{{ entity.body|raw }}</td>
+                        <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{{ entity.status }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 
 class NotificationType extends AbstractType
 {
@@ -15,10 +16,27 @@ class NotificationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('body')
-            ->add('date')
-            ->add('status')
+            ->add('post', 'entity', array('class' => 'AppBundle\Entity\Post',
+                'property' => 'title','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'Post', 'attr' => array('class' =>
+                    'form-control'),))
+            ->add('body', 'ckeditor', array('config_name' => 'editor_default',))
+            ->add('date', DatetimeType::class, array('pickerOptions' =>
+                array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
+                ),
+                'attr' => array('class' => 'form-control'),))
+            ->add('status', 'choice', array(
+                'attr' => array('class' => 'form-control'),
+                'choices'  => array(
+                    'New' => "New",
+                    'Dismissed' => "Dismissed",
+                    'Shared' => "Shared",
+                ),
+                // *this line is important*
+                'choices_as_values' => true,))
             ->add('user')
+            ->add('user', 'entity', array('class' => 'AppBundle\Entity\User',
+                'property' => 'name','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'User', 'attr' => array('class' =>
+                    'form-control'),))
         ;
     }
     

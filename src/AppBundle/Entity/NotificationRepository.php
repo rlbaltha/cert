@@ -19,8 +19,10 @@ class NotificationRepository extends \Doctrine\ORM\EntityRepository
         $notifications = $this->createQueryBuilder('n')
             ->andWhere('n.status != :status')
             ->andWhere('n.user = :user')
+            ->orWhere('n.status = :status2')
             ->setParameter('status', 'Dismissed')
             ->setParameter('user', $user)
+            ->setParameter('status2', 'Shared')
             ->getQuery()
             ->getResult();
         return $notifications;

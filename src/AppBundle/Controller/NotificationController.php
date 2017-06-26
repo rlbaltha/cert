@@ -21,15 +21,15 @@ class NotificationController extends Controller
     /**
      * Lists all Notification entities.
      *
-     * @Route("/", name="notification")
+     * @Route("/list/{status}", name="notification", defaults={"status" = "Shared"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($status)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Notification')->findAll();
+        $entities = $em->getRepository('AppBundle:Notification')->findByStatus($status);
 
         return array(
             'entities' => $entities,
@@ -40,7 +40,7 @@ class NotificationController extends Controller
      *
      * @Route("/", name="notification_create")
      * @Method("POST")
-     * @Template("AppBundle:Notification:new.html.twig")
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -86,12 +86,15 @@ class NotificationController extends Controller
      *
      * @Route("/new", name="notification_new")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
         $entity = new Notification();
+        $now = date_create();
+        $entity->setDate($now);
         $form   = $this->createCreateForm($entity);
+
 
         return array(
             'entity' => $entity,
@@ -129,7 +132,7 @@ class NotificationController extends Controller
      *
      * @Route("/{id}/edit", name="notification_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -174,7 +177,7 @@ class NotificationController extends Controller
      *
      * @Route("/{id}", name="notification_update")
      * @Method("PUT")
-     * @Template("AppBundle:Notification:edit.html.twig")
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -193,7 +196,7 @@ class NotificationController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('notification_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('notification_show', array('id' => $id)));
         }
 
         return array(

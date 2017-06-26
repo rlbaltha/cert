@@ -96,17 +96,20 @@
                                         {% for notification in notifications %}
                                             {% set background %}
                                                 {% if notification.status=='New' %}#e4ffe8
+                                                {% elseif notification.status=='Shared' %}#ecffe6
                                                 {% else %}#dbf8ff
                                                 {% endif %}
                                             {% endset %}
                                             <tr style="background-color: {{ background }}">
-                                                <td>{{ notification.body|raw }}</td>
-                                                <td>Deadline: {{ notification.date |date("m/d/Y g:ia") }}</td>
-                                                <td>
-                                                    <a class="btn btn-primary  lign-right"
-                                                       href="{{ path('notification_dismiss',  { 'id': notification.id }) }}">
-                                                        Dismiss
-                                                    </a>
+                                                <td>Date: {{ notification.date |date("m/d/Y g:ia") }}</td>
+                                                <td>{{ notification.post.body|raw }}
+                                                    {{ notification.body|raw }}
+                                                    {% if notification.status!='Shared' %}
+                                                        <a class="btn btn-primary  "
+                                                           href="{{ path('notification_dismiss',  { 'id': notification.id }) }}">
+                                                            Dismiss
+                                                        </a>
+                                                    {% endif %}
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -743,7 +746,7 @@
                             {#  *********************** Capstone Checkpoints  *********************** #}
                             {% if entity.capstone %}
                             <a class="subhead" id="checkpoints_toggle"
-                               href="javascript:void(0);">{{ entity.capstone.project.name }}</a>
+                               href="javascript:void(0);">Checkpoints</a>
 
                             {% if app.user.username == entity.username %}
                                 <a href="{{ path('checkpoint_new', { 'id': entity.capstone.project.id }) }}"
