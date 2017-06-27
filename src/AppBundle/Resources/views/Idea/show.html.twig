@@ -33,9 +33,14 @@
             <h1>{{ entity.title }}</h1>
 
             {{ entity.description|raw }}
+            {% if is_granted('ROLE_ADMIN') %}
             <a class="float-sm-right btn btn-primary" href="{{ path('idea_edit', { 'id': entity.id }) }}">
                 Edit
             </a>
+            <a class="float-sm-right btn btn-primary" href="{{ path('idea_approve', { 'id': entity.id }) }}">
+                Approve
+            </a>
+            {% endif %}
 
                 <h1>Resource list</h1>
 

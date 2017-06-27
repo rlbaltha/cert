@@ -102,7 +102,10 @@
                                             {% endset %}
                                             <tr style="background-color: {{ background }}">
                                                 <td>Date: {{ notification.date |date("m/d/Y g:ia") }}</td>
-                                                <td>{{ notification.post.body|raw }}
+                                                <td>
+                                                    {% if notification.post%}
+                                                    {{ notification.post.body|raw }}
+                                                    {% endif %}
                                                     {{ notification.body|raw }}
                                                     {% if notification.status!='Shared' %}
                                                         <a class="btn btn-primary  "

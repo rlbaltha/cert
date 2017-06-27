@@ -31,6 +31,13 @@ class Idea
     /**
      * @var string
      *
+     * @ORM\Column(name="status", type="string", length=255)
+     */
+    private $status="pending";
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -138,5 +145,29 @@ class Idea
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Idea
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

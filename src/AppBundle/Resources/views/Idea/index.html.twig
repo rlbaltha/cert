@@ -60,17 +60,17 @@
                                 {% endfor %}
                             {% endif %}
                             {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item"><a href="{{ path('idea_new') }}">
-                                        New Idea
-                                    </a>
-                                </li>
                                 <li class="nav-item">
                                     <a href="{{ path('tag') }}">
                                         Tags
                                     </a>
                                 </li>
                             {% endif %}
-
+                            <li class="nav-item">
+                                <a href="{{ path('idea', {"status":"pending"}) }}">
+                                    Pending Ideas
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a id="tag_showall" href="javascript:void(0)">
                                     Show all
@@ -101,6 +101,13 @@
 
         <div class="col-sm-8">
             <h1>Capstone/Grant Ideas</h1>
+
+            {% for flash_message in app.session.flashBag.get('notice') %}
+                <div class="flash-notice alert alert-success">
+                    {{ flash_message }}
+                </div>
+            {% endfor %}
+
             <p>This list is designed to help you get started on imagining a capstone project or an Office of Sustainability grant project
             (or both).  The tags on the left are clickable.</p>
             <p>Have a great idea?  Submit it here:  <a class="btn btn-primary" href="{{ path('idea_new') }}">

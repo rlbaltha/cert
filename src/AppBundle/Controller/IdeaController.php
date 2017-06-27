@@ -21,15 +21,15 @@ class IdeaController extends Controller
     /**
      * Lists all Idea entities.
      *
-     * @Route("/", name="idea")
+     * @Route("/list/{status}", name="idea", defaults={"status":"approved"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($status)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Idea')->findAll();
+        $entities = $em->getRepository('AppBundle:Idea')->findByStatus($status);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
@@ -39,6 +39,7 @@ class IdeaController extends Controller
             'tags' => $tags,
         );
     }
+
     /**
      * Creates a new Idea entity.
      *
@@ -57,7 +58,12 @@ class IdeaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('idea_show', array('id' => $entity->getId())));
+            $this->addFlash(
+                'notice',
+                'Thanks for your idea.  We will review it for posting soon.'
+            );
+
+            return $this->redirect($this->generateUrl('idea', array('status' => 'approved')));
         }
 
         return array(
@@ -211,6 +217,27 @@ class IdeaController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Mark an existing Idea entity apptoved.
+     *
+     * @Route("/{id}/approve", name="idea_approve")
+     * @Method("GET")
+     * @Template()
+     */
+    public function approveAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $idea = $em->getRepository('AppBundle:Idea')->find($id);
+        $idea->setStatus('Approved');
+        $em->persist($idea);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('idea'));
+
+    }
+
     /**
      * Deletes a Idea entity.
      *
