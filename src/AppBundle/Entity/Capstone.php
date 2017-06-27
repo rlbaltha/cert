@@ -76,6 +76,27 @@ class Capstone
     /**
      * @var string
      *
+     * @ORM\Column(name="funding", type="text", nullable=true)
+     */
+    private $funding;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="completion", type="text", nullable=true)
+     */
+    private $completion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="repeatable", type="string", length=255, nullable=true)
+     */
+    private $repeatable='Yes';
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="personal_objectives", type="text", nullable=true)
      */
     private $personal_objectives;
@@ -114,6 +135,13 @@ class Capstone
      * @ORM\Column(name="mentor_email", type="string", length=255, nullable=true)
      */
     private $mentor_email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mentor_expectations", type="string", length=255, nullable=true)
+     */
+    private $mentor_expectations;
 
     /**
      * @var string
@@ -771,5 +799,102 @@ class Capstone
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * Set funding
+     *
+     * @param string $funding
+     *
+     * @return Capstone
+     */
+    public function setFunding($funding)
+    {
+        $this->funding = $funding;
+
+        return $this;
+    }
+
+    /**
+     * Get funding
+     *
+     * @return string
+     */
+    public function getFunding()
+    {
+        return $this->funding;
+    }
+
+    /**
+     * Set completion
+     *
+     * @param string $completion
+     *
+     * @return Capstone
+     */
+    public function setCompletion($completion)
+    {
+        $this->completion = $completion;
+
+        return $this;
+    }
+
+    /**
+     * Get completion
+     *
+     * @return string
+     */
+    public function getCompletion()
+    {
+        return $this->completion;
+    }
+
+    /**
+     * Set repeatable
+     *
+     * @param string $repeatable
+     *
+     * @return Capstone
+     */
+    public function setRepeatable($repeatable)
+    {
+        $this->repeatable = $repeatable;
+
+        return $this;
+    }
+
+    /**
+     * Get repeatable
+     *
+     * @return string
+     */
+    public function getRepeatable()
+    {
+        return $this->repeatable;
+    }
+
+
+    /**
+     * Set mentorExpectations
+     *
+     * @param string $mentorExpectations
+     *
+     * @return Capstone
+     */
+    public function setMentorExpectations($mentorExpectations)
+    {
+        $this->mentor_expectations = $mentorExpectations;
+
+        return $this;
+    }
+
+    /**
+     * Get mentorExpectations
+     *
+     * @return string
+     */
+    public function getMentorExpectations()
+    {
+        return $this->mentor_expectations;
     }
 }

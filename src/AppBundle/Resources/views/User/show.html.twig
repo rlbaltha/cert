@@ -663,29 +663,38 @@
                                         <td>{{ entity.capstone.title }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Type</th>
+                                        <th>Type of Project</th>
                                         <td>{{ entity.capstone.type }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Group</th>
-                                        <td>{{ entity.capstone.groupProject }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Group Members</th>
-                                        <td>{{ entity.capstone.groupMembers|raw }}</td>
                                     </tr>
                                     <tr>
                                         <th>Description</th>
                                         <td>{{ entity.capstone.description |raw }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Goals and Objectives</th>
-                                        <td>{{ entity.capstone.objectives|raw }}</td>
+                                        <th>Mentor</th>
+                                        <td>{{ entity.capstone.mentor }} {{ entity.capstone.mentorEmail }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Mentor Involvement</th>
+                                        <td>{{ entity.capstone.mentorExpectations }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Group</th>
+                                        <td>{{ entity.capstone.groupProject }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Group Members/Your Role</th>
+                                        <td>{{ entity.capstone.groupMembers|raw }}</td>
                                     </tr>
                                     <tr>
                                         <th>Resources/Partners</th>
                                         <td>{{ entity.capstone.partners|raw }}</td>
                                     </tr>
+                                    <tr>
+                                        <th>Goals and Objectives</th>
+                                        <td>{{ entity.capstone.objectives|raw }}</td>
+                                    </tr>
+
                                     <tr>
                                         <th>Personal Objectives</th>
                                         <td>{{ entity.capstone.personalObjectives|raw }}</td>
@@ -699,19 +708,24 @@
                                         <td>{{ entity.capstone.application|raw }}</td>
                                     </tr>
                                     <tr>
-                                        <th>Mentor</th>
-                                        <td>{{ entity.capstone.mentor }} {{ entity.capstone.mentorEmail }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Timeframe</th>
+                                        <th>Expected Completion Date</th>
                                         <td>{{ entity.capstone.timeframe }}</td>
                                     </tr>
+                                    <tr>
+                                        <th>After Completion</th>
+                                        <td>{{ entity.capstone.completion }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Repeatable/Extendable</th>
+                                        <td>{{ entity.capstone.repeatable }}</td>
+                                    </tr>
+
                                     <tr>
                                         <th>Status</th>
                                         <td>{{ entity.capstone.status }}<a name="reviews"></a></td>
                                     </tr>
                                     <tr>
-                                        <th>Updated</th>
+                                        <th>Last Updated</th>
                                         <td>{{ entity.capstone.updated |date("m/d/Y g:ia") }}</td>
                                     </tr>
                                     </tbody>

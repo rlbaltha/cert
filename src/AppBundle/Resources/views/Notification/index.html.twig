@@ -42,20 +42,18 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Post</th>
-                    <th>Body</th>
                     <th>Date</th>
+                    <th>Post/Body</th>
                     <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('notification_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                        <td>{{ entity.post.body|raw }}</td>
-                        <td>{{ entity.body|raw }}</td>
-                        <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td><a href="{{ path('notification_show', { 'id': entity.id }) }}">{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</a></td>
+                        <td>{% if entity.post %}{{ entity.post.body|raw }}{% endif %}
+                            {{ entity.body|raw }}
+                        </td>
                         <td>{{ entity.status }}</td>
                     </tr>
                 {% endfor %}
