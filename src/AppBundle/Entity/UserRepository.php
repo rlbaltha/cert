@@ -18,7 +18,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findUsersByType($type)
     {
-        $course = $this->createQueryBuilder('u')
+        $users = $this->createQueryBuilder('u')
             ->join('u.program', 'p')
             ->andWhere("u.progress = :type")
             ->setParameter('type', $type)
@@ -28,7 +28,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->addOrderBy('u.firstname', 'ASC')
             ->getQuery()
             ->getResult();
-        return $course;
+        return $users;
     }
 
     /**
@@ -38,7 +38,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findUsersByTerm($term, $date)
     {
-        $course = $this->createQueryBuilder('u')
+        $users = $this->createQueryBuilder('u')
             ->join('u.progress', 'p')
             ->join('u.program', 'pr')
             ->andWhere("pr.gradterm = :term")
@@ -50,7 +50,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->addOrderBy('u.firstname', 'ASC')
             ->getQuery()
             ->getResult();
-        return $course;
+        return $users;
     }
 
     /**
@@ -60,7 +60,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findStudents()
     {
-        $course = $this->createQueryBuilder('u')
+        $users = $this->createQueryBuilder('u')
             ->join('u.progress', 'p')
             ->join('u.program', 'pr')
             ->andWhere("p.name != 'Inactive' and p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
@@ -70,7 +70,46 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->addOrderBy('u.firstname', 'ASC')
             ->getQuery()
             ->getResult();
-        return $course;
+        return $users;
     }
 
+    /**
+     * Find student users
+     *
+     * @return User
+     */
+    public function findMentors()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->join('u.progress', 'p')
+            ->join('u.program', 'pr')
+            ->andWhere("p.name != 'Inactive' and p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
+            ->addOrderBy('pr.graddate', 'ASC')
+            ->addOrderBy('pr.gradterm', 'DESC')
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
+
+    /**
+     * Find student users
+     *
+     * @return User
+     */
+    public function findMentees()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->join('u.progress', 'p')
+            ->join('u.program', 'pr')
+            ->andWhere("pr.mentor = 'Yes'")
+            ->addOrderBy('pr.graddate', 'ASC')
+            ->addOrderBy('pr.gradterm', 'DESC')
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
 }

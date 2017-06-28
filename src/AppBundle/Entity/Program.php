@@ -175,6 +175,13 @@ class Program
      */
     private $major2;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mentor", type="string", length=255, nullable=true)
+     */
+    private $mentor='Yes';
+
 
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="program")
@@ -820,5 +827,29 @@ class Program
     public function getMajor2()
     {
         return $this->major2;
+    }
+
+    /**
+     * Set mentor
+     *
+     * @param string $mentor
+     *
+     * @return Program
+     */
+    public function setMentor($mentor)
+    {
+        $this->mentor = $mentor;
+
+        return $this;
+    }
+
+    /**
+     * Get mentor
+     *
+     * @return string
+     */
+    public function getMentor()
+    {
+        return $this->mentor;
     }
 }

@@ -15,31 +15,6 @@ class ProgramType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('school', 'choice', array(
-//                'required' => true,
-//                'multiple' => false,
-//                'label' => 'School/College',
-//                'choices' => array(
-//                    'Franklin' => 'Franklin',
-//                    'CAES' => 'CAES',
-//                    'Terry' => 'Terry',
-//                    'Ecology' => 'Ecology',
-//                    'Engineering' => 'Engineering',
-//                    'CE+D' => 'CE+D',
-//                    'FACS' => 'FACS',
-//                    'Warnell' => 'Warnell',
-//                    'Social Work' => 'Social Work',
-//                    'Grady' => 'Grady',
-//                    'SPIA' => 'SPIA',
-//                    'Public Health' => 'Public Health',
-//                ),
-//                // *this line is important*
-//                'choices_as_values' => true,
-//                'expanded' => false,
-//                'attr' => array('class' =>'form-control'),
-//            ))
-//            ->add('program', 'text', array('label' => 'Major/Degree Program', 'attr' => array('class' => 'form-control'),))
-// Migrating to explicit school and major from drop down for data integrity
             ->add('school1', 'entity', array('required' => true,'class' => 'AppBundle\Entity\School',
                 'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
                     'form-control'),))
@@ -128,7 +103,17 @@ class ProgramType extends AbstractType
                 'editor_simple',))
             ->add('goals', 'ckeditor', array('required' => false, 'label' => 'What are your goals', 'config_name'
             =>
-                'editor_simple',));
+                'editor_simple',))
+            ->add('mentor', 'choice', array(
+                'label' => 'Would you like to have a Certificate mentor?',
+                'choices' => array(
+                    'Yes' => 'Yes',
+                    'No' => 'No'
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => true,
+            ));
     }
 
     /**

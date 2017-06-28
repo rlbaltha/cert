@@ -55,7 +55,8 @@
             </div>
         </div>
         <div class="col-sm-8">
-            <h1>{% if app.request.get('type')=='all' %}All Accounts ({{ entities|length }}){% elseif app.request.get('type')=='students' %}All Students ({{ entities|length }}){% else %}
+            <h1>{% if app.request.get('type')=='all' %}All Accounts ({{ entities|length }}){% elseif app.request.get('type')=='students' %}All Students ({{ entities|length }})
+                {% elseif app.request.get('type')=='mentees' %}Mentees{% elseif app.request.get('type')=='mentors' %}Mentors{% else %}
                     {% if entities %}{{ entities[0].progress.name }} ({{ entities|length }}){% else %}Nothing found{% endif %}
                 {% endif %}
             </h1>
