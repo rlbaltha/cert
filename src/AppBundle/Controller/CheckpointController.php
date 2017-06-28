@@ -57,7 +57,7 @@ class CheckpointController extends Controller
         $form->handleRequest($request);
 
         // create notification
-        $post = $em->getRepository('AppBundle:Post')->find(1)->getBody();
+        $post = $em->getRepository('AppBundle:Post')->find(15)->getBody();
         $date = $entity->getDeadline();
         $href_id = $entity->getId();
         $notifierManager = new NotifierManager($em);
