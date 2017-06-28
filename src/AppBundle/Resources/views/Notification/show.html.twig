@@ -46,6 +46,18 @@
                     <td>{{ entity.id }}</td>
                 </tr>
                 <tr>
+                    <th>Display Start</th>
+                    <td>{{ entity.displayStart|date('m-d-Y h:i a') }}</td>
+                </tr>
+                <tr>
+                    <th>Display End</th>
+                    <td>{{ entity.displayEnd|date('m-d-Y h:i a') }}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ entity.date|date('m-d-Y h:i a') }}</td>
+                </tr>
+                <tr>
                     <th>Post</th>
                     <td>{{ entity.post.body|raw }}</td>
                 </tr>
@@ -53,10 +65,7 @@
                     <th>Body</th>
                     <td>{{ entity.body|raw }}</td>
                 </tr>
-                <tr>
-                    <th>Date</th>
-                    <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
-                </tr>
+
                 <tr>
                     <th>Status</th>
                     <td>{{ entity.status }}</td>
