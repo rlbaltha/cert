@@ -59,7 +59,7 @@
                 </tr>
                 <tr>
                     <th>Post</th>
-                    <td>{{ entity.post.body|raw }}</td>
+                    <td>{% if entity.post %}{{ entity.post.body|raw }}{% endif %}</td>
                 </tr>
                 <tr>
                     <th>Body</th>
