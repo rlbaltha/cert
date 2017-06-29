@@ -116,6 +116,7 @@ class SourceController extends Controller
 
         $entity = $em->getRepository('AppBundle:Source')->find($id);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Source entity.');
@@ -126,6 +127,7 @@ class SourceController extends Controller
         return array(
             'entity'      => $entity,
             'section' => $section,
+            'tags' => $tags,
             'delete_form' => $deleteForm->createView(),
         );
     }

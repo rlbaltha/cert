@@ -123,6 +123,7 @@ class IdeaController extends Controller
         $entity = $em->getRepository('AppBundle:Idea')->find($id);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
         $sources = $em->getRepository('AppBundle:Source')->findSourcesByIdea($id);
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Idea entity.');
@@ -132,9 +133,10 @@ class IdeaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity'       => $entity,
             'sources'      => $sources,
             'section'      => $section,
+            'tags'         => $tags,
             'delete_form' => $deleteForm->createView(),
         );
     }

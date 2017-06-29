@@ -51,15 +51,40 @@
                             {% if section is defined %}
                                 {% for page in section.pages %}
                                     {% if (page.link is null or page.link == '') %}
-                                        <li class="nav-item"><a
-                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        <li class="nav-item">
+                                            <a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
                                         </li>
                                     {% else %}
                                         <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
+                            <li class="nav-item">
+                                <a href="{{ path('idea', {"status":"approved"}) }}">
+                                    Capstone Ideas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('source') }}">
+                                    Capstone Resources
+                                </a>
+                            </li>
+                            {% if is_granted('ROLE_USER') %}
+                                <li class="nav-item">
+                                    <a href="{{ path('capstones_completed') }}">
+                                        Completed Capstones
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a id="tag_showall" href="javascript:void(0)">
+                                    Show all
+                                </a>
+                            </li>
                             {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item">
+                                Admin
+                                </li>
                                 <li class="nav-item">
                                     <a href="{{ path('tag') }}">
                                         Tags
@@ -71,11 +96,6 @@
                                     </a>
                                 </li>
                             {% endif %}
-                            <li class="nav-item">
-                                <a id="tag_showall" href="javascript:void(0)">
-                                    Show all
-                                </a>
-                            </li>
                             {% for tag in tags if tag.subs|length > 0 %}
                                 <li class="nav-item">
                                     <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
