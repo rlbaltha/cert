@@ -93,6 +93,8 @@ class NotificationController extends Controller
         $entity = new Notification();
         $now = date_create();
         $entity->setDate($now);
+        $entity->setDisplayStart($now);
+        $entity->setDisplayEnd($now);
         $form   = $this->createCreateForm($entity);
 
 

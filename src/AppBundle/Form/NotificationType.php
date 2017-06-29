@@ -24,6 +24,14 @@ class NotificationType extends AbstractType
                 array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
                 ),
                 'attr' => array('class' => 'form-control'),))
+            ->add('display_start', DatetimeType::class, array('label'  => 'Start Display','pickerOptions' =>
+                array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
+                ),
+                'attr' => array('class' => 'form-control'),))
+            ->add('display_end', DatetimeType::class, array('label'  => 'End Display','pickerOptions' =>
+                array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
+                ),
+                'attr' => array('class' => 'form-control'),))
             ->add('status', 'choice', array(
                 'attr' => array('class' => 'form-control'),
                 'choices'  => array(

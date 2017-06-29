@@ -22,13 +22,15 @@ class NotifierManager
     }
     public function createNotifier($date, $user, $post)
     {
-
+        $startdate = clone $date;
+        $startdate->sub(new \DateInterval('P7D'));
         $notification = new Notification();
         $notification->setBody($post);
         $notification->setStatus('New');
         $notification->setUser($user);
         $notification->setDate($date);
-
+        $notification->setDisplayEnd($date);
+        $notification->setDisplayStart($startdate);
 
         $this->em->persist($notification);
         $this->em->flush();

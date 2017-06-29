@@ -16,13 +16,16 @@ class NotificationRepository extends \Doctrine\ORM\EntityRepository
      * @return Notification
      */
     public function findCurrent($user) {
+        $now = date_create();
         $notifications = $this->createQueryBuilder('n')
+            ->andWhere('n.display_start < :now')
+            ->andWhere('n.display_end > :now')
             ->andWhere('n.status != :status')
-            ->andWhere('n.user = :user')
-            ->orWhere('n.status = :status2')
+            ->andWhere('n.user = :user or n.status = :status2')
             ->setParameter('status', 'Dismissed')
             ->setParameter('user', $user)
             ->setParameter('status2', 'Shared')
+            ->setParameter('now', $now)
             ->getQuery()
             ->getResult();
         return $notifications;

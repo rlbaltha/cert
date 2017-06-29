@@ -36,6 +36,20 @@ class Notification
     private $date;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="display_start", type="datetime")
+     */
+    private $display_start;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="display_end", type="datetime")
+     */
+    private $display_end;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=255)
@@ -181,5 +195,53 @@ class Notification
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Set displayStart
+     *
+     * @param \DateTime $displayStart
+     *
+     * @return Notification
+     */
+    public function setDisplayStart($displayStart)
+    {
+        $this->display_start = $displayStart;
+
+        return $this;
+    }
+
+    /**
+     * Get displayStart
+     *
+     * @return \DateTime
+     */
+    public function getDisplayStart()
+    {
+        return $this->display_start;
+    }
+
+    /**
+     * Set displayEnd
+     *
+     * @param \DateTime $displayEnd
+     *
+     * @return Notification
+     */
+    public function setDisplayEnd($displayEnd)
+    {
+        $this->display_end = $displayEnd;
+
+        return $this;
+    }
+
+    /**
+     * Get displayEnd
+     *
+     * @return \DateTime
+     */
+    public function getDisplayEnd()
+    {
+        return $this->display_end;
     }
 }
