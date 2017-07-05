@@ -59,6 +59,9 @@ class FacultyType extends AbstractType
                         ->orderBy('c.name ');
                 },
               'property' => 'name','expanded'=>true,'multiple'=>true,'label'  => 'Courses', 'label_attr'=> array('class' => 'checkbox-inline'),))
+            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
+                    'checkbox'),))
         ;
     }
     

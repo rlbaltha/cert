@@ -38,12 +38,14 @@
                                                 href="{{ path('faculty_edit', { 'id': entity.id }) }}">
                     Edit</a>{% endif %}
             <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
-            {% if entity.status =='advisory' %}<p>Advisory Board</p>{% endif %}
+            {% for tag in entity.tags %}<div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
+            {% if entity.status =='advisory' %}<p class="margin-top">Advisory Board</p>{% endif %}
             {% if entity.mentor =='yes' %}<p>{{ entity.firstname }} {{ entity.lastname }} is willing to mentor a capstone project.</p>{% endif %}
             {% if entity.photo != '' %}
                 <img class="img-rounded img-responsive pull-right" style="max-width: 30%; margin: 20px;"
                      alt="{{ entity.firstname }} {{ entity.firstname }}" src="{{ entity.photo }}"/>
             {% endif %}
+
             <p>{{ entity.dept }}</p>
             <p>{{ entity.email }}</p>
             <p>{{ entity.detail|raw }}</p>

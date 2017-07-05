@@ -91,6 +91,11 @@ class Faculty
     private $detail;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="faculty")
+     */
+    protected $tags;
+
+    /**
      * Get id
      *
      * @return integer
@@ -355,5 +360,39 @@ class Faculty
     public function getMentor()
     {
         return $this->mentor;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Faculty
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
