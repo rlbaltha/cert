@@ -48,7 +48,7 @@
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
                             {% if section is defined %}
-                                {% for page in section.pages %}
+                                {% for page in section.pages if page.access=='public' %}
                                     {% if (page.link is null or page.link == '') %}
                                         <li class="nav-item"><a
                                                     href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
@@ -57,28 +57,24 @@
                                         <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
                                     {% endif %}
                                 {% endfor %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item"><strong>Admin</strong></li>
+                                    {% for page in section.pages if page.access=='admin' %}
+                                        {% if (page.link is null or page.link == '') %}
+                                            <li class="nav-item"><a
+                                                        href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             {% endif %}
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li class="nav-item"><a href="{{ path('faculty_new') }}">
                                         New Listing
                                     </a></li>
                             {% endif %}
-                            {% for tag in tags if tag.subs|length > 0 %}
-                                <li class="nav-item">
-                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                    {% for tag in tag.subs %}
-                                        <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                    {% endfor %}
-                                </li>
-                            {% endfor %}
-                            <li class="nav-item">
-                                {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
-                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                {% endfor %}
-                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -123,15 +119,26 @@
                 {% endif %}
             {% endif %}
 
+            {% for tag in tags if tag.subs|length > 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% for tag in tag.subs %}
+                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% endfor %}
+            {% endfor %}
+            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+            {% endfor %}
+            <div id="tag_showall" class="btn btn-primary btn-sm tag_filter">Show all</div>
 
             <table class="table sort">
                 <thead>
                 <tr>
                     <th>Name</th>
                     <th>Dept</th>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <th>Tags</th>
-                    {% endif %}
+                    <th>Tags</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -150,7 +157,8 @@
                 </tbody>
             </table>
             {% if is_granted('ROLE_ADMIN') %}
-            <p>Email list: {% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
+                <p>Email
+                    list: {% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
             {% endif %}
         </div>
 
