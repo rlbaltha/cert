@@ -58,6 +58,11 @@ class Tag
     protected $sources;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Faculty", mappedBy="tags")
+     */
+    protected $faculty;
+
+    /**
      * @ORM\OneToMany(targetEntity="Tag", mappedBy="top")
      * @ORM\OrderBy({"sortorder" = "ASC"})
      */

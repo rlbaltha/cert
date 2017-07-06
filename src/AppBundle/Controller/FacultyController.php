@@ -32,12 +32,15 @@ class FacultyController extends Controller
 
         $entities = $em->getRepository('AppBundle:Faculty')->findAllSorted($status);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Faculty');
+        $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(
-          'entities' => $entities,
-          'section' => $section
+            'entities' => $entities,
+            'tags' => $tags,
+            'section' => $section
         );
     }
+
     /**
      * Creates a new Faculty entity.
      *
@@ -61,7 +64,7 @@ class FacultyController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -79,7 +82,7 @@ class FacultyController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -94,11 +97,11 @@ class FacultyController extends Controller
     public function newAction()
     {
         $entity = new Faculty();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -121,8 +124,8 @@ class FacultyController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'section'      => $section,
+            'entity' => $entity,
+            'section' => $section,
         );
     }
 
@@ -147,19 +150,19 @@ class FacultyController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Faculty entity.
-    *
-    * @param Faculty $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Faculty entity.
+     *
+     * @param Faculty $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Faculty $entity)
     {
         $form = $this->createForm(new FacultyType(), $entity, array(
@@ -167,10 +170,11 @@ class FacultyController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
+
     /**
      * Edits an existing Faculty entity.
      *
@@ -199,11 +203,12 @@ class FacultyController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Faculty entity.
      *
@@ -242,8 +247,7 @@ class FacultyController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('faculty_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
+            ->getForm();
     }
 }

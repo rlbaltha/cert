@@ -1,5 +1,41 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "filter", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"],
+                    filter_reset: ".reset",
+                    filter_cssFilter: "form-control",
+                },
+                headers: {}
+            });
+            $('.tag_filter').click(function (event) {
+                var row_selector = 'div.tag' + event.target.id;
+                $('.faculty_row').hide();
+                $(row_selector).parent().parent().show();
+            });
+            $('#tag_showall').click(function () {
+                $('.faculty_row').show();
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body -%}
     <div class="row">
         <div class="col-sm-3">
@@ -27,6 +63,22 @@
                                         New Listing
                                     </a></li>
                             {% endif %}
+                            {% for tag in tags if tag.subs|length > 0 %}
+                                <li class="nav-item">
+                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                    {% for tag in tag.subs %}
+                                        <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                            <li class="nav-item">
+                                {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                {% endfor %}
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -78,23 +130,21 @@
                     <th>Name</th>
                     <th>Dept</th>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <th>Actions</th>
+                        <th>Tags</th>
                     {% endif %}
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
-                    <tr>
+                    <tr class="faculty_row">
                         <td>
                             <a href="{{ path('faculty_show', { 'id': entity.id }) }}">{{ entity.firstname }} {{ entity.lastname }}</a>
                         </td>
                         <td>{{ entity.dept }}</td>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <td>
-                                <a class="btn btn-primary"
-                                   href="{{ path('faculty_edit', { 'id': entity.id }) }}">edit</a>
-                            </td>
-                        {% endif %}
+                        <td>{% for tag in entity.tags %}
+                                <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
