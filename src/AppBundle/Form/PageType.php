@@ -22,6 +22,18 @@ class PageType extends AbstractType
             ->add('section', 'entity', array('class' => 'AppBundle\Entity\Section',
             'property' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Section', 'attr' => array('class' =>
                 'form-control'),))
+            ->add('access', 'choice', array(
+                'required' => true,
+                'multiple' => false,
+                'label' => 'Access',
+                'choices' => array(
+                    'public' => 'public',
+                    'admin' => 'admin',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => true,
+            ))
         ;
     }
     

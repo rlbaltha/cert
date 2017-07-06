@@ -14,6 +14,15 @@
                             <li><a href="{{ path('section_new') }}">
                                     New Section
                                 </a></li>
+                            <li><a href="{{ path('section') }}">
+                                    List Sections
+                                </a></li>
+                            <li><a href="{{ path('page_new') }}">
+                                    New Page
+                                </a></li>
+                            <li><a href="{{ path('page') }}">
+                                    List Pages
+                                </a></li>
                         </ul>
                     </div>
                 </nav>
@@ -21,26 +30,20 @@
             </div>
         </div>
         <div class="col-sm-8">
-            <h1>Section list</h1>
+            <h1>Sections</h1>
 
             <table class="table">
                 <thead>
                 <tr>
                     <th>Title</th>
                     <th>Header</th>
-                    <th>Masthead</th>
-                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
                     <tr>
                         <td><a href="{{ path('section_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                        <td>{{ entity.header }}</td>
-                        <td>{{ entity.masthead }}</td>
-                        <td>
-                            <a class="btn btn-primary" href="{{ path('section_edit', { 'id': entity.id }) }}">Edit</a>
-                        </td>
+                        <td>{{ entity.header|raw }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

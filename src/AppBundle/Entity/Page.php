@@ -44,6 +44,13 @@ class Page
     private $link;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="access", type="string", length=255, nullable=true)
+     */
+    private $access='public';
+
+    /**
      * @var integer $sortOrder
      *
      * @ORM\Column(name="sortorder", type="integer", nullable=true)
@@ -247,5 +254,29 @@ class Page
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set access
+     *
+     * @param string $access
+     *
+     * @return Page
+     */
+    public function setAccess($access)
+    {
+        $this->access = $access;
+
+        return $this;
+    }
+
+    /**
+     * Get access
+     *
+     * @return string
+     */
+    public function getAccess()
+    {
+        return $this->access;
     }
 }

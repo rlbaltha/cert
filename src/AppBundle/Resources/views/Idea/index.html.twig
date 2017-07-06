@@ -22,15 +22,14 @@
                     filter_reset: ".reset",
                     filter_cssFilter: "form-control",
                 },
-                headers: {
-                }
+                headers: {}
             });
-            $('.tag_filter').click(function(event) {
+            $('.tag_filter').click(function (event) {
                 var row_selector = 'div.tag' + event.target.id;
                 $('.idea_row').hide();
                 $(row_selector).parent().parent().show();
             });
-            $('#tag_showall').click(function() {
+            $('#tag_showall').click(function () {
                 $('.idea_row').show();
             });
         });
@@ -49,15 +48,27 @@
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
                             {% if section is defined %}
-                                {% for page in section.pages %}
+                                {% for page in section.pages if page.access=='public' %}
                                     {% if (page.link is null or page.link == '') %}
-                                        <li class="nav-item">
-                                            <a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
                                         </li>
                                     {% else %}
                                         <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
                                     {% endif %}
                                 {% endfor %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item"><strong>Admin</strong></li>
+                                    {% for page in section.pages if page.access=='admin' %}
+                                        {% if (page.link is null or page.link == '') %}
+                                            <li class="nav-item"><a
+                                                        href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             {% endif %}
                             <li class="nav-item">
                                 <a href="{{ path('idea', {"status":"approved"}) }}">
@@ -81,37 +92,6 @@
                                     Show all
                                 </a>
                             </li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item">
-                                Admin
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ path('tag') }}">
-                                        Tags
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ path('idea', {"status":"pending"}) }}">
-                                        Pending Ideas
-                                    </a>
-                                </li>
-                            {% endif %}
-                            {% for tag in tags if tag.subs|length > 0 %}
-                                <li class="nav-item">
-                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                    {% for tag in tag.subs %}
-                                        <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                    {% endfor %}
-                                </li>
-                            {% endfor %}
-                            <li class="nav-item">
-                                {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
-                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                {% endfor %}
-                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -128,11 +108,26 @@
                 </div>
             {% endfor %}
 
-            <p>This list is designed to help you get started on imagining a capstone project or an Office of Sustainability grant project
-            (or both).  The tags on the left are clickable.</p>
-            <p>Have a great idea?  Submit it here:  <a class="btn btn-primary" href="{{ path('idea_new') }}">
+            <p>This list is designed to help you get started on imagining a capstone project or an Office of
+                Sustainability grant project
+                (or both). The tags on the left are clickable.</p>
+            <p>Have a great idea? Submit it here: <a class="btn btn-primary" href="{{ path('idea_new') }}">
                     Idea Submission Form
                 </a></p>
+
+            {% for tag in tags if tag.subs|length > 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% for tag in tag.subs %}
+                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% endfor %}
+            {% endfor %}
+            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+            {% endfor %}
+            <div id="tag_showall" class="btn btn-primary btn-sm tag_filter">Show all</div>
 
             <table class="table">
                 <thead>

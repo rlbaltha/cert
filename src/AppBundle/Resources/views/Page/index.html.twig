@@ -1,5 +1,33 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "filter", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"],
+                    filter_reset: ".reset",
+                    filter_cssFilter: "form-control",
+                },
+                headers: {}
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body -%}
 <div class="row">
     <div class="col-sm-3">
@@ -11,11 +39,18 @@
                 </button>
                 <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                     <ul class="nav navbar-sidenav">
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li class="nav-item">
-                                <a href="{{ path('page_new') }}">New Page</a>
-                            </li>
-                        {% endif %}
+                        <li><a href="{{ path('section_new') }}">
+                                New Section
+                            </a></li>
+                        <li><a href="{{ path('section') }}">
+                                List Sections
+                            </a></li>
+                        <li><a href="{{ path('page_new') }}">
+                                New Page
+                            </a></li>
+                        <li><a href="{{ path('page') }}">
+                                List Pages
+                            </a></li>
                     </ul>
                 </div>
             </nav>
@@ -30,16 +65,19 @@
 
         <table class="table">
             <thead>
-            <tr class="sr-only">
+            <tr>
+                <th>Section</th>
+                <th>Sort order</th>
                 <th>Title</th>
-                <th>Body</th>
+                <th>Access</th>
             </tr>
             </thead>
             <tbody>
             {% for entity in entities %}
-                <tr>
+                <tr><td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
+                    <td>{{ entity.sortOrder }}</td>
                     <td><a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                    <td>{% if is_granted('ROLE_ADMIN') %}<a href="{{ path('page_edit', { 'id': entity.id }) }}">edit</a>{% endif %}</td>
+                    <td>{{ entity.access }}</td>
                 </tr>
             {% endfor %}
             </tbody>
