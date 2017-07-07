@@ -58,8 +58,10 @@
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '7' }) }}">Faculty</a></li>
                 <li class="nav-item"><a href="{{ path('course') }}">Courses</a></li>
                 <li class="nav-item"><a href="{{ path('idea', {"status":"approved"}) }}">Capstones</a></li>
+                <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Events</a></li>
                 <li class="nav-item"><a href="{{ path('page_newsletter') }}">Newsletter</a></li>
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '26' }) }}">Contact Us</a></li>
+
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item"></li>
