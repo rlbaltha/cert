@@ -22,16 +22,17 @@ class EventController extends Controller
      * Lists all Event entities.
      *
      * @Route("/", name="event")
+     * @Route("/{section}/list", name="event", defaults={"section" = "capstone"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($section)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
         $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent();
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Events');
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 
         return array(
@@ -111,17 +112,18 @@ class EventController extends Controller
      * Finds and displays a Event entity.
      *
      * @Route("/{id}", name="event_show")
+     * @Route("/{section}/{id}/detail", name="event_show", defaults={"section" = "capstone"})
      * @Method("GET")
      * @Template("AppBundle:Event:index.html.twig")
      */
-    public function showAction($id)
+    public function showAction($id, $section)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = ucfirst($section);
         $event = $em->getRepository('AppBundle:Event')->find($id);
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
         $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent();
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Events');
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 
         if (!$event) {

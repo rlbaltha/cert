@@ -29,58 +29,65 @@
 {% endblock %}
 
 {% block body -%}
-<div class="row">
-    <div class="col-sm-3">
-        <div class="bootstrap-vertical-nav">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
 
-            <nav class="navbar navbar-dark">
-                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-                    &#9776;
-                </button>
-                <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                    <ul class="nav navbar-sidenav">
-                        <li><a href="{{ path('section_new') }}">
-                                New Section
-                            </a></li>
-                        <li><a href="{{ path('section') }}">
-                                List Sections
-                            </a></li>
-                        <li><a href="{{ path('page_new') }}">
-                                New Page
-                            </a></li>
-                        <li><a href="{{ path('page') }}">
-                                List Pages
-                            </a></li>
-                    </ul>
-                </div>
-            </nav>
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            <li class="nav-item"><a href="{{ path('section_new') }}">
+                                    New Section
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('section') }}">
+                                    List Sections
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('page_new') }}">
+                                    New Page
+                                </a></li>
+                            <li class="nav-item"><a href="{{ path('page') }}">
+                                    List Pages
+                                </a></li>
+                        </ul>
+                    </div>
+                </nav>
 
+            </div>
+        </div>
+
+
+        <div class="col-sm-8">
+            <h1>Pages</h1>
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Section</th>
+                    <th>Sort order</th>
+                    <th>Title</th>
+                    <th>Link</th>
+                    <th>Access</th>
+                    <th>Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
+                        <td>{{ entity.sortOrder }}</td>
+                        <td><a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+                        <td>{{ entity.link }}</td>
+                        <td>{{ entity.access }}</td>
+                        <td><a class="btn btn-primary btn-sm" href="{{ path('page_edit', { 'id': entity.id }) }}">Edit</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-
-
-    <div class="col-sm-8">
-        <h1>Pages</h1>
-
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Section</th>
-                <th>Sort order</th>
-                <th>Title</th>
-                <th>Access</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for entity in entities %}
-                <tr><td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
-                    <td>{{ entity.sortOrder }}</td>
-                    <td><a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                    <td>{{ entity.access }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% endblock %}
+{% endblock %}

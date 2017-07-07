@@ -11,19 +11,19 @@
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
-                            <li><a href="{{ path('section_new') }}">
+                            <li class="nav-item"><a href="{{ path('section_new') }}">
                                     New Section
                                 </a></li>
-                            <li><a href="{{ path('section') }}">
+                            <li class="nav-item"><a href="{{ path('section') }}">
                                 List Sections
                             </a></li>
-                            <li><a href="{{ path('section_edit', { 'id': entity.id }) }}">
+                            <li class="nav-item"><a href="{{ path('section_edit', { 'id': entity.id }) }}">
                                 Edit Section
                             </a></li>
-                            <li><a href="{{ path('page_new') }}">
+                            <li class="nav-item"><a href="{{ path('page_new') }}">
                                 New Page
                             </a></li>
-                            <li><a href="{{ path('page') }}">
+                            <li class="nav-item"><a href="{{ path('page') }}">
                                     List Pages
                                 </a></li>
                         </ul>
@@ -54,18 +54,25 @@
 
 
             <h2>Pages</h2>
+
             <table class="table">
                 <thead>
-                <tr class="sr-only">
+                <tr>
+                    <th>Sort order</th>
                     <th>Title</th>
-                    <th>Body</th>
+                    <th>Link</th>
+                    <th>Access</th>
+                    <th>Edit</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for page in entity.pages %}
+                {% for entity in entity.pages %}
                     <tr>
-                        <td><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></td>
-                        <td>{{ page.body|slice(0, 100)| raw }}. . .{% if is_granted('ROLE_ADMIN') %}<a class="btn btn-primary pull-xs-right" href="{{ path('page_edit', { 'id': page.id }) }}">Edit</a>{% endif %}</td>
+                        <td>{{ entity.sortOrder }}</td>
+                        <td><a href="{{ path('page_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+                        <td>{{ entity.link }}</td>
+                        <td>{{ entity.access }}</td>
+                        <td><a class="btn btn-primary btn-sm" href="{{ path('page_edit', { 'id': entity.id }) }}">Edit</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

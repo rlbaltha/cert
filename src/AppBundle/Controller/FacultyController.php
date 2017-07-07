@@ -22,16 +22,16 @@ class FacultyController extends Controller
     /**
      * Lists all Faculty entities.
      *
-     * @Route("/list/{status}", name="faculty")
+     * @Route("/{section}/{status}/list", name="faculty", defaults={"section" = "faculty"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction($status)
+    public function indexAction($status, $section)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Faculty')->findAllSorted($status);
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Faculty');
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(
@@ -108,16 +108,16 @@ class FacultyController extends Controller
     /**
      * Finds and displays a Faculty entity.
      *
-     * @Route("/{id}", name="faculty_show")
+     * @Route("/{section}/{id}/detail", name="faculty_show", defaults={"section" = "faculty"})
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($id, $section)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = ucfirst($section);
         $entity = $em->getRepository('AppBundle:Faculty')->find($id);
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Faculty');
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Faculty entity.');

@@ -42,15 +42,23 @@
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
                             {% if section is defined %}
-                                {% for page in section.pages %}
+                                {% for page in section.pages if page.access=='public' %}
                                     {% if (page.link is null or page.link == '') %}
-                                        <li class="nav-item"><a
-                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
-                                        </li>
+                                        <li class="nav-item"><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></li>
                                     {% else %}
-                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                        <li class="nav-item" ><a href="{{ page.link }}">{{ page.title }}</a></li>
                                     {% endif %}
                                 {% endfor %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item"><strong>Admin</strong></li>
+                                    {% for page in section.pages if page.access=='admin' %}
+                                        {% if (page.link is null or page.link == '') %}
+                                            <li class="nav-item"><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></li>
+                                        {% else %}
+                                            <li class="nav-item" ><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             {% endif %}
                         </ul>
 

@@ -84,28 +84,24 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/network/{type}", name="network", defaults={"type" = "students"})
+     * @Route("/{section}/{type}/network", name="network", defaults={"type" = "students", "section" = "capstone"})
      * @Method("GET")
      * @Template("AppBundle:User:network.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
-    public function networkAction($type)
+    public function networkAction($type, $section)
     {
         $em = $this->getDoctrine()->getManager();
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
+        $section = ucfirst($section);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         if ($type == 'all') {
             $entities = $em->getRepository('AppBundle:User')->findAll();
-        } elseif ($type == 'students') {
-            $entities = $em->getRepository('AppBundle:User')->findStudents();
         } else {
-            $type = $em->getRepository('AppBundle:Status')->find($type);
-            $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
+            $entities = $em->getRepository('AppBundle:User')->findStudents();
         }
-        $status = $em->getRepository('AppBundle:Status')->findAll();
         return array(
             'entities' => $entities,
             'section' => $section,
-            'status' => $status,
         );
     }
 

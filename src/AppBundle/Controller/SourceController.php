@@ -21,16 +21,16 @@ class SourceController extends Controller
     /**
      * Lists all Source entities.
      *
-     * @Route("/", name="source")
+     * @Route("/{section}/list", name="source", defaults={"section" = "capstone"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($section)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Source')->findSourcesSorted();
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(
@@ -106,16 +106,16 @@ class SourceController extends Controller
     /**
      * Finds and displays a Source entity.
      *
-     * @Route("/{id}", name="source_show")
+     * @Route("/{section}/{id}/detail", name="source_show", defaults={"section" = "capstone"})
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($id, $section)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = ucfirst($section);
         $entity = $em->getRepository('AppBundle:Source')->find($id);
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         if (!$entity) {

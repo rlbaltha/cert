@@ -94,22 +94,6 @@
                                     </a>
                                 </li>
                             {% endif %}
-                            {% for tag in tags if tag.subs|length > 0 %}
-                                <li class="nav-item">
-                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                    {% for tag in tag.subs %}
-                                        <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                    {% endfor %}
-                                </li>
-                            {% endfor %}
-                            <li class="nav-item">
-                                {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
-                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                {% endfor %}
-                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -118,9 +102,24 @@
         </div>
 
         <div class="col-sm-8">
+
             <h1>Completed Capstone</h1>
             <p>This list is designed to help you get started on imagining a capstone project or an Office of Sustainability grant project
             (or both).  The tags on the left are clickable.</p>
+
+            {% for tag in tags if tag.subs|length > 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% for tag in tag.subs %}
+                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% endfor %}
+            {% endfor %}
+            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+            {% endfor %}
+            <div id="tag_showall" class="btn btn-primary btn-sm tag_filter">Show all</div>
 
             <table class="table">
                 <thead>

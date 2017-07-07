@@ -21,16 +21,16 @@ class IdeaController extends Controller
     /**
      * Lists all Idea entities.
      *
-     * @Route("/list/{status}", name="idea", defaults={"status":"approved"})
+     * @Route("/{section}/{status}/list", name="idea", defaults={"status" = "approved", "section" = "capstone"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction($status)
+    public function indexAction($status, $section)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Idea')->findByStatus($status);
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
         return array(
@@ -63,7 +63,7 @@ class IdeaController extends Controller
                 'Thanks for your idea.  We will review it for posting soon.'
             );
 
-            return $this->redirect($this->generateUrl('idea', array('status' => 'approved')));
+            return $this->redirect($this->generateUrl('idea', array('status' => 'approved', 'section' => 'capstone')));
         }
 
         return array(
@@ -112,16 +112,16 @@ class IdeaController extends Controller
     /**
      * Finds and displays a Idea entity.
      *
-     * @Route("/{id}", name="idea_show")
+     * @Route("/{section}/{id}/detail", name="idea_show", defaults={"section" = "capstone"})
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($id, $section)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = ucfirst($section);
         $entity = $em->getRepository('AppBundle:Idea')->find($id);
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $sources = $em->getRepository('AppBundle:Source')->findSourcesByIdea($id);
         $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
