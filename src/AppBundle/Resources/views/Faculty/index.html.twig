@@ -70,11 +70,6 @@
                                     {% endfor %}
                                 {% endif %}
                             {% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item"><a href="{{ path('faculty_new') }}">
-                                        New Listing
-                                    </a></li>
-                            {% endif %}
                         </ul>
                     </div>
                 </nav>

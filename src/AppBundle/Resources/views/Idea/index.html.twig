@@ -70,28 +70,6 @@
                                     {% endfor %}
                                 {% endif %}
                             {% endif %}
-                            <li class="nav-item">
-                                <a href="{{ path('idea', {"status":"approved"}) }}">
-                                    Capstone Ideas
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('source') }}">
-                                    Capstone Resources
-                                </a>
-                            </li>
-                            {% if is_granted('ROLE_USER') %}
-                                <li class="nav-item">
-                                    <a href="{{ path('capstones_completed') }}">
-                                        Completed Capstones
-                                    </a>
-                                </li>
-                            {% endif %}
-                            <li class="nav-item">
-                                <a id="tag_showall" href="javascript:void(0)">
-                                    Show all
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </nav>
