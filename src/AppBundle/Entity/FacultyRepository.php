@@ -17,7 +17,16 @@ class FacultyRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findAllSorted($status)
     {
-        if ($status != 'all') {
+        if ($status == 'mentor') {
+            $faculty = $this->createQueryBuilder('f')
+                ->andWhere('f.mentor = :mentor')
+                ->addOrderBy('f.lastname')
+                ->setParameter('mentor', 'yes')
+                ->getQuery()
+                ->getResult();
+            return $faculty;
+        }
+        elseif ($status != 'all') {
             $faculty = $this->createQueryBuilder('f')
                 ->andWhere('f.status = :status')
                 ->addOrderBy('f.lastname')

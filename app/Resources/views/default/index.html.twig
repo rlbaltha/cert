@@ -55,10 +55,30 @@
 
     <div class="container marketing">
 
+        <!-- FEATURES -->
+
+        <hr class="featurette-divider">
+        {% for feature in features  if feature.type=='feature' %}
+            <div class="row featurette">
+                <div class="col-sm-7">
+                    <h3 class="featurette-heading">{{ feature.title }}</h3>
+                    {{ feature.body|raw }}
+                    {% if feature.url!='' %}
+                        <a class="btn btn-primary" href="{{ feature.url }}" title="Read more about {{ feature.title }}">Read more</a>
+                    {% endif %}
+                </div>
+                <div class="col-md-5">
+                    <img class="featurette-image img-fluid mx-auto" src="{{ feature.image }}"
+                         alt="Featurette {{ loop.index }}" width="100%">
+                </div>
+            </div>
+            <hr class="featurette-divider">
+        {% endfor %}
+
         <!-- Three COLUMNS of text below the carousel -->
         <div class="row">
             {% for feature in features  if feature.type=='column' %}
-                <div class="col-lg-4">
+                <div class="col-sm-6">
                     {% if feature.image!='' %}
                     <img class="img-thumbnail rounded" src="{{ feature.image }}" alt="Slide {{ loop.index }}"
                          width="80%">
@@ -74,29 +94,6 @@
             {% endfor %}
         </div><!-- /.row -->
 
-
-        <!-- FEATURES -->
-
-        <hr class="featurette-divider">
-        {% for feature in features  if feature.type=='feature' %}
-            <div class="row featurette">
-                <div class="col-md-7">
-                    <h3 class="featurette-heading">{{ feature.title }}</h3>
-                    {{ feature.body|raw }}
-                    {% if feature.url!='' %}
-                        <a class="btn btn-primary" href="{{ feature.url }}" title="Read more about {{ feature.title }}">Read more</a>
-                    {% endif %}
-                </div>
-                <div class="col-md-5">
-                    <img class="featurette-image img-fluid mx-auto" src="{{ feature.image }}"
-                         alt="Featurette {{ loop.index }}" width="100%">
-                </div>
-            </div>
-            <hr class="featurette-divider">
-        {% endfor %}
-
-        <!-- /END THE FEATURETTES -->
-
     </div><!-- /.container -->
 
     <!-- FOOTER -->
@@ -107,9 +104,10 @@
                     <h2>Contact Us</h2>
                     <p>Ron Balthazor, Director</p>
                     <p>Talley Vodicka, Administrative Specialist</p>
-                    <p>Nirav Ilango, Intern</p>
+                    <p>Melissa Ray, Graduate Assistant</p>
+                    <p>Megan Reeves, Intern</p>
                     <p>Email: scdirector@uga.edu (preferred)</p>
-                    <p>Phone: 706-542-0458 </p>
+                    <p>Phone: 706-542-0458</p>
                     <img alt="Sustainability logo" class="img-responsive
                 navbar-logo hidden-xs" src="{{ asset('bundles/app/images/sustainableugawhitenav.png') }}">
                     <p><a id="scroll3" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Up</a></p>
