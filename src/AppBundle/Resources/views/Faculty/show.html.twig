@@ -41,9 +41,14 @@
             </div>
         </div>
         <div class="col-sm-8">
-            {% if is_granted('ROLE_ADMIN') %}<a class="btn btn-primary pull-xs-right"
-                                                href="{{ path('faculty_edit', { 'id': entity.id }) }}">
-                    Edit</a>{% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-primary pull-xs-right" href="{{ path('faculty_edit', { 'id': entity.id }) }}">
+                    Edit</a>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') and not entity.user %}
+                <a class="btn btn-primary pull-xs-right" href="{{ path('faculty_account', { 'id': entity.id }) }}">
+                    Create Account</a>
+            {% endif %}
             <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
             {% for tag in entity.tags %}<div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
             {% if entity.status =='advisory' %}<p class="margin-top">Advisory Board</p>{% endif %}

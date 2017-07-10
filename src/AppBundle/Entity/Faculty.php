@@ -96,6 +96,11 @@ class Faculty
     protected $tags;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", inversedBy="facultylisting")
+     */
+    private $user;
+
+    /**
      * Get id
      *
      * @return integer
@@ -394,5 +399,29 @@ class Faculty
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Faculty
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

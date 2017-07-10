@@ -163,7 +163,7 @@
                             <h5 class="mb-0">
                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    Application ({{ entity.program.status }})
+                                    Application {% if entity.program %}({{ entity.program.status }}){% endif %}
                                 </a>
                             </h5>
                         </div>
@@ -534,6 +534,7 @@
                         <div class="card-block">
                             {#  *********************** Capstone Progress buttons  *********************** #}
                             <div class="btn-group margin-bottom" role="group" aria-label="Capstone Progress Buttons">
+                                {% if entity.program %}
                                 {% if app.user.username==entity.program.user.username %}
                                     <a title="Get started on your work plan"
                                        class="btn btn-primary {% if not entity.checklist or entity.capstone %}disabled{% endif %}"
@@ -563,6 +564,7 @@
                                             5. Capstone Completed
                                         </a>
                                     {% endif %}
+                                {% endif %}
                                 {% endif %}
                             </div>
 

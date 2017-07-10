@@ -62,6 +62,15 @@ class FacultyType extends AbstractType
             ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
                 'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
                     'checkbox'),))
+            ->add('user', 'entity', array('class' => 'AppBundle\Entity\User',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->andWhere('u.lastname != :lastname')
+                        ->setParameter('lastname', '')
+                        ->orderBy('u.lastname ');
+                },
+                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Account', 'required'=>false, 'attr' => array('class' =>
+                    'text form-control'),))
         ;
     }
     

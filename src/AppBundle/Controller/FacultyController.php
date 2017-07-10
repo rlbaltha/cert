@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Faculty;
 use AppBundle\Form\FacultyType;
 use AppBundle\Entity\Section;
+use FOS\UserBundle\Util\TokenGenerator;
 
 /**
  * Faculty controller.
@@ -66,6 +67,55 @@ class FacultyController extends Controller
             'entity' => $entity,
             'form' => $form->createView(),
         );
+    }
+
+    /**
+     * Finds and displays a Faculty entity.
+     *
+     * @Route("/{id}/account", name="faculty_account")
+     * @Method("GET")
+     * @Template()
+     */
+    public function accountAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:Faculty')->find($id);
+        $user = $em->getRepository('AppBundle:User')->findOneByEmail($entity->getEmail());
+
+        if (!$user) {
+            $userManager = $this->get('fos_user.user_manager');
+            $tokengenerator = $this->get('fos_user.util.token_generator');
+            $username = strtok($entity->getEmail(), '@');
+            $email = $entity->getEmail();
+            $password = substr($tokengenerator->generateToken(), 0, 12);
+
+            $user = $userManager->createUser();
+            $user->setUsername($username);
+            $user->setUsernameCanonical($username);
+            $user->setEmail($email);
+            $user->setEmailCanonical($email);
+            $user->setEnabled(true);
+            $user->setPlainPassword($password);
+            $userManager->updateUser($user);
+
+            $entity->setUser($user);
+            $userentity = $em->getRepository('AppBundle:User')->findOneByEmail($entity->getEmail());
+            $status = $em->getRepository('AppBundle:Status')->findOneByName('Faculty');
+            $userentity->setLastname($entity->getLastname());
+            $userentity->setFirstname($entity->getFirstname());
+            $userentity->setProgress($status);
+
+            $em->persist($entity);
+            $em->persist($userentity);
+            $em->flush();
+        }
+        else {
+            $entity->setUser($user);
+            $em->persist($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('faculty_show', array('id' => $entity->getId(), 'section' => 'faculty')));
     }
 
     /**

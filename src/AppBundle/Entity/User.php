@@ -98,6 +98,11 @@ class User extends BaseUser
     private $capstone;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Faculty", mappedBy="user")
+     */
+    private $facultylisting;
+
+    /**
      * @ORM\OneToMany(targetEntity="Responseset", mappedBy="user")
      */
     private $responsesets;
@@ -582,5 +587,29 @@ class User extends BaseUser
     public function getNotifications()
     {
         return $this->notifications;
+    }
+
+    /**
+     * Set facultylisting
+     *
+     * @param \AppBundle\Entity\Faculty $facultylisting
+     *
+     * @return User
+     */
+    public function setFacultylisting(\AppBundle\Entity\Faculty $facultylisting = null)
+    {
+        $this->facultylisting = $facultylisting;
+
+        return $this;
+    }
+
+    /**
+     * Get facultylisting
+     *
+     * @return \AppBundle\Entity\Faculty
+     */
+    public function getFacultylisting()
+    {
+        return $this->facultylisting;
     }
 }
