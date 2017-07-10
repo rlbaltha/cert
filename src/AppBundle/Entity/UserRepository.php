@@ -129,4 +129,20 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $users;
     }
+
+    /**
+     * Find student users
+     *
+     * @return User
+     */
+    public function findAccounts()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->andWhere("u.lastname != '' and u.firstname != '' ")
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
 }

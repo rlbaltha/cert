@@ -63,7 +63,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         if ($type == 'all') {
-            $entities = $em->getRepository('AppBundle:User')->findAll();
+            $entities = $em->getRepository('AppBundle:User')->findAccounts();
         } elseif ($type == 'students') {
             $entities = $em->getRepository('AppBundle:User')->findStudents();
         } elseif ($type == 'mentors') {
