@@ -78,6 +78,24 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return User
      */
+    public function findCapstonementees($user)
+    {
+        $users = $this->createQueryBuilder('u')
+            ->join('u.capstone', 'c')
+            ->andWhere('c.capstone_mentor = :user')
+            ->setParameter('user', $user)
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
+
+    /**
+     * Find student users
+     *
+     * @return User
+     */
     public function findMentors()
     {
         $users = $this->createQueryBuilder('u')

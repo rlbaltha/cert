@@ -133,6 +133,11 @@ class User extends BaseUser
     protected $progress;
 
     /**
+     * @ORM\OneToMany(targetEntity="Capstone", mappedBy="capstone_mentor")
+     */
+    private $capstone_mentees;
+
+    /**
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -611,5 +616,39 @@ class User extends BaseUser
     public function getFacultylisting()
     {
         return $this->facultylisting;
+    }
+
+    /**
+     * Add capstoneMentee
+     *
+     * @param \AppBundle\Entity\Capstone $capstoneMentee
+     *
+     * @return User
+     */
+    public function addCapstoneMentee(\AppBundle\Entity\Capstone $capstoneMentee)
+    {
+        $this->capstone_mentees[] = $capstoneMentee;
+
+        return $this;
+    }
+
+    /**
+     * Remove capstoneMentee
+     *
+     * @param \AppBundle\Entity\Capstone $capstoneMentee
+     */
+    public function removeCapstoneMentee(\AppBundle\Entity\Capstone $capstoneMentee)
+    {
+        $this->capstone_mentees->removeElement($capstoneMentee);
+    }
+
+    /**
+     * Get capstoneMentees
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCapstoneMentees()
+    {
+        return $this->capstone_mentees;
     }
 }

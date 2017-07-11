@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class CapstoneType extends AbstractType
 {
@@ -43,24 +44,16 @@ class CapstoneType extends AbstractType
                     'config_name' => 'editor_simple',
                 )
             )
-            ->add(
-                'mentor',
-                'text',
-                array(
-                    'required' => false,
-                    'label' => 'Campus/Community mentor',
-                    'attr' => array('class' => 'text form-control'),
-                )
-            )
-            ->add(
-                'mentor_email',
-                'text',
-                array(
-                    'required' => false,
-                    'label' => 'Mentor email',
-                    'attr' => array('class' => 'text form-control'),
-                )
-            )
+            ->add('capstoneMentor', 'entity', array('class' => 'AppBundle\Entity\User',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->join('u.progress', 'p')
+                        ->andWhere("u.progress = '15'")
+                        ->addOrderBy('u.lastname', 'ASC')
+                        ->addOrderBy('u.firstname', 'ASC');
+                },
+                'required' => false, 'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Mentor', 'attr' => array('class' =>
+                    'form-control'),))
             ->add(
                 'mentor_expectations',
                 'ckeditor',

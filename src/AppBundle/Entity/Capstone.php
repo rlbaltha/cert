@@ -187,6 +187,11 @@ class Capstone
     private $responsesets;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="capstone_mentees")
+     */
+    private $capstone_mentor;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="capstones")
      */
     protected $tags;
@@ -896,5 +901,29 @@ class Capstone
     public function getMentorExpectations()
     {
         return $this->mentor_expectations;
+    }
+
+    /**
+     * Set capstoneMentor
+     *
+     * @param \AppBundle\Entity\User $capstoneMentor
+     *
+     * @return Capstone
+     */
+    public function setCapstoneMentor(\AppBundle\Entity\User $capstoneMentor = null)
+    {
+        $this->capstone_mentor = $capstoneMentor;
+
+        return $this;
+    }
+
+    /**
+     * Get capstoneMentor
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getCapstoneMentor()
+    {
+        return $this->capstone_mentor;
     }
 }

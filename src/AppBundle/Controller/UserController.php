@@ -37,6 +37,8 @@ class UserController extends Controller
         $entity = $em->getRepository('AppBundle:User')->find($user);
         $notifications = $em->getRepository('AppBundle:Notification')->findCurrent($user);
 
+        $mentees = $em->getRepository('AppBundle:User')->findCapstonementees($user);
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
@@ -47,6 +49,7 @@ class UserController extends Controller
 
         return array(
             'entity' => $entity,
+            'mentees' => $mentees,
             'notifications' => $notifications,
         );
     }

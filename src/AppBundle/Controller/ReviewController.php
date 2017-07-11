@@ -38,22 +38,36 @@ class ReviewController extends Controller
     /**
      * Creates a new Review entity.
      *
-     * @Route("/", name="review_create")
+     * @Route("/{checkpointid}/{reviewerid}", name="review_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $checkpointid, $reviewerid)
     {
+        $em = $this->getDoctrine()->getManager();
+        $reviewer = $em->getRepository('AppBundle:User')->find($reviewerid);
+        $checkpoint = $em->getRepository('AppBundle:Checkpoint')->find($checkpointid);
+
         $entity = new Review();
+        $entity->setCheckpoint($checkpoint);
+        $entity->setReviewer($reviewer);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getCheckpoint()->getProject()->getId())));
+            if ($entity->getCheckpoint()->getProject()->getCapstone()) {
+                return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getCheckpoint()->getProject()->getUser()->getId())));
+            }
+            else {
+                return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getCheckpoint()->getProject()->getId())));
+            }
+
+
         }
 
         return array(
@@ -72,7 +86,7 @@ class ReviewController extends Controller
     private function createCreateForm(Review $entity)
     {
         $form = $this->createForm(new ReviewType(), $entity, array(
-            'action' => $this->generateUrl('review_create'),
+            'action' => $this->generateUrl('review_create', array('checkpointid' => $entity->getCheckpoint()->getId(), 'reviewerid' => $entity->getReviewer()->getId())),
             'method' => 'POST',
         ));
 
@@ -189,6 +203,7 @@ class ReviewController extends Controller
 
         $entity = $em->getRepository('AppBundle:Review')->find($id);
 
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Review entity.');
         }
@@ -200,7 +215,12 @@ class ReviewController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getCheckpoint()->getProject()->getId())));
+            if ($entity->getCheckpoint()->getProject()->getCapstone()) {
+                return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getCheckpoint()->getProject()->getUser()->getId())));
+            }
+            else {
+                return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getCheckpoint()->getProject()->getId())));
+            }
         }
 
         return array(

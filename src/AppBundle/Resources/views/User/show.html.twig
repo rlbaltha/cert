@@ -103,8 +103,8 @@
                                             <tr style="background-color: {{ background }}">
                                                 <td>Date: {{ notification.date |date("m/d/Y g:ia") }}</td>
                                                 <td>
-                                                    {% if notification.post%}
-                                                    {{ notification.post.body|raw }}
+                                                    {% if notification.post %}
+                                                        {{ notification.post.body|raw }}
                                                     {% endif %}
                                                     {{ notification.body|raw }}
                                                     {% if notification.status!='Shared' %}
@@ -155,8 +155,8 @@
                 {% endif %}
 
 
-                {# check to see if profile matches currrent user #}
-                {% if app.user.username == entity.username  or is_granted('ROLE_SUPER_ADMIN') %}
+                {# check to see if profile matches currrent user and is not Faculty #}
+                {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
                     {#  *********************** Applcation ***********************  #}
                     <div class="card">
                         <div class="card-header" role="tab" id="headingTwo">
@@ -512,6 +512,7 @@
                 {% endif %}
 
                 {#  *********************** Capstone Workplan *********************** #}
+                {# check to see if user is Faculty #}
                 <div class="card">
                     <div class="card-header" role="tab" id="headingFour">
                         <h5 class="mb-0 inline">
@@ -532,44 +533,21 @@
                          class="collapse {% if entity.program %}{% if entity.program.status == 'Approved' %}in{% endif %}{% endif %}"
                          role="tabpanel" aria-labelledby="headingFour">
                         <div class="card-block">
-                            {#  *********************** Capstone Progress buttons  *********************** #}
-                            <div class="btn-group margin-bottom" role="group" aria-label="Capstone Progress Buttons">
-                                {% if entity.program %}
-                                {% if app.user.username==entity.program.user.username %}
-                                    <a title="Get started on your work plan"
-                                       class="btn btn-primary {% if not entity.checklist or entity.capstone %}disabled{% endif %}"
-                                       href="{{ path('capstone_new') }}">
-                                        1. Start Work Plan
-                                    </a>
-                                    {% if entity.capstone %}
-                                        {# Mark Ready for Peer or Director Review #}
-                                        <a class="btn btn-primary  {% if entity.capstone.status == 'Ready for Director Review' or entity.capstone.status == 'Approved'  or entity.capstone.status == 'Ready for Peer Review' %}disabled{% endif %}"
-                                           href="{{ path('capstone_ready',  { 'id': entity.capstone.id , 'type':'Peer'}) }}">
-                                            2. Ready for Peer Review
-                                        </a>
 
-                                        {# Link to list work plans ready for review #}
-                                        <a class="btn btn-primary {% if entity.capstone.status == 'Ready for Peer Review' %}{% else %}disabled{% endif %}"
-                                           href="{{ path('capstone',  { 'type':'Peer' }) }}">
-                                            3. Review Other Capstones
-                                        </a>
+                            <a class="subhead" id="workplan_toggle" href="javascript:void(0);">Work Plan</a>
 
-                                        <a class="btn btn-primary {% if entity.responsesets|length < 2 or entity.capstone.status == 'Approved'
-                                        or entity.capstone.status != 'Capstone Completed' %}disabled{% endif %}"
-                                           href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
-                                            4. Ready for Director Review
-                                        </a>
-                                        <a class="btn btn-primary  align-right {% if entity.capstone.status != 'Approved' %}disabled{% endif %}"
-                                           href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Completed' }) }}">
-                                            5. Capstone Completed
-                                        </a>
-                                    {% endif %}
-                                {% endif %}
-                                {% endif %}
-                            </div>
+                            {# Update the work plan (always available) #}
+                            {% if entity.capstone %}
+                            {% if app.user.username == entity.username %}
+                                <a title="Update your capstone" class="float-sm-right btn btn-primary"
+                                   href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
+                                    Update Work Plan
+                                </a>
+                            {% endif %}
+                            {% endif %}
 
                             {#  *********************** Capstone Instructions  *********************** #}
-                            <div class="alert alert-info" role="alert">
+                            <div class="alert alert-info margin-top" role="alert">
                                 {% if not entity.capstone %}
                                     <p>The capstone project provides an opportunity for you to apply your classroom
                                         learning
@@ -577,9 +555,8 @@
                                         hands-on sustainability challenges.
                                     </p>
 
-                                    <p>Under the advisement of your capstone mentor, develop a work plan for their
-                                        capstone
-                                        project, outlining goals, objectives, timeline,
+                                    <p>Under the advisement of your capstone mentor, develop a work plan for the
+                                        capstone project, outlining goals, objectives, timeline,
                                         resources/partners, personal objectives, and success metrics.</p>
                                     <p>Before you get started, please review the <a
                                                 href="{{ path('page_show',  { 'id': '17'}) }}">
@@ -587,21 +564,14 @@
                                         </a></p>
                                 {% elseif entity.capstone.status == 'Created' %}
                                     <p>You may update your work plan at any time by clicking <strong>Update Work
-                                            Plan</strong> below.</p>
-                                    <p>Once your work plan is complete, mark it <strong>Ready for Peer Review.</strong>
+                                            Plan</strong> above.</p>
+                                    <p>Once your work plan is complete, mark it <strong>Ready for Review.</strong>
                                     </p>
 
                                 {% elseif entity.capstone.status == 'Ready for Peer Review' %}
                                     <p>Your work plan must receive at least two peer reviews by fellow capstone
                                         students.
-                                        (You will also be required to provide two peer reviews at this point.)</p>
-                                    <p>You currently have {{ entity.capstone.responsesets|length }} reviews.
-                                        Reviews are shown below your work plan.
-                                        Once you have received feedback from your peers, revise and polish your work
-                                        plan.</p>
-                                    <p>When you feel your work plan is complete, mark it <strong>Ready for Director
-                                            Review</strong>.</p>
-
+                                        (You are also be required to provide two peer reviews.)</p>
                                     {% if entity.responsesets|length > 0  and app.user.username==entity.capstone.user.username %}
                                         <p>You have offered peer reviews for:
                                             {% for responseset in entity.responsesets %}
@@ -611,35 +581,53 @@
                                             {% endfor %}
                                         </p>
                                     {% endif %}
+                                    <p>Reviews are shown below your work plan. Once you have received feedback from your peers, revise and polish your work
+                                        plan.</p>
+                                    <p>When you feel your work plan is complete, mark it <strong>Ready for
+                                            Director</strong>.</p>
 
                                 {% elseif entity.capstone.status == 'Ready for Director Review' %}
                                     <p>You will be notified by the director when your work plan is approved.</p>
+                                {% else %}
+                                    <p>Time to get to work.</p>
                                 {% endif %}
                             </div>
+                            {#  *********************** Capstone Progress buttons  *********************** #}
+                            <div class="btn-group margin-bottom" role="group" aria-label="Capstone Progress Buttons">
+                                {% if entity.program %}
+                                    {% if app.user.username==entity.program.user.username %}
+                                        <a title="Get started on your work plan"
+                                           class="btn btn-primary {% if not entity.checklist or entity.capstone %}disabled{% endif %}"
+                                           href="{{ path('capstone_new') }}">
+                                            1. Get Started
+                                        </a>
+                                        {% if entity.capstone %}
+                                            {# Mark Ready for Peer or Director Review #}
+                                            <a class="btn btn-primary {% if entity.capstone.status == 'Ready for Director Review' or entity.capstone.status == 'Approved'  or entity.capstone.status == 'Ready for Peer Review' %}disabled{% endif %}"
+                                               href="{{ path('capstone_ready',  { 'id': entity.capstone.id , 'type':'Peer'}) }}">
+                                                2. Ready for Review
+                                            </a>
 
-                            {% if entity.capstone %}
+                                            {# Link to list work plans ready for review #}
+                                            <a class="btn btn-primary {% if entity.capstone.status == 'Ready for Peer Review' %}{% else %}disabled{% endif %}"
+                                               href="{{ path('capstone',  { 'type':'Peer' }) }}">
+                                                3. Offer Reviews
+                                            </a>
 
-                                {#{% if entity.capstone.responsesets %}#}
-                                {#<p>Reviews#}
-                                {#{% for responseset in entity.capstone.responsesets %}#}
-                                {#{% if loop.last and entity.capstone.responsesets|length > 1 %}and {% endif %}{{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}#}
-                                {#{% endfor %} <a href="#reviews">listed after your workplan</a>.#}
-                                {#{% endif %}#}
-
-
-                                {# Peer Reviews offered to others #}
-
-
-                                {# Review this workplan #}
-                                {% if entity.capstone.status == 'Ready for Peer Review' and entity.username != app.user.username %}
-                                    <a class="btn btn-primary"
-                                       href="{{ path('responseset_new',  { 'id': entity.capstone.id }) }}">
-                                        Create Review
-                                    </a>
+                                            <a class="btn btn-primary {% if entity.responsesets|length < 2 or entity.capstone.status == 'Approved'
+                                            or entity.capstone.status != 'Capstone Completed' %}disabled{% endif %}"
+                                               href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
+                                                4. Ready for Director
+                                            </a>
+                                            <a class="btn btn-primary align-right {% if entity.capstone.status != 'Approved' %}disabled{% endif %}"
+                                               href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Completed' }) }}">
+                                                5. Completed
+                                            </a>
+                                        {% endif %}
+                                    {% endif %}
                                 {% endif %}
-
-                                <hr/>
-                                <a class="subhead" id="workplan_toggle" href="javascript:void(0);">Work Plan</a>
+                            </div>
+                            {% if entity.capstone %}
 
                                 {# Director workplan approval #}
                                 {% if is_granted('ROLE_SUPER_ADMIN') and entity.capstone.status != 'Approved' %}
@@ -647,14 +635,6 @@
                                        class="float-sm-right btn btn-primary {% if entity.capstone.status != 'Approved' %}{% else %}disabled{% endif %}"
                                        href="{{ path('capstone_approve',  { 'id': entity.capstone.id }) }}">
                                         Approve Work Plan
-                                    </a>
-                                {% endif %}
-
-                                {# Update the work plan (always available) #}
-                                {% if app.user.username == entity.username %}
-                                    <a title="Update your capstone" class="float-sm-right btn btn-primary"
-                                       href="{{ path('capstone_edit',  { 'id': entity.capstone.id }) }}">
-                                        Update Work Plan
                                     </a>
                                 {% endif %}
 
@@ -674,7 +654,7 @@
                                     </tr>
                                     <tr>
                                         <th>Mentor</th>
-                                        <td>{{ entity.capstone.mentor }} {{ entity.capstone.mentorEmail }}</td>
+                                        <td>{% if entity.capstone.capstoneMentor %}{{ entity.capstone.capstoneMentor.name }} {{ entity.capstone.capstoneMentor.email }}{% endif %}</td>
                                     </tr>
                                     <tr>
                                         <th>Mentor Involvement</th>
@@ -733,9 +713,25 @@
                                     </tbody>
                                 </table>
 
+                                <hr/>
+                                <a class="subhead" id="review_toggle" href="javascript:void(0);">Reviews</a>
+                                {# Review this workplan #}
+                                {% if entity.capstone.status == 'Ready for Peer Review' and entity.username != app.user.username %}
+                                    <a class="btn btn-primary float-sm-right"
+                                       href="{{ path('responseset_new',  { 'id': entity.capstone.id }) }}">
+                                        Review Workplan
+                                    </a>
+                                {% endif %}
+                                <hr/>
+                                {% if entity.capstone.status == 'Ready for Peer Review' %}
+                                    <div class="alert alert-info margin-top" role="alert">
+                                        <p>You currently have {{ entity.capstone.responsesets|length }} reviews.
+                                            Once you have received feedback from your peers, revise and polish your work
+                                            plan.</p>
+                                    </div>
+                                {% endif %}
+
                                 {% if entity.capstone.responsesets %}
-                                    <hr/>
-                                    <a class="subhead" id="review_toggle" href="javascript:void(0);">Reviews</a>
                                     <div id="reviews">
                                         {% for responseset in entity.capstone.responsesets %}
                                             {% if app.user.username==responseset.user.username %}
@@ -759,7 +755,6 @@
                                         {% endfor %}
                                     </div>
                                 {% endif %}
-                                <hr/>
                             {% endif %}
 
                             {#  *********************** Capstone Checkpoints  *********************** #}
@@ -773,9 +768,8 @@
                                     Add Checkpoint
                                 </a>
                             {% endif %}
-                            <hr/>
 
-                            <div class="alert alert-info" role="alert">
+                            <div class="alert alert-info margin-top" role="alert">
                                 <p>Checkpoints display the timeline and goals for your project and help you, your
                                     mentor, and the
                                     certificate director monitor your progress.
@@ -799,7 +793,7 @@
                                 {% endset %}
                                 <div class="card margin-top checkpoints_card">
                                     <div class="card-header" style="background-color: {{ background }} ">
-                                        {% if is_granted('ROLE_ADMIN') %}
+                                        {% if app.user.username == entity.capstone.user.username %}
                                             {% if checkpoint.status!='Complete' %}
                                                 <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
                                                    class="float-sm-right btn btn-primary">Complete</a>
@@ -828,6 +822,11 @@
                                         <hr/>
                                         <p>
                                             Reviewers:
+                                            {% if app.user.username == entity.username %}
+                                                <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': entity.id }) }}"
+                                                   class="">{{ entity.firstname }} {{ entity.lastname }} (progress update),</a>
+                                            {% else %}{{ entity.firstname }} {{ entity.lastname }},
+                                            {% endif %}
                                             {% for reviewer in checkpoint.reviewers %}
                                                 {% if app.user.username == reviewer.username %}
                                                     <a
@@ -866,8 +865,79 @@
                         {% endif %}
                     </div>
                 </div>
-            </div>
 
+
+            </div>
+            {#  *********************** Capstones For Review *********************** #}
+            {# check to see if user is Faculty and has capstone mentees #}
+            {% if entity.progress.name=='Faculty' or is_granted('ROLE_SUPER_ADMIN') %}
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingFive">
+                        <h5 class="mb-0 inline">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                               aria-expanded="false" aria-controls="collapseFive">
+                                Capstones for your Review
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseFive"
+                         class="collapse in"
+                         role="tabpanel" aria-labelledby="headingFive">
+                        <div class="card-block">
+                            {% if mentees is defined %}
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Name (Email)</th>
+                                        <th>School: Program</th>
+                                        <th>Capstone Term</th>
+                                        <th>Graduation Term</th>
+                                        <th>Progress</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for entity in mentees %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
+                                                    , {{ entity.firstname }}</a> ({{ entity.email }})
+                                            </td>
+                                            <td>
+                                                {% if entity.program %}
+                                                    {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
+                                                    {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
+                                                    {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
+                                                    {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}
+                                                {% endif %}
+
+
+                                            </td>
+                                            <td>
+                                                {% if entity.checklist %}
+                                                    {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.program %}
+                                                    <a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>
+                                                {% endif %}
+                                            </td>
+                                            <td>{% if entity.progress %}
+                                                    <a href="{{ path('user', { 'type': entity.progress.id }) }}">{{ entity.progress.name }}</a>
+                                                {% else %}
+                                                    Account Created
+                                                {% endif %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <p>You have no capstones for review at this time.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 
