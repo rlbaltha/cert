@@ -57,9 +57,14 @@ class CheckpointController extends Controller
         $form->handleRequest($request);
 
         // create notification
-        $post = $em->getRepository('AppBundle:Post')->find(15)->getBody();
+        $post = $em->getRepository('AppBundle:Post')->find(15);
+        if ($post) {
+            $post = $post->getBody();
+        }
+        else {
+            $post = '';
+        }
         $date = $entity->getDeadline();
-        $href_id = $entity->getId();
         $notifierManager = new NotifierManager($em);
         $notifierManager->createNotifier($date, $user, $post);
 
@@ -146,6 +151,16 @@ class CheckpointController extends Controller
         $entity->setDeadline($deadline);
         if ($project->getCapstone()) {
             $entity->setType('Capstone');
+            $mentor = $project->getCapstone()->getCapstoneMentor();
+            $director = $project = $em->getRepository('AppBundle:User')->findDirector();
+
+            if ($director) {
+                $entity->addReviewer($director);
+            }
+            if ($mentor) {
+                $entity->addReviewer($mentor);
+            }
+
         }
         else {
             $entity->setType('Admin');

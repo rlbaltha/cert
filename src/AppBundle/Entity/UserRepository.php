@@ -153,6 +153,21 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return User
      */
+    public function findDirector()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->join('u.progress', 'p')
+            ->andWhere("u.progress = '16'")
+            ->getQuery()
+            ->getSingleResult();
+        return $users;
+    }
+
+    /**
+     * Find student users
+     *
+     * @return User
+     */
     public function findAccounts()
     {
         $users = $this->createQueryBuilder('u')

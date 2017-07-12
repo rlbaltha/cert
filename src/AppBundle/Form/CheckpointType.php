@@ -34,7 +34,7 @@ class CheckpointType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->join('u.progress', 'p')
-                        ->andWhere("u.progress = '15'")
+                        ->andWhere("u.progress = '15' or u.progress = '16'")
                         ->addOrderBy('u.lastname', 'ASC')
                         ->addOrderBy('u.firstname', 'ASC');
                 },
