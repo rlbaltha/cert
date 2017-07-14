@@ -47,53 +47,33 @@
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
                             {% if section is defined %}
-                                {% for page in section.pages %}
+                                {% for page in section.pages if page.access=='public' %}
                                     {% if (page.link is null or page.link == '') %}
-                                        <li class="nav-item">
-                                            <a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
                                         </li>
                                     {% else %}
                                         <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
                                     {% endif %}
                                 {% endfor %}
-                            {% endif %}
-                            <li class="nav-item">
-                                <a href="{{ path('idea', {"status":"approved"}) }}">
-                                    Capstone Ideas
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('source') }}">
-                                    Capstone Resources
-                                </a>
-                            </li>
-                            {% if is_granted('ROLE_USER') %}
-                                <li class="nav-item">
-                                    <a href="{{ path('capstones_completed') }}">
-                                        Completed Capstones
-                                    </a>
-                                </li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item"><strong>Admin</strong></li>
+                                    {% for page in section.pages if page.access=='admin' %}
+                                        {% if (page.link is null or page.link == '') %}
+                                            <li class="nav-item"><a
+                                                        href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             {% endif %}
                             <li class="nav-item">
                                 <a id="tag_showall" href="javascript:void(0)">
                                     Show all
                                 </a>
                             </li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item">
-                                    Admin
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ path('tag') }}">
-                                        Tags
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ path('idea', {"status":"pending"}) }}">
-                                        Pending Ideas
-                                    </a>
-                                </li>
-                            {% endif %}
                         </ul>
                     </div>
                 </nav>
@@ -124,7 +104,6 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Tags</th>
@@ -133,7 +112,6 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr class="idea_row" id="{{ entity.id }}">
-                        <td>{{ loop.index }}</td>
                         <td>{{ entity.title }}</td>
                         <td>{{ entity.description|raw }}</td>
                         <td>{% for tag in entity.tags %}
