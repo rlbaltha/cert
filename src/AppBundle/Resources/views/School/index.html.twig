@@ -50,14 +50,14 @@
                             {% set grad = grad + 1 %}
                         {% endfor %}
                         <p> Graduates:{{ graduated }} Inactive:{{ inactive }}  Admin:{{ admin }}</p>
-                        <p>Grad Students:{{ grad }} Total Active:{{ entity.program1|length - (inactive + graduated + admin) }}</p>
+                        <p>+Grad Students:{{ grad }} Total Active:{{ entity.program1|length - (inactive + graduated + admin) }}</p>
 
 
                     </div>
                     <div class="card-block">
                         <div id="accordion" role="tablist" aria-multiselectable="true">
                             {% for entity in entity.program1 %}
-                                 <p>{{ entity.user.lastname }}, {{ entity.user.firstname }} (Progress: {{ entity.user.progress.name }})</p>
+                                 <p>{% if entity.user.program.level=='Grad' %}+{% endif %}{{ entity.user.lastname }}, {{ entity.user.firstname }} (Progress: {{ entity.user.progress.name }})</p>
                             {% endfor %}
                         </div>
                     </div>
