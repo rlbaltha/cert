@@ -61,7 +61,7 @@
             {% endif %}
 
             <div class="btn-group float-sm-right" role="group" aria-label="Basic Functions">
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
                     <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
                         As</a>
                 {% endif %}
