@@ -19,11 +19,8 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function findUsersByType($type)
     {
         $users = $this->createQueryBuilder('u')
-            ->join('u.program', 'p')
             ->andWhere("u.progress = :type")
             ->setParameter('type', $type)
-            ->addOrderBy('p.graddate', 'ASC')
-            ->addOrderBy('p.gradterm', 'DESC')
             ->addOrderBy('u.lastname', 'ASC')
             ->addOrderBy('u.firstname', 'ASC')
             ->getQuery()
