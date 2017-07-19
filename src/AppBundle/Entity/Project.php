@@ -45,6 +45,13 @@ class Project
     /**
      * @var string
      *
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     */
+    private $status = 'Active';
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="timeframe", type="string", length=255, nullable=true)
      */
     private $timeframe;
@@ -260,5 +267,29 @@ class Project
     public function getCapstone()
     {
         return $this->capstone;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Project
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

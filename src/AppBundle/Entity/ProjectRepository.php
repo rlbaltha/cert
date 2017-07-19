@@ -15,13 +15,16 @@ class ProjectRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Project
      */
-    public function findAdmin() {
+    public function findAdmin($status) {
         $type = 'Admin';
         $projects = $this->createQueryBuilder('p')
             ->andWhere('p.type = :type')
+            ->andWhere('p.status = :status')
             ->setParameter('type', $type)
+            ->setParameter('status', $status)
             ->getQuery()
             ->getResult();
         return $projects;
     }
+
 }

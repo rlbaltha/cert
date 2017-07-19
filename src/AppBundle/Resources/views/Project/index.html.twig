@@ -15,8 +15,11 @@
                                 <li class="nav-item"><a href="{{ path('project_new') }}">
                                         New Project
                                     </a></li>
-                                <li class="nav-item"><a href="{{ path('project') }}">
-                                        All Projects
+                                <li class="nav-item"><a href="{{ path('project', { 'status': 'Active' }) }}">
+                                        Active Projects
+                                    </a></li>
+                                <li class="nav-item"><a href="{{ path('project', { 'status': 'Complete' }) }}">
+                                        Completed Projects
                                     </a></li>
                             {% endif %}
                         </ul>

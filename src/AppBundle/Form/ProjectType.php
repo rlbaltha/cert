@@ -29,6 +29,12 @@ class ProjectType extends AbstractType
                 'multiple' => false,
                 'label' => 'Timeframe',
                 'attr' => array('class' => 'form-control'),))
+            ->add('status', 'choice', array('choices' => array('Active' => 'Active','Complete' => 'Complete'),
+                'required' =>  true,
+                'expanded' => false,
+                'multiple' => false,
+                'label' => 'Status',
+                'attr' => array('class' => 'form-control'),))
         ;
     }
     

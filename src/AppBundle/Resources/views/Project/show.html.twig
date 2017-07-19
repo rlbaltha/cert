@@ -30,7 +30,10 @@
                                         New Project
                                     </a></li>
                                 <li class="nav-item"><a href="{{ path('project') }}">
-                                        All Projects
+                                        Active Projects
+                                    </a></li>
+                                <li class="nav-item"><a href="{{ path('project') }}">
+                                        Completed Projects
                                     </a></li>
                             {% endif %}
                         </ul>
@@ -50,7 +53,11 @@
                 <a href="{{ path('project_edit', { 'id': entity.id }) }}"
                    class="float-sm-right btn btn-primary">Edit</a>
             {% endif %}
-            <p>{{ entity.type }} {{ entity.timeframe }} </p>
+            <p>
+                <span class="btn btn-secondary">Type: {{ entity.type }}</span>
+                <span class="btn btn-secondary">Timeframe: {{ entity.timeframe }}</span>
+                <span class="btn btn-secondary">Status:{{ entity.status }}</span>
+            </p>
             <p>{{ entity.description | raw }}</p>
 
             {% for checkpoint in entity.checkpoints %}

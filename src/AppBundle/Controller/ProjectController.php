@@ -22,15 +22,15 @@ class ProjectController extends Controller
     /**
      * Lists all Project entities.
      *
-     * @Route("/", name="project")
+     * @Route("/{status}/list", name="project", defaults={"status" = "Active"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($status)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Project')->findAdmin();
+        $entities = $em->getRepository('AppBundle:Project')->findAdmin($status);
 
         return array(
             'entities' => $entities,
