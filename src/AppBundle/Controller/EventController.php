@@ -29,9 +29,10 @@ class EventController extends Controller
     public function indexAction($section)
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
         $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
-        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent();
+        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent($user);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 

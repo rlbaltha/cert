@@ -16,12 +16,15 @@ class CheckpointRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Checkpoint
      */
-    public function findCurrent() {
+    public function findCurrent($user) {
         $today = date("Y-m-d");
         $events = $this->createQueryBuilder('c')
+            ->join('c.project','p')
             ->andWhere('c.deadline >= :today')
+            ->andWhere('p.user = :user')
             ->orderBy('c.deadline', 'ASC')
             ->setParameter('today',$today)
+            ->setParameter('user',$user)
             ->getQuery()
             ->getResult();
         return $events;
