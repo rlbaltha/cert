@@ -153,7 +153,7 @@
                     textColor: 'black',
                     backgroundColor: '#e4ffe8',
                     borderColor: '#e4ffe8',
-                    url: '{{ app.request.uri }}../project/{{ checkpoint.project.id }}',
+                    url: '/project/{{ checkpoint.project.id }}',
                     body: '{{ checkpoint.description| escape('js') }}',
                     id: '{{ checkpoint.id }}',
                 },
