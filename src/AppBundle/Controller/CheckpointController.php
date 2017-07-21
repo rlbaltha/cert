@@ -144,11 +144,13 @@ class CheckpointController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $project = $em->getRepository('AppBundle:Project')->find($id);
-
+        $count = count($project->getCheckpoints()) + 1;
+        $name = 'Checkpoint '.$count;
         $entity = new Checkpoint();
         $entity->setProject($project);
         $deadline =  date_create();
         $entity->setDeadline($deadline);
+        $entity->setName($name);
         if ($project->getCapstone()) {
             $entity->setType('Capstone');
             $mentor = $project->getCapstone()->getCapstoneMentor();
