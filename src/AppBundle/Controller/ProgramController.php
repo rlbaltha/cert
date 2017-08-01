@@ -264,6 +264,31 @@ class ProgramController extends Controller
     }
 
     /**
+     * Application Ready for review and send email.
+     *
+     * @Route("/mentee/{id}", name="program_mentee")
+     * @Method("GET")
+     * @Template("AppBundle:User:show.html.twig")
+     */
+    public function menteeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Program')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Program entity.');
+        }
+
+        $entity->setMentor('Yes');
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getUser()->getId())));
+    }
+
+
+    /**
      * Approve Application and send email.
      *
      * @Route("/approve/{id}", name="program_approve")
