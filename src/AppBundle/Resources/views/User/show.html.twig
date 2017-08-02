@@ -72,11 +72,12 @@
                 </a>
             </div>
             {# Name and notes #}
-            <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
+            <h1 class="">{{ entity.firstname }} {{ entity.lastname }}</h1>
             {% if entity.progress %}
                 <p>Certificate Progress: {{ entity.progress.name }}</p>
             {% endif %}
             <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
+            <div class="alert alert-info glow glow_active">Click headings to toggle.</div>
             <div id="accordion" role="tablist" aria-multiselectable="true">
 
                 {# *********************** Notifications *********************** #}
@@ -98,10 +99,8 @@
                             <div class="card-block" style="padding: 0">
 
                                 {% if entity.notifications %}
-                                    <table class="table" style="margin-bottom: 0">
-                                        <tbody>
-                                        <tr style="background-color: #fffbc3">
-                                            <td colspan="2">
+
+                                        <div class="alert alert-info margin">
                                                 {% if entity.program.mentor == 'Yes' %}
                                                     <p>You have asked to have a mentor this term. You will meet your
                                                         mentor
@@ -120,19 +119,18 @@
                                                                 href="{{ path('page_show',  { 'id': '42' }) }}">
                                                             here</a>.</p>
                                                 {% endif %}
-                                            </td>
-                                        </tr>
+                                        </div>
 
                                         {% for notification in notifications %}
                                             {% set background %}
-                                                {% if notification.status=='New' %}#e4ffe8
-                                                {% elseif notification.status=='Shared' %}#ecffe6
+                                                {% if notification.status=='New' %}alert-success
+                                                {% elseif notification.status=='Shared' %}alert-warning
                                                 {% else %}#dbf8ff
                                                 {% endif %}
                                             {% endset %}
-                                            <tr style="background-color: {{ background }}">
-                                                <td>Date: {{ notification.date |date("m/d/Y g:ia") }}</td>
-                                                <td>
+                                            <div class="alert {{ background }} margin">
+                                                <strong>{{ notification.date |date("m/d/Y g:ia") }}</strong>
+                                                <br/>
                                                     {% if notification.post %}
                                                         {{ notification.post.body|raw }}
                                                     {% endif %}
@@ -143,11 +141,8 @@
                                                             Dismiss
                                                         </a>
                                                     {% endif %}
-                                                </td>
-                                            </tr>
+                                            </div>
                                         {% endfor %}
-                                        </tbody>
-                                    </table>
                                 {% endif %}
                             </div>
                         </div>

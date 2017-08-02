@@ -141,6 +141,10 @@ input + label {
 
 /********** utlilites ***********/
 
+.margin {
+    margin: 1rem 1rem 1rem 1rem;
+}
+
 .margin-top {
     margin-top: 1rem;
 }
