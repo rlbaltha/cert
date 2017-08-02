@@ -149,6 +149,15 @@ input + label {
     margin-bottom: 1rem;
 }
 
+
+.margin-left {
+    margin-left: 1rem;
+}
+
+.margin-right {
+    margin-right: 1rem;
+}
+
 .inline {
     display: inline-block;
     margin-right: 1rem;

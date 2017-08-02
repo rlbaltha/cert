@@ -47,11 +47,8 @@
 
 
 {% block body -%}
-
-    {# Name and notes #}
     <div class="row">
         <div class="col-sm-8 offset-sm-2 col-xs-12">
-
             {% if app.session.flashBag.has('success') %}
                 <div class="alert alert-success">
                     {% for msg in app.session.flashBag.get('success') %}
@@ -59,7 +56,6 @@
                     {% endfor %}
                 </div>
             {% endif %}
-
             <div class="btn-group float-sm-right" role="group" aria-label="Basic Functions">
                 {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
                     <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
@@ -75,15 +71,12 @@
                     Create PDF
                 </a>
             </div>
-
+            {# Name and notes #}
             <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
-
-
             {% if entity.progress %}
                 <p>Certificate Progress: {{ entity.progress.name }}</p>
             {% endif %}
             <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
-
             <div id="accordion" role="tablist" aria-multiselectable="true">
 
                 {# *********************** Notifications *********************** #}
@@ -97,7 +90,6 @@
                                    aria-expanded="false" aria-controls="collapseZero">
                                     Notifications
                                 </a>
-
                             </h5>
                             {% if notifications|length > 0 %}You have {{ notifications|length }} notifications for review.{% endif %}
                         </div>
@@ -108,21 +100,28 @@
                                 {% if entity.notifications %}
                                     <table class="table" style="margin-bottom: 0">
                                         <tbody>
-                                             <tr style="background-color: #fffbc3">
-                                                <td colspan="2">
-                                                    {% if entity.program.mentor == 'Yes'%}
-                                                    You have asked to have a mentor this term.  You will meet your mentor at Orientation.
-                                                        See you there.
-                                                    {% else %}
-                                                        Would you like to have a certificate mentor this term?
-                                                        <a class="btn btn-primary  "
+                                        <tr style="background-color: #fffbc3">
+                                            <td colspan="2">
+                                                {% if entity.program.mentor == 'Yes' %}
+                                                    <p>You have asked to have a mentor this term. You will meet your
+                                                        mentor
+                                                        at Orientation.
+                                                        See you there.</p>
+                                                {% elseif entity.progress.id <= 4 %}
+                                                    <p>Would you like to have a certificate mentor this term?
+                                                        <a class="btn btn-primary margin-left"
                                                            href="{{ path('program_mentee',  { 'id': entity.program.id }) }}">
                                                             Yes, please sign me up!
-                                                        </a>
-
-                                                    {% endif %}
-                                                </td>
-                                            </tr>
+                                                        </a></p>
+                                                {% endif %}
+                                                {% if entity.program.mentor != 'Yes' and entity.progress.id >= 4 %}
+                                                    <p>Would you like to serve as certificate mentor this term?
+                                                        Read the requirements of the mentoring program<a
+                                                                href="{{ path('page_show',  { 'id': '42' }) }}">
+                                                            here</a>.</p>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
 
                                         {% for notification in notifications %}
                                             {% set background %}
@@ -168,7 +167,6 @@
                                 </a>
                             </h5>
                         </div>
-
                         <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="card-block">
                                 <a class="btn btn-primary" style="margin-left: 10px;"
@@ -543,7 +541,6 @@
                 {% endif %}
 
                 {#  *********************** Capstone Workplan *********************** #}
-                {# check to see if user is Faculty #}
                 <div class="card">
                     <div class="card-header" role="tab" id="headingFour">
                         <h5 class="mb-0 inline">
@@ -560,23 +557,21 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-
-                    <ul class="nav nav-tabs margin-top">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="workplan_toggle" href="javascript:void(0);">Work Plan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="reviews_toggle" href="javascript:void(0);">Reviews</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="checkpoints_toggle" href="javascript:void(0);">Checkpoints</a>
-                        </li>
-                    </ul>
                     <div id="collapseFour"
                          class="collapse {% if entity.program %}{% if entity.program.status == 'Approved' %}in{% endif %}{% endif %}"
                          role="tabpanel" aria-labelledby="headingFour">
+                        <ul class="nav nav-tabs margin-top">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="workplan_toggle" href="javascript:void(0);">Work Plan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="reviews_toggle" href="javascript:void(0);">Reviews</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="checkpoints_toggle" href="javascript:void(0);">Checkpoints</a>
+                            </li>
+                        </ul>
                         <div class="card-block">
-
                             <div class="toggle" id="workplan_div">
                                 {# Update the work plan (always available) #}
                                 {% if entity.capstone %}
@@ -588,13 +583,16 @@
                                     {% endif %}
                                 {% endif %}
                                 <h4>Work Plan</h4>
-
                                 {#  *********************** Capstone Instructions  *********************** #}
                                 <div class="alert alert-info margin-top" role="alert">
                                     {% if app.user.username != entity.program.user.username %}
-                                       <p><strong>Reviewers:</strong>  Thanks for offering reviews of this work plan. Click the <strong>Reviews</strong> tab to get started.</p>
-                                        <p></p><strong>Mentors:</strong>  Thanks for mentoring this capstone. Click the <strong>Reviews</strong> tab to offer a Review of this work plan and
-                                            the <strong>Checkpoints</strong> tab to review the progress of the capstone.</p>
+                                        <p><strong>Reviewers:</strong> Thanks for offering reviews of this work plan.
+                                            Click
+                                            the <strong>Reviews</strong> tab to get started.</p>
+                                        <p><strong>Mentors:</strong> Thanks for mentoring this capstone. Click the
+                                            <strong>Reviews</strong> tab to offer a Review of this work plan and
+                                            the <strong>Checkpoints</strong> tab to review the progress of the capstone.
+                                        </p>
                                     {% elseif not entity.capstone %}
                                         <p>The capstone project provides an opportunity to apply classroom
                                             learning to hands-on sustainability challenges.
@@ -616,14 +614,17 @@
                                     {% elseif entity.capstone.status == 'Ready for Peer Review' %}
                                         <p>Your work plan must receive at least two peer reviews by fellow capstone
                                             students.
-                                            (You are also be required to provide two peer reviews.) Click the <strong>Reviews</strong> tab to get started.</strong></p>
+                                            (You are also be required to provide two peer reviews.) Click the <strong>Reviews</strong>
+                                            tab to get started.</p>
                                         <p>When you feel your work plan is complete, mark it <strong>Ready for
                                                 Director</strong>.</p>
 
                                     {% elseif entity.capstone.status == 'Ready for Director Review' %}
                                         <p>You will be notified by the director when your work plan is approved.</p>
                                     {% else %}
-                                        <p>Your work plan has been approved. When you have completed your capstone, please click the <strong>Completed</strong> button.</p>
+                                        <p>Your work plan has been approved. When you have completed your capstone,
+                                            please
+                                            click the <strong>Completed</strong> button.</p>
                                     {% endif %}
                                 </div>
                                 {#  *********************** Capstone Progress buttons  *********************** #}
@@ -747,33 +748,33 @@
                             <div class="toggle" id="reviews_div">
                                 <h4>Reviews</h4>
 
-                                    <div class="alert alert-info margin-top" role="alert">
-                                        <p>You currently have {{ entity.capstone.responsesets|length }} reviews.
-                                            Once you have received feedback from your peers, revise and polish your work
-                                            plan.</p>
+                                <div class="alert alert-info margin-top" role="alert">
+                                    <p>You currently have {{ entity.capstone.responsesets|length }} reviews.
+                                        Once you have received feedback from your peers, revise and polish your work
+                                        plan.</p>
 
-                                        {% if entity.responsesets|length > 0  and app.user.username==entity.capstone.user.username %}
-                                            <p>You have offered peer reviews for:
-                                                {% for responseset in entity.responsesets %}
-                                                    <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
-                                                        {{ responseset.capstone.user.firstname }} {{ responseset.capstone.user.lastname }}{% if not loop.last %}, {% endif %}
-                                                    </a>
-                                                {% endfor %}
-                                            </p>
-                                        {% endif %}
-                                        {# Review this workplan #}
-                                        {% if entity.capstone.status == 'Ready for Peer Review' and entity.username != app.user.username %}
-                                            <a class="btn btn-primary"
-                                               href="{{ path('responseset_new',  { 'id': entity.capstone.id }) }}">
-                                                Review this work plan
-                                            </a>
-                                        {% endif %}
-                                        {# Link to list work plans ready for review #}
-                                        <a class="btn btn-primary {% if entity.capstone.status == 'Capstone Created'  or entity.capstone.status == 'Completed' %}disabled{% endif %}"
-                                           href="{{ path('capstone',  { 'type':'Peer' }) }}">
-                                            Review other work plans
+                                    {% if entity.responsesets|length > 0  and app.user.username==entity.capstone.user.username %}
+                                        <p>You have offered peer reviews for:
+                                            {% for responseset in entity.responsesets %}
+                                                <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
+                                                    {{ responseset.capstone.user.firstname }} {{ responseset.capstone.user.lastname }}{% if not loop.last %}, {% endif %}
+                                                </a>
+                                            {% endfor %}
+                                        </p>
+                                    {% endif %}
+                                    {# Review this workplan #}
+                                    {% if entity.capstone.status == 'Ready for Peer Review' and entity.username != app.user.username %}
+                                        <a class="btn btn-primary"
+                                           href="{{ path('responseset_new',  { 'id': entity.capstone.id }) }}">
+                                            Review this work plan
                                         </a>
-                                    </div>
+                                    {% endif %}
+                                    {# Link to list work plans ready for review #}
+                                    <a class="btn btn-primary {% if entity.capstone.status == 'Capstone Created'  or entity.capstone.status == 'Completed' %}disabled{% endif %}"
+                                       href="{{ path('capstone',  { 'type':'Peer' }) }}">
+                                        Review other work plans
+                                    </a>
+                                </div>
 
                                 {% if entity.capstone.responsesets %}
                                     <div id="reviews">
@@ -876,11 +877,11 @@
                                                 {% endif %}
                                                 {# mentor and director review#}
                                                 {% if checkpoint.project.capstone.capstoneMentor %}
-                                                {% if app.user.username == checkpoint.project.capstone.capstoneMentor.username %}
-                                                <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': checkpoint.project.capstone.capstoneMentor.id }) }}"
-                                                   class="">{{ checkpoint.project.capstone.capstoneMentor.name }} </a>
-                                                {% else %}{{ checkpoint.project.capstone.capstoneMentor.name }},
-                                                {% endif %}
+                                                    {% if app.user.username == checkpoint.project.capstone.capstoneMentor.username %}
+                                                        <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': checkpoint.project.capstone.capstoneMentor.id }) }}"
+                                                           class="">{{ checkpoint.project.capstone.capstoneMentor.name }} </a>
+                                                    {% else %}{{ checkpoint.project.capstone.capstoneMentor.name }},
+                                                    {% endif %}
                                                 {% endif %}
                                                 {# other selected reviewer#}
                                                 {% for reviewer in checkpoint.reviewers %}
@@ -918,18 +919,21 @@
                                     </div>
                                 {% endfor %}
                             </div>
+
                             {% endif %}
                         </div>
                     </div>
                 </div>
 
+            </div>
             {#  *********************** Capstones For Review *********************** #}
             {# check to see if user is Faculty and has capstone mentees #}
             {% if entity.progress.name=='Faculty' or is_granted('ROLE_SUPER_ADMIN') %}
                 <div class="card">
                     <div class="card-header" role="tab" id="headingFive">
                         <h5 class="mb-0 inline">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseFive"
                                aria-expanded="false" aria-controls="collapseFive">
                                 Capstones for your Review
                             </a>
@@ -995,5 +999,4 @@
             {% endif %}
         </div>
     </div>
-
 {% endblock %}
