@@ -133,6 +133,26 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return User
      */
+    public function findPeerMentors()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->join('u.progress', 'p')
+            ->join('u.program', 'pr')
+            ->andWhere("pr.mentor = 'More'")
+            ->addOrderBy('pr.graddate', 'ASC')
+            ->addOrderBy('pr.gradterm', 'DESC')
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
+
+    /**
+     * Find student users
+     *
+     * @return User
+     */
     public function findFaculty()
     {
         $users = $this->createQueryBuilder('u')

@@ -41,13 +41,13 @@
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All Students</a></li>
                             {% for status in status %}
                                 <li class="nav-item"><a
                                             href="{{ path('user', { 'type': status.id }) }}">{{ status.name }}</a></li>
                             {% endfor %}
-                            <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All Students</a>
-                            </li>
-                            <li class="nav-item"><a href="{{ path('user', { 'type': 'mentees' }) }}">Mentees</a></li>
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'mentees' }) }}">Peer Mentees</a></li>
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'peermentors' }) }}">Peer Mentors</a></li>
                             <li class="nav-item"><a href="{{ path('user', { 'type': 'all' }) }}">All Accounts</a></li>
                         </ul>
                     </div>
@@ -57,7 +57,7 @@
         </div>
         <div class="col-sm-8">
             <h1>{% if app.request.get('type')=='all' %}All Accounts ({{ entities|length }}){% elseif app.request.get('type')=='students' %}All Students ({{ entities|length }})
-                {% elseif app.request.get('type')=='mentees' %}Mentees{% elseif app.request.get('type')=='mentors' %}Mentors{% else %}
+                {% elseif app.request.get('type')=='mentees' %}Peer Mentees{% elseif app.request.get('type')=='mentors' %}Mentors{% elseif app.request.get('type')=='peermentors' %}Peer Mentors{% else %}
                     {% if entities %}{{ entities[0].progress.name }} ({{ entities|length }}){% else %}Nothing found{% endif %}
                 {% endif %}
             </h1>
