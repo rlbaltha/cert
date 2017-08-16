@@ -24,7 +24,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Event')->findAll();
-        $features = $em->getRepository('AppBundle:Feature')->findAll();
+        $features = $em->getRepository('AppBundle:Feature')->findAllSorted();
 
         return array(
             'entities' => $entities,

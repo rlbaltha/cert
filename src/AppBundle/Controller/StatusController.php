@@ -29,7 +29,7 @@ class StatusController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Status')->findAll();
+        $entities = $em->getRepository('AppBundle:Status')->findAllSorted();
 
         return array(
             'entities' => $entities,

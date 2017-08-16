@@ -19,7 +19,7 @@ class FeatureType extends AbstractType
             ->add('body', 'ckeditor', array('config_name' => 'editor_page',))
             ->add('image', 'text', array('required' => false, 'label'=>'Image (2000 x 750 px)', 'attr' => array('class' => 'text form-control'),))
             ->add('url', 'text', array('required' => false, 'attr' => array('class' => 'text form-control'),))
-            ->add('type', 'text', array('attr' => array('class' => 'text form-control'),))
+            ->add('position', 'text', array('attr' => array('class' => 'text form-control'),))
             ->add('type', 'choice', array(
                 'choices'  => array(
                     'carousel' => 'carousel',

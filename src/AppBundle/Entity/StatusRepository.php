@@ -10,6 +10,19 @@ namespace AppBundle\Entity;
  */
 class StatusRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * find status sorted by position
+     *
+     * @return Status
+     */
+    public function findAllSorted() {
+        $status = $this->createQueryBuilder('s')
+            ->orderBy('s.position')
+            ->getQuery()
+            ->getResult();
+        return $status;
+    }
+
 
     /**
      * find status by status name

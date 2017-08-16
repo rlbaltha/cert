@@ -29,6 +29,22 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * Find users all capstones
+     *
+     * @return User
+     */
+    public function findCapstones()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->andWhere("u.progress = '5' or u.progress = '6' or u.progress = '12' or u.progress = '13'")
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
+
+    /**
      * Find users by term
      *
      * @return User

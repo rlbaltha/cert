@@ -57,6 +57,13 @@ class Feature
      */
     private $type;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position=1;
+
 
     /**
      * Get id
@@ -211,5 +218,28 @@ class Feature
     {
         return $this->type;
     }
-}
 
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Feature
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+}

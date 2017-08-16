@@ -10,4 +10,16 @@ namespace AppBundle\Entity;
  */
 class FeatureRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * find feature sorted by position
+     *
+     * @return Feature
+     */
+    public function findAllSorted() {
+        $features = $this->createQueryBuilder('f')
+            ->orderBy('f.position')
+            ->getQuery()
+            ->getResult();
+        return $features;
+    }
 }

@@ -69,6 +69,8 @@ class UserController extends Controller
             $entities = $em->getRepository('AppBundle:User')->findAccounts();
         } elseif ($type == 'students') {
             $entities = $em->getRepository('AppBundle:User')->findStudents();
+        } elseif ($type == '17') {
+            $entities = $em->getRepository('AppBundle:User')->findCapstones();
         } elseif ($type == 'mentors') {
             $entities = $em->getRepository('AppBundle:User')->findMentors();
         } elseif ($type == 'mentees') {
@@ -81,7 +83,7 @@ class UserController extends Controller
             $type = $em->getRepository('AppBundle:Status')->find($type);
             $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
         }
-        $status = $em->getRepository('AppBundle:Status')->findAll();
+        $status = $em->getRepository('AppBundle:Status')->findAllSorted();
         return array(
             'entities' => $entities,
             'status' => $status,
