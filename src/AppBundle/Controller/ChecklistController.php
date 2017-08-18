@@ -32,14 +32,16 @@ class ChecklistController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $user=$this->getUser();
             $entity->setUser($user);
-
             $user_entity = $em->getRepository('AppBundle:User')->find($user);
             $status = $em->getRepository('AppBundle:Status')->findByName('Checklist Created');
             $user_entity->setProgress($status);
+            $portfolio = 'https://ctlsites.uga.edu/sustainability-'. $user_entity->getFirstname().$user_entity->getLastname();
+            $entity->setPortfolio(strtolower($portfolio));
 
             $em->persist($entity);
             $em->persist($user_entity);

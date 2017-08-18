@@ -1,51 +1,131 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $(".hidden").hide();
+            $(".card-title").click(function () {
+                $(this).parent().next().toggle();
+                $(this).next().toggle();
+            });
+        });
+    </script>
+{% endblock %}
+
+
 {% block body -%}
-    <h1>Checkpoint list</h1>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item"><a href="{{ path('project_new') }}">
+                                        New Project
+                                    </a></li>
+                                <li class="nav-item"><a href="{{ path('project') }}">
+                                        Active Projects
+                                    </a></li>
+                                <li class="nav-item"><a href="{{ path('project') }}">
+                                        Completed Projects
+                                    </a></li>
+                                <li class="nav-item"><a href="{{ path('checkpoint', { 'type': 'Date' }) }}">
+                                        Checkpoints by Date
+                                    </a></li>
+                                <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Calendar</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Timeframe</th>
-                <th>Deadline</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('checkpoint_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.description }}</td>
-                <td>{{ entity.type }}</td>
-                <td>{{ entity.timeframe }}</td>
-                <td>{% if entity.deadline %}{{ entity.deadline|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.status }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('checkpoint_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('checkpoint_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </div>
+        </div>
 
-        <ul>
-        <li>
-            <a href="{{ path('checkpoint_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+        <div class="col-sm-8">
+
+            {% for checkpoint in entities %}
+                {% set background %}
+                    {% if checkpoint.status=='Complete' %}#e4ffe8
+                    {% else %}#ffffe6
+                    {% endif %}
+                {% endset %}
+                <div class="card">
+                    <div class="card-header" style="background-color: {{ background }} ">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {% if checkpoint.status!='Complete' %}
+                                <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
+                                   class="float-sm-right btn btn-primary">Complete</a>
+                            {% endif %}
+                            <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
+                               class="float-sm-right btn btn-primary">Edit</a>
+                        {% endif %}
+
+                        <h4 class="card-title">
+                            <a href="javascript:void(0)" title="click to toggle">
+                                {{ checkpoint.project.name }}: {{ checkpoint.name }}
+                            </a>
+                            {% if checkpoint.status=='Complete' %}
+                                <i class="fa fa-check fa-2x" aria-hidden="true"></i>
+                            {% endif %}
+                        </h4>
+
+                        <p class="{% if checkpoint.status=='Complete' %}hidden{% endif %}">
+                            {% if checkpoint.deadline %}<span class="btn btn-secondary">Deadline: {{ checkpoint.deadline|date('Y-m-d h:i A') }}</span>{% endif %}
+                            <span class="btn btn-secondary">Status: {{ checkpoint.status }}</span>
+                        </p>
+                    </div>
+                    <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
+
+                        {{ checkpoint.description |raw }}
+
+                        <hr/>
+                        <p>
+                            Reviewers:
+                            {% for reviewer in checkpoint.reviewers %}
+                                {% if app.user.username == reviewer.username %}
+                                    <a
+                                    href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': reviewer.id }) }}"
+                                    class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        </p>
+
+                        {% for review in checkpoint.reviews %}
+                            {% set review_background %}
+                                {% if review.status=='Complete' %}#e4ffe8
+                                {% else %}#ffffe6
+                                {% endif %}
+                            {% endset %}
+                            <div class="card">
+                                <div class="card-header" style="background-color: {{ review_background }}">
+                                    Review by {{ review.reviewer.name }}
+                                    <span class="btn btn-secondary">
+                                        Recommended Status: {{ review.status }}
+                                    </span>
+                                    {% if review.status=='Complete' %}
+                                        <i class="fa fa-check fa-2x" aria-hidden="true"></i>
+                                    {% endif %}
+                                    {% if app.user.username == review.reviewer.username %}
+                                        <a href="{{ path('review_edit', { 'id': review.id }) }}"
+                                           class="float-sm-right btn btn-primary">Edit</a>
+                                    {% endif %}
+                                </div>
+                                <div class="card-block">
+                                    <p>{{ review.body | raw }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+{% endblock %}
+

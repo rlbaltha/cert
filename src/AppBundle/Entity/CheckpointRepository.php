@@ -30,5 +30,24 @@ class CheckpointRepository extends \Doctrine\ORM\EntityRepository
         return $events;
     }
 
+    /**
+     * Find all upcoming checkpoints
+     *
+     * @return Checkpoint
+     */
+    public function findAdminCurrent() {
+        $type = 'Admin';
+        $today = date("Y-m-d");
+        $events = $this->createQueryBuilder('c')
+            ->join('c.project','p')
+            ->andWhere('c.deadline >= :today')
+            ->andWhere('p.type = :type')
+            ->orderBy('c.deadline', 'ASC')
+            ->setParameter('today',$today)
+            ->setParameter('type',$type)
+            ->getQuery()
+            ->getResult();
+        return $events;
+    }
 
 }

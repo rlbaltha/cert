@@ -31,7 +31,7 @@ class CheckpointController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Checkpoint')->findAll();
+        $entities = $em->getRepository('AppBundle:Checkpoint')->findAdminCurrent();
 
         return array(
             'entities' => $entities,

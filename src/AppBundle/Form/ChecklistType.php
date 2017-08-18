@@ -145,7 +145,7 @@ class ChecklistType extends AbstractType
                 )
             )
           ->add('portfolio', 'text', array('required'=> false,'attr' => array('class' => 'text form-control', 'placeholder' =>
-            'https://uga.digication.com/'),))
+            'https://ctlsites.uga.edu/sustainability-/'),))
           ->add('post_assess','date', array('attr' => array('class' => ''), 'label'  => 'Post-Certificate Survey 
             Completed', 'required' => false,))
             ->add('exceptions', 'ckeditor', array('label'  => 'Exceptions:  Please offer any exceptions to the above requirements and the reasons for them.','config_name' => 'editor_simple',))
