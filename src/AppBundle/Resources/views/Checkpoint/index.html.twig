@@ -7,7 +7,6 @@
             $(".hidden").hide();
             $(".card-title").click(function () {
                 $(this).parent().next().toggle();
-                $(this).next().toggle();
             });
         });
     </script>
@@ -35,7 +34,7 @@
                                 <li class="nav-item"><a href="{{ path('project') }}">
                                         Completed Projects
                                     </a></li>
-                                <li class="nav-item"><a href="{{ path('checkpoint', { 'type': 'Date' }) }}">
+                                <li class="nav-item"><a href="{{ path('checkpoint') }}">
                                         Checkpoints by Date
                                     </a></li>
                                 <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Calendar</a></li>
@@ -75,12 +74,12 @@
                             {% endif %}
                         </h4>
 
-                        <p class="{% if checkpoint.status=='Complete' %}hidden{% endif %}">
+                        <p>
                             {% if checkpoint.deadline %}<span class="btn btn-secondary">Deadline: {{ checkpoint.deadline|date('Y-m-d h:i A') }}</span>{% endif %}
                             <span class="btn btn-secondary">Status: {{ checkpoint.status }}</span>
                         </p>
                     </div>
-                    <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
+                    <div class="card-block hidden">
 
                         {{ checkpoint.description |raw }}
 
