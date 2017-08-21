@@ -880,7 +880,7 @@
                                 {% for checkpoint in entity.capstone.project.checkpoints %}
                                     {% set background %}
                                         {% if checkpoint.status=='Complete' %}#e4ffe8
-                                        {% else %}#ffffe6
+                                        {% else %}#e6e6e6
                                         {% endif %}
                                     {% endset %}
                                     <div class="card margin-top checkpoints_card">
@@ -904,9 +904,14 @@
                                             </h4>
 
                                             <p class="{% if checkpoint.status=='Complete' %}hidden{% endif %}">
-                                                {% if checkpoint.deadline %}<span class="btn btn-secondary">
-                                                    Deadline: {{ checkpoint.deadline|date('Y-m-d h:i A') }}</span>{% endif %}
-                                                <span class="btn btn-secondary">Status: {{ checkpoint.status }}</span>
+                                                {% if checkpoint.deadline %}
+                                                    {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
+                                                        {% set alert %}alert-danger{% endset %}
+                                                    {% else %}
+                                                        {% set alert %}alert-info{% endset %}
+                                                    {% endif %}
+                                                    <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
+                                                {% endif %}
                                             </p>
                                         </div>
                                         <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
