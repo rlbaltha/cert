@@ -113,7 +113,7 @@
                 {# set variables for checkpoints #}
                 {% set overdue = 0 %}
                 {% set upcoming = 0 %}
-                
+
                 {# check to see if profile matches currrent user #}
                 {% if app.user.username == entity.username  or is_granted('ROLE_ADMIN') %}
                     {% if entity.notifications %}
@@ -157,7 +157,7 @@
                                     {% for notification in notifications %}
                                         {% set background %}
                                             {% if notification.status=='New' %}alert-success
-                                            {% elseif notification.status=='Shared' %}alert-warning
+                                            {% elseif notification.status=='Shared' %}alert-success
                                             {% else %}#dbf8ff
                                             {% endif %}
                                         {% endset %}
