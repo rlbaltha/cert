@@ -16,18 +16,35 @@ class CheckpointRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Checkpoint
      */
-    public function findCurrent($user) {
+    public function findCurrent($user, $admin) {
         $today = date("Y-m-d");
-        $events = $this->createQueryBuilder('c')
-            ->join('c.project','p')
-            ->andWhere('c.deadline >= :today')
-            ->andWhere('p.user = :user')
-            ->orderBy('c.deadline', 'ASC')
-            ->setParameter('today',$today)
-            ->setParameter('user',$user)
-            ->getQuery()
-            ->getResult();
-        return $events;
+        if ($admin = 'yes') {
+            $type = 'Admin';
+            $events = $this->createQueryBuilder('c')
+                ->join('c.project','p')
+                ->andWhere('c.deadline >= :today')
+                ->andWhere('p.user = :user or p.type = :type')
+                ->orderBy('c.deadline', 'ASC')
+                ->setParameter('today',$today)
+                ->setParameter('user',$user)
+                ->setParameter('type',$type)
+                ->getQuery()
+                ->getResult();
+            return $events;
+        }
+        else {
+            $events = $this->createQueryBuilder('c')
+                ->join('c.project','p')
+                ->andWhere('c.deadline >= :today')
+                ->andWhere('p.user = :user')
+                ->orderBy('c.deadline', 'ASC')
+                ->setParameter('today',$today)
+                ->setParameter('user',$user)
+                ->getQuery()
+                ->getResult();
+            return $events;
+        }
+
     }
 
     /**

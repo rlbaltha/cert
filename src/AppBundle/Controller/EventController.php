@@ -32,11 +32,13 @@ class EventController extends Controller
         $user = $this->getUser();
         $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
-        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent($user);
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-        $admin = $em->getRepository('AppBundle:Checkpoint')->findAdminCurrent();
-        $checkpoints = array_merge($checkpoints,$admin);
+            $admin = 'yes';
         }
+        else {
+            $admin = 'no';
+        }
+        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent($user, $admin);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 
