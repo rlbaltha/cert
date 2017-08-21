@@ -110,9 +110,31 @@
 
 
                 {# *********************** Notifications *********************** #}
+                {# set variables for checkpoints #}
+                {% set overdue = 0 %}
+                {% set upcoming = 0 %}
+                
                 {# check to see if profile matches currrent user #}
                 {% if app.user.username == entity.username  or is_granted('ROLE_ADMIN') %}
                     {% if entity.notifications %}
+                        {% set count_notifications = notifications|length %}
+                        {# count checkpoint deadlines #}
+                        {% if entity.capstone %}
+                            {% for checkpoint in entity.capstone.project.checkpoints %}
+                                {% if checkpoint.deadline %}
+                                    {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d')  and checkpoint.status!='Complete'%}
+                                        {% set overdue = overdue + 1 %}
+                                    {% endif %}
+                                    {% if "now"|date('Y-m-d') <= checkpoint.deadline|date|date('Y-m-d')  and checkpoint.status!='Complete'%}
+                                        {% set upcoming = upcoming + 1 %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if overdue > 0 %}{% set count_notifications = count_notifications + 1 %}{% endif %}
+                            {% if upcoming > 0 %}{% set count_notifications = count_notifications + 1 %}{% endif %}
+                        {% endif %}
+
+
                         <div class="card">
                             <div class="card-header" role="tab" id="headingZero">
 
@@ -123,9 +145,9 @@
                                         Notifications
                                     </a>
                                 </h5>
-                                {% if notifications|length > 0 %}
+                                {% if count_notifications > 0 %}
                                     <span>
-                                    You have {{ notifications|length }} notifications for review.
+                                    You have {{ count_notifications }} notification{% if count_notifications > 1 %}s{% endif %} for review.
                                     </span>
                                 {% endif %}
                             </div>
@@ -154,6 +176,18 @@
                                             {% endif %}
                                         </div>
                                     {% endfor %}
+
+                                    {# notifications for checkpoints #}
+                                        {% if upcoming > 0 %}
+                                            <div class="alert alert-info margin">You have {{ upcoming }} upcoming
+                                                Capstone Checkpoints
+                                            </div>
+                                        {% endif %}
+                                        {% if overdue > 0 %}
+                                            <div class="alert alert-danger margin">You have {{ overdue }} overdue
+                                                Capstone Checkpoints
+                                            </div>
+                                        {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -167,7 +201,7 @@
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
                                aria-expanded="true"
                                aria-controls="collapseOne">
-                               Peer Mentoring
+                                Peer Mentoring
                             </a>
                         </h5>
                     </div>
@@ -177,11 +211,15 @@
                             <ul>
                                 <li>Mentees and Mentors must attend orientation</li>
                                 <li>Mentees and Mentors must have one face-to-face meeting</li>
-                                <li>Mentees and Mentors must participate in the Certificate Volunteer Day each semester</li>
+                                <li>Mentees and Mentors must participate in the Certificate Volunteer Day each
+                                    semester
+                                </li>
                             </ul>
                             Requirements for application to be a Mentor:
                             <ul>
-                                <li>Can only apply if they are a sophomore or higher and have participated in at least one Sustainability Seminar</li>
+                                <li>Can only apply if they are a sophomore or higher and have participated in at least
+                                    one Sustainability Seminar
+                                </li>
                                 <li>All students must learn to smell the roses and appreciate the sunshine</li>
                             </ul>
                             Read more about out mentoring program <a href="{{ path('page_show',  { 'id': '42' }) }}">here</a>
@@ -443,7 +481,10 @@
                                                 <div class="alert alert-warning" role="alert">
                                                     <p>
                                                         <strong>
-                                                            NB:  We require that at least one of the spheres come from courses outside you major and highly recommended that two of the three spheres come from courses outside of your major to develop the broadest perspective on sustainability.
+                                                            NB: We require that at least one of the spheres come from
+                                                            courses outside you major and highly recommended that two of
+                                                            the three spheres come from courses outside of your major to
+                                                            develop the broadest perspective on sustainability.
                                                         </strong>
                                                     </p>
                                                 </div>
@@ -769,7 +810,7 @@
                                     </tr>
                                     <tr>
                                         <th>After Completion</th>
-                                        <td>{{ entity.capstone.completion|raw}}</td>
+                                        <td>{{ entity.capstone.completion|raw }}</td>
                                     </tr>
                                     <tr>
                                         <th>Repeatable/Extendable</th>
@@ -880,7 +921,7 @@
                                 {% for checkpoint in entity.capstone.project.checkpoints %}
                                     {% set background %}
                                         {% if checkpoint.status=='Complete' %}#e4ffe8
-                                        {% else %}#e6e6e6
+                                        {% else %}#F7F7E3
                                         {% endif %}
                                     {% endset %}
                                     <div class="card margin-top checkpoints_card">
