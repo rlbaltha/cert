@@ -45,22 +45,6 @@
         <div class="col-sm-8">
             <h1>Certificate Calendar</h1>
 
-            {# highlight an individual event #}
-            {% if event is defined %}
-                <div class="alert alert-success">
-                    <h1>{{ event.title }}</h1>
-                    {{ event.datetime|date('Y-m-d H:i:s') }}<br>
-                    {{ event.body | raw }}
-                    <div>
-                        <a class="btn btn-primary" href="{{ path('event_edit', { 'id': event.id }) }}">
-                            Edit
-                        </a>
-                        {{ form(delete_form) }}
-                    </div>
-
-                </div>
-            {% endif %}
-
             {# fullcalendar display  #}
             {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
 
@@ -139,7 +123,7 @@
                     textColor: 'black',
                     backgroundColor: '#fdcfc0',
                     borderColor: '#fdcfc0',
-                    url: '{{ app.request.uri }}{{ event.id }}',
+                    url: '{{ app.request.uri }}/../{{ event.id }}/detail',
                     body: '{{ event.body| escape('js') }}',
                     id: '{{ event.id }}',
                 },

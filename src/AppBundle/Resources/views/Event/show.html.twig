@@ -1,0 +1,72 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}"/>
+{% endblock %}
+
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            {% if section %}
+                                {% for page in section.pages if section %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item"><a href="{{ path('event_new') }}">New Event</a></li>
+                            {% endif %}
+                            <li class="nav-item"><a
+                                        href="{{ path('event') }}">Month</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <h1>Certificate Calendar</h1>
+
+            {# highlight an individual event #}
+            {% if event is defined %}
+                <div class="alert alert-success">
+                    <a class="btn btn-primary float-sm-right" href="{{ path('event_edit', { 'id': event.id }) }}">
+                        Edit
+                    </a>
+
+                    <h1>{{ event.title }}</h1>
+                    {{ event.datetime|date('Y-m-d H:i:s') }}<br>
+                    {{ event.body | raw }}
+                    <div>
+
+                    </div>
+
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

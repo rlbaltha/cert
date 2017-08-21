@@ -33,6 +33,10 @@ class EventController extends Controller
         $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
         $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent($user);
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        $admin = $em->getRepository('AppBundle:Checkpoint')->findAdminCurrent();
+        $checkpoints = array_merge($checkpoints,$admin);
+        }
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 
@@ -115,15 +119,16 @@ class EventController extends Controller
      * @Route("/{id}", name="event_show")
      * @Route("/{section}/{id}/detail", name="event_show", defaults={"section" = "capstone"})
      * @Method("GET")
-     * @Template("AppBundle:Event:index.html.twig")
+     * @Template("AppBundle:Event:show.html.twig")
      */
     public function showAction($id, $section)
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
         $section = ucfirst($section);
         $event = $em->getRepository('AppBundle:Event')->find($id);
         $entities = $em->getRepository('AppBundle:Event')->findCurrent();
-        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent();
+        $checkpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrent($user);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $ics_sources = $em->getRepository('AppBundle:Upload')->findIcsSources();
 

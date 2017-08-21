@@ -176,6 +176,15 @@ class CapstoneType extends AbstractType
                     'attr' => array('class' => 'text form-control'),
                 )
             )
+            ->add(
+                'repeatinfo',
+                'ckeditor',
+                array(
+                    'required' => false,
+                    'label' => 'If extendable or repeatable, please explain how.',
+                    'config_name' => 'editor_simple',
+                )
+            )
         ;
     }
 

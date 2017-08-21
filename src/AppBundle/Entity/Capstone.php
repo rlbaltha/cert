@@ -97,6 +97,13 @@ class Capstone
     /**
      * @var string
      *
+     * @ORM\Column(name="repeatinfo", type="text", nullable=true)
+     */
+    private $repeatinfo;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="personal_objectives", type="text", nullable=true)
      */
     private $personal_objectives;
@@ -925,5 +932,29 @@ class Capstone
     public function getCapstoneMentor()
     {
         return $this->capstone_mentor;
+    }
+
+    /**
+     * Set repeatinfo
+     *
+     * @param string $repeatinfo
+     *
+     * @return Capstone
+     */
+    public function setRepeatinfo($repeatinfo)
+    {
+        $this->repeatinfo = $repeatinfo;
+
+        return $this;
+    }
+
+    /**
+     * Get repeatinfo
+     *
+     * @return string
+     */
+    public function getRepeatinfo()
+    {
+        return $this->repeatinfo;
     }
 }

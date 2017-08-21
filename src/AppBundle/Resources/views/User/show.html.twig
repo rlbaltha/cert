@@ -724,7 +724,7 @@
                                     </tr>
                                     <tr>
                                         <th>Description</th>
-                                        <td>{{ entity.capstone.description |raw }}</td>
+                                        <td>{{ entity.capstone.description|raw }}</td>
                                     </tr>
                                     <tr>
                                         <th>Mentor</th>
@@ -732,7 +732,7 @@
                                     </tr>
                                     <tr>
                                         <th>Mentor Involvement</th>
-                                        <td>{{ entity.capstone.mentorExpectations }}</td>
+                                        <td>{{ entity.capstone.mentorExpectations|raw }}</td>
                                     </tr>
                                     <tr>
                                         <th>Group</th>
@@ -769,13 +769,16 @@
                                     </tr>
                                     <tr>
                                         <th>After Completion</th>
-                                        <td>{{ entity.capstone.completion }}</td>
+                                        <td>{{ entity.capstone.completion|raw}}</td>
                                     </tr>
                                     <tr>
                                         <th>Repeatable/Extendable</th>
                                         <td>{{ entity.capstone.repeatable }}</td>
                                     </tr>
-
+                                    <tr>
+                                        <th>Repeatable/Extendable Information</th>
+                                        <td>{{ entity.capstone.repeatinfo|raw }}</td>
+                                    </tr>
                                     <tr>
                                         <th>Status</th>
                                         <td>{{ entity.capstone.status }}<a name="reviews"></a></td>
