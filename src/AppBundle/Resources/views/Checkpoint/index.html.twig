@@ -63,6 +63,8 @@
                             {% endif %}
                             <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
                                class="float-sm-right btn btn-primary">Edit</a>
+                            <a href="{{ path('project_show', { 'id': checkpoint.project.id }) }}" class="float-sm-right btn btn-primary">
+                                Open Project</a>
                         {% endif %}
 
                         <h4 class="card-title">
