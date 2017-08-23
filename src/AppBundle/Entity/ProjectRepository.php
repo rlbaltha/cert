@@ -22,6 +22,7 @@ class ProjectRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('p.status = :status')
             ->setParameter('type', $type)
             ->setParameter('status', $status)
+            ->orderBy('p.updated', 'DESC')
             ->getQuery()
             ->getResult();
         return $projects;
