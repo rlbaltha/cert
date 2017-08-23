@@ -312,6 +312,36 @@ class UserController extends Controller
     }
 
     /**
+     * Edits an existing User entity.
+     *
+     * @Route("/inactive/{id}", name="user_inactive")
+     * @Method("GET")
+     * @Template("AppBundle:Shared:edit.html.twig")
+     */
+    public function inactiveAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:User')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
+
+        $status = $em->getRepository('AppBundle:Status')->findByName('Inactive');
+        $entity->setProgress($status);
+        $timestamp = date('m/d/Y h:i:s A');
+        $notes = $entity->getNotes();
+        $entity->setNotes($notes . '<p>As per request, student marked inactive. ' . $timestamp . '</p>');
+        $em->persist($entity);
+        $em->flush();
+
+
+        return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
+
+    }
+
+    /**
      * Deletes a User entity.
      *
      * @Route("/{id}", name="user_delete")

@@ -98,6 +98,10 @@
                                    href="{{ path('user_edit', { 'id': entity.id }) }}">
                                     Update
                                 </a>
+                                <a class="btn btn-primary"
+                                   href="{{ path('user_inactive', { 'id': entity.id }) }}">
+                                    Inactive
+                                </a>
                                 <p>{{ entity.notes |raw }}
                                     {% if entity.notes|length < 1 %}No notes yet.{% endif %}
                                 </p>

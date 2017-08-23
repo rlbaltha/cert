@@ -24,7 +24,8 @@
                                 <li class="nav-item"><a href="{{ path('checkpoint') }}">
                                         Checkpoints by Date
                                     </a></li>
-                                <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Calendar</a></li>
+                                <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Calendar</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </div>
@@ -36,27 +37,15 @@
         <div class="col-sm-8">
 
             <h1>Projects</h1>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Type</th>
-                    <th>Edit</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for entity in entities %}
-                    <tr>
-                        <td><a href="{{ path('project_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
-                        <td>{{ entity.description |raw  }}</td>
-                        <td>{{ entity.type }}</td>
-                        <td><a href="{{ path('project_edit', { 'id': entity.id }) }}">Edit</a></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            {% for entity in entities %}
+                <div class="card">
+                    <div class="card-block">
+                        <h2 class="card-title"><a
+                                    href="{{ path('project_show', { 'id': entity.id }) }}">{{ entity.name }}</a></h2>
+                        <p class="card-text">{{ entity.description |raw }}</p>
+                    </div>
+                </div>
+            {% endfor %}
 
         </div>
     </div>

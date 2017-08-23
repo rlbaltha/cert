@@ -53,7 +53,7 @@ class Upload
      *
      * @ORM\Column(name="color", type="string", length=255)
      */
-    private $color='NA';
+    private $color='green';
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
