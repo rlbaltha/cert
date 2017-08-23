@@ -11,15 +11,17 @@
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
-                            <li class="nav-item"><a href="{{ path('network') }}">
-                                    Certificate Students
-                                </a></li>
-                            {% for entity in forums %}
-                                <li class="nav-item">
-                                    <a href="{{ path('forum_show', { 'id': entity.id }) }}">{{ entity.title }}</a>
-                                </li>
-                            {% endfor %}
-
+                            {% if section %}
+                                {% for page in section.pages if section %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </ul>
                         {% if is_granted('ROLE_ADMIN') %}
                             <ul class="nav navbar-sidenav">

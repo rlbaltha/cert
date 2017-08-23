@@ -28,10 +28,10 @@ class ForumController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Students');
         $entities = $em->getRepository('AppBundle:Forum')->findTopLevel();
-
         return array(
+            'section' => $section,
             'entities' => $entities,
         );
     }
@@ -127,9 +127,8 @@ class ForumController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Students');
         $entity = $em->getRepository('AppBundle:Forum')->find($id);
-        $forums = $em->getRepository('AppBundle:Forum')->findNetwork();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Forum entity.');
@@ -138,9 +137,8 @@ class ForumController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
+            'section' => $section,
             'entity'      => $entity,
-            'forums'      => $forums,
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
