@@ -46,25 +46,6 @@ class ProgramController extends Controller
             $em->persist($user_entity);
             $em->flush();
 
-            $user = $em->getRepository('AppBundle:User')->find($user);
-            $name = $user->getFirstname() . ' ' . $user->getLastname();
-            $text = $name . ' has created an application.';
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Certificate Application')
-                ->setFrom('scdirector@uga.edu')
-                ->setTo('scdirector@uga.edu')
-                ->setBody(
-                    $this->renderView(
-
-                        'AppBundle:Email:apply.html.twig',
-                        array('name' => $name,
-                            'text' => $text)
-                    ),
-                    'text/html'
-                );
-            $this->get('mailer')->send($message);
-
             return $this->redirect($this->generateUrl('user_profile'));
         }
 
@@ -181,25 +162,6 @@ class ProgramController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-            $user = $this->getUser();
-            $user = $em->getRepository('AppBundle:User')->find($user);
-            $name = $user->getFirstname() . ' ' . $user->getLastname();
-            $text = $name . ' has updated an application.';
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Certificate Application')
-                ->setFrom('scdirector@uga.edu')
-                ->setTo('scdirector@uga.edu')
-                ->setBody(
-                    $this->renderView(
-
-                        'AppBundle:Email:apply.html.twig',
-                        array('name' => $name,
-                            'text' => $text)
-                    ),
-                    'text/html'
-                );
-            $this->get('mailer')->send($message);
 
             return $this->redirect($this->generateUrl('user_profile'));
         }

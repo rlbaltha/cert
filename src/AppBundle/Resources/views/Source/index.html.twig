@@ -118,6 +118,11 @@
             {% endfor %}
             </tbody>
         </table>
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <p>Email
+            list: {% for entity in entities if '@' in entity.contact  %}{{ entity.contact }}; {% endfor %}</p>
+        {% endif %}
     </div>
 </div>
 
