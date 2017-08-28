@@ -74,7 +74,11 @@
     </div>
 
     <div class="col-sm-8">
-        <h1>Resources</h1>
+        <h1>Capstone Resources</h1>
+        <p>This list is designed to help you find resources for a capstone project or an Office of
+            Sustainability grant project
+            (or both).</p>
+            <p class="alert alert-info">The tags below are clickable.</p>
         {% for tag in tags if tag.subs|length > 0 %}
             <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
                  style="background-color: {{ tag.color }}">{{ tag.title }}</div>

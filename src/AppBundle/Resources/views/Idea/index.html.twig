@@ -78,7 +78,7 @@
         </div>
 
         <div class="col-sm-8">
-            <h1>Capstone/Grant Ideas</h1>
+            <h1>Capstone Ideas</h1>
 
             {% for flash_message in app.session.flashBag.get('notice') %}
                 <div class="flash-notice alert alert-success">
@@ -88,11 +88,11 @@
 
             <p>This list is designed to help you get started on imagining a capstone project or an Office of
                 Sustainability grant project
-                (or both). The tags on the left are clickable.</p>
+                (or both).</p>
             <p>Have a great idea? Submit it here: <a class="btn btn-primary" href="{{ path('idea_new') }}">
                     Idea Submission Form
                 </a></p>
-
+            <p class="alert alert-info">The tags below are clickable.</p>
             {% for tag in tags if tag.subs|length > 0 %}
                 <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
                      style="background-color: {{ tag.color }}">{{ tag.title }}</div>
