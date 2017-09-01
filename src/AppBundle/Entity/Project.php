@@ -67,6 +67,7 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity="Checkpoint", mappedBy="project")
+     * @ORM\OrderBy({"deadline" = "ASC"})
      */
     protected $checkpoints;
 
