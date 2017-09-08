@@ -90,7 +90,7 @@ class ResponsesetController extends Controller
         $em->persist($responseset);
         $em->flush();
 
-        $email = $user_entity->getEmail();
+        $email = $capstone->getUser()->getEmail();
         $text = '<p>The Certificate Director has reviewed your work plan.  
          <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Login</a> and check
          <strong>Reviews</strong> under the <strong>Capstone</strong> tab.</p>
