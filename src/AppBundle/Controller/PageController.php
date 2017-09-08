@@ -102,7 +102,7 @@ class PageController extends Controller
 		/**
      * Finds and displays the current newsletter page.
      *
-     * @Route("/newsletter", name="page_newsletter")
+     * @Route("/news", name="page_newsletter")
      * @Method("GET")
      * @Template("AppBundle:Page:show.html.twig")
      */

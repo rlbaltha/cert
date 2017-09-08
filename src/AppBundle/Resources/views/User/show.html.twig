@@ -884,7 +884,7 @@
                                         {# Review this workplan #}
                                         {% if entity.capstone.status == 'Ready for Peer Review' and entity.username != app.user.username %}
                                             <a class="btn btn-primary"
-                                               href="{{ path('responseset_new',  { 'id': entity.capstone.id }) }}">
+                                               href="{{ path('responseset_new',  { 'id': entity.capstone.id,'questionsetid': '1'  }) }}">
                                                 Review this work plan
                                             </a>
                                         {% endif %}
@@ -893,6 +893,13 @@
                                            href="{{ path('capstone',  { 'type':'Peer' }) }}">
                                             Review other work plans
                                         </a>
+                                        {# Director workplan review #}
+                                        {% if is_granted('ROLE_ADMIN') and entity.username != app.user.username %}
+                                            <a class="btn btn-primary"
+                                               href="{{ path('responseset_new',  { 'id': entity.capstone.id,'questionsetid': '2'  }) }}">
+                                                Director work plan review
+                                            </a>
+                                        {% endif %}
                                     </div>
 
                                     {% if entity.capstone.responsesets %}

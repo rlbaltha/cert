@@ -20,7 +20,7 @@ public function findCurrent() {
 	$page = $this->createQueryBuilder('p')
 		->join('p.section', 's')
 		->andWhere('s.title = :title')
-		->setParameter('title', 'Newsletter')
+		->setParameter('title', 'News')
 		->orderBy('p.sortorder')
 		->setMaxResults(1)
 		->getQuery()

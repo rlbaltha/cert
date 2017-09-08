@@ -37,32 +37,6 @@ class ResponsesetController extends Controller
             'entities' => $entities,
         );
     }
-    /**
-     * Creates a new Responseset entity.
-     *
-     * @Route("/", name="responseset_create")
-     * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
-     */
-    public function createAction(Request $request)
-    {
-        $entity = new Responseset();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('responseset_show', array('id' => $entity->getId())));
-        }
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
 
     /**
      * Creates a form to create a Responseset entity.
@@ -86,11 +60,11 @@ class ResponsesetController extends Controller
     /**
      * Displays a form to create a new Responseset entity.
      *
-     * @Route("/new/{id}", name="responseset_new")
+     * @Route("/new/{id}/{questionsetid}", name="responseset_new")
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
      */
-    public function newAction($id)
+    public function newAction($id, $questionsetid)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -98,7 +72,7 @@ class ResponsesetController extends Controller
 
         $capstone = $em->getRepository('AppBundle:Capstone')->find($id);
         $type = "Peer Review";
-        $questions = $em->getRepository('AppBundle:Question')->findQuestions($type);
+        $questions = $em->getRepository('AppBundle:Question')->findQuestions($questionsetid);
 
         $responseset = new Responseset();
         $responseset->setCapstone($capstone);
@@ -116,6 +90,25 @@ class ResponsesetController extends Controller
 
         $em->persist($responseset);
         $em->flush();
+
+        $email = $user->getEmail();
+        $text = 'The Certificate Director has reviewed your work plan.  Login and check
+         Reviews under the Capstone tab.';
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Director Review')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo($email)
+            ->setBody(
+                $this->renderView(
+
+                    'AppBundle:Email:apply.html.twig',
+                    array('text' => $text)
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
+
         return $this->redirect($this->generateUrl('responseset_edit', array('id' => $responseset->getId())));
 
     }

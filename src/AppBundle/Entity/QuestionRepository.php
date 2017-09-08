@@ -15,12 +15,12 @@ class QuestionRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Question
      */
-    public function findQuestions($type) {
+    public function findQuestions($questionsetid) {
 
         $questions = $this->createQueryBuilder('q')
             ->join('q.questionset','s')
-            ->andWhere('s.title = :type')
-            ->setParameter('type', $type)
+            ->andWhere('s.id = :id')
+            ->setParameter('id', $questionsetid)
             ->getQuery()
             ->getResult();
         return $questions;

@@ -23,7 +23,7 @@ body {
 }
 
 .cert-logo {
-    position:absolute;
+    position:fixed;
     bottom:0px;
     max-height: 5rem;
     margin: 1rem;
