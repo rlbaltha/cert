@@ -68,15 +68,14 @@ class ResponsesetController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $user = $em->getRepository('AppBundle:User')->find($user);
+        $user_entity = $em->getRepository('AppBundle:User')->find($user);
 
         $capstone = $em->getRepository('AppBundle:Capstone')->find($id);
-        $type = "Peer Review";
         $questions = $em->getRepository('AppBundle:Question')->findQuestions($questionsetid);
 
         $responseset = new Responseset();
         $responseset->setCapstone($capstone);
-        $responseset->setUser($user);
+        $responseset->setUser($user_entity);
         $cnt = count($questions);
 
         for ($i = 0; $i < $cnt; $i++) {
@@ -91,7 +90,7 @@ class ResponsesetController extends Controller
         $em->persist($responseset);
         $em->flush();
 
-        $email = $user->getEmail();
+        $email = $user_entity->getEmail();
         $text = 'The Certificate Director has reviewed your work plan.  Login and check
          Reviews under the Capstone tab.';
 
@@ -99,6 +98,7 @@ class ResponsesetController extends Controller
             ->setSubject('Director Review')
             ->setFrom('scdirector@uga.edu')
             ->setTo($email)
+            ->setBcc('scdirector@uga.edu')
             ->setBody(
                 $this->renderView(
 
