@@ -91,8 +91,10 @@ class ResponsesetController extends Controller
         $em->flush();
 
         $email = $user_entity->getEmail();
-        $text = 'The Certificate Director has reviewed your work plan.  Login and check
-         Reviews under the Capstone tab.';
+        $text = '<p>The Certificate Director has reviewed your work plan.  
+         <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Login</a> and check
+         <strong>Reviews</strong> under the <strong>Capstone</strong> tab.</p>
+         <p>Thanks for your good work and all you are doing for sustainability at UGA.</p>';
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Director Review')
