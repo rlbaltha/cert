@@ -146,7 +146,7 @@ class Capstone
     /**
      * @var string
      *
-     * @ORM\Column(name="mentor_expectations", type="string", length=255, nullable=true)
+     * @ORM\Column(name="mentor_expectations", type="text", nullable=true)
      */
     private $mentor_expectations;
 
