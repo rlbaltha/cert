@@ -51,6 +51,9 @@
 
             <h1>{{ entity.name }}</h1>
             {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('project_duplicate', { 'id': entity.id }) }}" class="float-sm-right btn btn-primary">
+                    Renew
+                </a>
                 <a href="{{ path('checkpoint_new', { 'id': entity.id }) }}" class="float-sm-right btn btn-primary">
                     Add Checkpoint
                 </a>
@@ -64,7 +67,7 @@
             </p>
             <p>{{ entity.description | raw }}</p>
 
-            {% for checkpoint in entity.checkpoints %}
+            {% for checkpoint in entity.checkpoints if checkpoint.status != 'Archived' %}
                 {% set background %}
                     {% if checkpoint.status=='Complete' %}#e4ffe8
                     {% else %}#F7F7E3
@@ -87,6 +90,7 @@
                             </a>
                             {% if checkpoint.status=='Complete' %}
                                 <i class="fa fa-check fa-2x" aria-hidden="true"></i>
+                                {{ checkpoint.completed|date('m-d-Y h:i A') }}
                             {% endif %}
                         </h4>
 

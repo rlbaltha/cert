@@ -50,6 +50,13 @@ class Checkpoint
     private $deadline;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="completed", type="datetime", nullable=true)
+     */
+    private $completed;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=255)
@@ -300,5 +307,29 @@ class Checkpoint
     public function getReviews()
     {
         return $this->reviews;
+    }
+
+    /**
+     * Set completed
+     *
+     * @param \DateTime $completed
+     *
+     * @return Checkpoint
+     */
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+
+        return $this;
+    }
+
+    /**
+     * Get completed
+     *
+     * @return \DateTime
+     */
+    public function getCompleted()
+    {
+        return $this->completed;
     }
 }

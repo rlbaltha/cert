@@ -100,12 +100,10 @@ class CheckpointController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $checkpoint = $em->getRepository('AppBundle:Checkpoint')->find($id);
-        $project = $checkpoint->getProject();
-        $timestamp = date('m/d/Y h:i:s A');
+        $dt = new \DateTime();
+        $checkpoint->setCompleted($dt);
         $checkpoint->setStatus('Complete');
-        $project->setDescription( $project->getDescription().'<p>Checkpoint <strong>'. $checkpoint->getName().'</strong> completed. '. $timestamp. '</p>');
         $em->persist($checkpoint);
-        $em->persist($project);
         $em->flush();
 
         if ($checkpoint->getProject()->getCapstone()) {

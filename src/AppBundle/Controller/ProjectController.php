@@ -68,6 +68,39 @@ class ProjectController extends Controller
         );
     }
 
+
+    /**
+     * Creates a new Project entity.
+     *
+     * @Route("/duplicate/{id}", name="project_duplicate")
+     * @Method("GET")
+     */
+    public function duplicateAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Project')->find($id);
+        $checkpoints = $entity->getCheckpoints();
+        $entity->setStatus('Active');
+        $em->persist($entity);
+        foreach ($checkpoints as $checkpoint) {
+            if ($checkpoint->getStatus() != 'Archived') {
+                $checkpoint->setStatus('Archived');
+                $new_checkpoint = new Checkpoint();
+                $new_checkpoint->setName($checkpoint->getName());
+                $new_checkpoint->setDescription($checkpoint->getDescription());
+                $new_checkpoint->setProject($entity);
+                $em->persist($new_checkpoint);
+                $em->persist($checkpoint);
+            }
+        }
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getId())));
+
+    }
+
+
     /**
      * Creates a form to create a Project entity.
      *
