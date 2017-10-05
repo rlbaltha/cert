@@ -49,12 +49,8 @@
         <div class="col-sm-8">
 
             {% for checkpoint in entities %}
-                {% set background %}
-                    {% if checkpoint.status=='Complete' %}#e4ffe8
-                    {% endif %}
-                {% endset %}
                 <div class="card">
-                    <div class="card-header" style="background-color: {{ background }} ">
+                    <div class="card-header {% if checkpoint.status=='Complete' %}success{% endif %}">
 
 
                         <p class="card-title margin-top">

@@ -178,7 +178,11 @@ input + label {
 
 }
 
-.card-header  {
+.card-header {
+    background-color: rgba(70, 218, 255, 0.07);
+}
+
+.success  {
     background-color: rgba(166, 255, 69, 0.07);
 }
 

@@ -71,24 +71,19 @@
 
 
             {% for checkpoint in entity.checkpoints if checkpoint.status != 'Archived' %}
-                {% set background %}
-                    {% if checkpoint.status=='Complete' %}#e4ffe8{% endif %}
-                {% endset %}
                 <div class="card">
-                    <div class="card-header" style="background-color: {{ background }} ">
-
-
-                        <h4 class="card-title">
+                    <div class="card-header {% if checkpoint.status=='Complete' %}success{% endif %}">
+                        <p class="card-title margin-top">
                             <a href="javascript:void(0)" title="click to toggle">
                                 {{ checkpoint.name }}
                             </a>
                             {% if checkpoint.status=='Complete' %}
-                                <i class="fa fa-check fa-2x" aria-hidden="true"></i>
-                                {{ checkpoint.completed|date('m-d-Y h:i A') }}
+                                <span class="float-sm-right">
+                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                    {{ checkpoint.completed|date('m-d-Y h:i A') }}
+                                </span>
                             {% endif %}
-                        </h4>
-
-                        <p class="{% if checkpoint.status=='Complete' %}hidden{% endif %}">
+                        <span class="float-sm-right {% if checkpoint.status=='Complete' %}hidden{% endif %}">
                             {% if checkpoint.deadline %}
                                 {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
                                     {% set alert %}alert-danger{% endset %}
@@ -97,6 +92,7 @@
                                 {% endif %}
                                 <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
                             {% endif %}
+                        </span>
                         </p>
                     </div>
                     <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
