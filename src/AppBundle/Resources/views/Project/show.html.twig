@@ -38,7 +38,8 @@
                                 <li class="nav-item"><a href="{{ path('checkpoint') }}">
                                         Checkpoints by Date
                                     </a></li>
-                                <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Calendar</a></li>
+                                <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Calendar</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </div>
@@ -49,40 +50,33 @@
 
         <div class="col-sm-8">
 
-            <h1>{{ entity.name }}</h1>
+            <h1 class="inline">{{ entity.name }}</h1>
+            <span class="btn btn-secondary">Type: {{ entity.type }}</span>
+            <span class="btn btn-secondary">Timeframe: {{ entity.timeframe }}</span>
+            <span class="btn btn-secondary">Status:{{ entity.status }}</span>
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('project_duplicate', { 'id': entity.id }) }}" class="float-sm-right btn btn-primary">
-                    Renew
-                </a>
-                <a href="{{ path('checkpoint_new', { 'id': entity.id }) }}" class="float-sm-right btn btn-primary">
+                <a href="{{ path('checkpoint_new', { 'id': entity.id }) }}" class="btn btn-primary">
                     Add Checkpoint
                 </a>
                 <a href="{{ path('project_edit', { 'id': entity.id }) }}"
-                   class="float-sm-right btn btn-primary">Edit</a>
+                   class="btn btn-primary">Edit</a>
+                <a href="{{ path('project_duplicate', { 'id': entity.id }) }}"
+                   class="btn btn-primary">
+                    Renew
+                </a>
             {% endif %}
-            <p>
-                <span class="btn btn-secondary">Type: {{ entity.type }}</span>
-                <span class="btn btn-secondary">Timeframe: {{ entity.timeframe }}</span>
-                <span class="btn btn-secondary">Status:{{ entity.status }}</span>
-            </p>
-            <p>{{ entity.description | raw }}</p>
+            {{ entity.description | raw }}
+
+
+
 
             {% for checkpoint in entity.checkpoints if checkpoint.status != 'Archived' %}
                 {% set background %}
-                    {% if checkpoint.status=='Complete' %}#e4ffe8
-                    {% else %}#F7F7E3
-                    {% endif %}
+                    {% if checkpoint.status=='Complete' %}#e4ffe8{% endif %}
                 {% endset %}
                 <div class="card">
                     <div class="card-header" style="background-color: {{ background }} ">
-                        {% if is_granted('ROLE_ADMIN') %}
-                            {% if checkpoint.status!='Complete' %}
-                                <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
-                                   class="float-sm-right btn btn-primary">Complete</a>
-                            {% endif %}
-                            <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
-                               class="float-sm-right btn btn-primary">Edit</a>
-                        {% endif %}
+
 
                         <h4 class="card-title">
                             <a href="javascript:void(0)" title="click to toggle">
@@ -98,17 +92,15 @@
                             {% if checkpoint.deadline %}
                                 {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
                                     {% set alert %}alert-danger{% endset %}
-                                    {% else %}
-                                        {% set alert %}alert-info{% endset %}
+                                {% else %}
+                                    {% set alert %}alert-info{% endset %}
                                 {% endif %}
                                 <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
                             {% endif %}
                         </p>
                     </div>
                     <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
-
                         {{ checkpoint.description |raw }}
-
                         <hr/>
                         <p>
                             Reviewers:
@@ -118,6 +110,14 @@
                                     href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': reviewer.id }) }}"
                                     class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
                             {% endfor %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {% if checkpoint.status!='Complete' %}
+                                    <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
+                                       class="float-sm-right btn btn-primary">Complete</a>
+                                {% endif %}
+                                <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
+                                   class="float-sm-right btn btn-primary">Edit</a>
+                            {% endif %}
                         </p>
 
                         {% for review in checkpoint.reviews %}
@@ -136,8 +136,8 @@
                                         <i class="fa fa-check fa-2x" aria-hidden="true"></i>
                                     {% endif %}
                                     {% if app.user.username == review.reviewer.username %}
-                                    <a href="{{ path('review_edit', { 'id': review.id }) }}"
-                                       class="float-sm-right btn btn-primary">Edit</a>
+                                        <a href="{{ path('review_edit', { 'id': review.id }) }}"
+                                           class="float-sm-right btn btn-primary">Edit</a>
                                     {% endif %}
                                 </div>
                                 <div class="card-block">

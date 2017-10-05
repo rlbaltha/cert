@@ -54,11 +54,11 @@ class CheckpointRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findAdminCurrent() {
         $type = 'Admin';
-        $status = 'Complete';
+        $status = 'Opened';
         $today = date("Y-m-d");
         $events = $this->createQueryBuilder('c')
             ->join('c.project','p')
-            ->andWhere('c.status != :status')
+            ->andWhere('c.status = :status')
             ->andWhere('p.type = :type')
             ->orderBy('c.deadline', 'ASC')
             ->setParameter('status',$status)

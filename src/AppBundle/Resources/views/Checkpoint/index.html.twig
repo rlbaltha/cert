@@ -51,30 +51,20 @@
             {% for checkpoint in entities %}
                 {% set background %}
                     {% if checkpoint.status=='Complete' %}#e4ffe8
-                    {% else %}#F7F7E3
                     {% endif %}
                 {% endset %}
                 <div class="card">
                     <div class="card-header" style="background-color: {{ background }} ">
-                        {% if is_granted('ROLE_ADMIN') %}
-                            {% if checkpoint.status!='Complete' %}
-                                <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
-                                   class="float-sm-right btn btn-primary">Complete</a>
-                            {% endif %}
-                            <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
-                               class="float-sm-right btn btn-primary">Edit</a>
-                            <a href="{{ path('project_show', { 'id': checkpoint.project.id }) }}" class="float-sm-right btn btn-primary">
-                                Open Project</a>
-                        {% endif %}
 
-                        <h4 class="card-title">
+
+                        <p class="card-title">
                             <a href="javascript:void(0)" title="click to toggle">
                                 {{ checkpoint.project.name }}: {{ checkpoint.name }}
                             </a>
                             {% if checkpoint.status=='Complete' %}
                                 <i class="fa fa-check fa-2x" aria-hidden="true"></i>
                             {% endif %}
-                        </h4>
+                        </p>
 
                         <p>
                             {% if checkpoint.deadline %}
@@ -101,6 +91,16 @@
                                     class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
                             {% endfor %}
                         </p>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {% if checkpoint.status!='Complete' %}
+                                <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
+                                   class="float-sm-right btn btn-primary">Complete</a>
+                            {% endif %}
+                            <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
+                               class="float-sm-right btn btn-primary">Edit</a>
+                            <a href="{{ path('project_show', { 'id': checkpoint.project.id }) }}" class="float-sm-right btn btn-primary">
+                                Open Project</a>
+                        {% endif %}
 
                         {% for review in checkpoint.reviews %}
                             {% set review_background %}

@@ -38,11 +38,10 @@
 
             <h1>Projects</h1>
             {% for entity in entities %}
-                <div class="card" style="background-color: #F7F7E3">
-                    <div class="card-block">
+                <div class="card">
+                    <div class="card-header">
                         <h4 class="card-title"><a
                                     href="{{ path('project_show', { 'id': entity.id }) }}">{{ entity.name }}</a></h4>
-                        <p class="card-text">{{ entity.description |raw }}</p>
                     </div>
                 </div>
             {% endfor %}
