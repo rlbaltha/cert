@@ -185,6 +185,15 @@ input + label {
 h4.card-title {
 }
 
+.alert-info {
+    background-color: white;
+}
+.alert-success {
+    background-color: white;
+}
+.alert-danger {
+    background-color: white;
+}
 /********** homepage ***********/
 
 .marketing {

@@ -57,16 +57,16 @@
                     <div class="card-header" style="background-color: {{ background }} ">
 
 
-                        <p class="card-title">
+                        <p class="card-title margin-top">
                             <a href="javascript:void(0)" title="click to toggle">
                                 {{ checkpoint.project.name }}: {{ checkpoint.name }}
                             </a>
                             {% if checkpoint.status=='Complete' %}
                                 <i class="fa fa-check fa-2x" aria-hidden="true"></i>
                             {% endif %}
-                        </p>
 
-                        <p>
+
+                        <span class="float-sm-right">
                             {% if checkpoint.deadline %}
                                 {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
                                     {% set alert %}alert-danger{% endset %}
@@ -75,6 +75,7 @@
                                 {% endif %}
                                 <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
                             {% endif %}
+                        </span>
                         </p>
                     </div>
                     <div class="card-block hidden">
