@@ -341,7 +341,7 @@ class ProgramController extends Controller
             ->setSubject('Certificate Application Approved')
             ->setFrom('scdirector@uga.edu')
             ->setTo('sac@uga.edu')
-            ->setCc('ajordan4@uga.edu')
+            ->setCc('alampp@uga.edu')
             ->setBcc('scdirector@uga.edu')
             ->setBody(
                 $this->renderView(

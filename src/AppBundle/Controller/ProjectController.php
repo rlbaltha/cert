@@ -100,6 +100,25 @@ class ProjectController extends Controller
 
     }
 
+    /**
+     * Mark an existing Checkpoint entity complete.
+     *
+     * @Route("/{id}/complete", name="project_complete")
+     * @Method("GET")
+     * @Template()
+     */
+    public function completeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $project = $em->getRepository('AppBundle:Project')->find($id);
+        $project->setStatus('Complete');
+        $em->persist($project);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('project_show', array('id' => $project->getId())));
+
+    }
 
     /**
      * Creates a form to create a Project entity.

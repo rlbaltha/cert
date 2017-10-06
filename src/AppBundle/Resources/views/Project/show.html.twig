@@ -60,10 +60,15 @@
                 </a>
                 <a href="{{ path('project_edit', { 'id': entity.id }) }}"
                    class="btn btn-primary">Edit</a>
-                <a href="{{ path('project_duplicate', { 'id': entity.id }) }}"
-                   class="btn btn-primary">
-                    Renew
-                </a>
+                {% if entity.status !='Complete' %}
+                    <a href="{{ path('project_complete', { 'id': entity.id }) }}"
+                       class="btn btn-primary ">Complete</a>
+                {% else %}
+                    <a href="{{ path('project_duplicate', { 'id': entity.id }) }}"
+                       class="btn btn-primary">
+                        Renew
+                    </a>
+                {% endif %}
             {% endif %}
             {{ entity.description | raw }}
 
@@ -83,7 +88,7 @@
                                     {{ checkpoint.completed|date('m-d-Y h:i A') }}
                                 </span>
                             {% endif %}
-                        <span class="float-sm-right {% if checkpoint.status=='Complete' %}hidden{% endif %}">
+                            <span class="float-sm-right {% if checkpoint.status=='Complete' %}hidden{% endif %}">
                             {% if checkpoint.deadline %}
                                 {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
                                     {% set alert %}alert-danger{% endset %}
