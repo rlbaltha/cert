@@ -38,6 +38,7 @@ class UserController extends Controller
         $notifications = $em->getRepository('AppBundle:Notification')->findCurrent($user);
 
         $mentees = $em->getRepository('AppBundle:User')->findCapstonementees($user);
+        $status = $em->getRepository('AppBundle:Status')->findAllSorted();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -51,6 +52,7 @@ class UserController extends Controller
             'entity' => $entity,
             'mentees' => $mentees,
             'notifications' => $notifications,
+            'status' => $status,
         );
     }
 
@@ -175,17 +177,17 @@ class UserController extends Controller
 
         $entity = $em->getRepository('AppBundle:User')->find($id);
         $notifications = $em->getRepository('AppBundle:Notification')->findCurrent($entity);
+        $status = $em->getRepository('AppBundle:Status')->findAllSorted();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity' => $entity,
             'notifications' => $notifications,
-            'delete_form' => $deleteForm->createView(),
+            'status' => $status,
         );
     }
 

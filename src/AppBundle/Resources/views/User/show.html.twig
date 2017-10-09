@@ -48,7 +48,38 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-8 offset-sm-2 col-xs-12">
+        <div class="col-sm-2">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All
+                                        Students</a></li>
+                                {% for status in status %}
+                                    <li class="nav-item"><a
+                                                href="{{ path('user', { 'type': status.id }) }}">{{ status.name }}</a>
+                                    </li>
+                                {% endfor %}
+                                <li class="nav-item"><a href="{{ path('user', { 'type': 'mentees' }) }}">Peer
+                                        Mentees</a></li>
+                                <li class="nav-item"><a href="{{ path('user', { 'type': 'peermentors' }) }}">Peer
+                                        Mentors</a></li>
+                                <li class="nav-item"><a href="{{ path('user', { 'type': 'all' }) }}">All Accounts</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <div class="col-sm-8 col-xs-12">
             {% if app.session.flashBag.has('success') %}
                 <div class="alert alert-success">
                     {% for msg in app.session.flashBag.get('success') %}
