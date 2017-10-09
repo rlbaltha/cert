@@ -228,6 +228,33 @@ class TermController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Edits an existing Term entity.
+     *
+     * @Route("/{termid}/{courseid}", name="term_removecourse")
+     * @Method("GET")
+     * @Template("AppBundle:Term:show.html.twig")
+     */
+    public function removecourseAction($termid, $courseid)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Term')->find($termid);
+        $course = $em->getRepository('AppBundle:Course')->find($courseid);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
+
+        $entity->removeCourse($course);
+        $em->persist($entity);
+        $em->flush();
+
+        return array(
+            'entity'      => $entity,
+            'section'      => $section,
+        );
+    }
+
+
     /**
      * Deletes a Term entity.
      *

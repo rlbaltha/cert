@@ -126,7 +126,6 @@
                 <tr>
                     <th>Name</th>
                     <th>Title</th>
-                    <th>Offered</th>
                     <th>Prereqs</th>
                     <th>Requirement</th>
                     <th>Level</th>
@@ -138,18 +137,19 @@
                 </thead>
                 <tbody>
 
-                {% for entity in entity.courses if entity.pillar != 'Capstone' %}
+                {% for course in entity.courses if course.pillar != 'Capstone' %}
                     <tr>
                         <td>
-                            <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
+                            <a href="{{ path('course_show', { 'id': course.id }) }}">{{ course.name }}</a>
                         </td>
-                        <td>{{ entity.title }}</td>
-                        <td class="hidden-xs-down">{{ entity.offered }}</td>
-                        <td class="hidden-xs-down">{{ entity.prereqs }}</td>
-                        <td class="hidden-xs-down">{{ entity.pillar }}</td>
-                        <td class="hidden-xs-down">{{ entity.level }}</td>
+                        <td>{{ course.title }}</td>
+                        <td class="hidden-xs-down">{{ course.prereqs }}</td>
+                        <td class="hidden-xs-down">{{ course.pillar }}</td>
+                        <td class="hidden-xs-down">{{ course.level }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <td class="hidden-xs-down">{{ entity.status }}</td>
+                            <td class="hidden-xs-down">{{ course.status }}
+                                <a class="btn btn-primary" href="{{ path('term_removecourse', { 'termid': entity.id, 'courseid': course.id, }) }}">Remove</a>
+                            </td>
                         {% endif %}
                     </tr>
 
