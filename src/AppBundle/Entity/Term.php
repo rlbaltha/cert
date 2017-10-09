@@ -37,6 +37,7 @@ class Term
 
     /**
      * @ORM\ManyToMany(targetEntity="Course", inversedBy="terms")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $courses;
 
