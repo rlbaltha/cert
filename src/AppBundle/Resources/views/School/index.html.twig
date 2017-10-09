@@ -54,7 +54,7 @@
                             {% for entity in entity.program1 if entity.user.program.level=='Grad' and entity.user.progress.name!='Inactive' %}
                                 {% set grad = grad + 1 %}
                             {% endfor %}
-                            <p> Graduates:{{ graduated }} Inactive:{{ inactive }} 
+                            <p> Graduates:{{ graduated }} Inactive:{{ inactive }}
                                 Grad Students:{{ grad }} Total
                                 Active:{{ entity.program1|length - (inactive + graduated + admin) }}</p>
                         </div>
@@ -63,8 +63,10 @@
                              aria-labelledby="heading{{ loop.index }}">
                             <div class="card-block">
                                 {% for entity in entity.program1 %}
-                                    <p>{% if entity.user.program.level=='Grad' %}+{% endif %}{{ entity.user.lastname }}
-                                        , {{ entity.user.firstname }} (Progress: {{ entity.user.progress.name }})</p>
+                                    <p>{% if entity.user.program.level=='Grad' %}+{% endif %}
+                                        <a href="{{ path('user_show', { 'id': entity.user.id }) }}">{{ entity.user.lastname }}
+                                            , {{ entity.user.firstname }}</a>
+                                        ,  (Progress: {{ entity.user.progress.name }})</p>
                                 {% endfor %}
                             </div>
                         </div>
