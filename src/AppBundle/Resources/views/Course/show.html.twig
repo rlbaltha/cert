@@ -26,27 +26,33 @@
                                         href="{{ path('term_current') }}">Courses Offered Next Term</a>
                             </li>
                             <li class="nav-item">Anchor:
-                                <a href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">undergrad</a> /
+                                <a href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">undergrad</a>
+                                /
                                 <a href="{{ path('course', { 'pillar':'anchor', 'level':'grad' }) }}">grad</a>
                             </li>
                             <li class="nav-item">Seminar:
-                                <a href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">undergrad</a> /
+                                <a href="{{ path('course', { 'pillar':'seminar', 'level':'undergrad' }) }}">undergrad</a>
+                                /
                                 <a href="{{ path('course', { 'pillar':'seminar', 'level':'grad' }) }}">grad</a>
                             </li>
                             <li class="nav-item">Ecological:
-                                <a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">undergrad</a> /
+                                <a href="{{ path('course', { 'pillar':'ecological', 'level':'undergrad' }) }}">undergrad</a>
+                                /
                                 <a href="{{ path('course', { 'pillar':'ecological', 'level':'grad' }) }}">grad</a>
                             </li>
                             <li class="nav-item">Economic:
-                                <a href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">undergrad</a> /
+                                <a href="{{ path('course', { 'pillar':'economic', 'level':'undergrad' }) }}">undergrad</a>
+                                /
                                 <a href="{{ path('course', { 'pillar':'economic', 'level':'grad' }) }}">grad</a>
                             </li>
                             <li class="nav-item">Social:
-                                <a href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">undergrad</a> /
+                                <a href="{{ path('course', { 'pillar':'social', 'level':'undergrad' }) }}">undergrad</a>
+                                /
                                 <a href="{{ path('course', { 'pillar':'social', 'level':'grad' }) }}">grad</a>
                             </li>
                             <li class="nav-item">Capstone:
-                                <a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">undergrad</a> /
+                                <a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">undergrad</a>
+                                /
                                 <a href="{{ path('course', { 'pillar':'capstone', 'level':'grad' }) }}">grad</a>
                             </li>
                             {% if is_granted('ROLE_USER') %}
@@ -86,10 +92,14 @@
                        href="{{ path('upload_new', { 'courseid': entity.id }) }}">Upload Syllabus</a>
                     <a class="btn btn-primary"
                        href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
-                    <a class="btn btn-primary"
-                       href="{{ path('course_approval', {'state':'approved', 'id': entity.id }) }}">Approve</a>
-                    <a class="btn btn-primary"
-                       href="{{ path('course_approval', { 'state':'denied', 'id': entity.id }) }}">Deny</a>
+                    {% if entity.status=='pending' %}
+                        <a class="btn btn-primary"
+                           href="{{ path('course_approval', {'state':'approved', 'id': entity.id }) }}">Approve</a>
+                        <a class="btn btn-primary"
+                           href="{{ path('course_approval', { 'state':'denied', 'id': entity.id }) }}">Deny</a>
+                    {% endif %}
+                    <a class="btn btn-primary" href="{{ path('term_addcourse', { 'courseid': entity.id }) }}">Add
+                        to Current Term</a>
                 </div>
             {% endif %}
             <h1>{{ entity.name }}</h1>
@@ -110,7 +120,8 @@
                 </tbody>
             </table>
             {% if is_granted('ROLE_ADMIN') %}
-                <div class="card card-block">Admin notes: {{ entity.notes|raw }}</div>
+                <div class="card card-block"><p>Status: {{ entity.status }}</p>
+                    <p>Admin notes: {{ entity.notes|raw }}</p></div>
             {% endif %}
             <div class="card card-block">{{ entity.description|raw }}</div>
             {% if entity.syllabus|length > 10 %}

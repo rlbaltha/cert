@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Term;
 use AppBundle\Form\TermType;
 
@@ -232,9 +233,10 @@ class TermController extends Controller
     /**
      * Edits an existing Term entity.
      *
-     * @Route("/{termid}/{courseid}", name="term_removecourse")
+     * @Route("/{termid}/{courseid}/remove", name="term_removecourse")
      * @Method("GET")
      * @Template("AppBundle:Term:show.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removecourseAction($termid, $courseid)
     {
@@ -245,6 +247,32 @@ class TermController extends Controller
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
 
         $entity->removeCourse($course);
+        $em->persist($entity);
+        $em->flush();
+
+        return array(
+            'entity'      => $entity,
+            'section'      => $section,
+        );
+    }
+
+    /**
+     * Edits an existing Term entity.
+     *
+     * @Route("/{courseid}/add", name="term_addcourse")
+     * @Method("GET")
+     * @Template("AppBundle:Term:show.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function addcourseAction($courseid)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Term')->findCurrent();
+        $course = $em->getRepository('AppBundle:Course')->find($courseid);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
+
+        $entity->addCourse($course);
         $em->persist($entity);
         $em->flush();
 

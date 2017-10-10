@@ -148,7 +148,7 @@
                         <td class="hidden-xs-down">{{ course.level }}</td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td class="hidden-xs-down">{{ course.status }}
-                                <a class="btn btn-primary" href="{{ path('term_removecourse', { 'termid': entity.id, 'courseid': course.id, }) }}">Remove</a>
+                                <a class="btn btn-primary btn-sm" href="{{ path('term_removecourse', { 'termid': entity.id, 'courseid': course.id, }) }}">Remove</a>
                             </td>
                         {% endif %}
                     </tr>
