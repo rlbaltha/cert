@@ -7,7 +7,7 @@
             fill: #771b1d;
         }
         .graddate_bar {
-            fill: #20773b;
+            fill: #575123;
         }
         .axis path,
         .axis line {
@@ -18,16 +18,6 @@
         }
         .x path {
             display: none;
-        }
-        .toolTip {
-            position: absolute;
-            display: none;
-            min-width: 80px;
-            height: auto;
-            background: none repeat scroll 0 0 #ffffff;
-            border: 1px solid #fff;
-            padding: 14px;
-            text-align: center;
         }
 
     </style>
@@ -44,8 +34,6 @@
                     margin = {top: 20, right: 20, bottom: 30, left: 80},
                     width = +svg.attr("width") - margin.left - margin.right,
                     height = +svg.attr("height") - margin.top - margin.bottom;
-
-                var tooltip = d3.select("#schools").append("div").attr("class", "toolTip");
 
                 var x = d3.scaleLinear().range([0, width]);
                 var y = d3.scaleBand().range([height, 0]);
@@ -91,16 +79,6 @@
                         .attr("width", function (d) {
                             return x(d.value);
                         })
-                        .on("mousemove", function (d) {
-                            tooltip
-                                .style("left", d3.event.pageX - 50 + "px")
-                                .style("top", d3.event.pageY - 70 + "px")
-                                .style("display", "inline-block")
-                                .html((d.area) + "<br>" + (d.value));
-                        })
-                        .on("mouseout", function (d) {
-                            tooltip.style("display", "none");
-                        });
                 });
             }
             schools();
@@ -121,9 +99,7 @@
                 // append the svg object to the body of the page
                 // append a 'group' element to 'svg'
                 // moves the 'group' element to the top left margin
-                var svg = d3.select("#graddate").append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
+                var svg = d3.select("#graddate")
                     .append("g")
                     .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
