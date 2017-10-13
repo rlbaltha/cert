@@ -10,4 +10,22 @@ namespace AppBundle\Entity;
  */
 class SchoolRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * find schools data
+     *
+     */
+    public function findSchoolData() {
+        $data = $this->createQueryBuilder('s')
+            ->join('s.program1', 'p')
+            ->join('p.user', 'u')
+            ->select('s.name AS area', 'count(s.id) AS value')
+            ->andWhere("p.status!='Inactive'")
+            ->orWhere("p.status!='Graduated'")
+            ->orWhere("p.status!='Administration'")
+            ->groupBy('s.id')
+            ->getQuery()
+            ->getResult();
+        return $data;
+    }
+
 }
