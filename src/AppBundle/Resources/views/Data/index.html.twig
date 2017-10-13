@@ -160,12 +160,15 @@
             $.getJSON("{{ path('data_school') }}",
                 function (json) {
                     var tr;
+                    var total = 0;
                     for (var i = 0; i < json.length; i++) {
+                        total = total + parseInt(json[i].value);
                         tr = $('<tr/>');
                         tr.append("<td>" + json[i].area + "</td>");
                         tr.append("<td>" + json[i].value + "</td>");
                         $('table#schoolsDataTable').append(tr);
                     }
+                    $('table#schoolsDataTable').append("<td>Total:</td><td>" + total + "</td>");
                 });
             $.getJSON("{{ path('data_graddate') }}",
                 function (json) {
