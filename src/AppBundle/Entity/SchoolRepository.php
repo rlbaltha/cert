@@ -23,6 +23,7 @@ class SchoolRepository extends \Doctrine\ORM\EntityRepository
             ->orWhere("p.status!='Graduated'")
             ->orWhere("p.status!='Administration'")
             ->groupBy('s.id')
+            ->orderBy("value", "DESC")
             ->getQuery()
             ->getResult();
         return $data;

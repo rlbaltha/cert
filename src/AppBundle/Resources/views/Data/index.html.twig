@@ -1,14 +1,16 @@
 {% extends '::base.html.twig' %}
 
 {% block stylesheets %}
-{{ parent() }}
+    {{ parent() }}
     <style>
         .bar {
             fill: #771b1d;
         }
+
         .graddate_bar {
             fill: #575123;
         }
+
         .axis path,
         .axis line {
             fill: none;
@@ -16,10 +18,13 @@
             stroke-width: 1px;
             shape-rendering: crispEdges;
         }
+
         .x path {
             display: none;
         }
-
+        td {
+            padding: .5em;
+        }
     </style>
 {% endblock %}
 
@@ -29,7 +34,7 @@
     <script language="javascript">
         $(document).ready(function () {
 
-            function schools()  {
+            function schools() {
                 var svg = d3.select("svg"),
                     margin = {top: 20, right: 20, bottom: 30, left: 80},
                     width = +svg.attr("width") - margin.left - margin.right,
@@ -42,7 +47,7 @@
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 // load the external data
-                d3.json("{{ path('data_school') }}", function(error, data) {
+                d3.json("{{ path('data_school') }}", function (error, data) {
                     if (error) throw error;
 
                     data.sort(function (a, b) {
@@ -81,9 +86,10 @@
                         })
                 });
             }
+
             schools();
 
-            function graddate()  {
+            function graddate() {
                 // set the dimensions and margins of the graph
                 var margin = {top: 20, right: 20, bottom: 30, left: 40},
                     width = 960 - margin.left - margin.right,
@@ -105,27 +111,37 @@
                         "translate(" + margin.left + "," + margin.top + ")");
 
                 // load the external data
-                d3.json("{{ path('data_graddate') }}", function(error, data){
+                d3.json("{{ path('data_graddate') }}", function (error, data) {
                     if (error) throw error;
 
                     // format the data
-                    data.forEach(function(d) {
+                    data.forEach(function (d) {
                         d.value = +d.value;
                     });
 
                     // Scale the range of the data in the domains
-                    x.domain(data.map(function(d) { return d.area; }));
-                    y.domain([0, d3.max(data, function(d) { return d.value; })]);
+                    x.domain(data.map(function (d) {
+                        return d.area;
+                    }));
+                    y.domain([0, d3.max(data, function (d) {
+                        return d.value;
+                    })]);
 
                     // append the rectangles for the bar chart
                     svg.selectAll(".bar")
                         .data(data)
                         .enter().append("rect")
                         .attr("class", "graddate_bar")
-                        .attr("x", function(d) { return x(d.area); })
+                        .attr("x", function (d) {
+                            return x(d.area);
+                        })
                         .attr("width", x.bandwidth())
-                        .attr("y", function(d) { return y(d.value); })
-                        .attr("height", function(d) { return height - y(d.value); });
+                        .attr("y", function (d) {
+                            return y(d.value);
+                        })
+                        .attr("height", function (d) {
+                            return height - y(d.value);
+                        });
 
                     // add the x Axis
                     svg.append("g")
@@ -138,23 +154,52 @@
 
                 });
             }
+
             graddate();
 
-
-
+            $.getJSON("{{ path('data_school') }}",
+                function (json) {
+                    var tr;
+                    for (var i = 0; i < json.length; i++) {
+                        tr = $('<tr/>');
+                        tr.append("<td>" + json[i].area + "</td>");
+                        tr.append("<td>" + json[i].value + "</td>");
+                        $('table#schoolsDataTable').append(tr);
+                    }
+                });
+            $.getJSON("{{ path('data_graddate') }}",
+                function (json) {
+                    var tr;
+                    for (var i = 0; i < json.length; i++) {
+                        tr = $('<tr/>');
+                        tr.append("<td>" + json[i].area + "</td>");
+                        tr.append("<td>" + json[i].value + "</td>");
+                        $('table#graddateDataTable').append(tr);
+                    }
+                });
         });
     </script>
 {% endblock %}
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-10 offset-sm-1">
+         <div class="col-sm-2 offset-sm-1">
             <h2>Schools</h2>
+            <table id="schoolsDataTable" border="1">
+            </table>
+        </div>
+        <div class="col-sm-8">
             <svg id="schools" width="960" height="700"></svg>
+        </div>
+    </div>
+    <div class="row">
+         <div class="col-sm-2 offset-sm-1">
             <h2>Graduation Dates</h2>
+            <table id="graddateDataTable" border="1">
+            </table>
+        </div>
+        <div class="col-sm-8">
             <svg id="graddate" width="960" height="700"></svg>
         </div>
-
     </div>
-
 {% endblock %}
