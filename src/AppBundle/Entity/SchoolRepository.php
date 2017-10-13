@@ -16,13 +16,12 @@ class SchoolRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findSchoolData() {
         $data = $this->createQueryBuilder('s')
-            ->join('s.program1', 'p')
-            ->join('p.user', 'u')
+            ->join('s.program1', 'pr')
+            ->join('pr.user', 'u')
+            ->join('u.progress', 'p')
+            ->andWhere("p.name != 'Inactive' and p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
             ->select('s.name AS area', 'count(s.id) AS value')
-            ->andWhere("p.status!='Inactive'")
-            ->orWhere("p.status!='Graduated'")
-            ->orWhere("p.status!='Administration'")
-            ->groupBy('s.id')
+            ->groupBy('s.name')
             ->orderBy("value", "DESC")
             ->getQuery()
             ->getResult();
