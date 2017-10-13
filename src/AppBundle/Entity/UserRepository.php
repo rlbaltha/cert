@@ -218,12 +218,11 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findGraddateData() {
         $data = $this->createQueryBuilder('u')
-            ->join('u.program', 'p')
-            ->select('p.graddate AS area', 'count(u.id) AS value')
-            ->andWhere("p.status!='Inactive'")
-            ->orWhere("p.status!='Graduated'")
-            ->orWhere("p.status!='Administration'")
-            ->groupBy('p.graddate')
+            ->join('u.progress', 'p')
+            ->join('u.program', 'pr')
+            ->andWhere("p.name != 'Inactive' and p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
+            ->select('pr.graddate AS area', 'count(u.id) AS value')
+            ->groupBy('pr.graddate')
             ->getQuery()
             ->getResult();
         return $data;
