@@ -32,7 +32,7 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <div class="bootstrap-vertical-nav">
                 <nav class="navbar navbar-dark">
                     <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
@@ -41,51 +41,38 @@
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
-                            {% if section is defined %}
-                                {% for page in section.pages if page.access=='public' %}
-                                    {% if (page.link is null or page.link == '') %}
-                                        <li class="nav-item"><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></li>
-                                    {% else %}
-                                        <li class="nav-item" ><a href="{{ page.link }}">{{ page.title }}</a></li>
-                                    {% endif %}
-                                {% endfor %}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <li class="nav-item"><strong>Admin</strong></li>
-                                    {% for page in section.pages if page.access=='admin' %}
-                                        {% if (page.link is null or page.link == '') %}
-                                            <li class="nav-item"><a href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a></li>
-                                        {% else %}
-                                            <li class="nav-item" ><a href="{{ page.link }}">{{ page.title }}</a></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            {% endif %}
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All Students</a></li>
+                            {% for status in status %}
+                                <li class="nav-item"><a
+                                            href="{{ path('user', { 'type': status.id }) }}">{{ status.name }}</a></li>
+                            {% endfor %}
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'mentees' }) }}">Peer Mentees</a></li>
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'peermentors' }) }}">Peer Mentors</a></li>
+                            <li class="nav-item"><a href="{{ path('user_mentor_mapping') }}">Mentor
+                                    Mapping</a></li>
+                            <li class="nav-item"><a href="{{ path('user', { 'type': 'all' }) }}">All Accounts</a></li>
                         </ul>
-
                     </div>
                 </nav>
 
             </div>
         </div>
         <div class="col-sm-8">
-            <h1>{% if app.request.get('type')=='all' %}All Accounts{% elseif app.request.get('type')=='students' %}Certificate Students{% else %}
-                    {% if entities %}{{ entities[0].progress.name }}{% else %}Nothing found{% endif %}
-                {% endif %}
+            <h1>Mentors
             </h1>
             <table class="table">
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Major</th>
+                    <th>Mentees</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td>{{ entity.lastname }}, {{ entity.firstname }} </td>
-                        <td>{{ entity.email }}</td>
-                        <td>{{ entity.program.school }}:{{ entity.program.program }}</td>
+                        <td>{{ entity.lastname }}, {{ entity.firstname }} ({{ entity.email }})</td>
+                        <td>{% for mentee in entity.peermentees %}{{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
+                            {% if not loop.last %}, {% endif %}{% endfor %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

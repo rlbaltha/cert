@@ -95,30 +95,6 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/{section}/{type}/network", name="network", defaults={"type" = "students", "section" = "capstone"})
-     * @Method("GET")
-     * @Template("AppBundle:User:network.html.twig")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function networkAction($type, $section)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $section = ucfirst($section);
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
-        if ($type == 'all') {
-            $entities = $em->getRepository('AppBundle:User')->findAll();
-        } else {
-            $entities = $em->getRepository('AppBundle:User')->findStudents();
-        }
-        return array(
-            'entities' => $entities,
-            'section' => $section,
-        );
-    }
-
-    /**
-     * Lists all User entities.
-     *
      * @Route("/table/{type}", name="user_table", defaults={"type" = "all"})
      * @Method("GET")
      * @Template()
@@ -341,6 +317,51 @@ class UserController extends Controller
 
         return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
 
+    }
+
+    /**
+     * Edits an existing User entity.
+     *
+     * @Route("/pair/mentors", name="user_pairmentors")
+     * @Method("GET")
+     */
+    public function pairMentorsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $mentors = $em->getRepository('AppBundle:User')->findPeerMentors();
+
+        foreach ($mentors as $mentor) {
+            if (count($mentor->getPeermentees()) < 2) {
+                $mentee = $em->getRepository('AppBundle:User')->findUnassignedMentee();
+                $mentor->addPeermentee($mentee);
+                $em->persist($mentor);
+            }
+        }
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('user_mentor_mapping'));
+
+    }
+
+    /**
+     * Lists all User entities.
+     *
+     * @Route("/mentor/mapping", name="user_mentor_mapping")
+     * @Method("GET")
+     * @Template("AppBundle:User:mentormapping.html.twig")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function mentormappingAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('AppBundle:User')->findPeerMentors();
+        $status = $em->getRepository('AppBundle:Status')->findAllSorted();
+        return array(
+            'entities' => $entities,
+            'status' => $status,
+        );
     }
 
     /**

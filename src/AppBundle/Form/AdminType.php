@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use AppBundle\Entity\Status;
+use Doctrine\ORM\EntityRepository;
 
 class AdminType extends AbstractType
 {
@@ -22,6 +23,17 @@ class AdminType extends AbstractType
                 'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Status', 'attr' => array
                 ('class' => 'form-control'),))
             ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
+            ->add('peermentor', 'entity', array('class' => 'AppBundle\Entity\User',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->join('u.progress', 'p')
+                        ->join('u.program', 'pr')
+                        ->andWhere("pr.mentor = 'More'")
+                        ->addOrderBy('u.lastname', 'ASC')
+                        ->addOrderBy('u.firstname', 'ASC');
+                },
+                'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => false, 'label' => 'Mentor', 'attr' => array('class' =>
+                    'checkbox'),))
         ;
     }
 

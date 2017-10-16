@@ -69,6 +69,8 @@
                                         Mentees</a></li>
                                 <li class="nav-item"><a href="{{ path('user', { 'type': 'peermentors' }) }}">Peer
                                         Mentors</a></li>
+                                <li class="nav-item"><a href="{{ path('user_mentor_mapping') }}">Mentor
+                                        Mapping</a></li>
                                 <li class="nav-item"><a href="{{ path('user', { 'type': 'all' }) }}">All Accounts</a>
                                 </li>
                             {% endif %}
@@ -245,6 +247,19 @@
                         </div>
                         <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="card-block">
+                                <p>
+                                    <strong>
+                                        {% if entity.peermentor %}
+                                            Your mentor is {{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }} ({{ entity.peermentor.email }})
+                                        {% endif %}
+                                        {% if entity.peermentees|length > 0 %}Your mentee
+                                            {% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}
+                                            {% for mentee in entity.peermentees %}
+                                                {{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
+                                            {% endfor %}
+                                        {% endif %}
+                                    </strong>
+                                </p>
                                 Requirements for Mentees/Mentors are as follows:
                                 <ul>
                                     <li>Mentees and Mentors must attend orientation</li>
@@ -287,6 +302,7 @@
                                             </a>
                                         </p>
                                     {% endif %}
+
                                 </div>
 
                             </div>

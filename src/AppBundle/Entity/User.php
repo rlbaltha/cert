@@ -138,6 +138,16 @@ class User extends BaseUser
     private $capstone_mentees;
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="peermentees")
+     */
+    private $peermentor;
+
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="peermentor")
+     */
+    protected $peermentees;
+
+    /**
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -650,5 +660,66 @@ class User extends BaseUser
     public function getCapstoneMentees()
     {
         return $this->capstone_mentees;
+    }
+
+
+
+
+    /**
+     * Set peermentor
+     *
+     * @param \AppBundle\Entity\User $peermentor
+     *
+     * @return User
+     */
+    public function setPeermentor(\AppBundle\Entity\User $peermentor = null)
+    {
+        $this->peermentor = $peermentor;
+
+        return $this;
+    }
+
+    /**
+     * Get peermentor
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getPeermentor()
+    {
+        return $this->peermentor;
+    }
+
+    /**
+     * Add peermentee
+     *
+     * @param \AppBundle\Entity\User $peermentee
+     *
+     * @return User
+     */
+    public function addPeermentee(\AppBundle\Entity\User $peermentee)
+    {
+        $this->peermentees[] = $peermentee;
+
+        return $this;
+    }
+
+    /**
+     * Remove peermentee
+     *
+     * @param \AppBundle\Entity\User $peermentee
+     */
+    public function removePeermentee(\AppBundle\Entity\User $peermentee)
+    {
+        $this->peermentees->removeElement($peermentee);
+    }
+
+    /**
+     * Get peermentees
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPeermentees()
+    {
+        return $this->peermentees;
     }
 }
