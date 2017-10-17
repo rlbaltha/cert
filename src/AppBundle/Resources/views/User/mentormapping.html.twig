@@ -68,11 +68,41 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for entity in entities %}
+                {% for entity in mentors %}
                     <tr>
-                        <td>{{ entity.lastname }}, {{ entity.firstname }} ({{ entity.email }})</td>
+                        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
+                                , {{ entity.firstname }}</a>  ({{ entity.email }})</td>
                         <td>{% for mentee in entity.peermentees %}{{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
                             {% if not loop.last %}, {% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="col-sm-8">
+            <h1>Mentees
+            </h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mentors</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in mentees %}
+                    <tr>
+                        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
+                                , {{ entity.firstname }}</a>  ({{ entity.email }})
+                            </td>
+                        <td>{% if entity.peermentor %}{{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }} ({{ entity.peermentor.email }})
+                            {% else %}<a class="btn btn-primary btn-sm"
+                                         href="{{ path('user_edit', { 'id': entity.id, 'return': 'mentor' }) }}">
+                                    Set Mentor
+                                </a>{% endif %}
+                                </td>
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -161,8 +161,45 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->addOrderBy('pr.gradterm', 'DESC')
             ->addOrderBy('u.lastname', 'ASC')
             ->addOrderBy('u.firstname', 'ASC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getSingleResult();
+        return $users;
+    }
+
+    /**
+     * Find student users
+     *
+     * @return User
+     */
+    public function findMentorWithNoMentees()
+    {
+        $users = $this->createQueryBuilder('u')
+            ->join('u.progress', 'p')
+            ->join('u.program', 'pr')
+            ->leftJoin('u.peermentees','pm')
+            ->having('COUNT(pm.id) = 0')
+            ->andWhere("pr.mentor = 'More'")
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+        return $users;
+    }
+
+    /**
+     * Find student users
+     *
+     * @return User
+     */
+    public function findMentor($limit)
+    {
+        $users = $this->createQueryBuilder('u')
+            ->join('u.progress', 'p')
+            ->join('u.program', 'pr')
+            ->andWhere("pr.mentor = 'More'")
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
         return $users;
     }
 

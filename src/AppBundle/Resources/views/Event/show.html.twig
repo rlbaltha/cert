@@ -43,12 +43,12 @@
 
             {# highlight an individual event #}
             {% if event is defined %}
-                <div class="alert alert-success">
+                <div class="alert alert-success" style="background-color: white">
                     <a class="btn btn-primary float-sm-right" href="{{ path('event_edit', { 'id': event.id }) }}">
                         Edit
                     </a>
 
-                    <h1>{{ event.title }}</h1>
+                    <h2>{{ event.title }}</h2>
                     {{ event.datetime|date('Y-m-d H:i:s') }}<br>
                     {{ event.body | raw }}
                     <div>

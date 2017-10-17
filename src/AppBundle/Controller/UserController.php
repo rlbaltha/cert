@@ -203,11 +203,11 @@ class UserController extends Controller
     /**
      * Displays a form to edit an existing User entity.
      *
-     * @Route("/{id}/edit", name="user_edit")
+     * @Route("/{id}/{return}/edit", name="user_edit" , defaults={"return" = "show"})
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
-    public function editAction($id)
+    public function editAction($id, $return)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -217,7 +217,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $return);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -234,17 +234,17 @@ class UserController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(User $entity)
+    private function createEditForm(User $entity, $return)
     {
 
         if ($this->isGranted('ROLE_ADMIN')) {
             $form = $this->createForm(new AdminType(), $entity, array(
-                'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('user_update', array('id' => $entity->getId(), 'return' => $return)),
                 'method' => 'PUT',
             ));
         } else {
             $form = $this->createForm(new ProfileType(), $entity, array(
-                'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
+                'action' => $this->generateUrl('user_update', array('id' => $entity->getId(), 'return' => $return)),
                 'method' => 'PUT',
             ));
         }
@@ -258,11 +258,11 @@ class UserController extends Controller
     /**
      * Edits an existing User entity.
      *
-     * @Route("/{id}", name="user_update")
+     * @Route("/{id}/{return}", name="user_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $return)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -273,13 +273,19 @@ class UserController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $return);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
+            if ($return == 'mentor') {
+                return $this->redirect($this->generateUrl('user_mentor_mapping'));
+            }
+            else {
+                return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
+            }
+
         }
 
         return array(
@@ -327,17 +333,17 @@ class UserController extends Controller
      */
     public function pairMentorsAction()
     {
+        $limit = 2;
         $em = $this->getDoctrine()->getManager();
 
-        $mentors = $em->getRepository('AppBundle:User')->findPeerMentors();
+        $mentees = $em->getRepository('AppBundle:User')->findMentees();
 
-        foreach ($mentors as $mentor) {
-            if (count($mentor->getPeermentees()) < 2) {
-                $mentee = $em->getRepository('AppBundle:User')->findUnassignedMentee();
-                $mentor->addPeermentee($mentee);
-                $em->persist($mentor);
+        foreach ($mentees as $key => $mentee) {
+                $mentor = $em->getRepository('AppBundle:User')->findMentorWithNoMentees($limit);
+                $mentees[$key]->setPeermentor($mentor);
+                $em->persist($mentee);
+                unset($mentor);
             }
-        }
 
         $em->flush();
 
@@ -356,10 +362,12 @@ class UserController extends Controller
     public function mentormappingAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:User')->findPeerMentors();
+        $mentors = $em->getRepository('AppBundle:User')->findPeerMentors();
+        $mentees = $em->getRepository('AppBundle:User')->findMentees();
         $status = $em->getRepository('AppBundle:Status')->findAllSorted();
         return array(
-            'entities' => $entities,
+            'mentors' => $mentors,
+            'mentees' => $mentees,
             'status' => $status,
         );
     }
