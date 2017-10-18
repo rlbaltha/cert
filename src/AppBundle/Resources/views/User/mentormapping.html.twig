@@ -65,6 +65,8 @@
                 <tr>
                     <th>Name</th>
                     <th>Mentees</th>
+                    <th>Emails</th>
+                    <th>Names</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -74,6 +76,10 @@
                                 , {{ entity.firstname }}</a>  ({{ entity.email }})</td>
                         <td>{% for mentee in entity.peermentees %}{{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
                             {% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        <td>{{ entity.email }}; {% for mentee in entity.peermentees %}{{ mentee.email }}{% if not loop.last %}; {% endif %}{% endfor %}</td>
+                        <td>Mentor:  {{ entity.firstname }} {{ entity.lastname }}
+                            Mentee(s):  {% for mentee in entity.peermentees %}{{ mentee.firstname }} {{ mentee.lastname }}
+                                {% if not loop.last %}, {% endif %}{% endfor %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
