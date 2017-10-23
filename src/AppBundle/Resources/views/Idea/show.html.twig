@@ -43,7 +43,7 @@
         <div class="col-sm-8">
 
             <h1>{{ entity.title }}</h1>
-
+            {{ entity.summary|raw }}
             {{ entity.description|raw }}
             {% if is_granted('ROLE_ADMIN') %}
                 <a class="float-sm-right btn btn-primary"

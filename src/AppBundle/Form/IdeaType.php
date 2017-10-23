@@ -16,6 +16,7 @@ class IdeaType extends AbstractType
     {
         $builder
             ->add('title', 'text', array('attr' => array('class' => 'text form-control'),))
+            ->add('summary', 'ckeditor', array('config_name' => 'editor_simple',))
             ->add('description', 'ckeditor', array('config_name' => 'editor_default',))
             ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
                 'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
