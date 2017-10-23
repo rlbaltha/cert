@@ -57,12 +57,15 @@
                             <a href="javascript:void(0)" title="click to toggle">
                                 {{ checkpoint.project.name }}: {{ checkpoint.name }}
                             </a>
+
                             {% if checkpoint.status=='Complete' %}
                                 <i class="fa fa-check fa-2x" aria-hidden="true"></i>
                             {% endif %}
 
-
                         <span class="float-sm-right">
+                            {% if checkpoint.lead != '' %}
+                                <span class="alert alert-info">Lead: {{ checkpoint.lead}}</span>
+                            {% endif %}
                             {% if checkpoint.deadline %}
                                 {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
                                     {% set alert %}alert-danger{% endset %}

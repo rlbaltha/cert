@@ -122,6 +122,7 @@ class User extends BaseUser
      */
     protected $checkpoints;
 
+
     /**
      * @ORM\OneToMany(targetEntity="Notification", mappedBy="user")
      */
@@ -722,4 +723,5 @@ class User extends BaseUser
     {
         return $this->peermentees;
     }
+
 }

@@ -64,6 +64,13 @@ class Checkpoint
     private $status='Opened';
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="lead", type="string", length=255, nullable=true)
+     */
+    private $lead;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="checkpoints")
      */
     protected $project;
@@ -72,6 +79,7 @@ class Checkpoint
      * @ORM\ManyToMany(targetEntity="User", inversedBy="checkpoints")
      */
     protected $reviewers;
+
 
     /**
      * @ORM\OneToMany(targetEntity="Review", mappedBy="checkpoint")
@@ -331,5 +339,30 @@ class Checkpoint
     public function getCompleted()
     {
         return $this->completed;
+    }
+
+
+    /**
+     * Set lead
+     *
+     * @param string $lead
+     *
+     * @return Checkpoint
+     */
+    public function setLead($lead)
+    {
+        $this->lead = $lead;
+
+        return $this;
+    }
+
+    /**
+     * Get lead
+     *
+     * @return string
+     */
+    public function getLead()
+    {
+        return $this->lead;
     }
 }

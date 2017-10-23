@@ -1042,6 +1042,9 @@
                                                         {% endif %}
                                                         <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
                                                     {% endif %}
+                                                    {% if checkpoint.lead != '' %}
+                                                        <span class="alert alert-info">Lead: {{ checkpoint.lead}}</span>
+                                                    {% endif %}
                                                 </p>
                                             </div>
                                             <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">

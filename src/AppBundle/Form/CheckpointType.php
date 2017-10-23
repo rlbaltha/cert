@@ -39,7 +39,8 @@ class CheckpointType extends AbstractType
                         ->addOrderBy('u.firstname', 'ASC');
                 },
                 'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Reviewers', 'attr' => array('class' =>
-                    'checkbox'),));
+                    'checkbox'),))
+            ->add('lead', 'text', array('required' => false,'label' => 'Lead Person', 'attr' => array('class' => 'text form-control'),));
     }
 
     /**

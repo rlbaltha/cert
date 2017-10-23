@@ -204,6 +204,10 @@ a, a:hover, a:active {
     color:#000
 }
 
+.alert {
+    padding:.5rem
+}
+
 /********** homepage ***********/
 
 .marketing {
