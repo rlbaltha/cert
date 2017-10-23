@@ -56,7 +56,7 @@
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '10' }) }}">Students</a></li>
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '7' }) }}">Faculty</a></li>
                 <li class="nav-item"><a href="{{ path('course') }}">Courses</a></li>
-                <li class="nav-item"><a href="{{ path('idea', {"status":"approved"}) }}">Capstones</a></li>
+                <li class="nav-item"><a href="{{ path('idea', {"status":"identified"}) }}">Capstones</a></li>
                 <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Events</a></li>
                 <li class="nav-item"><a href="{{ path('page_newsletter') }}">News</a></li>
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '26' }) }}">Contact Us</a></li>
@@ -70,18 +70,21 @@
                             Admin
                         </a>
                         <div class="dropdown-menu" aria-labelledby="Admin">
+                            <a class="dropdown-item" href="{{ path('feature') }}">Homepage</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('project') }}">Projects</a>
                             <a class="dropdown-item" href="{{ path('data_index') }}">Data</a>
-                            <a class="dropdown-item" href="{{ path('notification') }}">Notifications</a>
                             <a class="dropdown-item" href="{{ path('school') }}">Schools</a>
-                            <a class="dropdown-item" href="{{ path('feature') }}">Homepage</a>
+                            <a class="dropdown-item" href="{{ path('notification') }}">Notifications</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('upload') }}">Upload</a>
                             <a class="dropdown-item" href="{{ path('section') }}">Sections</a>
                             <a class="dropdown-item" href="{{ path('page') }}">Pages</a>
                             <a class="dropdown-item" href="{{ path('forum') }}">Forums</a>
                             <a class="dropdown-item" href="{{ path('tag') }}">Tags</a>
-                            <a class="dropdown-item" href="{{ path('idea_new') }}">Capstones Ideas</a>
                             <a class="dropdown-item" href="{{ path('status') }}">Status</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('idea_new') }}">New Capstones Idea</a>
                             <a class="dropdown-item" href="{{ path('idea', {"status":"pending"}) }}">Pending Ideas</a>
 
                         </div>
