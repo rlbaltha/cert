@@ -41,9 +41,11 @@
             <h1>Resource</h1>
 
             {% for tag in entity.tags %}<div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
+            {% if is_granted('ROLE_ADMIN') %}
             <a class="float-sm-right btn btn-primary" href="{{ path('source_edit', { 'id': entity.id }) }}">
                 Edit
             </a>
+            {% endif %}
 
             <table class="table">
                 <tbody>
