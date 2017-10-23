@@ -89,14 +89,17 @@
                                 </span>
                             {% endif %}
                             <span class="float-sm-right {% if checkpoint.status=='Complete' %}hidden{% endif %}">
-                            {% if checkpoint.deadline %}
-                                {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
-                                    {% set alert %}alert-danger{% endset %}
-                                {% else %}
-                                    {% set alert %}alert-info{% endset %}
+                                {% if checkpoint.lead != '' %}
+                                    <span class="alert alert-info">Lead: {{ checkpoint.lead }}</span>
                                 {% endif %}
-                                <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
-                            {% endif %}
+                                {% if checkpoint.deadline %}
+                                    {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
+                                        {% set alert %}alert-danger{% endset %}
+                                    {% else %}
+                                        {% set alert %}alert-success{% endset %}
+                                    {% endif %}
+                                    <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
+                                {% endif %}
                         </span>
                         </p>
                     </div>
