@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Checklist;
 use AppBundle\Form\ChecklistType;
 
@@ -25,6 +26,7 @@ class ChecklistController extends Controller
      * @Route("/", name="checklist_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
     {
@@ -81,6 +83,7 @@ class ChecklistController extends Controller
      * @Route("/new", name="checklist_new")
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function newAction()
     {
@@ -100,6 +103,7 @@ class ChecklistController extends Controller
      * @Route("/{id}/edit", name="checklist_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id)
     {
@@ -145,6 +149,7 @@ class ChecklistController extends Controller
      * @Route("/{id}", name="checklist_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -177,6 +182,7 @@ class ChecklistController extends Controller
      *
      * @Route("/{id}", name="checklist_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {

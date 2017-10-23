@@ -7,11 +7,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\User;
 use AppBundle\Form\AdminType;
 use AppBundle\Form\ProfileType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 /**
  * User controller.
@@ -27,6 +28,7 @@ class UserController extends Controller
      * @Route("/profile", name="user_profile")
      * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function profileAction()
     {
@@ -146,6 +148,7 @@ class UserController extends Controller
      * @Route("/{id}", name="user_show")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
     {
@@ -172,6 +175,7 @@ class UserController extends Controller
      * Creates a pdf of users work
      *
      * @Route("/{id}/pdf", name="pdf")
+     * @Security("has_role('ROLE_USER')")
      */
     public function createPdfAction($id)
     {
@@ -206,6 +210,7 @@ class UserController extends Controller
      * @Route("/{id}/{return}/edit", name="user_edit" , defaults={"return" = "show"})
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id, $return)
     {
@@ -261,6 +266,7 @@ class UserController extends Controller
      * @Route("/{id}/{return}", name="user_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id, $return)
     {
@@ -301,6 +307,7 @@ class UserController extends Controller
      * @Route("/inactive/{id}", name="user_inactive")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN)")
      */
     public function inactiveAction($id)
     {
@@ -330,6 +337,7 @@ class UserController extends Controller
      *
      * @Route("/pair/mentors", name="user_pairmentors")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN)")
      */
     public function pairMentorsAction()
     {

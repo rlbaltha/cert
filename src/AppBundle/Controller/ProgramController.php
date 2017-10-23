@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Program;
 use AppBundle\Form\ProgramType;
 
@@ -25,6 +26,7 @@ class ProgramController extends Controller
      * @Route("/", name="program_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
     {
@@ -80,6 +82,7 @@ class ProgramController extends Controller
      * @Route("/new", name="program_new")
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function newAction()
     {
@@ -99,6 +102,7 @@ class ProgramController extends Controller
      * @Route("/{id}/edit", name="program_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id)
     {
@@ -145,6 +149,7 @@ class ProgramController extends Controller
      * @Route("/{id}", name="program_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -179,6 +184,7 @@ class ProgramController extends Controller
      * @Route("/ready/{id}", name="program_ready")
      * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function readyAction($id)
     {
@@ -231,6 +237,7 @@ class ProgramController extends Controller
      * @Route("/mentee/{id}", name="program_mentee")
      * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function menteeAction($id)
     {
@@ -254,6 +261,7 @@ class ProgramController extends Controller
      * @Route("/mentor/{id}", name="program_mentor")
      * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function mentorAction($id)
     {
@@ -279,6 +287,7 @@ class ProgramController extends Controller
      * @Route("/approve/{id}", name="program_approve")
      * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
+     * @Security("has_role('ROLE_ADMIN)")
      */
     public function approveAction($id)
     {
@@ -368,6 +377,7 @@ class ProgramController extends Controller
      *
      * @Route("/{id}", name="program_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN)")
      */
     public function deleteAction(Request $request, $id)
     {
