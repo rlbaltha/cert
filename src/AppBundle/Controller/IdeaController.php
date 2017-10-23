@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Idea;
 use AppBundle\Form\IdeaType;
 
@@ -21,7 +22,7 @@ class IdeaController extends Controller
     /**
      * Lists all Idea entities.
      *
-     * @Route("/{section}/{status}/list", name="idea", defaults={"status" = "approved", "section" = "capstone"})
+     * @Route("/{section}/{status}/list", name="idea", defaults={"status" = "identified", "section" = "capstone"})
      * @Method("GET")
      * @Template()
      */
@@ -63,7 +64,7 @@ class IdeaController extends Controller
                 'Thanks for your idea.  We will review it for posting soon.'
             );
 
-            return $this->redirect($this->generateUrl('idea', array('status' => 'approved', 'section' => 'capstone')));
+            return $this->redirect($this->generateUrl('idea_show', array('id' => $entity->getId(), 'section' => 'capstone')));
         }
 
         return array(
@@ -147,6 +148,7 @@ class IdeaController extends Controller
      * @Route("/{id}/edit", name="idea_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction($id)
     {
@@ -192,6 +194,7 @@ class IdeaController extends Controller
      * @Route("/{id}", name="idea_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction(Request $request, $id)
     {
@@ -223,16 +226,17 @@ class IdeaController extends Controller
     /**
      * Mark an existing Idea entity apptoved.
      *
-     * @Route("/{id}/approve", name="idea_approve")
+     * @Route("/{id}/{status}", name="idea_approve")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
-    public function approveAction($id)
+    public function approveAction($id, $status)
     {
         $em = $this->getDoctrine()->getManager();
 
         $idea = $em->getRepository('AppBundle:Idea')->find($id);
-        $idea->setStatus('Approved');
+        $idea->setStatus(lcfirst($status));
         $em->persist($idea);
         $em->flush();
 
@@ -245,6 +249,7 @@ class IdeaController extends Controller
      *
      * @Route("/{id}", name="idea_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {

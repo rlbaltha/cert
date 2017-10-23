@@ -92,9 +92,7 @@
             <p>Note:  These are ideas only, not capstones or grant proposals per se.  They are a starting point, like a brainstorm.  Capstones and Grant Proposals
             will require careful refinement and development, thoughtful collaboration with faculty and professionals, and appropriate permissions.</p>
             </div>
-            <p>Have a great idea? Submit it here: <a class="btn btn-primary" href="{{ path('idea_new') }}">
-                    Idea Submission Form
-                </a></p>
+
             <p class="alert alert-info">The tags below are clickable.</p>
             {% for tag in tags if tag.subs|length > 0 %}
                 <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
