@@ -307,7 +307,7 @@ class UserController extends Controller
      * @Route("/inactive/{id}", name="user_inactive")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
-     * @Security("has_role('ROLE_ADMIN)")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function inactiveAction($id)
     {
@@ -337,7 +337,7 @@ class UserController extends Controller
      *
      * @Route("/pair/mentors", name="user_pairmentors")
      * @Method("GET")
-     * @Security("has_role('ROLE_ADMIN)")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function pairMentorsAction()
     {

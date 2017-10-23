@@ -287,7 +287,7 @@ class ProgramController extends Controller
      * @Route("/approve/{id}", name="program_approve")
      * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
-     * @Security("has_role('ROLE_ADMIN)")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function approveAction($id)
     {
@@ -377,7 +377,7 @@ class ProgramController extends Controller
      *
      * @Route("/{id}", name="program_delete")
      * @Method("DELETE")
-     * @Security("has_role('ROLE_ADMIN)")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
     {
