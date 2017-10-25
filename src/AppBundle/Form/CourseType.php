@@ -24,7 +24,7 @@ class CourseType extends AbstractType
                 'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
                     'form-control'),))
             ->add('pillar', 'choice', array('choices' => array('Anchor' => 'Anchor','Seminar' => 'Seminar','Social' => 'Social', 'Economic'
-                 => 'Economic', 'Ecological' => 'Ecological', 'Capstone' => 'Capstone'),
+                 => 'Economic', 'Ecological' => 'Ecological', 'Capstone' => 'Capstone', 'Any' => 'Anchor or Any Pillar'),
                 'required' =>  true,
                 'expanded' => true,
                 'multiple' => false,

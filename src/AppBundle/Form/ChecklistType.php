@@ -24,9 +24,10 @@ class ChecklistType extends AbstractType
             ->add('anchor', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
               'query_builder' => function (EntityRepository $er) {
                   return $er->createQueryBuilder('c')
-                    ->andWhere('c.pillar = :pillar')
+                    ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
                       ->andWhere('c.status = :status1 or c.status = :status2')
-                      ->setParameter('pillar', 'anchor')
+                      ->setParameter('pillar1', 'anchor')
+                      ->setParameter('pillar2', 'any')
                       ->setParameter('status1', 'approved')
                       ->setParameter('status2', 'exception')
                     ->orderBy('c.name ');
@@ -36,9 +37,10 @@ class ChecklistType extends AbstractType
           ->add('sphere1', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('c')
-                  ->andWhere('c.pillar = :pillar')
+                    ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
                     ->andWhere('c.status = :status1 or c.status = :status2')
-                    ->setParameter('pillar', 'ecological')
+                    ->setParameter('pillar1', 'ecological')
+                    ->setParameter('pillar2', 'any')
                     ->setParameter('status1', 'approved')
                     ->setParameter('status2', 'exception')
                   ->orderBy('c.name ');
@@ -48,9 +50,10 @@ class ChecklistType extends AbstractType
           ->add('sphere2', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('c')
-                  ->andWhere('c.pillar = :pillar')
+                    ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
                     ->andWhere('c.status = :status1 or c.status = :status2')
-                    ->setParameter('pillar', 'economic')
+                    ->setParameter('pillar1', 'economic')
+                    ->setParameter('pillar2', 'any')
                     ->setParameter('status1', 'approved')
                     ->setParameter('status2', 'exception')
                   ->orderBy('c.name ');
@@ -60,9 +63,10 @@ class ChecklistType extends AbstractType
           ->add('sphere3', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('c')
-                  ->andWhere('c.pillar = :pillar')
+                    ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
                     ->andWhere('c.status = :status1 or c.status = :status2')
-                    ->setParameter('pillar', 'social')
+                    ->setParameter('pillar1', 'social')
+                    ->setParameter('pillar2', 'any')
                     ->setParameter('status1', 'approved')
                     ->setParameter('status2', 'exception')
                   ->orderBy('c.name ');
