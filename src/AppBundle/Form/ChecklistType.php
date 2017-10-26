@@ -19,7 +19,7 @@ class ChecklistType extends AbstractType
             ->add('athena','date', array('attr' => array('class' => ''), 'label'  => 'Date Certificate was added in Athena', 'required' => false,))
             ->add('pre_assess','date', array('attr' => array('class' => ''), 'label'  => 'Pre-Certificate Survey 
             Completed', 'required' => false,))
-            ->add('orientation','date', array('attr' => array('class' => ''), 'label'  => 'Orientation 
+            ->add('orientation','date', array('attr' => array('class' => ' hr'), 'label'  => 'Orientation 
             Completed', 'required' => false,))
             ->add('anchor', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
               'query_builder' => function (EntityRepository $er) {
@@ -84,7 +84,20 @@ class ChecklistType extends AbstractType
                   ->orderBy('c.name ');
             },
             'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Seminar', 'attr' => array
-            ('class' => 'form-control'),))
+            ('class' => 'form-control hr'),))
+            ->add('capstoneterm', 'choice', array(
+                'required' => true,
+                'multiple' => false,
+                'label' => 'Expected Capstone Term',
+                'choices' => array(
+                    'Spring' => 'Spring',
+                    'Summer' => 'Summer',
+                    'Fall' => 'Fall',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => true,
+            ))
             ->add('capstonedate', 'choice', array(
                 'required' => true,
                 'multiple' => false,
@@ -104,19 +117,6 @@ class ChecklistType extends AbstractType
                 'choices_as_values' => true,
                 'expanded' => false,
                 'attr' => array('class' =>'form-control'),
-            ))
-            ->add('capstoneterm', 'choice', array(
-                'required' => true,
-                'multiple' => false,
-                'label' => 'Expected Capstone Term',
-                'choices' => array(
-                    'Spring' => 'Spring',
-                    'Summer' => 'Summer',
-                    'Fall' => 'Fall',
-                ),
-                // *this line is important*
-                'choices_as_values' => true,
-                'expanded' => true,
             ))
             ->add('capstone', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
                 'query_builder' => function (EntityRepository $er) {
@@ -148,11 +148,45 @@ class ChecklistType extends AbstractType
                     'required' => false,
                 )
             )
-          ->add('portfolio', 'text', array('required'=> false,'attr' => array('class' => 'text form-control', 'placeholder' =>
+          ->add('portfolio', 'text', array('required'=> false,'attr' => array('class' => 'text form-control hr', 'placeholder' =>
             'https://ctlsites.uga.edu/sustainability-/'),))
-          ->add('post_assess','date', array('attr' => array('class' => ''), 'label'  => 'Post-Certificate Survey 
-            Completed', 'required' => false,))
+
+            ->add('gradterm', 'choice', array(
+                'required' => true,
+                'multiple' => false,
+                'label' => 'Expected Graduation Term',
+                'choices' => array(
+                    'Spring' => 'Spring',
+                    'Summer' => 'Summer',
+                    'Fall' => 'Fall',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => true,
+            ))
+            ->add('graddate', 'choice', array(
+                'required' => true,
+                'multiple' => false,
+                'label' => 'Expected Graduation Year',
+                'choices' => array(
+                    '2017' => '2017',
+                    '2018' => '2018',
+                    '2019' => '2019',
+                    '2020' => '2020',
+                    '2021' => '2021',
+                    '2022' => '2022',
+                    '2023' => '2023',
+                    '2024' => '2024',
+                    '2025' => '2025',
+                ),
+                // *this line is important*
+                'choices_as_values' => true,
+                'expanded' => false,
+                'attr' => array('class' =>'form-control hr'),
+            ))
             ->add('exceptions', 'ckeditor', array('label'  => 'Exceptions:  Please offer any exceptions to the above requirements and the reasons for them.','config_name' => 'editor_simple',))
+            ->add('post_assess','date', array('attr' => array('class' => ' hr'), 'label'  => 'Post-Certificate Survey 
+            Completed', 'required' => false,))
 
         ;
     }

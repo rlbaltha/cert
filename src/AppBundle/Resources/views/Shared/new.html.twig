@@ -8,6 +8,12 @@
 {% block javascripts %}
     {{ parent() }}
     {{ form_javascript(form) }}
+    <script language="javascript">
+        $(document).ready(function () {
+            var rule = "<hr/>";
+            $('.hr ').after(rule);
+        });
+    </script>
 {% endblock %}
 
 {% block body -%}

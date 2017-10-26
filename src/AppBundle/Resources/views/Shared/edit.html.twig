@@ -18,6 +18,8 @@
             $( 'i' ).switchClass( 'glyphicon-arrow-right', 'fa-angle-right' );
 
             $("form:not(.filter) :input:visible:enabled:first").focus();
+            var rule = "<hr/>";
+            $('.hr ').after(rule);
         });
     </script>
     {{ form_javascript(edit_form) }}

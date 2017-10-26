@@ -92,6 +92,21 @@ class Checklist
     private $capstoneterm;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="graddate", type="string", length=255, nullable=true)
+     */
+    private $graddate;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gradterm", type="string", length=255, nullable=true)
+     */
+    private $gradterm;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Course")
      */
     protected $anchor;
@@ -578,5 +593,53 @@ class Checklist
     public function getAthena()
     {
         return $this->athena;
+    }
+
+    /**
+     * Set graddate
+     *
+     * @param string $graddate
+     *
+     * @return Checklist
+     */
+    public function setGraddate($graddate)
+    {
+        $this->graddate = $graddate;
+
+        return $this;
+    }
+
+    /**
+     * Get graddate
+     *
+     * @return string
+     */
+    public function getGraddate()
+    {
+        return $this->graddate;
+    }
+
+    /**
+     * Set gradterm
+     *
+     * @param string $gradterm
+     *
+     * @return Checklist
+     */
+    public function setGradterm($gradterm)
+    {
+        $this->gradterm = $gradterm;
+
+        return $this;
+    }
+
+    /**
+     * Get gradterm
+     *
+     * @return string
+     */
+    public function getGradterm()
+    {
+        return $this->gradterm;
     }
 }

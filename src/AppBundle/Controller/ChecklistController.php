@@ -44,7 +44,6 @@ class ChecklistController extends Controller
             $user_entity->setProgress($status);
             $portfolio = 'https://ctlsites.uga.edu/sustainability-'. $user_entity->getFirstname().$user_entity->getLastname();
             $entity->setPortfolio(strtolower($portfolio));
-
             $em->persist($entity);
             $em->persist($user_entity);
             $em->flush();
@@ -88,6 +87,15 @@ class ChecklistController extends Controller
     public function newAction()
     {
         $entity = new Checklist();
+
+        $em = $this->getDoctrine()->getManager();
+        $user=$this->getUser();
+        $entity->setUser($user);
+        $program = $em->getRepository('AppBundle:Program')->findOneByUser($user);
+        $entity->setCapstonedate($program->getGraddate());
+        $entity->setCapstoneterm($program->getGradterm());
+        $entity->setGraddate($program->getGraddate());
+        $entity->setGradterm($program->getGradterm());
         $form   = $this->createCreateForm($entity);
 
         return array(

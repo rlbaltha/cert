@@ -136,6 +136,9 @@ input + label {
     margin-right: 15px;
 }
 
+hr {
+    margin-bottom: 3rem;
+}
 /**********  calendar **********/
 
 .fc-event-title {
