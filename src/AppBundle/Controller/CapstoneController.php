@@ -98,6 +98,7 @@ class CapstoneController extends Controller
 
             $checkpoint1 = new Checkpoint();
             $checkpoint1->setProject($project);
+            $checkpoint1->setType('Capstone');
             $checkpoint1->setName('Design Process');
             $checkpoint1->setDescription('<p>Please complete this checkpoint by the first day of the semester.</p>
                                             <ul>
@@ -111,18 +112,21 @@ class CapstoneController extends Controller
 
             $checkpoint2 = new Checkpoint();
             $checkpoint2->setProject($project);
+            $checkpoint2->setType('Capstone');
             $checkpoint2->setName('One Month Check-in');
             $checkpoint2->setDescription('List of tasks/events that should be completed or underway by one month in.');
             $em->persist($checkpoint2);
 
             $checkpoint3 = new Checkpoint();
             $checkpoint3->setProject($project);
+            $checkpoint3->setType('Capstone');
             $checkpoint3->setName('Midpoint Check-in');
             $checkpoint3->setDescription('List of tasks/events that should be completed or underway by midpoint.');
             $em->persist($checkpoint3);
 
             $checkpoint4 = new Checkpoint();
             $checkpoint4->setProject($project);
+            $checkpoint4->setType('Capstone');
             $checkpoint4->setName('Capstone Completion');
             $checkpoint4->setDescription('<ul>
                                             <li>Capstone project is complete</li>

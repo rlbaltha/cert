@@ -91,6 +91,9 @@ class ProjectController extends Controller
                 $new_checkpoint->setDescription($checkpoint->getDescription());
                 $new_checkpoint->setLead($checkpoint->getLead());
                 $new_checkpoint->setProject($entity);
+                foreach ($checkpoint->getPosts() as $post) {
+                    $new_checkpoint->addPost($post);
+                }
                 $em->persist($new_checkpoint);
                 $em->persist($checkpoint);
             }

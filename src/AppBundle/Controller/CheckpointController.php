@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Checkpoint;
 use AppBundle\Form\CheckpointType;
+use AppBundle\Form\CheckpointAdminType;
 use AppBundle\Notifier\NotifierManager;
 
 /**
@@ -124,10 +125,18 @@ class CheckpointController extends Controller
      */
     private function createCreateForm(Checkpoint $entity)
     {
-        $form = $this->createForm(new CheckpointType(), $entity, array(
-            'action' => $this->generateUrl('checkpoint_create', array('id'=>$entity->getProject()->getId())),
-            'method' => 'POST',
-        ));
+        if ($entity->getType()=='Admin') {
+            $form = $this->createForm(new CheckpointAdminType(), $entity, array(
+                'action' => $this->generateUrl('checkpoint_create', array('id'=>$entity->getProject()->getId())),
+                'method' => 'POST',
+            ));
+        }
+        else {
+            $form = $this->createForm(new CheckpointType(), $entity, array(
+                'action' => $this->generateUrl('checkpoint_create', array('id'=>$entity->getProject()->getId())),
+                'method' => 'POST',
+            ));
+        }
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -238,10 +247,18 @@ class CheckpointController extends Controller
     */
     private function createEditForm(Checkpoint $entity)
     {
-        $form = $this->createForm(new CheckpointType(), $entity, array(
-            'action' => $this->generateUrl('checkpoint_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        if ($entity->getType()=='Admin') {
+            $form = $this->createForm(new CheckpointAdminType(), $entity, array(
+                'action' => $this->generateUrl('checkpoint_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            ));
+        }
+        else {
+            $form = $this->createForm(new CheckpointType(), $entity, array(
+                'action' => $this->generateUrl('checkpoint_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            ));
+        }
 
         $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 

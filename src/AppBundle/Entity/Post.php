@@ -54,6 +54,11 @@ class Post
      */
     private $notifications;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Checkpoint", mappedBy="posts")
+     */
+    protected $checkpoints;
+
 
     /**
      * Get id
@@ -200,5 +205,29 @@ class Post
     public function getNotifications()
     {
         return $this->notifications;
+    }
+
+    /**
+     * Set checkpoint
+     *
+     * @param \AppBundle\Entity\Checkpoint $checkpoint
+     *
+     * @return Post
+     */
+    public function setCheckpoint(\AppBundle\Entity\Checkpoint $checkpoint = null)
+    {
+        $this->checkpoint = $checkpoint;
+
+        return $this;
+    }
+
+    /**
+     * Get checkpoint
+     *
+     * @return \AppBundle\Entity\Checkpoint
+     */
+    public function getCheckpoint()
+    {
+        return $this->checkpoint;
     }
 }

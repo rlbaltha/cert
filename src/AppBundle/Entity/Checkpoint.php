@@ -40,7 +40,7 @@ class Checkpoint
      *
      * @ORM\Column(name="type", type="string", length=255, nullable=true)
      */
-    private $type='NA';
+    private $type='Admin';
 
     /**
      * @var \DateTime
@@ -85,6 +85,11 @@ class Checkpoint
      * @ORM\OneToMany(targetEntity="Review", mappedBy="checkpoint")
      */
     protected $reviews;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Post", inversedBy="checkpoints")
+     */
+    protected $posts;
 
     /**
      * Get id
@@ -364,5 +369,39 @@ class Checkpoint
     public function getLead()
     {
         return $this->lead;
+    }
+
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return Checkpoint
+     */
+    public function addPost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\Post $post
+     */
+    public function removePost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

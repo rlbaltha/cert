@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 
-class CheckpointType extends AbstractType
+class CheckpointAdminType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -40,7 +40,14 @@ class CheckpointType extends AbstractType
                 },
                 'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Reviewers', 'attr' => array('class' =>
                     'checkbox'),))
-            ->add('lead', 'text', array('required' => false,'label' => 'Lead Person', 'attr' => array('class' => 'text form-control'),));
+            ->add('lead', 'text', array('required' => false,'label' => 'Lead Person', 'attr' => array('class' => 'text form-control'),))
+            ->add('posts', 'entity', array('class' => 'AppBundle\Entity\Post',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->addOrderBy('p.title', 'ASC');
+                },
+                'property' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Posts', 'attr' => array('class' =>
+                    ''),));
     }
 
     /**

@@ -1013,7 +1013,7 @@
 
                                     {% for checkpoint in entity.capstone.project.checkpoints %}
                                         {% set background %}
-                                            {% if checkpoint.status=='Complete' %}#e4ffe8
+                                            {% if checkpoint.status=='Complete' %}#dff0d8
                                             {% else %}#F7F7E3
                                             {% endif %}
                                         {% endset %}
@@ -1053,8 +1053,7 @@
                                             </div>
                                             <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
                                                 {{ checkpoint.description |raw }}
-                                                <hr/>
-                                                <p>
+                                                <div class="alert alert-success">
                                                     Reviewers:
                                                     {# self review#}
                                                     {% if app.user.username == entity.username %}
@@ -1079,10 +1078,10 @@
                                                             href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': reviewer.id }) }}"
                                                             class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
                                                     {% endfor %}
-                                                </p>
+                                                </div>
                                                 {% for review in checkpoint.reviews %}
                                                     {% set review_background %}
-                                                        {% if review.status=='Complete' %}#e4ffe8
+                                                        {% if review.status=='Complete' %}#dff0d8
                                                         {% else %}#ffffe6
                                                         {% endif %}
                                                     {% endset %}

@@ -37,7 +37,8 @@
                                 <li class="nav-item"><a href="{{ path('checkpoint') }}">
                                         Checkpoints by Date
                                     </a></li>
-                                <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Calendar</a></li>
+                                <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Calendar</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </div>
@@ -62,18 +63,18 @@
                                 <i class="fa fa-check fa-2x" aria-hidden="true"></i>
                             {% endif %}
 
-                        <span class="float-sm-right">
+                            <span class="float-sm-right">
                             {% if checkpoint.lead != '' %}
-                                <span class="alert alert-info">Lead: {{ checkpoint.lead}}</span>
+                                <span class="alert alert-info">Lead: {{ checkpoint.lead }}</span>
                             {% endif %}
-                            {% if checkpoint.deadline %}
-                                {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
-                                    {% set alert %}alert-danger{% endset %}
-                                {% else %}
-                                    {% set alert %}alert-success{% endset %}
+                                {% if checkpoint.deadline %}
+                                    {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
+                                        {% set alert %}alert-danger{% endset %}
+                                    {% else %}
+                                        {% set alert %}alert-success{% endset %}
+                                    {% endif %}
+                                    <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
                                 {% endif %}
-                                <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
-                            {% endif %}
                         </span>
                         </p>
                     </div>
@@ -81,16 +82,26 @@
 
                         {{ checkpoint.description |raw }}
 
-                        <hr/>
-                        <p>
-                            Reviewers:
-                            {% for reviewer in checkpoint.reviewers %}
-                                {% if app.user.username == reviewer.username %}
-                                    <a
-                                    href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': reviewer.id }) }}"
-                                    class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
-                            {% endfor %}
-                        </p>
+                        {% if checkpoint.posts|length > 0 %}
+                            <div class="alert alert-info">
+                                <p>Posts:</p>
+                                {% for post in checkpoint.posts %}
+                                    {{ post.title }} {{ post.body|raw }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if checkpoint.reviewers|length > 0 %}
+                            <div class="alert alert-success">
+                                Reviewers:
+                                {% for reviewer in checkpoint.reviewers %}
+                                    {% if app.user.username == reviewer.username %}
+                                        <a
+                                        href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': reviewer.id }) }}"
+                                        class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
                         {% if is_granted('ROLE_ADMIN') %}
                             {% if checkpoint.status!='Complete' %}
                                 <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
@@ -98,7 +109,8 @@
                             {% endif %}
                             <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
                                class="float-sm-right btn btn-primary">Edit</a>
-                            <a href="{{ path('project_show', { 'id': checkpoint.project.id }) }}" class="float-sm-right btn btn-primary">
+                            <a href="{{ path('project_show', { 'id': checkpoint.project.id }) }}"
+                               class="float-sm-right btn btn-primary">
                                 Open Project</a>
                         {% endif %}
 
