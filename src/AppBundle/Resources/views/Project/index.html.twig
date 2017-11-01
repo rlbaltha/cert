@@ -40,8 +40,7 @@
             {% for entity in entities %}
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title"><a
-                                    href="{{ path('project_show', { 'id': entity.id }) }}">{{ entity.name }}</a></h4>
+                        <p class="card-title margin-top"><a href="{{ path('project_show', { 'id': entity.id }) }}">{{ entity.name }}</a></p>
                     </div>
                 </div>
             {% endfor %}

@@ -35,6 +35,7 @@ class NotificationController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Notification entity.
      *
@@ -58,8 +59,36 @@ class NotificationController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
+    }
+
+
+    /**
+     * Creates a new Notification entity.
+     *
+     * @Route("post/{post_id}", name="post_notification_create")
+     * @Method("GET")
+     */
+    public function createFromPostAction($post_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('AppBundle:Post')->find($post_id);
+        $entity = new Notification();
+        $now = date_create();
+        $entity->setDate($now);
+        $entity->setDisplayStart($now);
+        $entity->setDisplayEnd($now);
+        $entity->setPost($post);
+        $entity->setStatus('Shared');
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('notification_edit', array('id' => $entity->getId())));
+
     }
 
     /**
@@ -95,12 +124,12 @@ class NotificationController extends Controller
         $entity->setDate($now);
         $entity->setDisplayStart($now);
         $entity->setDisplayEnd($now);
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -124,7 +153,7 @@ class NotificationController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -150,19 +179,19 @@ class NotificationController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Notification entity.
-    *
-    * @param Notification $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Notification entity.
+     *
+     * @param Notification $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Notification $entity)
     {
         $form = $this->createForm(new NotificationType(), $entity, array(
@@ -170,10 +199,11 @@ class NotificationController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
+
     /**
      * Edits an existing Notification entity.
      *
@@ -202,8 +232,8 @@ class NotificationController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -267,8 +297,7 @@ class NotificationController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('notification_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
+            ->getForm();
     }
 }

@@ -18,7 +18,7 @@
                                     Shared Notifications
                                 </a></li>
                             <li class="nav-item"><a href="{{ path('notification', {'status':'New'}) }}">
-                                    New Notifications
+                                    Individual Notifications
                                 </a></li>
                             <li class="nav-item"><a href="{{ path('notification', {'status':'Dismissed'}) }}">
                                     Dismissed Notifications
@@ -42,8 +42,16 @@
             <table class="table">
                 <tbody>
                 <tr>
-                    <th>Id</th>
-                    <td>{{ entity.id }}</td>
+                    <th>Event Date</th>
+                    <td>{{ entity.date|date('m-d-Y h:i a') }}</td>
+                </tr>
+                <tr>
+                    <th>Post</th>
+                    <td>{% if entity.post %}{{ entity.post.body|raw }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Additional Text</th>
+                    <td>{{ entity.body|raw }}</td>
                 </tr>
                 <tr>
                     <th>Display Start</th>
@@ -52,18 +60,6 @@
                 <tr>
                     <th>Display End</th>
                     <td>{{ entity.displayEnd|date('m-d-Y h:i a') }}</td>
-                </tr>
-                <tr>
-                    <th>Date</th>
-                    <td>{{ entity.date|date('m-d-Y h:i a') }}</td>
-                </tr>
-                <tr>
-                    <th>Post</th>
-                    <td>{% if entity.post %}{{ entity.post.body|raw }}{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Body</th>
-                    <td>{{ entity.body|raw }}</td>
                 </tr>
 
                 <tr>
@@ -76,7 +72,6 @@
                 Edit
             </a>
 
-            {{ form(delete_form) }}
         </div>
     </div>
 {% endblock %}

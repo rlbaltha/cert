@@ -19,11 +19,11 @@ class NotificationType extends AbstractType
             ->add('post', 'entity', array('class' => 'AppBundle\Entity\Post',
                 'property' => 'title','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'Post', 'attr' => array('class' =>
                     'form-control'),))
-            ->add('body', 'ckeditor', array('config_name' => 'editor_default',))
+            ->add('body', 'ckeditor', array('config_name' => 'editor_default', 'label'  => 'Additional Text',))
             ->add('date', DatetimeType::class, array('pickerOptions' =>
                 array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
                 ),
-                'attr' => array('class' => 'form-control'),))
+                'attr' => array('class' => 'form-control'), 'label'  => 'Event Date',))
             ->add('display_start', DatetimeType::class, array('label'  => 'Start Display','pickerOptions' =>
                 array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
                 ),
@@ -35,13 +35,12 @@ class NotificationType extends AbstractType
             ->add('status', 'choice', array(
                 'attr' => array('class' => 'form-control'),
                 'choices'  => array(
-                    'New' => "New",
+                    'Individual' => "New",
                     'Dismissed' => "Dismissed",
-                    'Shared' => "Shared",
+                    'Everyone' => "Shared",
                 ),
                 // *this line is important*
                 'choices_as_values' => true,))
-            ->add('user')
             ->add('user', 'entity', array('class' => 'AppBundle\Entity\User',
                 'property' => 'name','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'User', 'attr' => array('class' =>
                     'form-control'),))

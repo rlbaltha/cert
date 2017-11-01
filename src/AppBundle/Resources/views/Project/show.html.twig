@@ -51,9 +51,7 @@
         <div class="col-sm-8">
 
             <h1 class="inline">{{ entity.name }}</h1>
-            <span class="btn btn-secondary">Type: {{ entity.type }}</span>
-            <span class="btn btn-secondary">Timeframe: {{ entity.timeframe }}</span>
-            <span class="btn btn-secondary">Status:{{ entity.status }}</span>
+            <span class="btn btn-secondary">Status: {{ entity.status }}</span>
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('checkpoint_new', { 'id': entity.id }) }}" class="btn btn-primary">
                     Add Checkpoint
@@ -104,6 +102,14 @@
                         </p>
                     </div>
                     <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {% if checkpoint.status!='Complete' %}
+                                <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
+                                   class="float-sm-right btn btn-primary">Complete</a>
+                            {% endif %}
+                            <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
+                               class="float-sm-right btn btn-primary">Edit</a>
+                        {% endif %}
                         {{ checkpoint.description |raw }}
 
                         {% if checkpoint.posts|length > 0 %}
@@ -111,6 +117,18 @@
                                 <p>Posts:</p>
                                 {% for post in checkpoint.posts %}
                                     {{ post.title }} {{ post.body|raw }}
+
+                                    {% for notification in post.notifications %}
+                                        <div class="alert alert-success">
+                                            {{ notification.body|raw }}
+                                            Event Date: {{ notification.date|date('m-d-Y h:i a') }}<br/>
+                                            Display Start: {{ notification.displayStart|date('m-d-Y h:i a') }}<br/>
+                                            Display End: {{ notification.displayEnd|date('m-d-Y h:i a') }}<br/>
+                                        </div>
+                                    {% endfor %}
+
+                                    <p class=""><a href="{{ path('post_notification_create', { 'post_id': post.id }) }}"
+                                          class="btn btn-primary">Create Notification</a></p>
                                 {% endfor %}
                             </div>
                         {% endif %}
@@ -124,15 +142,6 @@
                                         class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
                                 {% endfor %}
                             </div>
-                        {% endif %}
-
-                        {% if is_granted('ROLE_ADMIN') %}
-                            {% if checkpoint.status!='Complete' %}
-                                <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
-                                   class="float-sm-right btn btn-primary">Complete</a>
-                            {% endif %}
-                            <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
-                               class="float-sm-right btn btn-primary">Edit</a>
                         {% endif %}
 
 
