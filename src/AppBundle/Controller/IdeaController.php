@@ -32,7 +32,7 @@ class IdeaController extends Controller
         $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Idea')->findByStatus($status);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
-        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
         return array(
             'entities' => $entities,
@@ -124,7 +124,7 @@ class IdeaController extends Controller
         $entity = $em->getRepository('AppBundle:Idea')->find($id);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $sources = $em->getRepository('AppBundle:Source')->findSourcesByIdea($id);
-        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Idea entity.');

@@ -16,18 +16,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('idea') }}">
-                                Ideas
+                            <a href="{{ path('tag', {"type":"resource"}) }}">
+                                Resource Tags
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('source') }}">
-                                Resources
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ path('tag') }}">
-                                Tags
+                            <a href="{{ path('tag', {"type":"user"}) }}">
+                                User Tags
                             </a>
                         </li>
                     </ul>

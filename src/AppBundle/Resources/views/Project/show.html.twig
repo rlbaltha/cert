@@ -114,21 +114,28 @@
 
                         {% if checkpoint.posts|length > 0 %}
                             <div class="alert alert-info">
+
                                 <p>Posts:</p>
                                 {% for post in checkpoint.posts %}
                                     {{ post.title }} {{ post.body|raw }}
-
+                                    {% if post.notifications|length == 0 %}
+                                        <a href="{{ path('checkpoint_notification_create', { 'post_id': post.id, 'checkpoint_id': checkpoint.id }) }}"
+                                           class="btn btn-primary">Create Notification</a>
+                                    {% endif %}
                                     {% for notification in post.notifications %}
                                         <div class="alert alert-success">
+                                            <p>Notification:</p>
+
                                             {{ notification.body|raw }}
                                             Event Date: {{ notification.date|date('m-d-Y h:i a') }}<br/>
                                             Display Start: {{ notification.displayStart|date('m-d-Y h:i a') }}<br/>
                                             Display End: {{ notification.displayEnd|date('m-d-Y h:i a') }}<br/>
+                                            <a href="{{ path('notification_edit', { 'id': notification.id, 'checkpoint_id': checkpoint.id }) }}"
+                                               class="btn btn-primary">Edit</a>
                                         </div>
                                     {% endfor %}
 
-                                    <p class=""><a href="{{ path('post_notification_create', { 'post_id': post.id }) }}"
-                                          class="btn btn-primary">Create Notification</a></p>
+
                                 {% endfor %}
                             </div>
                         {% endif %}

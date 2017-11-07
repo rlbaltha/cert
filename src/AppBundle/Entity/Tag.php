@@ -36,6 +36,13 @@ class Tag
     private $color;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type = 'resource';
+
+    /**
      * @var int
      *
      * @ORM\Column(name="sortorder", type="integer")
@@ -323,5 +330,64 @@ class Tag
     public function getSortorder()
     {
         return $this->sortorder;
+    }
+
+
+    /**
+     * Add faculty
+     *
+     * @param \AppBundle\Entity\Faculty $faculty
+     *
+     * @return Tag
+     */
+    public function addFaculty(\AppBundle\Entity\Faculty $faculty)
+    {
+        $this->faculty[] = $faculty;
+
+        return $this;
+    }
+
+    /**
+     * Remove faculty
+     *
+     * @param \AppBundle\Entity\Faculty $faculty
+     */
+    public function removeFaculty(\AppBundle\Entity\Faculty $faculty)
+    {
+        $this->faculty->removeElement($faculty);
+    }
+
+    /**
+     * Get faculty
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFaculty()
+    {
+        return $this->faculty;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Tag
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

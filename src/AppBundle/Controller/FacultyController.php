@@ -33,7 +33,7 @@ class FacultyController extends Controller
         $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Faculty')->findAllSorted($status);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
-        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
         return array(
             'entities' => $entities,

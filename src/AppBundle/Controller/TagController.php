@@ -21,15 +21,15 @@ class TagController extends Controller
     /**
      * Lists all Tag entities.
      *
-     * @Route("/", name="tag")
+     * @Route("/type/{type}", name="tag", defaults = {"type": "resource"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($type)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Tag')->findAll();
+        $entities = $em->getRepository('AppBundle:Tag')->findByType($type);
 
         return array(
             'entities' => $entities,

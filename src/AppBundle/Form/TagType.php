@@ -21,6 +21,12 @@ class TagType extends AbstractType
                 'property' => 'title','required'=>false,'expanded'=>false,'multiple'=>false,'label'  => 'Super', 'attr' => array('class' =>
                     'form-control'),))
             ->add('sortorder', 'number', array('attr' => array('class' => 'text form-control'),))
+            ->add('type', 'choice', array('choices' => array('resource' => 'resource', 'user' => 'user'),
+                'required' => true,
+                'expanded' => true,
+                'multiple' => false,
+                'label' => 'Tag Type',
+                'attr' => array('class' => ''),))
         ;
     }
     

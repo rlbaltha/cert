@@ -31,7 +31,7 @@ class SourceController extends Controller
         $section = ucfirst($section);
         $entities = $em->getRepository('AppBundle:Source')->findSourcesSorted();
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
-        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
         return array(
             'entities' => $entities,
@@ -116,7 +116,7 @@ class SourceController extends Controller
         $section = ucfirst($section);
         $entity = $em->getRepository('AppBundle:Source')->find($id);
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
-        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Source entity.');
