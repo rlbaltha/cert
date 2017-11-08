@@ -90,6 +90,16 @@
                 </div>
             {% endif %}
             <div class="btn-group float-sm-right" role="group" aria-label="Basic Functions">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <a class="btn btn-primary" style="margin-left: 10px;"
+                       href="{{ path('user_edit', { 'id': entity.id }) }}">
+                        Admin Update
+                    </a>
+                    <a class="btn btn-primary"
+                       href="{{ path('user_inactive', { 'id': entity.id }) }}">
+                        Mark Inactive
+                    </a>
+                {% endif %}
                 {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
                     <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
                         As</a>
@@ -107,9 +117,14 @@
             {# Name and notes #}
             <h1 class="">{{ entity.firstname }} {{ entity.lastname }}</h1>
             {% if entity.progress %}
-                <p>Certificate Progress: {{ entity.progress.name }}</p>
+                <p>Certificate Progress: {{ entity.progress.name }}
+                {% for tag in entity.tags %}
+                    <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% endfor %}
+                </p>
             {% endif %}
-            <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
+
             <div class="alert alert-info glow glow_active">Click headings to open or close.</div>
             <div id="accordion" role="tablist" aria-multiselectable="true">
 
@@ -216,18 +231,12 @@
                         </div>
                         <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
                             <div class="card-block">
-                                <a class="btn btn-primary" style="margin-left: 10px;"
-                                   href="{{ path('user_edit', { 'id': entity.id }) }}">
-                                    Update
-                                </a>
-                                <a class="btn btn-primary"
-                                   href="{{ path('user_inactive', { 'id': entity.id }) }}">
-                                    Inactive
-                                </a>
+
                                 <p>{{ entity.notes |raw }}
                                     {% if entity.notes|length < 1 %}No notes yet.{% endif %}
                                 </p>
                                 <p>Updated: {{ entity.notesChanged|date("m/d/Y g:ia") }}</p>
+                                <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
 
                             </div>
                         </div>
@@ -1149,72 +1158,72 @@
             {#  *********************** Capstones For Review *********************** #}
             {# check to see if user is Faculty and has capstone mentees #}
             {% if entity.progress.name=='Faculty' or is_granted('ROLE_SUPER_ADMIN') %}
-            <div class="card">
-                <div class="card-header" role="tab" id="headingSix">
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingSix">
                         <h5 class="mb-0 inline">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                   href="#collapseSix"
-                   aria-expanded="false" aria-controls="collapseSix">
-                    Capstones for your Review
-                </a>
-                </h5>
-            </div>
-            <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix">
-                <div class="card-block">
-                    {% if mentees is defined %}
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Name (Email)</th>
-                                <th>School: Program</th>
-                                <th>Capstone Term</th>
-                                <th>Graduation Term</th>
-                                <th>Progress</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for entity in mentees %}
-                                <tr>
-                                    <td>
-                                        <a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
-                                            , {{ entity.firstname }}</a> ({{ entity.email }})
-                                    </td>
-                                    <td>
-                                        {% if entity.program %}
-                                            {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
-                                            {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
-                                            {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
-                                            {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}
-                                        {% endif %}
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseSix"
+                               aria-expanded="false" aria-controls="collapseSix">
+                                Capstones for your Review
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix">
+                        <div class="card-block">
+                            {% if mentees is defined %}
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Name (Email)</th>
+                                        <th>School: Program</th>
+                                        <th>Capstone Term</th>
+                                        <th>Graduation Term</th>
+                                        <th>Progress</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for entity in mentees %}
+                                        <tr>
+                                            <td>
+                                                <a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
+                                                    , {{ entity.firstname }}</a> ({{ entity.email }})
+                                            </td>
+                                            <td>
+                                                {% if entity.program %}
+                                                    {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
+                                                    {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
+                                                    {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
+                                                    {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}
+                                                {% endif %}
 
 
-                                    </td>
-                                    <td>
-                                        {% if entity.checklist %}
-                                            {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if entity.program %}
-                                            <a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>
-                                        {% endif %}
-                                    </td>
-                                    <td>{% if entity.progress %}
-                                            <a href="{{ path('user', { 'type': entity.progress.id }) }}">{{ entity.progress.name }}</a>
-                                        {% else %}
-                                            Account Created
-                                        {% endif %}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <p>You have no capstones for review at this time.</p>
-                    {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.checklist %}
+                                                    {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if entity.program %}
+                                                    <a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>
+                                                {% endif %}
+                                            </td>
+                                            <td>{% if entity.progress %}
+                                                    <a href="{{ path('user', { 'type': entity.progress.id }) }}">{{ entity.progress.name }}</a>
+                                                {% else %}
+                                                    Account Created
+                                                {% endif %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <p>You have no capstones for review at this time.</p>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
-        {% endif %}
-    </div>
     </div>
 {% endblock %}

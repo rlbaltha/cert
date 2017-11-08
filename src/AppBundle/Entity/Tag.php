@@ -70,6 +70,11 @@ class Tag
     protected $faculty;
 
     /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="tags")
+     */
+    protected $users;
+
+    /**
      * @ORM\OneToMany(targetEntity="Tag", mappedBy="top")
      * @ORM\OrderBy({"sortorder" = "ASC"})
      */
@@ -389,5 +394,40 @@ class Tag
     public function getType()
     {
         return $this->type;
+    }
+
+
+    /**
+     * Add user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Tag
+     */
+    public function addUser(\AppBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \AppBundle\Entity\User $user
+     */
+    public function removeUser(\AppBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

@@ -34,6 +34,14 @@ class AdminType extends AbstractType
                 },
                 'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => false, 'label' => 'Mentor', 'attr' => array('class' =>
                     'checkbox'),))
+            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->andWhere("t.type = 'user'")
+                        ->addOrderBy('t.sortorder', 'ASC');
+                },
+                'required' => false, 'property' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Status/Progress', 'attr' => array('class' =>
+                    'checkbox'),))
         ;
     }
 

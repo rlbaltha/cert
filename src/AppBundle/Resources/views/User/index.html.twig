@@ -26,6 +26,18 @@
                     5: {sorter: false, filter: false},
                 }
             });
+            $('.tag_filter').click(function (event) {
+                var row_selector = 'div.tag' + event.target.id;
+                var email_selector = 'span#email' + $(row_selector).parent().parent().attr('id');
+                $('.user_row').hide();
+                $('.user_email').hide();
+                $(row_selector).parent().parent().show();
+                $(email_selector).show();
+            });
+            $('#tag_showall').click(function () {
+                $('.user_row').show();
+                $('.user_email').show();
+            });
         });
     </script>
 {% endblock %}
@@ -63,38 +75,42 @@
                     {% if entities %}{{ entities[0].progress.name }} ({{ entities|length }}){% else %}Nothing found{% endif %}
                 {% endif %}
             </h1>
+            {% for tag in tags if tag.subs|length > 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% for tag in tag.subs %}
+                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% endfor %}
+            {% endfor %}
+            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+            {% endfor %}
+            <div id="tag_showall" class="btn btn-primary btn-sm tag_filter">Show all</div>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Name (Email)</th>
-                    <th>School: Program</th>
-                    <th>Capstone Term</th>
-                    <th>Graduation Term</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th class="hidden-sm-down">Capstone Term</th>
+                    <th class="hidden-sm-down">Graduation Term</th>
                     <th>Progress</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
-                    <tr>
+                    <tr class="user_row" id="{{ entity.id }}">
                         <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
-                                , {{ entity.firstname }}</a> ({{ entity.email }})
+                                , {{ entity.firstname }}</a>
                         </td>
-                        <td>
-                            {% if entity.program %}
-                                {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
-                                {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
-                                {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
-                                {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}
-                            {% endif %}
-
-
-                        </td>
-                        <td>
+                        <td>{{ entity.email }}</td>
+                        <td class="hidden-sm-down">
                             {% if entity.checklist %}
                                 {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
                             {% endif %}
                         </td>
-                        <td>
+                        <td class="hidden-sm-down">
                             {% if entity.program %}
                                 <a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>
                             {% endif %}
@@ -103,13 +119,18 @@
                                 <a href="{{ path('user', { 'type': entity.progress.id }) }}">{{ entity.progress.name }}</a>
                             {% else %}
                                 Account Created
-                            {% endif %}</td>
+                            {% endif %}
+                            {% for tag in entity.tags %}
+                                <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                            {% endfor %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            <p>Email
-                list: {% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
+            <p id="email_list">Email
+                list: {% for entity in entities %}<span class="user_email" id="email{{ entity.id }}">{{ entity.email }}{% if not loop.last %}; {% endif %}</span>{% endfor %}</p>
         </div>
 
     </div>

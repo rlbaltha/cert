@@ -53,7 +53,7 @@ class TagController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tag'));
+            return $this->redirect($this->generateUrl('tag', array('type' => $entity->getType())));
         }
 
         return array(
@@ -169,7 +169,7 @@ class TagController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tag'));
+            return $this->redirect($this->generateUrl('tag', array('type' => $entity->getType())));
         }
 
         return array(

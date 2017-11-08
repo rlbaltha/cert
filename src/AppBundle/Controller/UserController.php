@@ -88,9 +88,11 @@ class UserController extends Controller
             $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
         }
         $status = $em->getRepository('AppBundle:Status')->findAllSorted();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
         return array(
             'entities' => $entities,
             'status' => $status,
+            'tags' => $tags,
         );
     }
 
