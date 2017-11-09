@@ -382,6 +382,31 @@ class UserController extends Controller
         );
     }
 
+
+    /**
+     * Add User Tags to Users
+     *
+     * @Route("/addtags/{typeid}", name="addtags")
+     * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function addtagsAction($typeid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $type = $em->getRepository('AppBundle:Status')->find($typeid);
+        $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
+        $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($type->getName());
+
+        foreach ($entities as &$user) {
+            $user->addTag($tag);
+            $em->persist($user);
+        };
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('user', array('type' => $typeid)));
+
+    }
+
     /**
      * Deletes a User entity.
      *
