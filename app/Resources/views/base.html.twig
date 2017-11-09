@@ -96,7 +96,7 @@
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <li class="nav-item">
-                            <a class="" href="{{ path('user', {'type': 'students'}) }}">List Accounts</a>
+                            <a class="" href="{{ path('user', {'type': 'all'}) }}">List Accounts</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
