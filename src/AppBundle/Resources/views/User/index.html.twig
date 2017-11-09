@@ -52,21 +52,23 @@
                         &#9776;
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <div id="tag_showall" class="btn btn-primary btn-sm tag_filter">Show all</div>
+                        <br/><br/>
+                        {% for tag in tags if tag.subs|length > 0 %}
+                            <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                 style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                            {% for tag in tag.subs %}
+                                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                            {% endfor %}
+                            <br/><br/>
+                        {% endfor %}
+                        {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                            <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                                 style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                        {% endfor %}
+                        <br/>
                         <ul class="nav navbar-sidenav">
-                            {% for tag in tags if tag.subs|length > 0 %}
-                                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                {% for tag in tag.subs %}
-                                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                                {% endfor %}
-                                <hr/>
-                            {% endfor %}
-                            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
-                                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                            {% endfor %}
-                            <hr/>
                             <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All Students</a></li>
                             {% for status in status %}
                                 <li class="nav-item"><a
@@ -84,13 +86,10 @@
             </div>
         </div>
         <div class="col-sm-8">
-            <h1>{% if app.request.get('type')=='all' %}All Accounts ({{ entities|length }}){% elseif app.request.get('type')=='students' %}All Students ({{ entities|length }}) {% elseif app.request.get('type')=='17' %}All Capstones ({{ entities|length }})
-                {% elseif app.request.get('type')=='mentees' %}Peer Mentees{% elseif app.request.get('type')=='mentors' %}Mentors{% elseif app.request.get('type')=='peermentors' %}Peer Mentors{% else %}
-                    {% if entities %}{{ entities[0].progress.name }} ({{ entities|length }}){% else %}Nothing found{% endif %}
-                {% endif %}
+            <h1>Certificate Accounts
             </h1>
 
-            <div id="tag_showall" class="btn btn-primary btn-sm tag_filter">Show all</div>
+
             <table class="table">
                 <thead>
                 <tr>
@@ -118,11 +117,12 @@
                                 <a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>
                             {% endif %}
                         </td>
-                        <td>{% if entity.progress %}
-                                <a href="{{ path('user', { 'type': entity.progress.id }) }}">{{ entity.progress.name }}</a>
-                            {% else %}
-                                Account Created
-                            {% endif %}
+                        <td>
+                            {#{% if entity.progress %}#}
+                                {#<a href="{{ path('user', { 'type': entity.progress.id }) }}">{{ entity.progress.name }}</a>#}
+                            {#{% else %}#}
+                                {#Account Created#}
+                            {#{% endif %}#}
                             {% for tag in entity.tags %}
                                 <div class="btn btn-primary btn-sm tag{{ tag.id }}"
                                      style="background-color: {{ tag.color }}">{{ tag.title }}</div>
