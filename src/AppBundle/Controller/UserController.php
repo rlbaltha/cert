@@ -386,16 +386,35 @@ class UserController extends Controller
     /**
      * Add User Tags to Users
      *
-     * @Route("/addtags/{typeid}", name="addtags")
+     * @Route("/addtags/{type}/{tagid}", name="addtags")
      * @Method("GET")
+     * @Template("AppBundle:User:index.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function addtagsAction($typeid)
+    public function addtagsAction($type,$tagid)
     {
         $em = $this->getDoctrine()->getManager();
-        $type = $em->getRepository('AppBundle:Status')->find($typeid);
-        $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
-        $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($type->getName());
+        $status = $em->getRepository('AppBundle:Status')->findAllSorted();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
+        if ($type == 'all') {
+            $entities = $em->getRepository('AppBundle:User')->findAccounts();
+        } elseif ($type == 'students') {
+            $entities = $em->getRepository('AppBundle:User')->findStudents();
+        } elseif ($type == '17') {
+            $entities = $em->getRepository('AppBundle:User')->findCapstones();
+        } elseif ($type == 'mentors') {
+            $entities = $em->getRepository('AppBundle:User')->findMentors();
+        } elseif ($type == 'mentees') {
+            $entities = $em->getRepository('AppBundle:User')->findMentees();
+        } elseif ($type == 'peermentors') {
+            $entities = $em->getRepository('AppBundle:User')->findPeerMentors();
+        } elseif ($type == '15') {
+            $entities = $em->getRepository('AppBundle:User')->findFaculty();
+        } else {
+            $type = $em->getRepository('AppBundle:Status')->find($type);
+            $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
+        }
+        $tag = $em->getRepository('AppBundle:Tag')->find($tagid);
 
         foreach ($entities as &$user) {
             $user->addTag($tag);
@@ -403,7 +422,11 @@ class UserController extends Controller
         };
         $em->flush();
 
-        return $this->redirect($this->generateUrl('user', array('type' => $typeid)));
+        return array(
+            'entities' => $entities,
+            'status' => $status,
+            'tags' => $tags,
+        );
 
     }
 
