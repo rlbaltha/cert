@@ -32,11 +32,12 @@ class CourseController extends Controller
         $em = $this->getDoctrine()->getManager();
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
 
-        if ($pillar=='all') {
+        if ($pillar == 'all') {
             $entities = '';
-        }
-        else {
-            $entities = $em->getRepository('AppBundle:Course')->findByPillar($pillar, $level, $status);
+        } elseif ($pillar != 'seminar' and $pillar != 'capstone') {
+            $entities = $em->getRepository('AppBundle:Course')->findSpheresAnchor($pillar, $level, $status);
+        } else {
+            $entities = $em->getRepository('AppBundle:Course')->findSeminarCapstone($pillar, $level, $status);
         }
 
 
@@ -58,7 +59,7 @@ class CourseController extends Controller
         $em = $this->getDoctrine()->getManager();
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Course');
 
-            $entities = $em->getRepository('AppBundle:Course')->findByStatus($status);
+        $entities = $em->getRepository('AppBundle:Course')->findByStatus($status);
 
 
         return array(
@@ -134,7 +135,7 @@ class CourseController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -152,7 +153,7 @@ class CourseController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -167,11 +168,11 @@ class CourseController extends Controller
     public function newAction()
     {
         $entity = new Course();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -196,7 +197,7 @@ class CourseController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'section' => $section,
             'delete_form' => $deleteForm->createView(),
         );
@@ -223,19 +224,19 @@ class CourseController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Course entity.
-    *
-    * @param Course $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Course entity.
+     *
+     * @param Course $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Course $entity)
     {
         $form = $this->createForm(new CourseType(), $entity, array(
@@ -243,10 +244,11 @@ class CourseController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
+
     /**
      * Edits an existing Course entity.
      *
@@ -275,8 +277,8 @@ class CourseController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -319,9 +321,8 @@ class CourseController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('course_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete','attr' => array('class' => 'btn btn-default pull-right'),))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'btn btn-default pull-right'),))
+            ->getForm();
     }
 
     /**
@@ -343,7 +344,7 @@ class CourseController extends Controller
 
         $timestamp = date('m/d/Y h:i:s A');
         $notes = $entity->getNotes();
-        $entity->setNotes($notes.'<p> Course '.$state.' '.$timestamp.'</p>');
+        $entity->setNotes($notes . '<p> Course ' . $state . ' ' . $timestamp . '</p>');
         $entity->setStatus($state);
 
         $em->persist($entity);
@@ -352,11 +353,11 @@ class CourseController extends Controller
 
         $email = $entity->getContactEmail();
         $faculty = $em->getRepository('AppBundle:Faculty')->findByEmail($email);
-        if (!isset($faculty) && $email!='Needed' ) {
-            $arr = explode(' ',trim($name));
+        if (!isset($faculty) && $email != 'Needed') {
+            $arr = explode(' ', trim($name));
             $faculty = new Faculty();
             $faculty->setFirstname($arr[0]);
-            $faculty->setLastname($arr[count($arr)-1]);
+            $faculty->setLastname($arr[count($arr) - 1]);
             $faculty->setEmail($email);
             $faculty->addCourse($entity);
             $em->persist($faculty);
@@ -365,10 +366,12 @@ class CourseController extends Controller
         $em->flush();
 
 
-        if ($email == 'Needed') {$email = 'scdirector@uga.edu';}
+        if ($email == 'Needed') {
+            $email = 'scdirector@uga.edu';
+        }
         $course = $entity->getName();
-        if ($state=='approved') {
-            $text =  '<p>'.$name.', '.$course.'  has been approved for inclusion in the Sustainability Certificate Program.</p>
+        if ($state == 'approved') {
+            $text = '<p>' . $name . ', ' . $course . '  has been approved for inclusion in the Sustainability Certificate Program.</p>
              <p>As an instructor of an approved course in the certificate program, you are now considered affiliate faculty, 
             and as such we would like to include some information about you and your research interests on our faculty page. 
             Please send a brief description of your interests in sustainability at your earliest convenience. 
@@ -381,10 +384,9 @@ class CourseController extends Controller
              <p>Please contact us if you have questions: scdirector@uga.edu.</p>
              <p>Ron Balthazor, Director</p>
              ';
-        }
-        else {
-            $text =  '<p>'.$name.', thank you for proposing a course for the Sustainability Certificate.  The Review Committee of the certificate program
-             does not feel that '.$course.' meets our criteria for inclusion.  As a baseline for our sustainability spheres, we would like to see
+        } else {
+            $text = '<p>' . $name . ', thank you for proposing a course for the Sustainability Certificate.  The Review Committee of the certificate program
+             does not feel that ' . $course . ' meets our criteria for inclusion.  As a baseline for our sustainability spheres, we would like to see
               at least 50% of the course directly focused on sustainability and would like to see sustainability in the description 
               and course objectives. For more details, please read the criteria for including a course on our website: 
               <a href="https://www.sustain.uga.edu/page/29">https://www.sustain.uga.edu/page/29</a>
@@ -393,22 +395,21 @@ class CourseController extends Controller
             <p>Ron Balthazor, Director</p>';
         }
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Course Proposed for Sustainability Certificate')
-                ->setFrom('scdirector@uga.edu')
-                ->setTo($email)
-                ->setBcc('scdirector@uga.edu')
-                ->setBody(
-                    $this->renderView(
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Course Proposed for Sustainability Certificate')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo($email)
+            ->setBcc('scdirector@uga.edu')
+            ->setBody(
+                $this->renderView(
 
-                        'AppBundle:Email:apply.html.twig',
-                        array('name' => $name,
-                            'text' => $text)
-                    ),
-                    'text/html'
-                )
-            ;
-            $this->get('mailer')->send($message);
+                    'AppBundle:Email:apply.html.twig',
+                    array('name' => $name,
+                        'text' => $text)
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
 
 
         return $this->redirect($this->generateUrl('course_listbystatus', array('status' => 'pending')));

@@ -15,7 +15,27 @@ class CourseRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Course
      */
-    public function findByPillar($pillar, $level, $status) {
+    public function findSeminarCapstone($pillar, $level, $status) {
+        $courses = $this->createQueryBuilder('c')
+            ->andWhere('c.pillar = :pillar')
+            ->andWhere('c.level = :level or c.level = :split')
+            ->andWhere('c.status = :status')
+            ->setParameter('pillar', $pillar)
+            ->setParameter('level', $level)
+            ->setParameter('split', 'split')
+            ->setParameter('status', $status)
+            ->orderBy('c.name ')
+            ->getQuery()
+            ->getResult();
+        return $courses;
+    }
+
+    /**
+     * find course by pillar
+     *
+     * @return Course
+     */
+    public function findSpheresAnchor($pillar, $level, $status) {
         $courses = $this->createQueryBuilder('c')
             ->andWhere('c.pillar = :pillar or c.pillar = :any')
             ->andWhere('c.level = :level or c.level = :split')
