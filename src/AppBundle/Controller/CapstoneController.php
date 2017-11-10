@@ -381,13 +381,24 @@ class CapstoneController extends Controller
             throw $this->createNotFoundException('Unable to find Capstone entity.');
         }
 
+
         $user = $entity->getUser();
         $user_entity = $em->getRepository('AppBundle:User')->find($user);
+
+        //add and remove tags
+        $tag = $em->getRepository('AppBundle:Tag')->find(108);
+        $removetag = $em->getRepository('AppBundle:Tag')->find(97);
+        $user_entity->addTag($tag);
+        $user_entity->removeTag($removetag);
+
+
         $status = $em->getRepository('AppBundle:Status')->findByName('Capstone Approved');
         $user_entity->setProgress($status);
         $timestamp = date('m/d/Y h:i:s A');
         $notes = $user_entity->getNotes();
         $user_entity->setNotes($notes.'<p> Capstone approved '.$timestamp.'</p>');
+
+
         $entity->setStatus('Approved');
 
         $em->persist($entity);
