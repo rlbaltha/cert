@@ -120,14 +120,16 @@
                 </tbody>
             </table>
             {% if is_granted('ROLE_ADMIN') %}
-                <div class="card card-block"><p>Status: {{ entity.status }}</p>
+                <div class="card card-block">
+                    <p>Status: {{ entity.status }}</p>
+                    <p>Contact: {{ entity.contact }} ({{ entity.contactEmail }})</p>
                     <p>Admin notes: {{ entity.notes|raw }}</p></div>
             {% endif %}
             <div class="card card-block">{{ entity.description|raw }}</div>
             {% if entity.syllabus|length > 10 %}
                 <div class="card card-block">
-                    <p>Contact: {{ entity.contact }}</p>
-                    {{ entity.syllabus|raw }}</div>
+                     {{ entity.syllabus|raw }}
+                </div>
             {% endif %}
 
             {% if entity.uploads|length > 0 %}
