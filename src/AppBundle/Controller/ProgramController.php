@@ -205,6 +205,13 @@ class ProgramController extends Controller
         $user_entity->setNotes($notes . '<p> Application ready for review ' . $timestamp . '</p>');
         $entity->setStatus('Ready for Review');
 
+        //add and remove tags
+        $tag1 = $em->getRepository('AppBundle:Tag')->find(98);
+        $tag2 = $em->getRepository('AppBundle:Tag')->find(109);
+        $user_entity->addTag($tag1);
+        $user_entity->addTag($tag2);
+
+
         $em->persist($entity);
         $em->persist($user_entity);
         $em->flush();
@@ -307,6 +314,12 @@ class ProgramController extends Controller
         $notes = $user_entity->getNotes();
         $user_entity->setNotes($notes . '<p> Application approved ' . $timestamp . '</p>');
         $entity->setStatus('Approved');
+
+        //add and remove tags
+        $tag = $em->getRepository('AppBundle:Tag')->find(100);
+        $removetag = $em->getRepository('AppBundle:Tag')->find(109);
+        $user_entity->addTag($tag);
+        $user_entity->removeTag($removetag);
 
         $em->persist($entity);
         $em->persist($user_entity);
