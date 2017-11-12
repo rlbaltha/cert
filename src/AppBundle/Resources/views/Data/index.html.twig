@@ -11,6 +11,10 @@
             fill: #575123;
         }
 
+        .anchorbar {
+            fill: #122277;
+        }
+
         .axis path,
         .axis line {
             fill: none;
@@ -35,7 +39,7 @@
         $(document).ready(function () {
 
             function schools() {
-                var svg = d3.select("svg"),
+                var svg = d3.select("svg#schools"),
                     margin = {top: 20, right: 20, bottom: 30, left: 80},
                     width = +svg.attr("width") - margin.left - margin.right,
                     height = +svg.attr("height") - margin.top - margin.bottom;
@@ -157,6 +161,226 @@
 
             graddate();
 
+            function anchor() {
+                var svg = d3.select("svg#anchor"),
+                    margin = {top: 20, right: 20, bottom: 30, left: 80},
+                    width = +svg.attr("width") - margin.left - margin.right,
+                    height = +svg.attr("height") - margin.top - margin.bottom;
+
+                var x = d3.scaleLinear().range([0, width]);
+                var y = d3.scaleBand().range([height, 0]);
+
+                var g = svg.append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                // load the external data
+                d3.json("{{ path('data_anchor') }}", function (error, data) {
+                    if (error) throw error;
+
+                    data.sort(function (a, b) {
+                        return a.value - b.value;
+                    });
+
+                    x.domain([0, d3.max(data, function (d) {
+                        return parseInt(d.value);
+                    })]);
+                    y.domain(data.map(function (d) {
+                        return d.area;
+                    })).padding(0.1);
+
+                    g.append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x).ticks(5).tickFormat(function (d) {
+                            return d;
+                        }).tickSizeInner([-height]));
+
+                    g.append("g")
+                        .attr("class", "y axis")
+                        .call(d3.axisLeft(y));
+
+                    g.selectAll(".anchorbar")
+                        .data(data)
+                        .enter().append("rect")
+                        .attr("class", "anchorbar")
+                        .attr("x", 0)
+                        .attr("height", y.bandwidth())
+                        .attr("y", function (d) {
+                            return y(d.area);
+                        })
+                        .attr("width", function (d) {
+                            return x(d.value);
+                        })
+                });
+            }
+
+            anchor();
+
+            function sphere1() {
+                var svg = d3.select("svg#sphere1"),
+                    margin = {top: 20, right: 20, bottom: 30, left: 80},
+                    width = +svg.attr("width") - margin.left - margin.right,
+                    height = +svg.attr("height") - margin.top - margin.bottom;
+
+                var x = d3.scaleLinear().range([0, width]);
+                var y = d3.scaleBand().range([height, 0]);
+
+                var g = svg.append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                // load the external data
+                d3.json("{{ path('data_sphere1') }}", function (error, data) {
+                    if (error) throw error;
+
+                    data.sort(function (a, b) {
+                        return a.value - b.value;
+                    });
+
+                    x.domain([0, d3.max(data, function (d) {
+                        return parseInt(d.value);
+                    })]);
+                    y.domain(data.map(function (d) {
+                        return d.area;
+                    })).padding(0.1);
+
+                    g.append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x).ticks(5).tickFormat(function (d) {
+                            return d;
+                        }).tickSizeInner([-height]));
+
+                    g.append("g")
+                        .attr("class", "y axis")
+                        .call(d3.axisLeft(y));
+
+                    g.selectAll(".anchorbar")
+                        .data(data)
+                        .enter().append("rect")
+                        .attr("class", "anchorbar")
+                        .attr("x", 0)
+                        .attr("height", y.bandwidth())
+                        .attr("y", function (d) {
+                            return y(d.area);
+                        })
+                        .attr("width", function (d) {
+                            return x(d.value);
+                        })
+                });
+            }
+
+            sphere1();
+
+            function sphere2() {
+                var svg = d3.select("svg#sphere2"),
+                    margin = {top: 20, right: 20, bottom: 30, left: 80},
+                    width = +svg.attr("width") - margin.left - margin.right,
+                    height = +svg.attr("height") - margin.top - margin.bottom;
+
+                var x = d3.scaleLinear().range([0, width]);
+                var y = d3.scaleBand().range([height, 0]);
+
+                var g = svg.append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                // load the external data
+                d3.json("{{ path('data_sphere2') }}", function (error, data) {
+                    if (error) throw error;
+
+                    data.sort(function (a, b) {
+                        return a.value - b.value;
+                    });
+
+                    x.domain([0, d3.max(data, function (d) {
+                        return parseInt(d.value);
+                    })]);
+                    y.domain(data.map(function (d) {
+                        return d.area;
+                    })).padding(0.1);
+
+                    g.append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x).ticks(5).tickFormat(function (d) {
+                            return d;
+                        }).tickSizeInner([-height]));
+
+                    g.append("g")
+                        .attr("class", "y axis")
+                        .call(d3.axisLeft(y));
+
+                    g.selectAll(".anchorbar")
+                        .data(data)
+                        .enter().append("rect")
+                        .attr("class", "anchorbar")
+                        .attr("x", 0)
+                        .attr("height", y.bandwidth())
+                        .attr("y", function (d) {
+                            return y(d.area);
+                        })
+                        .attr("width", function (d) {
+                            return x(d.value);
+                        })
+                });
+            }
+
+            sphere2();
+
+            function sphere3() {
+                var svg = d3.select("svg#sphere3"),
+                    margin = {top: 20, right: 20, bottom: 30, left: 80},
+                    width = +svg.attr("width") - margin.left - margin.right,
+                    height = +svg.attr("height") - margin.top - margin.bottom;
+
+                var x = d3.scaleLinear().range([0, width]);
+                var y = d3.scaleBand().range([height, 0]);
+
+                var g = svg.append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                // load the external data
+                d3.json("{{ path('data_sphere3') }}", function (error, data) {
+                    if (error) throw error;
+
+                    data.sort(function (a, b) {
+                        return a.value - b.value;
+                    });
+
+                    x.domain([0, d3.max(data, function (d) {
+                        return parseInt(d.value);
+                    })]);
+                    y.domain(data.map(function (d) {
+                        return d.area;
+                    })).padding(0.1);
+
+                    g.append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x).ticks(5).tickFormat(function (d) {
+                            return d;
+                        }).tickSizeInner([-height]));
+
+                    g.append("g")
+                        .attr("class", "y axis")
+                        .call(d3.axisLeft(y));
+
+                    g.selectAll(".anchorbar")
+                        .data(data)
+                        .enter().append("rect")
+                        .attr("class", "anchorbar")
+                        .attr("x", 0)
+                        .attr("height", y.bandwidth())
+                        .attr("y", function (d) {
+                            return y(d.area);
+                        })
+                        .attr("width", function (d) {
+                            return x(d.value);
+                        })
+                });
+            }
+
+            sphere3();
+
             $.getJSON("{{ path('data_school') }}",
                 function (json) {
                     var tr;
@@ -178,6 +402,46 @@
                         tr.append("<td>" + json[i].area + "</td>");
                         tr.append("<td>" + json[i].value + "</td>");
                         $('table#graddateDataTable').append(tr);
+                    }
+                });
+            $.getJSON("{{ path('data_anchor') }}",
+                function (json) {
+                    var tr;
+                    for (var i = 0; i < json.length; i++) {
+                        tr = $('<tr/>');
+                        tr.append("<td>" + json[i].area + "</td>");
+                        tr.append("<td>" + json[i].value + "</td>");
+                        $('table#anchorDataTable').append(tr);
+                    }
+                });
+            $.getJSON("{{ path('data_sphere1') }}",
+                function (json) {
+                    var tr;
+                    for (var i = 0; i < json.length; i++) {
+                        tr = $('<tr/>');
+                        tr.append("<td>" + json[i].area + "</td>");
+                        tr.append("<td>" + json[i].value + "</td>");
+                        $('table#sphere1DataTable').append(tr);
+                    }
+                });
+            $.getJSON("{{ path('data_sphere2') }}",
+                function (json) {
+                    var tr;
+                    for (var i = 0; i < json.length; i++) {
+                        tr = $('<tr/>');
+                        tr.append("<td>" + json[i].area + "</td>");
+                        tr.append("<td>" + json[i].value + "</td>");
+                        $('table#sphere2DataTable').append(tr);
+                    }
+                });
+            $.getJSON("{{ path('data_sphere3') }}",
+                function (json) {
+                    var tr;
+                    for (var i = 0; i < json.length; i++) {
+                        tr = $('<tr/>');
+                        tr.append("<td>" + json[i].area + "</td>");
+                        tr.append("<td>" + json[i].value + "</td>");
+                        $('table#sphere3DataTable').append(tr);
                     }
                 });
         });
@@ -203,6 +467,46 @@
         </div>
         <div class="col-sm-8">
             <svg id="graddate" width="960" height="700"></svg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 offset-sm-1">
+            <h2>Anchor Courses</h2>
+            <table id="anchorDataTable" border="1">
+            </table>
+        </div>
+        <div class="col-sm-8">
+            <svg id="anchor" width="960" height="700"></svg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 offset-sm-1">
+            <h2>Sphere 1 Courses</h2>
+            <table id="sphere1DataTable" border="1">
+            </table>
+        </div>
+        <div class="col-sm-8">
+            <svg id="sphere1" width="960" height="700"></svg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 offset-sm-1">
+            <h2>Sphere 2 Courses</h2>
+            <table id="sphere2DataTable" border="1">
+            </table>
+        </div>
+        <div class="col-sm-8">
+            <svg id="sphere2" width="960" height="700"></svg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2 offset-sm-1">
+            <h2>Sphere 3 Courses</h2>
+            <table id="sphere3DataTable" border="1">
+            </table>
+        </div>
+        <div class="col-sm-8">
+            <svg id="sphere3" width="960" height="700"></svg>
         </div>
     </div>
 {% endblock %}

@@ -43,6 +43,67 @@ class DataController extends Controller
         return $response;
     }
 
+    /**
+     * Lists all Anchor entities.
+     *
+     * @Route("/anchor.json", name="data_anchor")
+     * @Method("GET")
+     */
+    public function anchorAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('AppBundle:Checklist')->findAnchorData();
+        $response = new JsonResponse();
+        $response->setData($data);
+        return $response;
+    }
+
+    /**
+     * Lists all Anchor entities.
+     *
+     * @Route("/sphere1.json", name="data_sphere1")
+     * @Method("GET")
+     */
+    public function sphere1Action()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('AppBundle:Checklist')->findSphere1Data();
+        $response = new JsonResponse();
+        $response->setData($data);
+        return $response;
+    }
+
+    /**
+     * Lists all Anchor entities.
+     *
+     * @Route("/sphere2.json", name="data_sphere2")
+     * @Method("GET")
+     */
+    public function sphere2Action()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('AppBundle:Checklist')->findSphere2Data();
+        $response = new JsonResponse();
+        $response->setData($data);
+        return $response;
+    }
+
+    /**
+     * Lists all Anchor entities.
+     *
+     * @Route("/sphere3.json", name="data_sphere3")
+     * @Method("GET")
+     */
+    public function sphere3Action()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('AppBundle:Checklist')->findSphere3Data();
+        $response = new JsonResponse();
+        $response->setData($data);
+        return $response;
+    }
+
+
 
     /**
      * Lists all School entities.
