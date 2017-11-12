@@ -407,43 +407,57 @@
             $.getJSON("{{ path('data_anchor') }}",
                 function (json) {
                     var tr;
+                    var total = 0;
                     for (var i = 0; i < json.length; i++) {
+                        total = total + parseInt(json[i].value);
                         tr = $('<tr/>');
                         tr.append("<td>" + json[i].area + "</td>");
                         tr.append("<td>" + json[i].value + "</td>");
                         $('table#anchorDataTable').append(tr);
                     }
+                    $('table#anchorDataTable').append("<td>Total:</td><td>" + total + "</td>");
                 });
             $.getJSON("{{ path('data_sphere1') }}",
                 function (json) {
                     var tr;
+                    var total = 0;
                     for (var i = 0; i < json.length; i++) {
+                        total = total + parseInt(json[i].value);
                         tr = $('<tr/>');
                         tr.append("<td>" + json[i].area + "</td>");
                         tr.append("<td>" + json[i].value + "</td>");
                         $('table#sphere1DataTable').append(tr);
                     }
+                    $('table#sphere1DataTable').append("<td>Total:</td><td>" + total + "</td>");
                 });
             $.getJSON("{{ path('data_sphere2') }}",
                 function (json) {
                     var tr;
+                    var total = 0;
                     for (var i = 0; i < json.length; i++) {
+                        total = total + parseInt(json[i].value);
                         tr = $('<tr/>');
                         tr.append("<td>" + json[i].area + "</td>");
                         tr.append("<td>" + json[i].value + "</td>");
                         $('table#sphere2DataTable').append(tr);
                     }
+                    $('table#sphere2DataTable').append("<td>Total:</td><td>" + total + "</td>");
                 });
+
             $.getJSON("{{ path('data_sphere3') }}",
                 function (json) {
                     var tr;
+                    var total = 0;
                     for (var i = 0; i < json.length; i++) {
+                        total = total + parseInt(json[i].value);
                         tr = $('<tr/>');
                         tr.append("<td>" + json[i].area + "</td>");
                         tr.append("<td>" + json[i].value + "</td>");
                         $('table#sphere3DataTable').append(tr);
                     }
+                    $('table#sphere3DataTable').append("<td>Total:</td><td>" + total + "</td>");
                 });
+
         });
     </script>
 {% endblock %}
