@@ -28,18 +28,15 @@
             });
             $('.tag_filter').click(function (event) {
                 var row_selector = 'div.tag' + event.target.id;
-                var email_selector = 'span#email' + $(row_selector).parent().parent().attr('id');
                 $('.user_row').hide();
                 $('.user_email').hide();
                 $(row_selector).parent().parent().show();
-                $(email_selector).show();
+                $('#email_list').empty().append($('tr:visible td.email').text() );
                 var rowCount = $('tbody tr:visible').length;
                 $( "span.count" ).html( '(' + rowCount  + ')' );
             });
-            $('#tag_showall').click(function () {
-                $('.user_row').show();
-                $('.user_email').show();
-            });
+            var rowCount = $('tbody tr:visible').length;
+            $( "span.count" ).html( '(' + rowCount  + ')' );
         });
     </script>
 {% endblock %}
@@ -54,7 +51,9 @@
                         &#9776;
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <div id="tag_showall" class="btn btn-primary btn-sm tag_filter">Show all</div>
+                        <a class="btn btn-secondary btn-sm" href="{{ path('user', {'type': 'all'}) }}">All Accounts</a>
+                        <br/><br/>
+                        <a class="btn btn-primary btn-sm" href="{{ path('user', {'type': 'students'}) }}">All Students</a>
                         <br/><br/>
                         {% for tag in tags if tag.subs|length > 0 %}
                             <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
@@ -107,7 +106,7 @@
                         <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
                                 , {{ entity.firstname }}</a>
                         </td>
-                        <td>{{ entity.email }}</td>
+                        <td class="email">{{ entity.email }}; </td>
                         <td class="hidden-sm-down">
                             {% if entity.checklist %}
                                 {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
@@ -133,8 +132,8 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <p id="email_list">Email
-                list: {% for entity in entities %}<span class="user_email" id="email{{ entity.id }}">{{ entity.email }}{% if not loop.last %}; {% endif %}</span>{% endfor %}</p>
+            <p>Email
+                list: <span id="email_list">{% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</span></p>
         </div>
 
     </div>
