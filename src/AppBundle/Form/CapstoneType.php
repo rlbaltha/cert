@@ -47,8 +47,8 @@ class CapstoneType extends AbstractType
             ->add('capstoneMentor', 'entity', array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                        ->join('u.progress', 'p')
-                        ->andWhere("u.progress = '15'")
+                        ->join('u.tags', 't')
+                        ->andWhere("t.title = 'Faculty'")
                         ->addOrderBy('u.lastname', 'ASC')
                         ->addOrderBy('u.firstname', 'ASC');
                 },

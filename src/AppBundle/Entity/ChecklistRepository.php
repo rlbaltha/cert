@@ -44,7 +44,7 @@ class ChecklistRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-     * find sphere2 data
+     * find sphere1 data
      *
      * @return Course
      */
