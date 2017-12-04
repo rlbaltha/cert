@@ -269,9 +269,8 @@
                                     Requirements for Mentees/Mentors are as follows:
                                     <ul>
                                         <li>Mentees and Mentors must attend orientation</li>
-                                        <li>Mentees and Mentors must have one face-to-face meeting</li>
-                                        <li>Mentees and Mentors must participate in the Certificate Volunteer Day each
-                                            semester
+                                        <li>Mentees and Mentors must have at least one face-to-face meeting</li>
+                                        <li>Mentees and Mentors should celebrate the end of the term together at Semester in Review
                                         </li>
                                     </ul>
                                     Requirements for application to be a Mentor:
@@ -282,34 +281,30 @@
                                         </li>
                                         <li>All students must learn to smell the roses and appreciate the sunshine</li>
                                     </ul>
-                                    Read more about out mentoring program <a
-                                            href="{{ path('page_show',  { 'id': '42' }) }}">here</a>
+                                    <p>Read more about out mentoring program <a
+                                                href="{{ path('page_show',  { 'id': '42' }) }}">here</a>.</p>
 
-                                    <div class="alert alert-success margin">
-                                        {% if entity.program.mentor == 'Yes' %}
-                                            <p>You have asked to have a mentor. You will meet your
-                                                mentor at Orientation. See you there.</p>
-                                        {% elseif entity.program.mentor == 'More' %}
-                                            <p>Thanks for serving as a certificate mentor. You will meet your
-                                                mentee at Orientation. See you there.
-                                            </p>
-                                        {% elseif entity.progress.id < 4 %}
-                                            <p>Would you like to have a certificate mentor?
+                                        {% for tag in entity.tags if tag.title == 'Mentoring' %}
+                                            {% for tag in entity.tags if tag.title == 'Mentor' %}
+                                                <span class="alert alert-info">Thanks for serving as a certificate mentor. You will meet your
+                                                    mentee at Orientation. See you there.
+                                                </span>
+                                            {% endfor %}
+                                            {% for tag in entity.tags if tag.title == 'Mentee' %}
+                                                <span class="alert alert-info">You have asked to have a mentor. You will meet your
+                                                    mentor at Orientation. See you there.
+                                                </span>
+                                            {% endfor %}
+                                        {% else %}
                                                 <a class="btn btn-primary margin-left"
-                                                   href="{{ path('program_mentee',  { 'id': entity.program.id }) }}">
-                                                    Yes, please sign me up!
-                                                </a></p>
-                                        {% endif %}
-                                        {% if entity.program.mentor != 'More' and entity.progress.id >= 4 %}
-                                            <p>Would you like to serve as a certificate mentor?
-                                                <a class="btn btn-primary margin-left"
-                                                   href="{{ path('program_mentor',  { 'id': entity.program.id }) }}">
-                                                    Yes, please sign me up!
+                                                   href="{{ path('user_mentee',  { 'id': entity.id }) }}">
+                                                    I'd like to have a Mentor.
                                                 </a>
-                                            </p>
-                                        {% endif %}
-
-                                    </div>
+                                                <a class="btn btn-primary margin-left"
+                                                   href="{{ path('user_mentor',  { 'id': entity.id }) }}">
+                                                    I'd like to be a Mentor.
+                                                </a>
+                                        {% endfor %}
 
                                 </div>
                             </div>

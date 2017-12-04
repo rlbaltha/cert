@@ -335,6 +335,60 @@ class UserController extends Controller
     }
 
     /**
+     * Application Ready for review and send email.
+     *
+     * @Route("/mentee/{id}", name="user_mentee")
+     * @Method("GET")
+     * @Template("AppBundle:User:show.html.twig")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function menteeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:User')->find($id);
+        $tag1 = $em->getRepository('AppBundle:Tag')->find(102);
+        $tag2 = $em->getRepository('AppBundle:Tag')->find(104);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
+
+        $entity->addTag($tag1);
+        $entity->addTag($tag2);
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+    }
+
+    /**
+     *
+     * @Route("/mentor/{id}", name="user_mentor")
+     * @Method("GET")
+     * @Template("AppBundle:User:show.html.twig")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function mentorAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:User')->find($id);
+        $tag1 = $em->getRepository('AppBundle:Tag')->find(103);
+        $tag2 = $em->getRepository('AppBundle:Tag')->find(104);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Program entity.');
+        }
+
+        $entity->addTag($tag1);
+        $entity->addTag($tag2);
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+    }
+
+    /**
      * Edits an existing User entity.
      *
      * @Route("/pair/mentors", name="user_pairmentors")

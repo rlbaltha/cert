@@ -238,54 +238,6 @@ class ProgramController extends Controller
         return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
     }
 
-    /**
-     * Application Ready for review and send email.
-     *
-     * @Route("/mentee/{id}", name="program_mentee")
-     * @Method("GET")
-     * @Template("AppBundle:User:show.html.twig")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function menteeAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Program')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Program entity.');
-        }
-
-        $entity->setMentor('Yes');
-        $em->persist($entity);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getUser()->getId())));
-    }
-
-    /**
-     *
-     * @Route("/mentor/{id}", name="program_mentor")
-     * @Method("GET")
-     * @Template("AppBundle:User:show.html.twig")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function mentorAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Program')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Program entity.');
-        }
-
-        $entity->setMentor('More');
-        $em->persist($entity);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getUser()->getId())));
-    }
 
 
     /**

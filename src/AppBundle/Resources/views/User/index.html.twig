@@ -68,6 +68,7 @@
                             <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
                                  style="background-color: {{ tag.color }}">{{ tag.title }}</div>
                         {% endfor %}
+
                         <br/>
                         <ul class="nav navbar-sidenav">
                             <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All Students</a></li>
@@ -114,7 +115,10 @@
                         </td>
                         <td class="hidden-sm-down">
                             {% if entity.program %}
-                                <a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>
+                                <div class="btn btn-primary btn-sm tag{{ entity.program.graddate }}{{ entity.program.gradterm }}"
+                                     style="background-color: #20773b">{{ entity.program.graddate }} {{ entity.program.gradterm }}</div>
+
+                                {#<a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>#}
                             {% endif %}
                         </td>
                         <td>
