@@ -260,10 +260,12 @@
                                                     Your mentor is {{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }} ({{ entity.peermentor.email }})
                                                 </span>
                                             {% endif %}
-                                            {% if entity.peermentees|length > 0 %}Your mentee{% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}
+                                            {% if entity.peermentees|length > 0 %}
                                                 <span class="alert alert-info">Thanks for serving as a certificate mentor.
+                                                    Your mentee{% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}
                                                     {% for mentee in entity.peermentees %}
                                                         {{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
+                                                        {% if loop.last %}and{% else %},{% endif %}
                                                     {% endfor %}
                                                 </span>
                                             {% endif %}
