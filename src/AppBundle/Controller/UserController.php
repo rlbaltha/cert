@@ -418,12 +418,12 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/mentor/mapping", name="user_mentor_mapping")
+     * @Route("/mapping/mentor", name="user_mentor_mapping")
      * @Method("GET")
      * @Template("AppBundle:User:mentormapping.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
-    public function mentormappingAction()
+    public function mappingAction()
     {
         $em = $this->getDoctrine()->getManager();
         $mentors = $em->getRepository('AppBundle:User')->findPeerMentors();

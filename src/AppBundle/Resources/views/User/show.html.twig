@@ -58,12 +58,15 @@
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <ul class="nav navbar-sidenav">
                             {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                <li class="nav-item"><a href="{{ path('user', { 'type': 'students' }) }}">All
-                                        Students</a></li>
-                                <li class="nav-item"><a href="{{ path('user_mentor_mapping') }}">Mentor
-                                        Mapping</a></li>
-                                <li class="nav-item"><a href="{{ path('user', { 'type': 'all' }) }}">All Accounts</a>
-                                </li>
+                                <ul class="nav navbar-sidenav">
+                                    <a class="btn btn-secondary btn-sm" href="{{ path('user', {'type': 'all'}) }}">All Accounts</a>
+                                    <br/><br/>
+                                    <a class="btn btn-primary btn-sm" href="{{ path('user', {'type': 'students'}) }}">All Students</a>
+                                    <br/>
+                                    <br/>
+                                    <a class="btn btn-secondary btn-sm" href="{{ path('user_mentor_mapping') }}">Mentor
+                                        Mapping</a>
+                                </ul>
                             {% endif %}
                         </ul>
                     </div>
