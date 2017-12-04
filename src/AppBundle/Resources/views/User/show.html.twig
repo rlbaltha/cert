@@ -265,7 +265,7 @@
                                                     Your mentee{% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}
                                                     {% for mentee in entity.peermentees %}
                                                         {% if loop.last %}and{% endif %}
-                                                        {{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }}){% if entity.peermentees|length > 1 %},{% endif %}
+                                                        {{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
                                                         {% endfor %}
                                                 </span>
                                             {% endif %}
