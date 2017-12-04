@@ -256,13 +256,16 @@
                                     <p>
                                         <strong>
                                             {% if entity.peermentor %}
-                                                Your mentor is {{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }} ({{ entity.peermentor.email }})
+                                                <span class="alert alert-info">
+                                                    Your mentor is {{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }} ({{ entity.peermentor.email }})
+                                                </span>
                                             {% endif %}
-                                            {% if entity.peermentees|length > 0 %}Your mentee
-                                                {% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}
-                                                {% for mentee in entity.peermentees %}
-                                                    {{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
-                                                {% endfor %}
+                                            {% if entity.peermentees|length > 0 %}Your mentee{% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}
+                                                <span class="alert alert-info">Thanks for serving as a certificate mentor.
+                                                    {% for mentee in entity.peermentees %}
+                                                        {{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
+                                                    {% endfor %}
+                                                </span>
                                             {% endif %}
                                         </strong>
                                     </p>
@@ -285,16 +288,6 @@
                                                 href="{{ path('page_show',  { 'id': '42' }) }}">here</a>.</p>
 
                                         {% for tag in entity.tags if tag.title == 'Mentoring' %}
-                                            {% for tag in entity.tags if tag.title == 'Mentor' %}
-                                                <span class="alert alert-info">Thanks for serving as a certificate mentor. You will meet your
-                                                    mentee at Orientation. See you there.
-                                                </span>
-                                            {% endfor %}
-                                            {% for tag in entity.tags if tag.title == 'Mentee' %}
-                                                <span class="alert alert-info">You have asked to have a mentor. You will meet your
-                                                    mentor at Orientation. See you there.
-                                                </span>
-                                            {% endfor %}
                                         {% else %}
                                                 <a class="btn btn-primary margin-left"
                                                    href="{{ path('user_mentee',  { 'id': entity.id }) }}">
