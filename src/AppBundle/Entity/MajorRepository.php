@@ -10,4 +10,21 @@ namespace AppBundle\Entity;
  */
 class MajorRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * find major data
+     *
+     */
+    public function findMajorData() {
+        $data = $this->createQueryBuilder('m')
+            ->join('m.program1', 'pr')
+            ->join('pr.user', 'u')
+            ->join('u.progress', 'p')
+            ->andWhere("p.name != 'Inactive' and p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
+            ->select('m.name AS area', 'count(m.id) AS value')
+            ->groupBy('m.name')
+            ->orderBy("value", "DESC")
+            ->getQuery()
+            ->getResult();
+        return $data;
+    }
 }

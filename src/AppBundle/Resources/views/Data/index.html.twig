@@ -26,6 +26,7 @@
         .x path {
             display: none;
         }
+
         td {
             padding: .5em;
         }
@@ -93,10 +94,65 @@
 
             schools();
 
+            function majors() {
+                var svg = d3.select("svg#majors"),
+                    margin = {top: 20, right: 20, bottom: 30, left: 80},
+                    width = +svg.attr("width") - margin.left - margin.right,
+                    height = +svg.attr("height") - margin.top - margin.bottom;
+
+                var x = d3.scaleLinear().range([0, width]);
+                var y = d3.scaleBand().range([height, 0]);
+
+                var g = svg.append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                // load the external data
+                d3.json("{{ path('data_major') }}", function (error, data) {
+                    if (error) throw error;
+
+                    data.sort(function (a, b) {
+                        return a.value - b.value;
+                    });
+
+                    x.domain([0, d3.max(data, function (d) {
+                        return parseInt(d.value);
+                    })]);
+                    y.domain(data.map(function (d) {
+                        return d.area;
+                    })).padding(0.1);
+
+                    g.append("g")
+                        .attr("class", "x axis")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x).ticks(5).tickFormat(function (d) {
+                            return d;
+                        }).tickSizeInner([-height]));
+
+                    g.append("g")
+                        .attr("class", "y axis")
+                        .call(d3.axisLeft(y));
+
+                    g.selectAll(".bar")
+                        .data(data)
+                        .enter().append("rect")
+                        .attr("class", "bar")
+                        .attr("x", 0)
+                        .attr("height", y.bandwidth())
+                        .attr("y", function (d) {
+                            return y(d.area);
+                        })
+                        .attr("width", function (d) {
+                            return x(d.value);
+                        })
+                });
+            }
+
+            majors();
+
             function graddate() {
                 // set the dimensions and margins of the graph
                 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-                    width = 960 - margin.left - margin.right,
+                    width = 800 - margin.left - margin.right,
                     height = 500 - margin.top - margin.bottom;
 
                 // set the ranges
@@ -394,6 +450,19 @@
                     }
                     $('table#schoolsDataTable').append("<td>Total:</td><td>" + total + "</td>");
                 });
+            $.getJSON("{{ path('data_major') }}",
+                function (json) {
+                    var tr;
+                    var total = 0;
+                    for (var i = 0; i < json.length; i++) {
+                        total = total + parseInt(json[i].value);
+                        tr = $('<tr/>');
+                        tr.append("<td>" + json[i].area + "</td>");
+                        tr.append("<td>" + json[i].value + "</td>");
+                        $('table#majorsDataTable').append(tr);
+                    }
+                    $('table#majorsDataTable').append("<td>Total:</td><td>" + total + "</td>");
+                });
             $.getJSON("{{ path('data_graddate') }}",
                 function (json) {
                     var tr;
@@ -463,64 +532,159 @@
 {% endblock %}
 
 {% block body -%}
-    <div class="row">
-         <div class="col-sm-2 offset-sm-1">
-            <h2>Schools</h2>
-            <table id="schoolsDataTable" border="1">
-            </table>
+    <div class="col-sm-12">
+
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="card">
+                <div class="card-header" role="tab" id="headingOne">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                           aria-controls="collapseOne">
+                            Schools
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="card-block">
+                        <div class="col-sm-2">
+                            <table id="schoolsDataTable" border="1">
+                            </table>
+                        </div>
+                        <div class="col-sm-8 offset-sm-1">
+                            <svg id="schools" width="800" height="700"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="headingTwo">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                           aria-expanded="false" aria-controls="collapseTwo">
+                            Majors
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="card-block">
+                        <div class="col-sm-2">
+                            <table id="majorsDataTable" border="1">
+                            </table>
+                        </div>
+                        <div class="col-sm-8 offset-sm-1">
+                            <svg id="majors" width="800" height="700"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="headingThree">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                           aria-expanded="false" aria-controls="collapseThree">
+                            Graduation Dates
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="card-block">
+                        <div class="col-sm-2">
+                            <table id="graddateDataTable" border="1">
+                            </table>
+                        </div>
+                        <div class="col-sm-8 offset-sm-1">
+                            <svg id="graddate" width="800" height="700"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="headingFour">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                           aria-expanded="false" aria-controls="collapseFour">
+                            Anchor Courses
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+                    <div class="card-block">
+                        <div class="col-sm-2">
+                            <table id="anchorDataTable" border="1">
+                            </table>
+                        </div>
+                        <div class="col-sm-8 offset-sm-1">
+                            <svg id="anchor" width="800" height="700"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="headingFive">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                           aria-expanded="false" aria-controls="collapseFive">
+                            Ecological Courses
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
+                    <div class="card-block">
+                        <div class="col-sm-2">
+                            <table id="sphere1DataTable" border="1">
+                            </table>
+                        </div>
+                        <div class="col-sm-8 offset-sm-1">
+                            <svg id="sphere1" width="800" height="700"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="headingSix">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix"
+                           aria-expanded="false" aria-controls="collapseSix">
+                            Economic Courses
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix">
+                    <div class="card-block">
+                        <div class="col-sm-2">
+                            <table id="sphere2DataTable" border="1">
+                            </table>
+                        </div>
+                        <div class="col-sm-8 offset-sm-1">
+                            <svg id="sphere2" width="800" height="700"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" role="tab" id="headingSeven">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"
+                           aria-expanded="false" aria-controls="collapseSeven">
+                            Social Courses
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" role="tabpanel" aria-labelledby="headingSeven">
+                    <div class="card-block">
+                        <div class="col-sm-2">
+                            <table id="sphere3DataTable" border="1">
+                            </table>
+                        </div>
+                        <div class="col-sm-8 offset-sm-1">
+                            <svg id="sphere3" width="800" height="700"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-8">
-            <svg id="schools" width="960" height="700"></svg>
-        </div>
+
     </div>
-    <div class="row">
-         <div class="col-sm-2 offset-sm-1">
-            <h2>Graduation Dates</h2>
-            <table id="graddateDataTable" border="1">
-            </table>
-        </div>
-        <div class="col-sm-8">
-            <svg id="graddate" width="960" height="700"></svg>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2 offset-sm-1">
-            <h2>Anchor Courses</h2>
-            <table id="anchorDataTable" border="1">
-            </table>
-        </div>
-        <div class="col-sm-8">
-            <svg id="anchor" width="960" height="700"></svg>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2 offset-sm-1">
-            <h2>Ecological Courses</h2>
-            <table id="sphere1DataTable" border="1">
-            </table>
-        </div>
-        <div class="col-sm-8">
-            <svg id="sphere1" width="960" height="700"></svg>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2 offset-sm-1">
-            <h2>Economic Courses</h2>
-            <table id="sphere2DataTable" border="1">
-            </table>
-        </div>
-        <div class="col-sm-8">
-            <svg id="sphere2" width="960" height="700"></svg>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2 offset-sm-1">
-            <h2>Social Courses</h2>
-            <table id="sphere3DataTable" border="1">
-            </table>
-        </div>
-        <div class="col-sm-8">
-            <svg id="sphere3" width="960" height="700"></svg>
-        </div>
-    </div>
+
 {% endblock %}

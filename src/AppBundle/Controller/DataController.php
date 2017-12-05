@@ -44,6 +44,21 @@ class DataController extends Controller
     }
 
     /**
+     * Lists all Major entities.
+     *
+     * @Route("/major.json", name="data_major")
+     * @Method("GET")
+     */
+    public function majorAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository('AppBundle:Major')->findMajorData();
+        $response = new JsonResponse();
+        $response->setData($data);
+        return $response;
+    }
+
+    /**
      * Lists all Anchor entities.
      *
      * @Route("/anchor.json", name="data_anchor")
