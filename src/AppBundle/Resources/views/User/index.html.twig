@@ -63,6 +63,7 @@
                                      style="background-color: {{ tag.color }}">{{ tag.title }}</div>
                             {% endfor %}
                             <br/><br/>
+
                         {% endfor %}
                         {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
                             <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
@@ -70,6 +71,26 @@
                         {% endfor %}
                         <br/>
                         <br/>
+                        {#Rebuild to dynamically produce term tags#}
+                        <div id="2018Spring" class="btn btn-primary btn-sm tag_filter"
+                             style="background-color: green">2018 Spring</div>
+                        <div id="2018Summer" class="btn btn-primary btn-sm tag_filter"
+                             style="background-color: green">2018 Summer</div>
+                        <div id="2018Fall" class="btn btn-primary btn-sm tag_filter"
+                             style="background-color: green">2018 Fall</div>
+                        <div id="2019Spring" class="btn btn-primary btn-sm tag_filter"
+                             style="background-color: green">2019 Spring</div>
+                        <div id="2019Summer" class="btn btn-primary btn-sm tag_filter"
+                             style="background-color: green">2019 Summer</div>
+                        <div id="2019Fall" class="btn btn-primary btn-sm tag_filter"
+                             style="background-color: green">2019 Fall</div>
+                        <div id="2020Spring" class="btn btn-primary btn-sm tag_filter"
+                             style="background-color: green">2020 Spring</div>
+                        <div id="2020Summer" class="btn btn-primary btn-sm tag_filter"
+                             style="background-color: green">2020 Summer</div>
+                        <br/>
+                        <br/>
+
                         <a class="btn btn-secondary btn-sm" href="{{ path('user_mentor_mapping') }}">Mentor
                             Mapping</a>
                         <ul class="nav navbar-sidenav">
