@@ -34,6 +34,7 @@
                 $('#email_list').empty().append($('tr:visible td.email').text() );
                 var rowCount = $('tbody tr:visible').length;
                 $( "span.count" ).html( '(' + rowCount  + ')' );
+                $(window).scrollTop(0);
             });
             var rowCount = $('tbody tr:visible').length;
             $( "span.count" ).html( '(' + rowCount  + ')' );
