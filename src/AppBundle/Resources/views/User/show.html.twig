@@ -335,7 +335,12 @@
                                                 Approve App
                                             </a>
                                         {% endif %}
-
+                                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                            <a class="btn btn-primary  align-right "
+                                               href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
+                                                Admin Update
+                                            </a>
+                                        {% endif %}
                                         {% if app.user.username == entity.username and entity.program.status == 'Created' %}
                                             <a class="btn btn-primary  align-right "
                                                href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
