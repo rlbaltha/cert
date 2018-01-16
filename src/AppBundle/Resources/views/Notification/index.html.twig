@@ -1,5 +1,41 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "filter", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"],
+                    filter_reset: ".reset",
+                    filter_cssFilter: "form-control",
+                },
+                headers: {}
+            });
+            $('.tag_filter').click(function (event) {
+                var row_selector = 'div.tag' + event.target.id;
+                $('.faculty_row').hide();
+                $(row_selector).parent().parent().show();
+            });
+            $('#tag_showall').click(function () {
+                $('.faculty_row').show();
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body -%}
     <div class="row">
         <div class="col-sm-3">
@@ -39,12 +75,27 @@
         <div class="col-sm-8">
             <h1>Notifications</h1>
 
+            {% for tag in tags if tag.subs|length > 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% for tag in tag.subs %}
+                    <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                {% endfor %}
+            {% endfor %}
+            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
+                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+            {% endfor %}
+            <div id="tag_showall" class="btn btn-primary btn-sm tag_filter">Show all</div>
+
             <table class="table">
                 <thead>
                 <tr>
                     <th>Start/End</th>
                     <th>Date/Post/Body</th>
                     <th>Status</th>
+                    <th>Tags</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,6 +107,10 @@
                             {{ entity.body|raw }}
                         </td>
                         <td>{{ entity.status }}</td>
+                        <td>{% for tag in entity.tags %}
+                                <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

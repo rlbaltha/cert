@@ -62,6 +62,11 @@ class Notification
     private $post;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="notifications")
+     */
+    protected $tags;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="notifications")
      */
     private $user;
@@ -243,5 +248,46 @@ class Notification
     public function getDisplayEnd()
     {
         return $this->display_end;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Notification
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

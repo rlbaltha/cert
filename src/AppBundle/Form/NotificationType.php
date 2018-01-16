@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use SC\DatetimepickerBundle\Form\Type\DatetimeType;
+use Doctrine\ORM\EntityRepository;
 
 class NotificationType extends AbstractType
 {
@@ -41,6 +42,15 @@ class NotificationType extends AbstractType
                 ),
                 // *this line is important*
                 'choices_as_values' => true,))
+            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->andWhere('t.type = :type')
+                        ->setParameter('type', 'user')
+                        ;
+                },
+                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'required'=>false, 'attr' => array('class' =>
+                    'checkbox'),))
             ->add('user', 'entity', array('class' => 'AppBundle\Entity\User',
                 'property' => 'name','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'User', 'attr' => array('class' =>
                     'form-control'),))

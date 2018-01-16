@@ -66,7 +66,12 @@
                     <th>Status</th>
                     <td>{{ entity.status }}</td>
                 </tr>
-                </tbody>
+                <tr>
+                    <th>Tags</th>
+                    <td>{% for tag in entity.tags %}<div class="btn btn-primary btn-sm" style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
+                    </td>
+                </tr>
+                 </tbody>
             </table>
             <a class="btn btn-primary" href="{{ path('notification_edit', { 'id': entity.id }) }}">
                 Edit

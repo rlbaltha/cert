@@ -70,6 +70,11 @@ class Tag
     protected $faculty;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Notification", mappedBy="tags")
+     */
+    protected $notifications;
+
+    /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="tags")
      */
     protected $users;

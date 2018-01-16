@@ -30,9 +30,11 @@ class NotificationController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AppBundle:Notification')->findByStatus($status);
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
 
         return array(
             'entities' => $entities,
+            'tags' => $tags
         );
     }
 
@@ -150,11 +152,9 @@ class NotificationController extends Controller
             throw $this->createNotFoundException('Unable to find Notification entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
