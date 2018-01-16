@@ -26,11 +26,11 @@
             });
             $('.tag_filter').click(function (event) {
                 var row_selector = 'div.tag' + event.target.id;
-                $('.faculty_row').hide();
+                $('.notification_row').hide();
                 $(row_selector).parent().parent().show();
             });
             $('#tag_showall').click(function () {
-                $('.faculty_row').show();
+                $('.notification_row').show();
             });
         });
     </script>
@@ -100,7 +100,7 @@
                 </thead>
                 <tbody>
                 {% for entity in entities %}
-                    <tr>
+                    <tr class="notification_row">
                         <td><a href="{{ path('notification_show', { 'id': entity.id }) }}">{% if entity.displayStart %}{{ entity.displayStart|date('m-d-Y H:i A') }}{% endif %}<br/><br/>{% if entity.displayEnd %}{{ entity.displayEnd|date('m-d-Y H:i A') }}{% endif %}</a></td>
                         <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}
                             {% if entity.post %}{{ entity.post.body|raw }}{% endif %}
