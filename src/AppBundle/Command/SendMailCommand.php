@@ -48,7 +48,7 @@ class SendMailCommand extends ContainerAwareCommand
             $this->getContainer()->get('mailer')->send($message);
         }
 
-        $output->writeln("Mail sent!");
+        $output->writeln(count($current) . " notifications sent!");
 
     }
 }
