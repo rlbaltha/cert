@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
+
 class SendMailCommand extends ContainerAwareCommand
 {
     protected function configure()
@@ -44,7 +45,14 @@ class SendMailCommand extends ContainerAwareCommand
                 ->setFrom('scdirector@uga.edu')
                 ->setTo('ron.balthazor@gmail.com')
                 ->setCc('ron.balthazor@gmail.com')
-                ->setBody($text);
+                ->setBody(
+                    $this->getContainer()->get('twig')->render(
+
+                        'AppBundle:Email:apply.html.twig',
+                        array('name' => $name,
+                            'text' => $text)
+                    ),
+                    'text/html');
             $this->getContainer()->get('mailer')->send($message);
         }
 
