@@ -349,7 +349,7 @@ class CapstoneController extends Controller
      if ($type != 'Completed') {
          $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
          $email = 'scdirector@uga.edu';
-         $text = $name . ' has submitted an capstone that is ready for ' . $type . 'review.';
+         $text = $name . ' has submitted an capstone that is ready for ' . $type . ' review.';
 
          $message = \Swift_Message::newInstance()
              ->setSubject('Certificate Capstone Ready for ' . $type . ' Review')

@@ -142,8 +142,10 @@
     </section>
 
 </div>
+{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 <img class="cert-logo" alt="Certificate logo"
      src="{{ asset('bundles/app/images/certificatelogo.gif') }}">
+{% endif %}
 
 </body>
 </html>
