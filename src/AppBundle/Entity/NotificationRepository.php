@@ -30,4 +30,22 @@ class NotificationRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $notifications;
     }
+
+    /**
+     * find current notifications
+     *
+     * @return Notification
+     */
+    public function findCurrentShared() {
+        $now = date_create();
+        $notifications = $this->createQueryBuilder('n')
+            ->andWhere('n.display_start < :now')
+            ->andWhere('n.display_end > :now')
+            ->andWhere('n.status = :status')
+            ->setParameter('status', 'Shared')
+            ->setParameter('now', $now)
+            ->getQuery()
+            ->getResult();
+        return $notifications;
+    }
 }
