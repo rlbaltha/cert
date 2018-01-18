@@ -85,6 +85,10 @@ class CapstoneController extends Controller
             $user_entity = $em->getRepository('AppBundle:User')->find($user);
             $status = $em->getRepository('AppBundle:Status')->findByName('Capstone Created');
             $user_entity->setProgress($status);
+            $tag1 = $em->getRepository('AppBundle:Tag')->find(95);
+            $tag2 = $em->getRepository('AppBundle:Tag')->find(101);
+            $user_entity->addTag($tag1);
+            $user_entity->addTag($tag2);
             $em->persist($entity);
             $em->persist($user_entity);
 
@@ -318,7 +322,7 @@ class CapstoneController extends Controller
         if ($type == 'Director') {
             $status = $em->getRepository('AppBundle:Status')->findByName('Ready for Director Review');
             $tag1 = $em->getRepository('AppBundle:Tag')->find(97);
-            $entity->addTag($tag1);
+            $user_entity->addTag($tag1);
             $entity->setStatus('Ready for Director Review');
             $note = '<p> Capstone ready for '.$type. ' review. '.$timestamp.'</p>';
         }
@@ -329,10 +333,8 @@ class CapstoneController extends Controller
         }
         else {
             $status = $em->getRepository('AppBundle:Status')->findByName('Ready for Peer Review');
-            $tag1 = $em->getRepository('AppBundle:Tag')->find(95);
-            $tag2 = $em->getRepository('AppBundle:Tag')->find(96);
-            $entity->addTag($tag1);
-            $entity->addTag($tag2);
+            $tag1 = $em->getRepository('AppBundle:Tag')->find(96);
+            $user_entity->addTag($tag1);
             $entity->setStatus('Ready for Peer Review');
             $note = '<p> Capstone ready for '.$type. ' review. '.$timestamp.'</p>';
         }
