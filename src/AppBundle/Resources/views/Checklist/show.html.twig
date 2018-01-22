@@ -1,0 +1,243 @@
+{% extends 'AppBundle:User:layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+{% endblock %}
+
+
+{% block body -%}
+    <div class="col-sm-8 col-xs-12">
+        {#  *********************** Certificate Checklist ***********************  #}
+        <h2>Checklist</h2>
+
+        <div class="alert alert-info" role="alert">
+            <p>The checklist allows you to track your progress through the program. Please
+                update
+                regularly.
+            </p>
+            <p> For details, please
+                <a href="{{ path('page_show',  { 'id': '12'}) }}">
+                    review the
+                    <strong>Guidelines for the Certificate.</strong>
+                </a></p>
+        </div>
+
+        {% if app.user.username == entity.username %}
+            {% if entity.checklist %}
+                <a class="btn btn-primary align-right margin-bottom"
+                   href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
+                    Update Checklist
+                </a>
+            {% else %}
+                <a title="Get started on your checklist"
+                   class="btn btn-primary margin-bottom {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
+                   href="{{ path('checklist_new') }}">
+                    Start your Checklist
+                </a>
+            {% endif %}
+        {% endif %}
+
+        {% if entity.checklist %}
+            <table class="table margin-top">
+                <tbody>
+                <tr>
+                    <th>Certificate added in Athena</th>
+                    <td>{% if entity.checklist.athena %}{{ entity.checklist.athena|date('m/d/Y') }}
+                        {% else %}<p>All students should add the Sustainability Certificate
+                            to
+                            their active curricula program via the MyPrograms option in
+                            Athena.</p><a
+                                href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage"
+                                target="_blank">Add Certificate in Athena Now</a>{% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Pre-Certificate Survey Completed</th>
+                    <td>{% if entity.checklist.preAssess %}{{ entity.checklist.preAssess|date('m/d/Y') }}
+                        {% else %}<p>This survey is part of our assessment of the
+                            certificate.
+                            Please complete it at the beginning of your program. </p><a
+                                href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V"
+                                target="_blank">Take the Survey Now</a>{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Orientation Completed</th>
+                    <td>{% if entity.checklist.orientation %}{{ entity.checklist.orientation|date('m/d/Y') }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Anchor</th>
+                    <td>{% if entity.checklist.anchor %}
+                            <a href="{{ path('course_show', { 'id': entity.checklist.anchor.id }) }}">
+                                {{ entity.checklist.anchor.name }}
+                                : {{ entity.checklist.anchor.title }}
+                            </a>
+                            {% if entity.checklist.anchor.status=='exception' %}
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Note!</strong> This course has special
+                                    requirements.
+                                    Please note
+                                    how
+                                    these requirements
+                                    were met in the exception space below.
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="alert alert-warning" role="alert">
+                            <p>
+                                <strong>
+                                    NB: We require that at least one of the spheres come
+                                    from
+                                    courses outside you major and highly recommended that
+                                    two of
+                                    the three spheres come from courses outside of your
+                                    major to
+                                    develop the broadest perspective on sustainability.
+                                </strong>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ecological Sphere</th>
+                    <td>{% if entity.checklist.sphere1 %}
+                            <a href="{{ path('course_show', { 'id': entity.checklist.sphere1.id }) }}">
+                                {{ entity.checklist.sphere1.name }}
+                                : {{ entity.checklist.sphere1.title }}
+                            </a>
+                            {% if entity.checklist.sphere1.status=='exception' %}
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Note!</strong> This course has special
+                                    requirements.
+                                    Please note
+                                    how
+                                    these requirements
+                                    were met in the exception space below.
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Economic Sphere</th>
+                    <td>{% if entity.checklist.sphere2 %}
+                            <a href="{{ path('course_show', { 'id': entity.checklist.sphere2.id }) }}">
+                                {{ entity.checklist.sphere2.name }}
+                                : {{ entity.checklist.sphere2.title }}
+                            </a>
+                            {% if entity.checklist.sphere2.status=='exception' %}
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Note!</strong> This course has special
+                                    requirements.
+                                    Please note
+                                    how
+                                    these requirements
+                                    were met in the exception space below.
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Social Sphere</th>
+                    <td>{% if entity.checklist.sphere3 %}
+                            <a href="{{ path('course_show', { 'id': entity.checklist.sphere3.id }) }}">
+                                {{ entity.checklist.sphere3.name }}
+                                : {{ entity.checklist.sphere3.title }}
+                            </a>
+                            {% if entity.checklist.sphere3.status=='exception' %}
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Note!</strong> This course has special
+                                    requirements.
+                                    Please note
+                                    how
+                                    these requirements
+                                    were met in the exception space below.
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Seminar (2 semesters required)</th>
+                    <td>{% if entity.checklist.seminar %}
+                            <a href="{{ path('course_show', { 'id': entity.checklist.seminar.id }) }}">
+                                {{ entity.checklist.seminar.name }}
+                                : {{ entity.checklist.seminar.title }}
+                            </a>
+                            {% if entity.checklist.sphere3.status=='exception' %}
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Note!</strong> This course has special
+                                    requirements.
+                                    Please note
+                                    how
+                                    these requirements
+                                    were met in the exception space below.
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Capstone Work Plan</th>
+                    <td>{% if entity.checklist.capstone %}
+                            <a href="{{ path('course_show', { 'id': entity.checklist.capstone.id }) }}">
+                                {{ entity.checklist.capstone.name }}
+                                : {{ entity.checklist.capstone.title }}
+                            </a>
+                        {% endif %}
+                        {% if entity.capstone %}
+                            {{ entity.capstone.status }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Capstone Term</th>
+                    <td>{{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}</td>
+                </tr>
+                <tr>
+                    <th>Presentation</th>
+                    <td>{{ entity.checklist.presentation }}</td>
+                </tr>
+                <tr>
+                    <th>Post-Certificate Survey Completed</th>
+                    <td>{% if entity.checklist.postAssess %}{{ entity.checklist.postAssess|date('m/d/Y') }}
+                        {% else %}<p>This survey is part of our assessment of the
+                            certificate.
+                            Please complete it at the end of your program.</p>  <a
+                                href="https://ugeorgia.qualtrics.com/SE/?SID=SV_8vvElrQSuli7Pg1"
+                                target="_blank">Take the Survey Now</a>{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Apply for Graduation in Athena</th>
+                    <td><p>Once you have met all requirements, please remember to apply to
+                            graduate with the Sustainability Certificate in Athena for the
+                            semester you will graduate from UGA. <a
+                                    href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage"
+                                    target="_blank">Apply for graduation Now</a></p></td>
+                </tr>
+                <tr>
+                    <th>Graduation Term</th>
+                    <td>{{ entity.checklist.graddate }} {{ entity.checklist.gradterm }}</td>
+                </tr>
+                <tr>
+                    <th>Exceptions</th>
+                    <td>{{ entity.checklist.exceptions | raw }}</td>
+                </tr>
+                <tr>
+                    <th>Updated</th>
+                    <td>{{ entity.checklist.updated | date("m/d/Y g:ia") }}</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

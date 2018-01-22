@@ -1,0 +1,72 @@
+{% extends '::base.html.twig' %}
+
+{% block subnav %}
+
+    <div class="col-sm-2">
+        <div class="bootstrap-vertical-nav">
+            <nav class="navbar navbar-dark">
+                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                        data-target="#exCollapsingNavbar2">
+                    &#9776;
+                </button>
+                <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+
+                    <ul class="nav navbar-sidenav">
+
+                        {% if app.user.username != entity.username %}
+                            <li class="nav-item"><a href="{{ path('user_profile') }}">Profile</a></li>
+                        {% else %}
+                            <li class="nav-item"><a href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a></li>
+                            <li class="nav-item"><a
+                                        href="{{ path('program_show', { 'id': entity.id }) }}">Application</a></li>
+                            <li class="nav-item"><a
+                                        href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a></li>
+                            <li class="nav-item"><a href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+                            </li>
+
+                        {% endif %}
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            <li class="nav-item">Admin</li>
+                            <li class="nav-item"><a href="{{ path('user_edit', { 'id': entity.id }) }}">
+                                    Admin Update
+                                </a>
+                            </li>
+                            <li class="nav-item"><a href="{{ path('pdf',  { 'id': entity.id }) }}">
+                                    Create PDF
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('user_inactive', { 'id': entity.id }) }}">
+                                    Mark Inactive
+                                </a>
+                            </li>
+
+                            <li class="nav-item"><a href="{{ path('user', {'type': 'all'}) }}">All
+                                    Accounts</a></li>
+                            <li class="nav-item">
+                                <a href="{{ path('user', {'type': 'students'}) }}">All
+                                    Students</a></li>
+
+                        {% endif %}
+                        {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+                            <li class="nav-item"><a
+                                        href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
+                                    As</a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <li class="nav-item"><a
+                                        href="{{ path('user',  { 'type': 'students' }) }}?_switch_user=_exit">
+                                    Exit login as</a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+
+
+{% endblock %}

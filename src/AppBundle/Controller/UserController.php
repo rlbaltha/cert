@@ -49,7 +49,12 @@ class UserController extends Controller
         if ($entity->getLastname() == '') {
             return $this->redirect($this->generateUrl('user_edit', array('id' => $entity->getId())));
         }
-
+        elseif (is_null($entity->getProgram()) or $entity->getProgram()->getStatus()!='Approved') {
+            return $this->redirect($this->generateUrl('program_show', array('id' => $entity->getId())));
+        }
+        else {
+            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+        }
         return array(
             'entity' => $entity,
             'mentees' => $mentees,

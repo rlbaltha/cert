@@ -27,26 +27,7 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-3">
-            <div class="bootstrap-vertical-nav">
-
-                <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-sidenav">
-                            <li class="nav-item"><a href="{{ path('capstone',  { 'type':'Peer' }) }}">Ready for Peer Review</a></li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item"><a href="{{ path('capstone',  { 'type':'Director' }) }}">Ready for Director Review</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </nav>
-
-            </div>
-        </div>
-        <div class="col-sm-8">
+        <div class="col-sm-8 offset-sm-2">
             <table class="table">
                 <thead>
                 <tr>
@@ -58,7 +39,7 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('user_show', { 'id': entity.user.id }) }}">{{ entity.user.firstname }}, {{ entity.user.lastname }}</a> {{ entity.user.email }}</td>
+                        <td><a href="{{ path('capstone_show', { 'id': entity.user.id }) }}">{{ entity.user.firstname }}, {{ entity.user.lastname }}</a> {{ entity.user.email }}</td>
 
                         <td>{{ entity.status }}</td>
                         <td>{% if entity.responsesets|length > 0 %}

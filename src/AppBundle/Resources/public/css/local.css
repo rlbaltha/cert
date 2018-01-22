@@ -105,6 +105,18 @@ body {
 .dropdown-item {
     color:black !important;
 }
+
+
+.subnavbar {
+    margin-top: -1.5em;
+    padding: 1rem;
+    background-color: #c0c0c0;
+}
+
+.subnavbar li a {
+    color: #000;
+    font-size: 11pt;
+}
 /**********  Forms **********/
 
 div.radio > label {

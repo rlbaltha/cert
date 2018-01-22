@@ -19,6 +19,31 @@ use AppBundle\Form\ProgramType;
 class ProgramController extends Controller
 {
 
+    /**
+     * Finds and displays a Program entity.
+     *
+     * @Route("/show/{id}", name="program_show")
+     * @Method("GET")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:User')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Capstone entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
 
     /**
      * Creates a new Program entity.
@@ -48,7 +73,7 @@ class ProgramController extends Controller
             $em->persist($user_entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_profile'));
+            return $this->redirect($this->generateUrl('program_show', array('id' => $entity->getUser()->getId())));
         }
 
         return array(
@@ -168,7 +193,7 @@ class ProgramController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_profile'));
+            return $this->redirect($this->generateUrl('program_show', array('id' => $entity->getUser()->getId())));
         }
 
         return array(
@@ -235,7 +260,7 @@ class ProgramController extends Controller
             );
         $this->get('mailer')->send($message);
 
-        return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
+        return $this->redirect($this->generateUrl('program_show', array('id' => $entity->getUser()->getId())));
     }
 
 
@@ -333,7 +358,7 @@ class ProgramController extends Controller
             ->getFlashBag()
             ->add('success', 'Please remember to add ' . $email . ' (' . $name . ') to the listserv.');
 
-        return $this->redirect($this->generateUrl('user_show', array('id' => $user_entity->getId())));
+        return $this->redirect($this->generateUrl('program_show', array('id' => $entity->getUser()->getId())));
     }
 
 

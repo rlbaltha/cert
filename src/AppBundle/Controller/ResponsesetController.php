@@ -210,7 +210,7 @@ class ResponsesetController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_show', array('id' => $capstone->getUser()->getId())));
+            return $this->redirect($this->generateUrl('capstone_show', array('id' => $capstone->getUser()->getId())));
         }
 
         return array(

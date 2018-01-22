@@ -19,7 +19,31 @@ use AppBundle\Form\ChecklistType;
 class ChecklistController extends Controller
 {
 
+    /**
+     * Finds and displays a Checklist entity.
+     *
+     * @Route("/show/{id}", name="checklist_show")
+     * @Method("GET")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
 
+        $entity = $em->getRepository('AppBundle:User')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Capstone entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
     /**
      * Creates a new Checklist entity.
      *
@@ -48,7 +72,7 @@ class ChecklistController extends Controller
             $em->persist($user_entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_profile'));
+            return $this->redirect($this->generateUrl('checklist_show', array('id' => $entity->getUser()->getId())));
         }
 
         return array(
@@ -176,7 +200,7 @@ class ChecklistController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_profile'));
+            return $this->redirect($this->generateUrl('checklist_show', array('id' => $entity->getUser()->getId())));
         }
 
         return array(
