@@ -12,6 +12,13 @@
 
 {% block body -%}
 <div class="col-sm-8 col-xs-12">
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
     {#  *********************** Applcation ***********************  #}
     <h2>Application {% if entity.program %}({{ entity.program.status }}){% endif %}</h2>
 
