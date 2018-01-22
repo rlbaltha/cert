@@ -13,9 +13,7 @@
 
                     <ul class="nav navbar-sidenav">
 
-                        {% if app.user.username != entity.username %}
-                            <li class="nav-item"><a href="{{ path('user_profile') }}">Profile</a></li>
-                        {% else %}
+                        {% if app.user.username == entity.username or is_granted('ROLE_SUPER_ADMIN') %}
                             <li class="nav-item"><a href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a></li>
                             <li class="nav-item"><a
                                         href="{{ path('program_show', { 'id': entity.id }) }}">Application</a></li>
@@ -23,8 +21,10 @@
                                         href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a></li>
                             <li class="nav-item"><a href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
                             </li>
-
+                        {% else %}
+                            <li class="nav-item"><a href="{{ path('user_profile') }}">Profile</a></li>
                         {% endif %}
+
                         {% if is_granted('ROLE_SUPER_ADMIN') %}
                             <li class="nav-item">Admin</li>
                             <li class="nav-item"><a href="{{ path('user_edit', { 'id': entity.id }) }}">
