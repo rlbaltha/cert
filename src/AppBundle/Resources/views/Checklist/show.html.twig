@@ -228,16 +228,30 @@
                     <th>Graduation Term</th>
                     <td>{{ entity.checklist.graddate }} {{ entity.checklist.gradterm }}</td>
                 </tr>
-                <tr>
-                    <th>Exceptions</th>
-                    <td>{{ entity.checklist.exceptions | raw }}</td>
-                </tr>
+
                 <tr>
                     <th>Updated</th>
                     <td>{{ entity.checklist.updated | date("m/d/Y g:ia") }}</td>
                 </tr>
                 </tbody>
             </table>
+
+
+            <h3>Exceptions</h3>
+            <a class="btn btn-primary" href="{{ path('exception_new', { 'id': entity.checklist.id }) }}">
+                Apply for an exception to the requirements
+            </a>
+            <p>{{ entity.checklist.exceptionsDeprecated | raw }}</p>
+
+            {% for exception in entity.checklist.exceptions %}
+                <p>{{ exception.requirement }} (Status: {{ exception.status }})
+                    <a class="btn btn-primary float-sm-right" href="{{ path('exception_edit', { 'id': exception.id }) }}">
+                        Edit
+                    </a></p>
+                <p>{{ exception.description|raw }}</p>
+                <hr/>
+            {% endfor %}
+
         {% endif %}
     </div>
 {% endblock %}

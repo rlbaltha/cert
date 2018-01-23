@@ -27,7 +27,7 @@ class Checklist
      *
      * @ORM\Column(name="exceptions", type="text", nullable=true)
      */
-    private $exceptions;
+    private $exceptions_deprecated;
 
     /**
      * @var string
@@ -136,6 +136,11 @@ class Checklist
      */
     protected $capstone;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Exception", mappedBy="checklist")
+     */
+    private $exceptions;
+
 
     /**
      * @var \DateTime $created
@@ -163,29 +168,6 @@ class Checklist
         return $this->id;
     }
 
-    /**
-     * Set exceptions
-     *
-     * @param string $exceptions
-     *
-     * @return Checklist
-     */
-    public function setExceptions($exceptions)
-    {
-        $this->exceptions = $exceptions;
-
-        return $this;
-    }
-
-    /**
-     * Get exceptions
-     *
-     * @return string
-     */
-    public function getExceptions()
-    {
-        return $this->exceptions;
-    }
 
     /**
      * Set portfolio
@@ -641,5 +623,70 @@ class Checklist
     public function getGradterm()
     {
         return $this->gradterm;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->exceptions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set exceptionsDeprecated
+     *
+     * @param string $exceptionsDeprecated
+     *
+     * @return Checklist
+     */
+    public function setExceptionsDeprecated($exceptionsDeprecated)
+    {
+        $this->exceptions_deprecated = $exceptionsDeprecated;
+
+        return $this;
+    }
+
+    /**
+     * Get exceptionsDeprecated
+     *
+     * @return string
+     */
+    public function getExceptionsDeprecated()
+    {
+        return $this->exceptions_deprecated;
+    }
+
+    /**
+     * Add exception
+     *
+     * @param \AppBundle\Entity\Exception $exception
+     *
+     * @return Checklist
+     */
+    public function addException(\AppBundle\Entity\Exception $exception)
+    {
+        $this->exceptions[] = $exception;
+
+        return $this;
+    }
+
+    /**
+     * Remove exception
+     *
+     * @param \AppBundle\Entity\Exception $exception
+     */
+    public function removeException(\AppBundle\Entity\Exception $exception)
+    {
+        $this->exceptions->removeElement($exception);
+    }
+
+    /**
+     * Get exceptions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getExceptions()
+    {
+        return $this->exceptions;
     }
 }
