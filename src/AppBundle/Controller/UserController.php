@@ -46,6 +46,9 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_MENTOR')) {
+            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+        }
         if ($entity->getLastname() == '') {
             return $this->redirect($this->generateUrl('user_edit', array('id' => $entity->getId())));
         }
