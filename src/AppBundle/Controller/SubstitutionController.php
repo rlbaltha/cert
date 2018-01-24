@@ -7,44 +7,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Exception;
-use AppBundle\Form\ExceptionType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use AppBundle\Entity\Substitution;
+use AppBundle\Form\SubstitutionType;
 
 /**
- * Exception controller.
+ * Substitution controller.
  *
- * @Route("/exception")
+ * @Route("/substitution")
  */
-class ExceptionController extends Controller
+class SubstitutionController extends Controller
 {
 
     /**
-     * Lists all Exception entities.
+     * Lists all Substitution entities.
      *
-     * @Route("/", name="exception")
+     * @Route("/", name="substitution")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Exception')->findAll();
+        $entities = $em->getRepository('AppBundle:Substitution')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Exception entity.
+     * Creates a new Substitution entity.
      *
-     * @Route("/", name="exception_create")
+     * @Route("/", name="substitution_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
     {
-        $entity = new Exception();
+        $entity = new Substitution();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -57,7 +60,7 @@ class ExceptionController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('checklist_show', array('id' => $entity->getChecklist()->getId())));
+            return $this->redirect($this->generateUrl('checklist_show', array('id' => $user->getId())));
         }
 
         return array(
@@ -67,16 +70,16 @@ class ExceptionController extends Controller
     }
 
     /**
-     * Creates a form to create a Exception entity.
+     * Creates a form to create a Substitution entity.
      *
-     * @param Exception $entity The entity
+     * @param Substitution $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Exception $entity)
+    private function createCreateForm(Substitution $entity)
     {
-        $form = $this->createForm(new ExceptionType(), $entity, array(
-            'action' => $this->generateUrl('exception_create'),
+        $form = $this->createForm(new SubstitutionType(), $entity, array(
+            'action' => $this->generateUrl('substitution_create'),
             'method' => 'POST',
         ));
 
@@ -86,15 +89,16 @@ class ExceptionController extends Controller
     }
 
     /**
-     * Displays a form to create a new Exception entity.
+     * Displays a form to create a new Substitution entity.
      *
-     * @Route("/new", name="exception_new")
+     * @Route("/new", name="substitution_new")
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function newAction()
     {
-        $entity = new Exception();
+        $entity = new Substitution();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -104,20 +108,21 @@ class ExceptionController extends Controller
     }
 
     /**
-     * Finds and displays a Exception entity.
+     * Finds and displays a Substitution entity.
      *
-     * @Route("/{id}", name="exception_show")
+     * @Route("/{id}", name="substitution_show")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Exception')->find($id);
+        $entity = $em->getRepository('AppBundle:Substitution')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Exception entity.');
+            throw $this->createNotFoundSubstitution('Unable to find Substitution entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -129,20 +134,21 @@ class ExceptionController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Exception entity.
+     * Displays a form to edit an existing Substitution entity.
      *
-     * @Route("/{id}/edit", name="exception_edit")
+     * @Route("/{id}/edit", name="substitution_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Exception')->find($id);
+        $entity = $em->getRepository('AppBundle:Substitution')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Exception entity.');
+            throw $this->createNotFoundSubstitution('Unable to find Substitution entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -156,16 +162,16 @@ class ExceptionController extends Controller
     }
 
     /**
-    * Creates a form to edit a Exception entity.
+    * Creates a form to edit a Substitution entity.
     *
-    * @param Exception $entity The entity
+    * @param Substitution $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Exception $entity)
+    private function createEditForm(Substitution $entity)
     {
-        $form = $this->createForm(new ExceptionType(), $entity, array(
-            'action' => $this->generateUrl('exception_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new SubstitutionType(), $entity, array(
+            'action' => $this->generateUrl('substitution_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -174,20 +180,22 @@ class ExceptionController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Exception entity.
+     * Edits an existing Substitution entity.
      *
-     * @Route("/{id}", name="exception_update")
+     * @Route("/{id}", name="substitution_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Exception')->find($id);
+        $entity = $em->getRepository('AppBundle:Substitution')->find($id);
+        $user = $entity->getChecklist()->getUser();
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Exception entity.');
+            throw $this->createNotFoundSubstitution('Unable to find Substitution entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -197,7 +205,7 @@ class ExceptionController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('checklist_show', array('id' => $entity->getChecklist()->getId())));
+            return $this->redirect($this->generateUrl('checklist_show', array('id' => $user->getId())));
         }
 
         return array(
@@ -207,10 +215,11 @@ class ExceptionController extends Controller
         );
     }
     /**
-     * Deletes a Exception entity.
+     * Deletes a Substitution entity.
      *
-     * @Route("/{id}", name="exception_delete")
+     * @Route("/{id}", name="substitution_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_USER')")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -219,21 +228,22 @@ class ExceptionController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Exception')->find($id);
+            $entity = $em->getRepository('AppBundle:Substitution')->find($id);
+            $user = $entity->getChecklist()->getUser();
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Exception entity.');
+                throw $this->createNotFoundSubstitution('Unable to find Substitution entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('exception'));
+        return $this->redirect($this->generateUrl('checklist_show', array('id' => $user->getId())));
     }
 
     /**
-     * Creates a form to delete a Exception entity by id.
+     * Creates a form to delete a Substitution entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -242,7 +252,7 @@ class ExceptionController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('exception_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('substitution_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

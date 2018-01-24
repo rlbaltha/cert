@@ -27,7 +27,7 @@ class Checklist
      *
      * @ORM\Column(name="exceptions", type="text", nullable=true)
      */
-    private $exceptions_deprecated;
+    private $exceptions;
 
     /**
      * @var string
@@ -137,9 +137,9 @@ class Checklist
     protected $capstone;
 
     /**
-     * @ORM\OneToMany(targetEntity="Exception", mappedBy="checklist")
+     * @ORM\OneToMany(targetEntity="Substitution", mappedBy="checklist")
      */
-    private $exceptions;
+    private $substitutions;
 
 
     /**
@@ -632,61 +632,63 @@ class Checklist
         $this->exceptions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+
     /**
-     * Set exceptionsDeprecated
+     * Set exceptions
      *
-     * @param string $exceptionsDeprecated
+     * @param string $exceptions
      *
      * @return Checklist
      */
-    public function setExceptionsDeprecated($exceptionsDeprecated)
+    public function setExceptions($exceptions)
     {
-        $this->exceptions_deprecated = $exceptionsDeprecated;
+        $this->exceptions = $exceptions;
 
         return $this;
-    }
-
-    /**
-     * Get exceptionsDeprecated
-     *
-     * @return string
-     */
-    public function getExceptionsDeprecated()
-    {
-        return $this->exceptions_deprecated;
-    }
-
-    /**
-     * Add exception
-     *
-     * @param \AppBundle\Entity\Exception $exception
-     *
-     * @return Checklist
-     */
-    public function addException(\AppBundle\Entity\Exception $exception)
-    {
-        $this->exceptions[] = $exception;
-
-        return $this;
-    }
-
-    /**
-     * Remove exception
-     *
-     * @param \AppBundle\Entity\Exception $exception
-     */
-    public function removeException(\AppBundle\Entity\Exception $exception)
-    {
-        $this->exceptions->removeElement($exception);
     }
 
     /**
      * Get exceptions
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return string
      */
     public function getExceptions()
     {
         return $this->exceptions;
+    }
+
+    /**
+     * Add substitution
+     *
+     * @param \AppBundle\Entity\Substitution $substitution
+     *
+     * @return Checklist
+     */
+    public function addSubstitution(\AppBundle\Entity\Substitution $substitution)
+    {
+        $this->substitutions[] = $substitution;
+
+        return $this;
+    }
+
+    /**
+     * Remove substitution
+     *
+     * @param \AppBundle\Entity\Substitution $substitution
+     */
+    public function removeSubstitution(\AppBundle\Entity\Substitution $substitution)
+    {
+        $this->substitutions->removeElement($substitution);
+    }
+
+    /**
+     * Get substitutions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubstitutions()
+    {
+        return $this->substitutions;
     }
 }

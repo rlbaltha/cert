@@ -184,7 +184,6 @@ class ChecklistType extends AbstractType
                 'expanded' => false,
                 'attr' => array('class' =>'form-control hr'),
             ))
-            ->add('exceptions', 'ckeditor', array('label'  => 'Exceptions:  Please offer any exceptions to the above requirements and the reasons for them.','config_name' => 'editor_simple',))
             ->add('post_assess','date', array('attr' => array('class' => ' hr'), 'label'  => 'Post-Certificate Survey 
             Completed', 'required' => false,))
 

@@ -13,7 +13,7 @@
 {% block body -%}
     <div class="col-sm-8 col-xs-12">
         {#  *********************** Certificate Checklist ***********************  #}
-        <h2>Checklist</h2>
+        <h2>Checklist for {{ entity.firstname }} {{ entity.lastname }}</h2>
 
         <div class="alert alert-info" role="alert">
             <p>The checklist allows you to track your progress through the program. Please
@@ -237,18 +237,21 @@
             </table>
 
 
-            <h3>Exceptions</h3>
-            <a class="btn btn-primary" href="{{ path('exception_new', { 'id': entity.checklist.id }) }}">
-                Apply for an exception to the requirements
-            </a>
-            <p>{{ entity.checklist.exceptionsDeprecated | raw }}</p>
+            <h3>Substitutions</h3>
+            {% if app.user.username == entity.username %}
+                <a class="btn btn-primary" href="{{ path('substitution_new') }}">
+                    Apply for a substitution for one of the requirements
+                </a>
+            {% endif %}
+            <p>{{ entity.checklist.exceptions | raw }}</p>
 
-            {% for exception in entity.checklist.exceptions %}
-                <p>{{ exception.requirement }} (Status: {{ exception.status }})
-                    <a class="btn btn-primary float-sm-right" href="{{ path('exception_edit', { 'id': exception.id }) }}">
+            {% for substitution in entity.checklist.substitutions %}
+                <p>{{ substitution.requirement }} (Status: {{ substitution.status }})
+                    <a class="btn btn-primary float-sm-right"
+                       href="{{ path('substitution_edit', { 'id': substitution.id }) }}">
                         Edit
                     </a></p>
-                <p>{{ exception.description|raw }}</p>
+                <p>{{ substitution.description|raw }}</p>
                 <hr/>
             {% endfor %}
 

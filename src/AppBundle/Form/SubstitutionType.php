@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ExceptionType extends AbstractType
+class SubstitutionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -40,7 +40,7 @@ class ExceptionType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Exception'
+            'data_class' => 'AppBundle\Entity\Substitution'
         ));
     }
 
@@ -49,6 +49,6 @@ class ExceptionType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_exception';
+        return 'appbundle_substitution';
     }
 }

@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Exception
+ * Substitution
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\ExceptionRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\SubstitutionRepository")
  */
-class Exception
+class Substitution
 {
     /**
      * @var integer
@@ -41,7 +41,7 @@ class Exception
      *
      * @ORM\Column(name="status", type="string", length=255)
      */
-    private $status='Created';
+    private $status = 'Created';
 
     /**
      * @var \DateTime $created
@@ -60,7 +60,7 @@ class Exception
     private $updated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Checklist", inversedBy="exceptions")
+     * @ORM\ManyToOne(targetEntity="Checklist", inversedBy="substitutions")
      */
     private $checklist;
 
@@ -75,12 +75,13 @@ class Exception
         return $this->id;
     }
 
+
     /**
      * Set requirement
      *
      * @param string $requirement
      *
-     * @return Exception
+     * @return Substitution
      */
     public function setRequirement($requirement)
     {
@@ -104,7 +105,7 @@ class Exception
      *
      * @param string $description
      *
-     * @return Exception
+     * @return Substitution
      */
     public function setDescription($description)
     {
@@ -128,7 +129,7 @@ class Exception
      *
      * @param string $status
      *
-     * @return Exception
+     * @return Substitution
      */
     public function setStatus($status)
     {
@@ -148,35 +149,11 @@ class Exception
     }
 
     /**
-     * Set checklist
-     *
-     * @param \AppBundle\Entity\Checklist $checklist
-     *
-     * @return Exception
-     */
-    public function setChecklist(\AppBundle\Entity\Checklist $checklist = null)
-    {
-        $this->checklist = $checklist;
-
-        return $this;
-    }
-
-    /**
-     * Get checklist
-     *
-     * @return \AppBundle\Entity\Checklist
-     */
-    public function getChecklist()
-    {
-        return $this->checklist;
-    }
-
-    /**
      * Set created
      *
      * @param \DateTime $created
      *
-     * @return Exception
+     * @return Substitution
      */
     public function setCreated($created)
     {
@@ -200,7 +177,7 @@ class Exception
      *
      * @param \DateTime $updated
      *
-     * @return Exception
+     * @return Substitution
      */
     public function setUpdated($updated)
     {
@@ -217,5 +194,29 @@ class Exception
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set checklist
+     *
+     * @param \AppBundle\Entity\Checklist $checklist
+     *
+     * @return Substitution
+     */
+    public function setChecklist(\AppBundle\Entity\Checklist $checklist = null)
+    {
+        $this->checklist = $checklist;
+
+        return $this;
+    }
+
+    /**
+     * Get checklist
+     *
+     * @return \AppBundle\Entity\Checklist
+     */
+    public function getChecklist()
+    {
+        return $this->checklist;
     }
 }

@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <h1>Substitution</h1>
+
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Student</th>
+                    <td>{{ entity.checklist.user.firstname }} {{ entity.checklist.user.lastname }}</td>
+                </tr>
+                <tr>
+                    <th>Requirement</th>
+                    <td>{{ entity.requirement }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ entity.description |raw }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ entity.status }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <a class="btn btn-primary" href="{{ path('substitution') }}">
+                Back to the list
+            </a>
+
+            <a class="btn btn-primary" href="{{ path('substitution_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+
+            {{ form(delete_form) }}
+
+        </div>
+    </div>
+{% endblock %}
