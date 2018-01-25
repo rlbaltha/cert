@@ -231,9 +231,7 @@ class ProgramController extends Controller
         $entity->setStatus('Ready for Review');
 
         //add and remove tags
-        $tag1 = $em->getRepository('AppBundle:Tag')->find(98);
         $tag2 = $em->getRepository('AppBundle:Tag')->find(109);
-        $user_entity->addTag($tag1);
         $user_entity->addTag($tag2);
 
 
