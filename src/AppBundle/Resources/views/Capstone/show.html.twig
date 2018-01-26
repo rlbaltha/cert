@@ -48,7 +48,12 @@
     <div class="col-sm-8 col-xs-12">
 
         {#  *********************** Capstone Workplan *********************** #}
-        <h2>Capstone {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
+        <h2>Capstone  for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
+
+        {% if app.user.username == entity.username %}
+            <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Return to your Profile</a>
+            <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your Checklist</a>
+        {% endif %}
 
         {% if entity.capstone %}
             {% for tag in entity.capstone.tags %}

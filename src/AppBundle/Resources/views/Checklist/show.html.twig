@@ -15,7 +15,12 @@
         {#  *********************** Certificate Checklist ***********************  #}
         <h2>Checklist for {{ entity.firstname }} {{ entity.lastname }}</h2>
 
-        <div class="alert alert-info" role="alert">
+        {% if app.user.username == entity.username %}
+            <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Return to your Profile</a>
+            <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Work on your Capstone</a>
+        {% endif %}
+
+        <div class="alert alert-info margin-top" role="alert">
             <p>The checklist allows you to track your progress through the program. Please
                 update
                 regularly.
@@ -25,6 +30,17 @@
                     review the
                     <strong>Guidelines for the Certificate.</strong>
                 </a></p>
+        </div>
+        <div class="alert alert-success" role="alert">
+            <p>
+                    We require that at least one of the spheres come
+                    from
+                    courses outside you major and highly recommended that
+                    two of
+                    the three spheres come from courses outside of your
+                    major to
+                    develop the broadest perspective on sustainability.
+            </p>
         </div>
 
         {% if app.user.username == entity.username %}
@@ -87,23 +103,6 @@
                                 </div>
                             {% endif %}
                         {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div class="alert alert-warning" role="alert">
-                            <p>
-                                <strong>
-                                    NB: We require that at least one of the spheres come
-                                    from
-                                    courses outside you major and highly recommended that
-                                    two of
-                                    the three spheres come from courses outside of your
-                                    major to
-                                    develop the broadest perspective on sustainability.
-                                </strong>
-                            </p>
-                        </div>
                     </td>
                 </tr>
                 <tr>

@@ -4,6 +4,28 @@
     {{ parent() }}
     <script language="javascript">
         $(document).ready(function () {
+            $(".profile").hide();
+            $("#notifications").show();
+            $("#notifications_toggle").click(function () {
+                $(".profile").hide();
+                $("#notifications").show();
+            });
+            $("#mentoring_toggle").click(function () {
+                $(".profile").hide();
+                $("#mentoring").show();
+            });
+            $("#directornotes_toggle").click(function () {
+                $(".profile").hide();
+                $("#directornotes").show();
+            });
+            $("#portfolio_toggle").click(function () {
+                $(".profile").hide();
+                $("#portfolio").show();
+            });
+            $("#capstonesforreview_toggle").click(function () {
+                $(".profile").hide();
+                $("#capstonesforreview").show();
+            });
         });
     </script>
 {% endblock %}
@@ -20,314 +42,256 @@
         {% endif %}
 
         {# Name and notes #}
-        <h2>{{ entity.firstname }} {{ entity.lastname }}</h2>
+        <h2>Profile for {{ entity.firstname }} {{ entity.lastname }}</h2>
+        {% if app.user.username == entity.username %}
+            <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your
+                Checklist</a>
+            <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Work on your Capstone</a>
+        {% endif %}
         {% if entity.progress %}
-            <p>Certificate Progress: {{ entity.progress.name }}
+            <p class="margin-top">Certificate Progress: {{ entity.progress.name }}
             {% for tag in entity.tags %}
                 <div class="btn btn-primary btn-sm tag{{ tag.id }}"
                      style="background-color: {{ tag.color }}">{{ tag.title }}</div>
             {% endfor %}
             </p>
         {% endif %}
-        {% if app.user.username == entity.username %}
-            <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your
-                Checklist</a>
-            <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Work on your Capstone</a>
+
+
+        <ul class="nav nav-tabs margin-top margin-bottom">
+            <li class="nav-item"><a class="nav-link" id="notifications_toggle"
+                                    href="javascript:void(0);">Notifications</a></li>
+            <li class="nav-item"><a class="nav-link" id="mentoring_toggle" href="javascript:void(0);">Mentoring</a></li>
+            <li class="nav-item"><a class="nav-link" id="portfolio_toggle" href="javascript:void(0);">Portfolio</a></li>
+            {% if is_granted('ROLE_MENTOR') %}
+                <li class="nav-item"><a class="nav-link" id="capstonesforreview_toggle" href="javascript:void(0);">Capstones
+                        for Review</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li class="nav-item"><a class="nav-link" id="directornotes_toggle" href="javascript:void(0);">Director
+                        Notes</a></li>
+            {% endif %}
+        </ul>
+
+        {# *********************** Notifications *********************** #}
+        {# set variables for checkpoints #}
+        {% set overdue = 0 %}
+        {% set upcoming = 0 %}
+
+        {# check to see if profile matches currrent user #}
+        {% if app.user.username == entity.username  or is_granted('ROLE_ADMIN') %}
+            {% if entity.notifications %}
+                {% set count_notifications = notifications|length %}
+                {# count checkpoint deadlines #}
+                {% if entity.capstone %}
+                    {% for checkpoint in entity.capstone.project.checkpoints %}
+                        {% if checkpoint.deadline %}
+                            {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d')  and checkpoint.status!='Complete' %}
+                                {% set overdue = overdue + 1 %}
+                            {% endif %}
+                            {% if "now"|date('Y-m-d') <= checkpoint.deadline|date|date('Y-m-d')  and checkpoint.status!='Complete' %}
+                                {% set upcoming = upcoming + 1 %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if overdue > 0 %}{% set count_notifications = count_notifications + 1 %}{% endif %}
+                    {% if upcoming > 0 %}{% set count_notifications = count_notifications + 1 %}{% endif %}
+                {% endif %}
+
+
+                <div id="notifications" class="profile">
+                    <h3 class="">Notifications</h3>
+
+                    {% for notification in notifications %}
+                        {% set background %}
+                            {% if notification.status=='New' %}alert-success
+                            {% elseif notification.status=='Shared' %}alert-success
+                            {% else %}#dbf8ff
+                            {% endif %}
+                        {% endset %}
+                        <div class="alert {{ background }} margin">
+                            <strong>{{ notification.date |date("m/d/Y g:ia") }}</strong>
+                            <br/>
+                            {% if notification.post %}
+                                {{ notification.post.body|raw }}
+                            {% endif %}
+                            {{ notification.body|raw }}
+                            {% if notification.status!='Shared' %}
+                                <a class="btn btn-primary  "
+                                   href="{{ path('notification_dismiss',  { 'id': notification.id }) }}">
+                                    Dismiss
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    {# notifications for checkpoints #}
+                    {% if upcoming > 0 %}
+                        <div class="alert alert-info margin">You have {{ upcoming }} upcoming
+                            Capstone Checkpoints
+                        </div>
+                    {% endif %}
+                    {% if overdue > 0 %}
+                        <div class="alert alert-danger margin">You have {{ overdue }} overdue
+                            Capstone Checkpoints
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
         {% endif %}
 
-        <div class="alert alert-info glow glow_active margin-top">Click headings to open or close.</div>
 
-        <div id="accordion" role="tablist" aria-multiselectable="true">
 
-            {# *********************** Notifications *********************** #}
-            {# set variables for checkpoints #}
-            {% set overdue = 0 %}
-            {% set upcoming = 0 %}
+        {#  *********************** Director Notes ***********************  #}
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <div id="directornotes" class="profile">
+                <h3>Director Notes</h3>
+                <p>{{ entity.notes |raw }}
+                    {% if entity.notes|length < 1 %}No notes yet.{% endif %}
+                </p>
+                <p>Updated: {{ entity.notesChanged|date("m/d/Y g:ia") }}</p>
+                <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
+            </div>
+        {% endif %}
 
-            {# check to see if profile matches currrent user #}
-            {% if app.user.username == entity.username  or is_granted('ROLE_ADMIN') %}
-                {% if entity.notifications %}
-                    {% set count_notifications = notifications|length %}
-                    {# count checkpoint deadlines #}
-                    {% if entity.capstone %}
-                        {% for checkpoint in entity.capstone.project.checkpoints %}
-                            {% if checkpoint.deadline %}
-                                {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d')  and checkpoint.status!='Complete' %}
-                                    {% set overdue = overdue + 1 %}
-                                {% endif %}
-                                {% if "now"|date('Y-m-d') <= checkpoint.deadline|date|date('Y-m-d')  and checkpoint.status!='Complete' %}
-                                    {% set upcoming = upcoming + 1 %}
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                        {% if overdue > 0 %}{% set count_notifications = count_notifications + 1 %}{% endif %}
-                        {% if upcoming > 0 %}{% set count_notifications = count_notifications + 1 %}{% endif %}
+
+
+        {#  *********************** Mentoring ***********************  #}
+        {# check to see if profile matches currrent user and is not Faculty #}
+        {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
+            {#  *** Check for application****  #}
+            {% if entity.program %}
+                <div id="mentoring" class="profile">
+                    <h3>Peer Mentoring</h3>
+                    {% if entity.peermentor %}
+                        <span class="alert alert-info">
+                                                    Your mentor is {{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }}
+                            ({{ entity.peermentor.email }})
+                                                </span>
+                    {% endif %}
+                    {% if entity.peermentees|length > 0 %}
+                        <span class="alert alert-info">Thanks for serving as a certificate mentor.
+                                                    Your mentee{% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}
+                            {% for mentee in entity.peermentees %}
+                                {% if loop.last %}and{% endif %}
+                                {{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
+                            {% endfor %}
+                                                </span>
                     {% endif %}
 
-
-                    <div class="card">
-                        <div class="card-header" role="tab" id="headingZero">
-
-                            <h5 class="mb-0 inline">
-                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                                   href="#collapseZero"
-                                   aria-expanded="false" aria-controls="collapseZero">
-                                    Notifications
-                                </a>
-                            </h5>
-                            {% if count_notifications > 0 %}
-                                <span>
-                                    You have {{ count_notifications }}
-                                    notification{% if count_notifications > 1 %}s{% endif %} for review.
-                                    </span>
-                            {% endif %}
-                        </div>
-                        <div id="collapseZero" class="collapse show"
-                             role="tabpanel" aria-labelledby="headingZero">
-                            <div class="card-block" style="padding: 0">
-                                {% for notification in notifications %}
-                                    {% set background %}
-                                        {% if notification.status=='New' %}alert-success
-                                        {% elseif notification.status=='Shared' %}alert-success
-                                        {% else %}#dbf8ff
-                                        {% endif %}
-                                    {% endset %}
-                                    <div class="alert {{ background }} margin">
-                                        <strong>{{ notification.date |date("m/d/Y g:ia") }}</strong>
-                                        <br/>
-                                        {% if notification.post %}
-                                            {{ notification.post.body|raw }}
-                                        {% endif %}
-                                        {{ notification.body|raw }}
-                                        {% if notification.status!='Shared' %}
-                                            <a class="btn btn-primary  "
-                                               href="{{ path('notification_dismiss',  { 'id': notification.id }) }}">
-                                                Dismiss
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
-
-                                {# notifications for checkpoints #}
-                                {% if upcoming > 0 %}
-                                    <div class="alert alert-info margin">You have {{ upcoming }} upcoming
-                                        Capstone Checkpoints
-                                    </div>
-                                {% endif %}
-                                {% if overdue > 0 %}
-                                    <div class="alert alert-danger margin">You have {{ overdue }} overdue
-                                        Capstone Checkpoints
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
+                    <div class="alert alert-info margin-top" role="alert">
+                        <strong>Requirements for Mentees/Mentors are as follows:</strong>
+                        <ul>
+                            <li>Mentees and Mentors must attend orientation</li>
+                            <li>Mentees and Mentors must have at least one face-to-face meeting</li>
+                            <li>Mentees and Mentors should celebrate the end of the term together at
+                                Semester in Review
+                            </li>
+                        </ul>
+                        <strong>Requirements for application to be a Mentor:</strong>
+                        <ul>
+                            <li>Can only apply if they are a sophomore or higher and have participated in at
+                                least
+                                one Sustainability Seminar
+                            </li>
+                            <li>All students must learn to smell the roses and appreciate the sunshine</li>
+                        </ul>
+                        <p>Read more about out mentoring program <a
+                                    href="{{ path('page_show',  { 'id': '42' }) }}">here</a>.</p>
                     </div>
-                {% endif %}
-            {% endif %}
 
+                    {% for tag in entity.tags if tag.title == 'Mentoring' %}
+                    {% else %}
+                        <a class="btn btn-primary margin-left"
+                           href="{{ path('user_mentee',  { 'id': entity.id }) }}">
+                            I'd like to have a Mentor.
+                        </a>
+                        <a class="btn btn-primary margin-left"
+                           href="{{ path('user_mentor',  { 'id': entity.id }) }}">
+                            I'd like to be a Mentor.
+                        </a>
+                    {% endfor %}
 
-
-            {#  *********************** Director Notes ***********************  #}
-            {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingFive">
-                        <h5 class="mb-0">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
-                               aria-expanded="true"
-                               aria-controls="collapseFive">
-                                Director Notes
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
-                        <div class="card-block">
-
-                            <p>{{ entity.notes |raw }}
-                                {% if entity.notes|length < 1 %}No notes yet.{% endif %}
-                            </p>
-                            <p>Updated: {{ entity.notesChanged|date("m/d/Y g:ia") }}</p>
-                            <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
-
-                        </div>
-                    </div>
                 </div>
             {% endif %}
+        {% endif %}
+
+        {# check to see if profile matches currrent user and is not Faculty #}
+        {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
 
 
+            {#  *********************** Portfolio  ***********************  #}
+            {% if entity.checklist %}
+                <div id="portfolio" class="profile">
+                    <h5 class="mb-0">Portfolio</h5>
 
-            {#  *********************** Mentoring ***********************  #}
-            {# check to see if profile matches currrent user and is not Faculty #}
-            {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
-                {#  *** Check for application****  #}
-                {% if entity.program %}
-                    <div class="card">
-                        <div class="card-header" role="tab" id="headingOne">
-                            <h5 class="mb-0">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                                   aria-expanded="true"
-                                   aria-controls="collapseOne">
-                                    Peer Mentoring
-                                </a>
-                            </h5>
-                        </div>
-                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="card-block">
-                                <p>
-                                    <strong>
-                                        {% if entity.peermentor %}
-                                            <span class="alert alert-info">
-                                                    Your mentor is {{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }}
-                                                ({{ entity.peermentor.email }})
-                                                </span>
-                                        {% endif %}
-                                        {% if entity.peermentees|length > 0 %}
-                                            <span class="alert alert-info">Thanks for serving as a certificate mentor.
-                                                    Your mentee{% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}
-                                                {% for mentee in entity.peermentees %}
-                                                    {% if loop.last %}and{% endif %}
-                                                    {{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
-                                                {% endfor %}
-                                                </span>
-                                        {% endif %}
-                                    </strong>
-                                </p>
-                                Requirements for Mentees/Mentors are as follows:
-                                <ul>
-                                    <li>Mentees and Mentors must attend orientation</li>
-                                    <li>Mentees and Mentors must have at least one face-to-face meeting</li>
-                                    <li>Mentees and Mentors should celebrate the end of the term together at
-                                        Semester in Review
-                                    </li>
-                                </ul>
-                                Requirements for application to be a Mentor:
-                                <ul>
-                                    <li>Can only apply if they are a sophomore or higher and have participated in at
-                                        least
-                                        one Sustainability Seminar
-                                    </li>
-                                    <li>All students must learn to smell the roses and appreciate the sunshine</li>
-                                </ul>
-                                <p>Read more about out mentoring program <a
-                                            href="{{ path('page_show',  { 'id': '42' }) }}">here</a>.</p>
-
-                                {% for tag in entity.tags if tag.title == 'Mentoring' %}
-                                {% else %}
-                                    <a class="btn btn-primary margin-left"
-                                       href="{{ path('user_mentee',  { 'id': entity.id }) }}">
-                                        I'd like to have a Mentor.
-                                    </a>
-                                    <a class="btn btn-primary margin-left"
-                                       href="{{ path('user_mentor',  { 'id': entity.id }) }}">
-                                        I'd like to be a Mentor.
-                                    </a>
-                                {% endfor %}
-
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endif %}
-
-            {# check to see if profile matches currrent user and is not Faculty #}
-            {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
-
-
-                {#  *********************** Portfolio  ***********************  #}
-                {% if entity.checklist %}
-                    <div class="card">
-                        <div class="card-header" role="tab" id="headingSeven">
-                            <h5 class="mb-0">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"
-                                   aria-expanded="true"
-                                   aria-controls="collapseSeven">
-                                    Portfolio
-                                </a>
-                            </h5>
-                        </div>
-                        <div id="collapseSeven" class="collapse" role="tabpanel" aria-labelledby="headingSeven">
-                            <div class="card-block">
-
-                                <div class="alert alert-info margin-top" role="alert">
-                                    <p>For more information about your portfolio, see our <a
-                                                href="{{ path('page_show',  { 'id': '16'}) }}">
-                                            Porfolio Guidelines.
-                                        </a>
-                                    </p>
-                                </div>
-                                <a href="{{ entity.checklist.portfolio }}"
-                                   target="_blank">{{ entity.checklist.portfolio }}</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endif %}
-
-
-
-
-            {#  *********************** Capstones For Review *********************** #}
-            {# check to see if user is Faculty and has capstone mentees #}
-            {% if entity.progress.name=='Faculty' or is_granted('ROLE_SUPER_ADMIN') %}
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingSix">
-                        <h5 class="mb-0 inline">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseSix"
-                               aria-expanded="false" aria-controls="collapseSix">
-                                Capstones for your Review
+                    <div class="alert alert-info margin-top" role="alert">
+                        <p>For more information about your portfolio, see our <a
+                                    href="{{ path('page_show',  { 'id': '16'}) }}">
+                                Porfolio Guidelines.
                             </a>
-                        </h5>
+                        </p>
                     </div>
-                    <div id="collapseSix" class="collapse" role="tabpanel" aria-labelledby="headingSix">
-                        <div class="card-block">
-                            {% if mentees is defined %}
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>Name (Email)</th>
-                                        <th>School: Program</th>
-                                        <th>Capstone Term</th>
-                                        <th>Graduation Term</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for entity in mentees %}
-                                        <tr>
-                                            <td>
-                                                <a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
-                                                    , {{ entity.firstname }}</a> ({{ entity.email }})
-                                            </td>
-                                            <td>
-                                                {% if entity.program %}
-                                                    {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
-                                                    {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
-                                                    {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
-                                                    {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}
-                                                {% endif %}
-
-
-                                            </td>
-                                            <td>
-                                                {% if entity.checklist %}
-                                                    {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                {% if entity.program %}
-                                                    {{ entity.program.graddate }} {{ entity.program.gradterm }}
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            {% else %}
-                                <p>You have no capstones for review at this time.</p>
-                            {% endif %}
-                        </div>
-                    </div>
+                    <a href="{{ entity.checklist.portfolio }}"
+                       target="_blank">{{ entity.checklist.portfolio }}</a>
                 </div>
             {% endif %}
-        </div>
+        {% endif %}
+
+
+
+
+        {#  *********************** Capstones For Review *********************** #}
+        {# check to see if user is Faculty and has capstone mentees #}
+        {% if entity.progress.name=='Faculty' or is_granted('ROLE_SUPER_ADMIN') %}
+            <div id="capstonesforreview" class="profile">
+                <h3>Capstones for your Review</h3>
+                {% if mentees is defined %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name (Email)</th>
+                            <th>School: Program</th>
+                            <th>Capstone Term</th>
+                            <th>Graduation Term</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in mentees %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
+                                        , {{ entity.firstname }}</a> ({{ entity.email }})
+                                </td>
+                                <td>
+                                    {% if entity.program %}
+                                        {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
+                                        {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
+                                        {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
+                                        {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}
+                                    {% endif %}
+
+
+                                </td>
+                                <td>
+                                    {% if entity.checklist %}
+                                        {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if entity.program %}
+                                        {{ entity.program.graddate }} {{ entity.program.gradterm }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>You have no capstones for review at this time.</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
     </div>
 {% endblock %}
