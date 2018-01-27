@@ -39,7 +39,6 @@ class UserController extends Controller
         $entity = $em->getRepository('AppBundle:User')->find($user);
         $notifications = $em->getRepository('AppBundle:Notification')->findCurrent($user);
 
-        $mentees = $em->getRepository('AppBundle:User')->findCapstonementees($user);
         $status = $em->getRepository('AppBundle:Status')->findAllSorted();
 
         if (!$entity) {
@@ -58,6 +57,7 @@ class UserController extends Controller
         else {
             return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
         }
+
         return array(
             'entity' => $entity,
             'mentees' => $mentees,

@@ -89,7 +89,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     /**
      * Find student users
      *
-     * @return User
+     * @return Capstone
      */
     public function findCapstonementees($user)
     {

@@ -13,7 +13,7 @@
 
                     <ul class="nav navbar-sidenav">
 
-                        {% if app.user.username == entity.username or is_granted('ROLE_SUPER_ADMIN') %}
+                        {% if (app.user.username == entity.username  and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
                             <li class="nav-item"><a href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a></li>
 
                             <li class="nav-item"><a

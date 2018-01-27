@@ -22,10 +22,6 @@
                 $(".profile").hide();
                 $("#portfolio").show();
             });
-            $("#capstonesforreview_toggle").click(function () {
-                $(".profile").hide();
-                $("#capstonesforreview").show();
-            });
         });
     </script>
 {% endblock %}
@@ -43,7 +39,7 @@
 
         {# Name and notes #}
         <h2>Profile for {{ entity.firstname }} {{ entity.lastname }}</h2>
-        {% if app.user.username == entity.username %}
+        {% if app.user.username == entity.username and entity.progress.name!='Faculty' %}
             <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your
                 Checklist</a>
             <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Work on your Capstone</a>
@@ -57,21 +53,20 @@
             </p>
         {% endif %}
 
-
-        <ul class="nav nav-tabs margin-top margin-bottom">
-            <li class="nav-item"><a class="nav-link" id="notifications_toggle"
-                                    href="javascript:void(0);">Notifications</a></li>
-            <li class="nav-item"><a class="nav-link" id="mentoring_toggle" href="javascript:void(0);">Mentoring</a></li>
-            <li class="nav-item"><a class="nav-link" id="portfolio_toggle" href="javascript:void(0);">Portfolio</a></li>
-            {% if is_granted('ROLE_MENTOR') %}
-                <li class="nav-item"><a class="nav-link" id="capstonesforreview_toggle" href="javascript:void(0);">Capstones
-                        for Review</a></li>
-            {% endif %}
-            {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <li class="nav-item"><a class="nav-link" id="directornotes_toggle" href="javascript:void(0);">Director
-                        Notes</a></li>
-            {% endif %}
-        </ul>
+        {% if (app.user.username == entity.username and entity.progress.name!='Faculty')  or is_granted('ROLE_SUPER_ADMIN') %}
+            <ul class="nav nav-tabs margin-top margin-bottom">
+                <li class="nav-item"><a class="nav-link" id="notifications_toggle"
+                                        href="javascript:void(0);">Notifications</a></li>
+                <li class="nav-item"><a class="nav-link" id="mentoring_toggle" href="javascript:void(0);">Mentoring</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" id="portfolio_toggle" href="javascript:void(0);">Portfolio</a>
+                </li>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li class="nav-item"><a class="nav-link" id="directornotes_toggle" href="javascript:void(0);">Director
+                            Notes</a></li>
+                {% endif %}
+            </ul>
+        {% endif %}
 
         {# *********************** Notifications *********************** #}
         {# set variables for checkpoints #}
@@ -79,7 +74,7 @@
         {% set upcoming = 0 %}
 
         {# check to see if profile matches currrent user #}
-        {% if app.user.username == entity.username  or is_granted('ROLE_ADMIN') %}
+        {% if (app.user.username == entity.username and entity.progress.name!='Faculty')  or is_granted('ROLE_SUPER_ADMIN') %}
             {% if entity.notifications %}
                 {% set count_notifications = notifications|length %}
                 {# count checkpoint deadlines #}
@@ -243,10 +238,10 @@
 
         {#  *********************** Capstones For Review *********************** #}
         {# check to see if user is Faculty and has capstone mentees #}
-        {% if entity.progress.name=='Faculty' or is_granted('ROLE_SUPER_ADMIN') %}
-            <div id="capstonesforreview" class="profile">
+        {% if is_granted('ROLE_MENTOR') %}
+            <div id="capstonesforreview">
                 <h3>Capstones for your Review</h3>
-                {% if mentees is defined %}
+                {% if entity.capstoneMentees %}
                     <table class="table">
                         <thead>
                         <tr>
@@ -257,30 +252,30 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for entity in mentees %}
+                        {% for entity in entity.capstoneMentees %}
                             <tr>
                                 <td>
-                                    <a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
-                                        , {{ entity.firstname }}</a> ({{ entity.email }})
+                                    <a href="{{ path('capstone_show', { 'id': entity.user.id }) }}">{{ entity.user.lastname }}
+                                        , {{ entity.user.firstname }}</a> ({{ entity.user.email }})
                                 </td>
                                 <td>
-                                    {% if entity.program %}
-                                        {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
-                                        {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
-                                        {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
-                                        {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}
+                                    {% if entity.user.program %}
+                                        {% if entity.user.program.school1 %}{{ entity.user.program.school1.name }}{% else %}{{ entity.user.program.school }}{% endif %}
+                                        {% if entity.user.program.major1 %}:: {{ entity.user.program.major1.name }}{% else %}{{ entity.user.program.program }}{% endif %}
+                                        {% if entity.user.program.school2 %}{{ entity.user.program.school2.name }}{% endif %}
+                                        {% if entity.user.program.major2 %}:: {{ entity.user.program.major2.name }}{% endif %}
                                     {% endif %}
 
 
                                 </td>
                                 <td>
-                                    {% if entity.checklist %}
-                                        {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
+                                    {% if entity.user.checklist %}
+                                        {{ entity.user.checklist.capstonedate }} {{ entity.user.checklist.capstoneterm }}
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if entity.program %}
-                                        {{ entity.program.graddate }} {{ entity.program.gradterm }}
+                                    {% if entity.user.program %}
+                                        {{ entity.user.program.graddate }} {{ entity.user.program.gradterm }}
                                     {% endif %}
                                 </td>
                             </tr>
