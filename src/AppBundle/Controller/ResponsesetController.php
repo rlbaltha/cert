@@ -91,13 +91,14 @@ class ResponsesetController extends Controller
         $em->flush();
 
         $email = $capstone->getUser()->getEmail();
-        $text = '<p>The Certificate Director has reviewed your work plan.  
-         <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Login</a> and check
-         <strong>Reviews</strong> under the <strong>Capstone</strong> tab.</p>
-         <p>Thanks for your good work and all you are doing for sustainability at UGA.</p>';
+        $text = '<p>Your workplan has received a review.  
+         <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Login</a> and check the
+         <strong>Reviews</strong> tab of your <strong>Capstone</strong>.</p>
+         <p>Thanks for your good work and all you are doing for sustainability.</p>
+         <p>The Cert Bot</p>';
 
         $message = \Swift_Message::newInstance()
-            ->setSubject('Director Review')
+            ->setSubject('Capstone Review')
             ->setFrom('scdirector@uga.edu')
             ->setTo($email)
             ->setBcc('scdirector@uga.edu')
