@@ -134,7 +134,7 @@ class User extends BaseUser
     protected $progress;
 
     /**
-     * @ORM\OneToMany(targetEntity="Capstone", mappedBy="capstone_mentor")
+     * @ORM\ManyToMany(targetEntity="Capstone", mappedBy="capstone_mentor")
      */
     private $capstone_mentees;
 

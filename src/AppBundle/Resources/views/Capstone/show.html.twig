@@ -48,12 +48,8 @@
     <div class="col-sm-8 col-xs-12">
 
         {#  *********************** Capstone Workplan *********************** #}
-        <h2>Capstone  for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
-
-        {% if app.user.username == entity.username %}
-            <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Return to your Profile</a>
-            <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your Checklist</a>
-        {% endif %}
+        <h2>Capstone
+            for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
 
         {% if entity.capstone %}
             {% for tag in entity.capstone.tags %}
@@ -61,6 +57,14 @@
                      style="background-color: {{ tag.color }}">{{ tag.title }}</div>
             {% endfor %}
         {% endif %}
+        </hr>
+        {% if app.user.username == entity.username %}
+            <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Return to your Profile</a>
+            <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your
+                Checklist</a>
+        {% endif %}
+
+
 
         <ul class="nav nav-tabs margin-top">
             <li class="nav-item">
@@ -162,13 +166,13 @@
                             {% if entity.capstone %}
                                 {# Mark Ready for Peer or Director Review #}
                                 <a class="btn btn-primary {% if entity.capstone.status == 'Ready for Director Review' or entity.capstone.status == 'Approved'
-                                    or entity.capstone.status == 'Ready for Peer Review' or entity.capstone.status == 'Completed' %}hidden{% endif %}"
+                                or entity.capstone.status == 'Ready for Peer Review' or entity.capstone.status == 'Completed' %}hidden{% endif %}"
                                    href="{{ path('capstone_ready',  { 'id': entity.capstone.id , 'type':'Peer'}) }}">
                                     Ready for Review
                                 </a>
 
                                 <a class="btn btn-primary {% if entity.capstone.responsesets|length < 2 or entity.capstone.status == 'Ready for Director Review' or entity.capstone.status == 'Approved'
-                                    or entity.capstone.status == 'Completed' %}hidden{% endif %}"
+                                or entity.capstone.status == 'Completed' %}hidden{% endif %}"
                                    href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
                                     Ready for Director
                                 </a>
@@ -206,8 +210,8 @@
                         <td>{{ entity.capstone.description|raw }}</td>
                     </tr>
                     <tr>
-                        <th>Mentor</th>
-                        <td>{% if entity.capstone.capstoneMentor %}{{ entity.capstone.capstoneMentor.name }} {{ entity.capstone.capstoneMentor.email }}{% endif %}</td>
+                        <th>Mentors/Reviewers</th>
+                        <td>{% for mentor in entity.capstone.capstoneMentor %}{{ mentor.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
                     </tr>
                     <tr>
                         <th>Mentor Involvement</th>
@@ -413,19 +417,17 @@
                                 {# self review#}
                                 {% if app.user.username == entity.username %}
                                     <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': entity.id }) }}"
-                                       class="">{{ entity.firstname }} {{ entity.lastname }}
-                                        (progress
-                                        update),</a>
+                                       class="">{{ entity.firstname }} {{ entity.lastname }},</a>
                                 {% else %}{{ entity.firstname }} {{ entity.lastname }},
                                 {% endif %}
                                 {# mentor and director review#}
-                                {% if checkpoint.project.capstone.capstoneMentor %}
-                                    {% if app.user.username == checkpoint.project.capstone.capstoneMentor.username %}
-                                        <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': checkpoint.project.capstone.capstoneMentor.id }) }}"
-                                           class="">{{ checkpoint.project.capstone.capstoneMentor.name }} </a>
-                                    {% else %}{{ checkpoint.project.capstone.capstoneMentor.name }},
-                                    {% endif %}
-                                {% endif %}
+                                {% for mentor in checkpoint.project.capstone.capstoneMentor %}
+                                    {% if app.user.username == mentor.username %}
+                                        <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': mentor.id }) }}"
+                                           class="">{{ mentor.name }} </a>
+                                    {% else %}{{ mentor.name }}{% endif %}
+                                    {% if not loop.last %}, {% endif %}
+                                {% endfor %}
                                 {# other selected reviewer#}
                                 {% for reviewer in checkpoint.reviewers %}
                                     {% if app.user.username == reviewer.username %}

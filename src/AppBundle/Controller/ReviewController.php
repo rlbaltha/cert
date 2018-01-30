@@ -61,7 +61,7 @@ class ReviewController extends Controller
             $em->flush();
 
             if ($entity->getCheckpoint()->getProject()->getCapstone()) {
-                return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getCheckpoint()->getProject()->getUser()->getId())));
+                return $this->redirect($this->generateUrl('capstone_show', array('id' => $entity->getCheckpoint()->getProject()->getUser()->getId())));
             }
             else {
                 return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getCheckpoint()->getProject()->getId())));
@@ -216,7 +216,7 @@ class ReviewController extends Controller
             $em->flush();
 
             if ($entity->getCheckpoint()->getProject()->getCapstone()) {
-                return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getCheckpoint()->getProject()->getUser()->getId())));
+                return $this->redirect($this->generateUrl('capstone_show', array('id' => $entity->getCheckpoint()->getProject()->getUser()->getId())));
             }
             else {
                 return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getCheckpoint()->getProject()->getId())));

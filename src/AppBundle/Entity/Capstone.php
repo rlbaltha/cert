@@ -194,7 +194,7 @@ class Capstone
     private $responsesets;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="capstone_mentees")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="capstone_mentees")
      */
     private $capstone_mentor;
 
@@ -909,30 +909,7 @@ class Capstone
     {
         return $this->mentor_expectations;
     }
-
-    /**
-     * Set capstoneMentor
-     *
-     * @param \AppBundle\Entity\User $capstoneMentor
-     *
-     * @return Capstone
-     */
-    public function setCapstoneMentor(\AppBundle\Entity\User $capstoneMentor = null)
-    {
-        $this->capstone_mentor = $capstoneMentor;
-
-        return $this;
-    }
-
-    /**
-     * Get capstoneMentor
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getCapstoneMentor()
-    {
-        return $this->capstone_mentor;
-    }
+    
 
     /**
      * Set repeatinfo
@@ -956,5 +933,39 @@ class Capstone
     public function getRepeatinfo()
     {
         return $this->repeatinfo;
+    }
+
+    /**
+     * Add capstoneMentor
+     *
+     * @param \AppBundle\Entity\User $capstoneMentor
+     *
+     * @return Capstone
+     */
+    public function addCapstoneMentor(\AppBundle\Entity\User $capstoneMentor)
+    {
+        $this->capstone_mentor[] = $capstoneMentor;
+
+        return $this;
+    }
+
+    /**
+     * Remove capstoneMentor
+     *
+     * @param \AppBundle\Entity\User $capstoneMentor
+     */
+    public function removeCapstoneMentor(\AppBundle\Entity\User $capstoneMentor)
+    {
+        $this->capstone_mentor->removeElement($capstoneMentor);
+    }
+
+    /**
+     * Get capstoneMentor
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCapstoneMentor()
+    {
+        return $this->capstone_mentor;
     }
 }

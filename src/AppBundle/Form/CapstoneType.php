@@ -52,8 +52,8 @@ class CapstoneType extends AbstractType
                         ->addOrderBy('u.lastname', 'ASC')
                         ->addOrderBy('u.firstname', 'ASC');
                 },
-                'required' => false, 'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Mentor', 'attr' => array('class' =>
-                    'form-control'),))
+                'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Mentor', 'attr' => array('class' =>
+                    ''),))
             ->add(
                 'mentor_expectations',
                 'ckeditor',

@@ -15,12 +15,12 @@ class ReviewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('status', 'choice', array('choices' => array('Complete' => 'Complete','Incomplete' => 'Incomplete',),
+            ->add('status', 'choice', array('choices' => array('Needs Improvement' => 'Needs Improvement','Incomplete' => 'Incomplete','Complete' => 'Complete'),
                 'required' =>  true,
-                'expanded' => false,
+                'expanded' => true,
                 'multiple' => false,
                 'label' => 'Recommended Status for this Checkpoint',
-                'attr' => array('class' => 'form-control'),))
+                'attr' => array('class' => ''),))
             ->add('body', 'ckeditor', array('config_name' => 'editor_simple','label' => 'Notes on the progress of this checkpoint.',))
 
         ;
