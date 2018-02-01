@@ -30,16 +30,6 @@ class CheckpointType extends AbstractType
                 'multiple' => false,
                 'label' => 'Status',
                 'attr' => array('class' => ''),))
-            ->add('reviewers', 'entity', array('class' => 'AppBundle\Entity\User',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->join('u.progress', 'p')
-                        ->andWhere("u.progress = '15' or u.progress = '16'  or u.progress = '7'")
-                        ->addOrderBy('u.lastname', 'ASC')
-                        ->addOrderBy('u.firstname', 'ASC');
-                },
-                'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Reviewers', 'attr' => array('class' =>
-                    'checkbox'),))
             ->add('lead', 'text', array('required' => false,'label' => 'Lead Person', 'attr' => array('class' => 'text form-control'),));
     }
 

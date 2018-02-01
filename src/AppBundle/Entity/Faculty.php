@@ -75,7 +75,7 @@ class Faculty
      *
      * @ORM\Column(name="mentor", type="string", length=255, nullable=true)
      */
-    private $mentor='no';
+    private $mentor='yes';
 
     /**
      * @ORM\ManyToMany(targetEntity="Course")

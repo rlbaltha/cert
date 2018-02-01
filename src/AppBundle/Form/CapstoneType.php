@@ -33,6 +33,10 @@ class CapstoneType extends AbstractType
                 )
             )
             ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->andWhere("t.type = 'resource'");
+                },
                 'property' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Tags: Please select as many as are appropriate (limit 5)', 'attr' => array('class' =>
                     'checkbox'),))
             ->add(
@@ -47,8 +51,8 @@ class CapstoneType extends AbstractType
             ->add('capstoneMentor', 'entity', array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
-                        ->join('u.tags', 't')
-                        ->andWhere("t.title = 'Faculty'")
+                        ->join('u.facultylisting', 'f')
+                        ->andWhere("f.mentor = 'Yes'")
                         ->addOrderBy('u.lastname', 'ASC')
                         ->addOrderBy('u.firstname', 'ASC');
                 },
