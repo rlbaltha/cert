@@ -109,7 +109,7 @@ class CapstoneType extends AbstractType
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'Project Goals: What are at least 3 long-term, concrete goals? Project goals should be Specific, Measurable, Attainable, Relevant, and Timely (SMART).',
+                    'label' => 'Targets: What are at least 3 long-term, concrete targets? Targets should be Specific, Measurable, Attainable, Relevant, and Timely (SMART).',
                     'config_name' => 'editor_simple',
                 )
             )
@@ -128,7 +128,7 @@ class CapstoneType extends AbstractType
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'Success Metrics: How will you know that your project was a success? What qualitative/quantitative metrics will you use to demonstrate this?',
+                    'label' => 'Indicators: How will you know that your project was a success? What qualitative/quantitative metrics will you use to demonstrate this?',
                     'config_name' => 'editor_simple',
                 )
             )
