@@ -75,7 +75,7 @@ class CheckpointController extends Controller
             $em->flush();
 
             if ($project->getCapstone()) {
-                return $this->redirect($this->generateUrl('user_profile'));
+                return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
             }
             else {
                 return $this->redirect($this->generateUrl('project_show', array('id' => $id)));
@@ -164,16 +164,10 @@ class CheckpointController extends Controller
         $entity->setName($name);
         if ($project->getCapstone()) {
             $entity->setType('Capstone');
-            $mentor = $project->getCapstone()->getCapstoneMentor();
-            $director = $project = $em->getRepository('AppBundle:User')->findDirector();
-
-            if ($director) {
-                $entity->addReviewer($director);
-            }
-            if ($mentor) {
+            $mentors = $project->getCapstone()->getCapstoneMentor();
+            foreach ($mentors as $mentor) {
                 $entity->addReviewer($mentor);
             }
-
         }
         else {
             $entity->setType('Admin');
@@ -274,6 +268,7 @@ class CheckpointController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
 
         $entity = $em->getRepository('AppBundle:Checkpoint')->find($id);
 
@@ -289,7 +284,7 @@ class CheckpointController extends Controller
             $em->flush();
 
             if ($entity->getProject()->getCapstone()) {
-                return $this->redirect($this->generateUrl('user_profile'));
+                return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
             }
             else {
                 return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getProject()->getId())));
