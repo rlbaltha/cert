@@ -77,7 +77,7 @@ class CheckpointRepository extends \Doctrine\ORM\EntityRepository
         $status = 'Opened';
         $sdate = strtotime("-1 day");
         $startdate = date("Y-m-d", $sdate);
-        $edate = strtotime("+3 day");
+        $edate = strtotime("+4 day");
         $enddate = date("Y-m-d", $edate);
         $events = $this->createQueryBuilder('c')
             ->join('c.project','p')
