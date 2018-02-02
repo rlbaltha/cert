@@ -43,7 +43,8 @@ class SendMailCommand extends ContainerAwareCommand
             $deadline = $c->getDeadline();
             $user = $c->getProject()->getCapstone()->getUser()->getName();
             $email = $c->getProject()->getCapstone()->getUser()->getEmail();
-            $text = $user. ', you have a task deadline on '. $deadline->format('m-d-Y h:i A'). '.  Please <a href="https://www.sustain.uga.edu/user/profile" target="_blank">login</a> and review.';
+            $text = $user. ', you have a task deadline on '. $deadline->format('m-d-Y h:i A'). '.  Please <a href="https://www.sustain.uga.edu/user/profile" target="_blank">login</a> and review.
+            Thanks for all your good work!';
             $message = \Swift_Message::newInstance()
                 ->setSubject('Certificate Timeline Task: '. $name)
                 ->setFrom('scdirector@uga.edu')
