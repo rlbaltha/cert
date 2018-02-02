@@ -75,9 +75,9 @@ class CheckpointRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findCurrentForMail() {
         $status = 'Opened';
-        $sdate = strtotime("-3 day");
+        $sdate = strtotime("-1 day");
         $startdate = date("Y-m-d", $sdate);
-        $edate = strtotime("+1 day");
+        $edate = strtotime("+3 day");
         $enddate = date("Y-m-d", $edate);
         $events = $this->createQueryBuilder('c')
             ->join('c.project','p')
