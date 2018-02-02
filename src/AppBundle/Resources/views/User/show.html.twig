@@ -22,6 +22,10 @@
                 $(".profile").hide();
                 $("#portfolio").show();
             });
+            $("#capstones_toggle").click(function () {
+                $(".profile").hide();
+                $("#capstonesforreview").show();
+            });
         });
     </script>
 {% endblock %}
@@ -53,14 +57,22 @@
             </p>
         {% endif %}
 
-        {% if (app.user.username == entity.username and entity.progress.name!='Faculty')  or is_granted('ROLE_SUPER_ADMIN') %}
+        {% if app.user.username == entity.username %}
             <ul class="nav nav-tabs margin-top margin-bottom">
                 <li class="nav-item"><a class="nav-link" id="notifications_toggle"
                                         href="javascript:void(0);">Notifications</a></li>
-                <li class="nav-item"><a class="nav-link" id="mentoring_toggle" href="javascript:void(0);">Mentoring</a>
-                </li>
-                <li class="nav-item"><a class="nav-link" id="portfolio_toggle" href="javascript:void(0);">Portfolio</a>
-                </li>
+                {% if entity.capstoneMentees|length > 0 %}
+                    <li class="nav-item"><a class="nav-link" id="capstones_toggle" href="javascript:void(0);">Capstones
+                            for Review</a></li>
+                {% endif %}
+                {% if entity.progress.name!='Faculty' %}
+                    <li class="nav-item"><a class="nav-link" id="mentoring_toggle"
+                                            href="javascript:void(0);">Mentoring</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" id="portfolio_toggle"
+                                            href="javascript:void(0);">Portfolio</a>
+                    </li>
+                {% endif %}
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <li class="nav-item"><a class="nav-link" id="directornotes_toggle" href="javascript:void(0);">Director
                             Notes</a></li>
@@ -238,8 +250,8 @@
 
         {#  *********************** Capstones For Review *********************** #}
         {# check to see if user is Faculty and has capstone mentees #}
-        {% if entity.facultylisting %}
-            <div id="capstonesforreview">
+        {% if entity.capstoneMentees|length > 0 %}
+            <div id="capstonesforreview" class="profile">
                 <h3>Capstones for your Review</h3>
                 {% if entity.capstoneMentees %}
                     <table class="table">

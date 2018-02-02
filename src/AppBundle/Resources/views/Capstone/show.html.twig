@@ -51,19 +51,11 @@
         <h2>Capstone
             for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
 
-        {% if entity.capstone %}
-            {% for tag in entity.capstone.tags %}
-                <div class="btn btn-primary btn-sm tag{{ tag.id }}"
-                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-            {% endfor %}
-        {% endif %}
-        </hr>
+        <a class='btn btn-primary' href="{{ path('user_show', { 'id': app.user.id }) }}">Return to your Profile</a>
         {% if app.user.username == entity.username %}
-            <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Return to your Profile</a>
-            <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your
+                        <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your
                 Checklist</a>
         {% endif %}
-
 
 
         <ul class="nav nav-tabs margin-top">
@@ -83,6 +75,13 @@
             <div class="toggle" id="workplan_div">
 
                 <h4>Work Plan</h4>
+
+                {% if entity.capstone %}
+                    {% for tag in entity.capstone.tags %}
+                        <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                    {% endfor %}
+                {% endif %}
                 {#  *********************** Capstone Instructions  *********************** #}
                 <div class="alert alert-info margin-top" role="alert">
                     {% if app.user.username != entity.program.user.username %}
