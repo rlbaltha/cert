@@ -74,7 +74,7 @@
         {% set upcoming = 0 %}
 
         {# check to see if profile matches currrent user #}
-        {% if (app.user.username == entity.username and entity.progress.name!='Faculty')  or is_granted('ROLE_SUPER_ADMIN') %}
+        {% if app.user.username == entity.username %}
             {% if entity.notifications %}
                 {% set count_notifications = notifications|length %}
                 {# count checkpoint deadlines #}
@@ -238,7 +238,7 @@
 
         {#  *********************** Capstones For Review *********************** #}
         {# check to see if user is Faculty and has capstone mentees #}
-        {% if is_granted('ROLE_MENTOR') %}
+        {% if entity.facultylisting %}
             <div id="capstonesforreview">
                 <h3>Capstones for your Review</h3>
                 {% if entity.capstoneMentees %}
