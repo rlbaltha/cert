@@ -38,6 +38,10 @@
             });
             $("#checkpoints_div").hide();
             $("#reviews_div").hide();
+            $(".card-title").click(function () {
+                $(this).parent().next().toggle();
+                $(this).next().toggle();
+            });
             $(".hidden").hide();
         });
     </script>

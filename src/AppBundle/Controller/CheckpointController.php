@@ -99,6 +99,7 @@ class CheckpointController extends Controller
     public function completeAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
 
         $checkpoint = $em->getRepository('AppBundle:Checkpoint')->find($id);
         $dt = new \DateTime();
@@ -108,7 +109,7 @@ class CheckpointController extends Controller
         $em->flush();
 
         if ($checkpoint->getProject()->getCapstone()) {
-            return $this->redirect($this->generateUrl('user_profile'));
+            return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
         }
         else {
             return $this->redirect($this->generateUrl('project_show', array('id' => $checkpoint->getProject()->getId())));
