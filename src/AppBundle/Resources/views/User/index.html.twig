@@ -53,8 +53,7 @@
                     </button>
                     <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
                         <a class="btn btn-secondary btn-sm" style="background-color: green;color:white;" href="{{ path('user', {'type': 'all'}) }}">All Accounts</a>
-                        <br/><br/>
-                        <a class="btn btn-primary btn-sm" href="{{ path('user', {'type': 'students'}) }}">All Students</a>
+                        <a class="btn btn-primary btn-sm" href="{{ path('user', {'type': 'students'}) }}">Students</a>
                         <br/><br/>
                         {% for tag in tags if tag.subs|length > 0 %}
                             <div id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"

@@ -68,4 +68,25 @@ class CheckpointRepository extends \Doctrine\ORM\EntityRepository
         return $events;
     }
 
+    /**
+     * Find all upcoming checkpoints
+     *
+     * @return Checkpoint
+     */
+    public function findCurrentForMail() {
+        $status = 'Opened';
+        $date = strtotime("-7 day");
+        $startdate = date("Y-m-d", $date);
+        $events = $this->createQueryBuilder('c')
+            ->join('c.project','p')
+            ->andWhere('c.status = :status')
+            ->andWhere('c.deadline >= :startdate')
+            ->orderBy('c.deadline', 'ASC')
+            ->setParameter('status',$status)
+            ->setParameter('startdate',$startdate)
+            ->getQuery()
+            ->getResult();
+        return $events;
+    }
+
 }

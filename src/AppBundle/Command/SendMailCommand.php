@@ -35,13 +35,16 @@ class SendMailCommand extends ContainerAwareCommand
     {
         // access the container using getContainer()
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $current = $em->getRepository('AppBundle:Notification')->findCurrentShared();
-        foreach($current as $c)
+
+        $currentCheckpoints = $em->getRepository('AppBundle:Checkpoint')->findCurrentForMail();
+        $output->writeln(count($currentCheckpoints) . " notifications sent!");
+        foreach($currentCheckpoints as $c)
         {
-            $name = 'Test';
-            $text = $c->getBody();
+            $name = $c->getName();
+            $deadline = $c->getDeadline();
+            $text = 'You have a task deadline on'. $deadline->format('Y-m-d H:i:s'). 'Please login and review your task.';
             $message = \Swift_Message::newInstance()
-                ->setSubject('Certificate Notification')
+                ->setSubject('Certificate Task Deadline')
                 ->setFrom('scdirector@uga.edu')
                 ->setTo('ron.balthazor@gmail.com')
                 ->setCc('ron.balthazor@gmail.com')
@@ -56,7 +59,29 @@ class SendMailCommand extends ContainerAwareCommand
             $this->getContainer()->get('mailer')->send($message);
         }
 
-        $output->writeln(count($current) . " notifications sent!");
+
+//        $current = $em->getRepository('AppBundle:Notification')->findCurrentShared();
+//        foreach($current as $c)
+//        {
+//            $name = 'Test';
+//            $text = $c->getBody();
+//            $message = \Swift_Message::newInstance()
+//                ->setSubject('Certificate Notification')
+//                ->setFrom('scdirector@uga.edu')
+//                ->setTo('ron.balthazor@gmail.com')
+//                ->setCc('ron.balthazor@gmail.com')
+//                ->setBody(
+//                    $this->getContainer()->get('twig')->render(
+//
+//                        'AppBundle:Email:apply.html.twig',
+//                        array('name' => $name,
+//                            'text' => $text)
+//                    ),
+//                    'text/html');
+//            $this->getContainer()->get('mailer')->send($message);
+//        }
+
+        $output->writeln(count($currentCheckpoints) . " notifications sent!");
 
     }
 }
