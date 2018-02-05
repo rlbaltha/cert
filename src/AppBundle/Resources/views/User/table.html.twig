@@ -27,6 +27,10 @@
                 {% endfor %}
                 </tbody>
             </table>
+
+            <p>Email
+                list: <span id="email_list">{% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</span></p>
+
         </div>
 
     </div>
