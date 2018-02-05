@@ -107,22 +107,17 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/table/{type}", name="user_table", defaults={"type" = "all"})
+     * @Route("/table/{tag}", name="user_table")
      * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function tableAction($type)
+    public function tableAction($tag)
     {
         $em = $this->getDoctrine()->getManager();
-        if ($type == 'all') {
-            $entities = $em->getRepository('AppBundle:User')->findAll();
-        } elseif ($type == 'students') {
-            $entities = $em->getRepository('AppBundle:User')->findStudents();
-        } else {
-            $type = $em->getRepository('AppBundle:Status')->find($type);
-            $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
-        }
+        $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
+        $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());
+
         $status = $em->getRepository('AppBundle:Status')->findAll();
         return array(
             'entities' => $entities,
@@ -361,7 +356,12 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $entity->addTag($tag1);
+        $tags = $entity->getTags();
+
+        if (!in_array($tag1, $tags->toArray(), TRUE)) {
+            $entity->addTag($tag1);
+        }
+
         $entity->addTag($tag2);
         $em->persist($entity);
         $em->flush();
@@ -381,14 +381,19 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:User')->find($id);
-        $tag1 = $em->getRepository('AppBundle:Tag')->find(103);
-        $tag2 = $em->getRepository('AppBundle:Tag')->find(104);
+        $tag1 = $em->getRepository('AppBundle:Tag')->find(102);
+        $tag2 = $em->getRepository('AppBundle:Tag')->find(103);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Program entity.');
         }
 
-        $entity->addTag($tag1);
+        $tags = $entity->getTags();
+
+        if (!in_array($tag1, $tags->toArray(), TRUE)) {
+            $entity->addTag($tag1);
+        }
+
         $entity->addTag($tag2);
         $em->persist($entity);
         $em->flush();
@@ -434,8 +439,10 @@ class UserController extends Controller
     public function mappingAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $mentors = $em->getRepository('AppBundle:User')->findPeerMentors();
-        $mentees = $em->getRepository('AppBundle:User')->findMentees();
+        $tag1 = $em->getRepository('AppBundle:Tag')->findOneByTitle('Mentor');
+        $tag2 = $em->getRepository('AppBundle:Tag')->findOneByTitle('Mentee');
+        $mentors = $em->getRepository('AppBundle:User')->findByTag($tag1);
+        $mentees = $em->getRepository('AppBundle:User')->findByTag($tag2);
         $status = $em->getRepository('AppBundle:Status')->findAllSorted();
         return array(
             'mentors' => $mentors,

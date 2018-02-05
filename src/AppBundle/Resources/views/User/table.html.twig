@@ -12,8 +12,8 @@
                 <tr>
                     <th>Last Name</th>
                     <th>First Name</th>
-                    <th>MyId</th>
                     <th>Email</th>
+                    <th>Portfolio</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -21,8 +21,8 @@
                     <tr>
                         <td>{{ entity.lastname }}</td>
                         <td>{{ entity.firstname }}</td>
-                        <td>{{ entity.username }}</td>
                         <td>{{ entity.email }}</td>
+                        <td>{% if entity.checklist %}<a href="{{ entity.checklist.portfolio }}" target="_blank">{{ entity.checklist.portfolio }}</a>{% endif %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

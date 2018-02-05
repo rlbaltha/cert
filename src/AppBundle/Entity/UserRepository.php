@@ -129,6 +129,28 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return User
      */
+    public function findByTag($tagid)
+    {
+        $users = $this->createQueryBuilder('u')
+            ->join('u.progress', 'p')
+            ->join('u.program', 'pr')
+            ->andWhere(':tag MEMBER OF u.tags')
+            ->addOrderBy('pr.graddate', 'ASC')
+            ->addOrderBy('pr.gradterm', 'DESC')
+            ->addOrderBy('u.lastname', 'ASC')
+            ->addOrderBy('u.firstname', 'ASC')
+            ->setParameter('tag', $tagid)
+            ->getQuery()
+            ->getResult();
+        return $users;
+    }
+
+
+    /**
+     * Find student users
+     *
+     * @return User
+     */
     public function findMentees()
     {
         $users = $this->createQueryBuilder('u')

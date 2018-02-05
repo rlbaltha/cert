@@ -28,7 +28,8 @@ class AdminType extends AbstractType
                     return $er->createQueryBuilder('u')
                         ->join('u.progress', 'p')
                         ->join('u.program', 'pr')
-                        ->andWhere("pr.mentor = 'More'")
+                        ->andWhere(':tag MEMBER OF u.tags')
+                        ->setParameter('tag', '103')
                         ->addOrderBy('u.lastname', 'ASC')
                         ->addOrderBy('u.firstname', 'ASC');
                 },
