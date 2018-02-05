@@ -209,6 +209,7 @@ class ChecklistController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Checklist entity.
      *

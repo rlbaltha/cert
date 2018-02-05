@@ -214,6 +214,52 @@ class SubstitutionController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+
+    /**
+     * Edits an existing Substitution entity.
+     *
+     * @Route("/approve/{id}", name="substitution_approve")
+     * @Method("GET")
+     * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function approveAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Substitution')->find($id);
+        $user = $entity->getChecklist()->getUser();
+        $entity->setStatus('Approved');
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('checklist_show', array('id' => $user->getId())));
+
+    }
+
+    /**
+     * Edits an existing Substitution entity.
+     *
+     * @Route("/deny/{id}", name="substitution_deny")
+     * @Method("GET")
+     * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function denyAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Substitution')->find($id);
+        $user = $entity->getChecklist()->getUser();
+        $entity->setStatus('Denied');
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('checklist_show', array('id' => $user->getId())));
+
+    }
+
     /**
      * Deletes a Substitution entity.
      *

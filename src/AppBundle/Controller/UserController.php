@@ -434,7 +434,7 @@ class UserController extends Controller
      * @Route("/mapping/mentor", name="user_mentor_mapping")
      * @Method("GET")
      * @Template("AppBundle:User:mentormapping.html.twig")
-     * @Security("has_role('ROLE_USER')")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function mappingAction()
     {

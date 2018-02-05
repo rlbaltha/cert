@@ -242,6 +242,8 @@
                     Apply for a substitution for one of the requirements
                 </a>
             {% endif %}
+
+
             <p>{{ entity.checklist.exceptions | raw }}</p>
 
             {% for substitution in entity.checklist.substitutions %}
@@ -249,7 +251,18 @@
                     <a class="btn btn-primary float-sm-right"
                        href="{{ path('substitution_edit', { 'id': substitution.id }) }}">
                         Edit
-                    </a></p>
+                    </a>
+                    {% if is_granted('ROLE_SUPER_ADMIN')%}
+                        <a class="btn btn-primary float-sm-right"
+                           href="{{ path('substitution_approve', { 'id': substitution.id }) }}">
+                            Approve
+                        </a>
+                        <a class="btn btn-primary float-sm-right"
+                           href="{{ path('substitution_deny', { 'id': substitution.id }) }}">
+                            Deny
+                        </a>
+                    {% endif %}
+                </p>
                 <p>{{ substitution.description|raw }}</p>
                 <hr/>
             {% endfor %}
