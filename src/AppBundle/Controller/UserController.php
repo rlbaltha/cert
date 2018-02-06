@@ -107,7 +107,7 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/table/{tag}", name="user_table")
+     * @Route("/table/{tag}", name="user_table", defaults={"tag" = "Checklist"})
      * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
@@ -115,6 +115,7 @@ class UserController extends Controller
     public function tableAction($tag)
     {
         $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
         $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
         $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());
 
@@ -122,6 +123,7 @@ class UserController extends Controller
         return array(
             'entities' => $entities,
             'status' => $status,
+            'tags' => $tags,
         );
     }
 
