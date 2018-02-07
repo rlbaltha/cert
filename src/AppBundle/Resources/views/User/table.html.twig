@@ -37,6 +37,11 @@
                         <td>{{ entity.email }}</td>
                         <td>{% if entity.checklist %}<a href="{{ entity.checklist.portfolio }}" target="_blank">{{ entity.checklist.portfolio }}</a>{% endif %}</td>
                     </tr>
+                    <tr>
+                        <td colspan="4">
+                          {% if entity.capstone %}{{ entity.capstone.description|raw }}{% endif %}</td>
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

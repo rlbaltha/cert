@@ -28,7 +28,8 @@ class CapstoneRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $capstones = $this->createQueryBuilder('c')
-            ->andWhere("c.status = :type")
+            ->join("c.user", "u")
+            ->andWhere("u. = :type")
             ->setParameter('type', $status)
             ->getQuery()
             ->getResult();

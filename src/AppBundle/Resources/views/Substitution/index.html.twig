@@ -22,10 +22,23 @@
                         </td>
                         <td>{{ entity.requirement }}</td>
                         <td>{{ entity.status }}</td>
-                        <td><a href="{{ path('substitution_edit', { 'id': entity.id }) }}">Approve</a></td>
+                        <td>
+                            {% if is_granted('ROLE_SUPER_ADMIN')%}
+                                <a class="btn btn-primary"
+                                   href="{{ path('substitution_approve', { 'id': entity.id }) }}">
+                                    Approve
+                                </a>
+                                <a class="btn btn-primary"
+                                   href="{{ path('substitution_deny', { 'id': entity.id }) }}">
+                                    Deny
+                                </a>
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
-                        <td colspan="4">{{ entity.description | raw}}</td>
+                        <td colspan="4">{{ entity.description | raw}}
+
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
