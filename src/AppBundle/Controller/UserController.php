@@ -69,37 +69,26 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/list/{type}", name="user", defaults={"type" = "all"})
+     * @Route("/list/{tag}", name="user", defaults={"tag" = "students"})
      * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function indexAction($type)
+    public function indexAction($tag)
     {
         $em = $this->getDoctrine()->getManager();
-        if ($type == 'all') {
+        if ($tag == 'all') {
             $entities = $em->getRepository('AppBundle:User')->findAccounts();
-        } elseif ($type == 'students') {
+        } elseif ($tag == 'students') {
             $entities = $em->getRepository('AppBundle:User')->findStudents();
-        } elseif ($type == '17') {
-            $entities = $em->getRepository('AppBundle:User')->findCapstones();
-        } elseif ($type == 'mentors') {
-            $entities = $em->getRepository('AppBundle:User')->findMentors();
-        } elseif ($type == 'mentees') {
-            $entities = $em->getRepository('AppBundle:User')->findMentees();
-        } elseif ($type == 'peermentors') {
-            $entities = $em->getRepository('AppBundle:User')->findPeerMentors();
-        } elseif ($type == '15') {
-            $entities = $em->getRepository('AppBundle:User')->findFaculty();
         } else {
-            $type = $em->getRepository('AppBundle:Status')->find($type);
-            $entities = $em->getRepository('AppBundle:User')->findUsersByType($type);
+            $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
+            $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());
         }
-        $status = $em->getRepository('AppBundle:Status')->findAllSorted();
+
         $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
         return array(
             'entities' => $entities,
-            'status' => $status,
             'tags' => $tags,
         );
     }
@@ -119,10 +108,8 @@ class UserController extends Controller
         $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
         $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());
 
-        $status = $em->getRepository('AppBundle:Status')->findAll();
         return array(
             'entities' => $entities,
-            'status' => $status,
             'tags' => $tags,
         );
     }
