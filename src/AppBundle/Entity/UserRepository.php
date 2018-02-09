@@ -132,8 +132,8 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function findByTag($tagid)
     {
         $users = $this->createQueryBuilder('u')
-            ->join('u.progress', 'p')
-            ->join('u.program', 'pr')
+            ->leftjoin('u.progress', 'p')
+            ->leftjoin('u.program', 'pr')
             ->andWhere(':tag MEMBER OF u.tags')
             ->addOrderBy('pr.graddate', 'ASC')
             ->addOrderBy('pr.gradterm', 'DESC')
