@@ -43,13 +43,20 @@ class SendMailCommand extends ContainerAwareCommand
             $deadline = $c->getDeadline();
             $user = $c->getProject()->getCapstone()->getUser()->getName();
             $email = $c->getProject()->getCapstone()->getUser()->getEmail();
-            $text = $user. ', you have a task deadline on '. $deadline->format('m-d-Y h:i A'). '.  Please <a href="https://www.sustain.uga.edu/user/profile" target="_blank">login</a> and review.
-            Thanks for all your good work!';
+            $mentors = $c->getProject()->getCapstone()->getCapstoneMentor();
+            $mentoremail = array();
+            foreach($mentors as $m)    {
+                $mentoremail[] = $m->getEmail();
+            }
+
+            $text = '<p>' .$user. ', you have a task deadline on <strong>'. $deadline->format('m-d-Y h:i A'). '</strong>.  Please <a href="https://www.sustain.uga.edu/user/profile" target="_blank">login</a> and review.
+            Thanks for all your good work! </p> <p>Mentors, please check in on the progress of this capstone. Thanks for mentoring.</p>';
             $message = \Swift_Message::newInstance()
-                ->setSubject('Certificate Timeline Task: '. $name)
+                ->setSubject('Sustainability Capstone Timeline Task: '. $name)
                 ->setFrom('scdirector@uga.edu')
                 ->setTo($email)
-                ->setCc('scdirector@uga.edu')
+                ->setCc($mentoremail)
+                ->setBcc('scdirector@uga.edu')
                 ->setBody(
                     $this->getContainer()->get('twig')->render(
 
@@ -60,7 +67,6 @@ class SendMailCommand extends ContainerAwareCommand
                     'text/html');
             $this->getContainer()->get('mailer')->send($message);
         }
-
 
     }
 }
