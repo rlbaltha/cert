@@ -62,7 +62,5 @@ class SendMailCommand extends ContainerAwareCommand
         }
 
 
-        $output->writeln(count($currentCheckpoints) . " notifications sent!");
-
     }
 }
