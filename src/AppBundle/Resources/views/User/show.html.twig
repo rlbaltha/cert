@@ -43,6 +43,11 @@
 
         {# Name and notes #}
         <h2>Profile for {{ entity.firstname }} {{ entity.lastname }}</h2>
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            {% for role in entity.roles %}
+                {{ role }}
+            {% endfor %}
+        {% endif %}
         {% if app.user.username == entity.username and entity.progress.name!='Faculty' %}
             <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your
                 Checklist</a>
@@ -140,7 +145,7 @@
                     {% endif %}
                     {% if overdue > 0 %}
                         <div class="alert alert-danger margin">You have {{ overdue }} overdue
-                            Capstone  Timeline Task(s)
+                            Capstone Timeline Task(s)
                         </div>
                     {% endif %}
                 </div>
