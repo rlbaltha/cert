@@ -69,18 +69,20 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/list/{tag}", name="user", defaults={"tag" = "students"})
+     * @Route("/list/{tag}/{term}/{date}", name="user", defaults={"tag" = "students", "term" = "All", "date" = "All"})
      * @Method("GET")
      * @Template()
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function indexAction($tag)
+    public function indexAction($tag, $term, $date)
     {
         $em = $this->getDoctrine()->getManager();
         if ($tag == 'all') {
             $entities = $em->getRepository('AppBundle:User')->findAccounts();
         } elseif ($tag == 'students') {
             $entities = $em->getRepository('AppBundle:User')->findStudents();
+        } elseif ($tag == 'term') {
+            $entities = $em->getRepository('AppBundle:User')->findUsersByTerm($term, $date);
         } else {
             $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
             $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());

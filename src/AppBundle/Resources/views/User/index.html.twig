@@ -69,25 +69,21 @@
                         {% endfor %}
                         <br/>
                         <br/>
-                        {#Rebuild to dynamically produce term tags#}
-                        {#<div id="2018Spring" class="btn btn-primary btn-sm tag_filter"#}
-                             {#style="background-color: green">2018 Spring</div>#}
-                        {#<div id="2018Summer" class="btn btn-primary btn-sm tag_filter"#}
-                             {#style="background-color: green">2018 Summer</div>#}
-                        {#<div id="2018Fall" class="btn btn-primary btn-sm tag_filter"#}
-                             {#style="background-color: green">2018 Fall</div>#}
-                        {#<div id="2019Spring" class="btn btn-primary btn-sm tag_filter"#}
-                             {#style="background-color: green">2019 Spring</div>#}
-                        {#<div id="2019Summer" class="btn btn-primary btn-sm tag_filter"#}
-                             {#style="background-color: green">2019 Summer</div>#}
-                        {#<div id="2019Fall" class="btn btn-primary btn-sm tag_filter"#}
-                             {#style="background-color: green">2019 Fall</div>#}
-                        {#<div id="2020Spring" class="btn btn-primary btn-sm tag_filter"#}
-                             {#style="background-color: green">2020 Spring</div>#}
-                        {#<div id="2020Summer" class="btn btn-primary btn-sm tag_filter"#}
-                             {#style="background-color: green">2020 Summer</div>#}
-                        {#<br/>#}
-                        {#<br/>#}
+                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2018' }) }}"  class="btn btn-primary btn-sm tag_filter"
+                           style="background-color: green">2018 Spring</a>
+                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2018' }) }}"  class="btn btn-primary btn-sm tag_filter"
+                           style="background-color: green">2018 Summer</a>
+                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2018' }) }}"  class="btn btn-primary btn-sm tag_filter"
+                           style="background-color: green">2018 Fall</a>
+                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2019' }) }}"  class="btn btn-primary btn-sm tag_filter"
+                           style="background-color: green">2019 Spring</a>
+                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2019' }) }}"  class="btn btn-primary btn-sm tag_filter"
+                           style="background-color: green">2019 Summer</a>
+                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2019' }) }}"  class="btn btn-primary btn-sm tag_filter"
+                           style="background-color: green">2019 Fall</a>
+
+                        <br/>
+                        <br/>
 
                         <a class="btn btn-secondary btn-sm" style="background-color: green; color:white" href="{{ path('user_mentor_mapping') }}">Mentor
                             Mapping</a>
