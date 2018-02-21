@@ -292,8 +292,7 @@
                         {% endif %}
                         {# Link to list work plans ready for review #}
                         {% if app.user.capstone %}
-                            <a class="btn btn-primary  btn-sm float-sm-right margin-left"
-                               href="{{ path('user', { 'tag': 'Ready for Peer Review' }) }}">
+                            <a class="btn btn-primary  btn-sm float-sm-right margin-left" href="{{ path('user', { 'tag': 'Ready for Peer Review' }) }}">
                                 Review other work plans
                             </a>
                         {% endif %}
@@ -305,10 +304,10 @@
                             </a>
                         {% endif %}
                         {# Director workplan review #}
-                        {% if is_granted('ROLE_ADMIN') and entity.username != app.user.username %}
+                        {% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_MENTOR')) and entity.username != app.user.username %}
                             <a class="btn btn-primary  btn-sm float-sm-right"
                                href="{{ path('responseset_new',  { 'id': entity.capstone.id,'questionsetid': '2'  }) }}">
-                                Director work plan review
+                                Director/Mentor work plan review
                             </a>
                         {% endif %}
 

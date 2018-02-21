@@ -24,16 +24,17 @@ class CapstoneController extends Controller
     /**
      * Lists all Page entities.
      *
-     * @Route("/list/{type}", name="capstone")
+     * @Route("/list/{tag}", name="capstone")
      * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
-    public function indexAction($type)
+    public function indexAction($tag)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Capstone')->findByType($type);
+        $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
+        $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());
 
         return array(
             'entities' => $entities,

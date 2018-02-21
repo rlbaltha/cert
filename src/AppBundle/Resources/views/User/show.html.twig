@@ -4,26 +4,35 @@
     {{ parent() }}
     <script language="javascript">
         $(document).ready(function () {
-            $(".profile").hide();
             $("#notifications").show();
             $("#notifications_toggle").click(function () {
                 $(".profile").hide();
+                $("a").removeClass('active');
+                $("#notifications_toggle").addClass('active');
                 $("#notifications").show();
             });
             $("#mentoring_toggle").click(function () {
                 $(".profile").hide();
+                $("a").removeClass('active');
+                $("#mentoring_toggle").addClass('active');
                 $("#mentoring").show();
             });
             $("#directornotes_toggle").click(function () {
                 $(".profile").hide();
+                $("a").removeClass('active');
+                $("#directornotes_toggle").addClass('active');
                 $("#directornotes").show();
             });
             $("#portfolio_toggle").click(function () {
                 $(".profile").hide();
+                $("a").removeClass('active');
+                $("#portfolio_toggle").addClass('active');
                 $("#portfolio").show();
             });
             $("#capstones_toggle").click(function () {
                 $(".profile").hide();
+                $("a").removeClass('active');
+                $("#capstones_toggle").addClass('active');
                 $("#capstonesforreview").show();
             });
         });
@@ -43,6 +52,11 @@
 
         {# Name and notes #}
         <h2>Profile for {{ entity.firstname }} {{ entity.lastname }}</h2>
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            {% for role in entity.roles %}
+                {{ role }}
+            {% endfor %}
+        {% endif %}
         {% if app.user.username == entity.username and entity.progress.name!='Faculty' %}
             <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your
                 Checklist</a>
@@ -57,7 +71,6 @@
             </p>
         {% endif %}
 
-        {% if app.user.username == entity.username %}
             <ul class="nav nav-tabs margin-top margin-bottom">
                 <li class="nav-item"><a class="nav-link" id="notifications_toggle"
                                         href="javascript:void(0);">Notifications</a></li>
@@ -78,7 +91,6 @@
                             Notes</a></li>
                 {% endif %}
             </ul>
-        {% endif %}
 
         {# *********************** Notifications *********************** #}
         {# set variables for checkpoints #}
@@ -105,45 +117,50 @@
                     {% if upcoming > 0 %}{% set count_notifications = count_notifications + 1 %}{% endif %}
                 {% endif %}
 
-
                 <div id="notifications" class="profile">
-                    <h3 class="">Notifications</h3>
+                    {% if entity.notifications|length > 0 %}
+                        <h3 class="">Notifications</h3>
 
-                    {% for notification in notifications %}
-                        {% set background %}
-                            {% if notification.status=='New' %}alert-success
-                            {% elseif notification.status=='Shared' %}alert-success
-                            {% else %}#dbf8ff
-                            {% endif %}
-                        {% endset %}
-                        <div class="alert {{ background }} margin">
-                            <strong>{{ notification.date |date("m/d/Y g:ia") }}</strong>
-                            <br/>
-                            {% if notification.post %}
-                                {{ notification.post.body|raw }}
-                            {% endif %}
-                            {{ notification.body|raw }}
-                            {% if notification.status!='Shared' %}
-                                <a class="btn btn-primary  "
-                                   href="{{ path('notification_dismiss',  { 'id': notification.id }) }}">
-                                    Dismiss
-                                </a>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
+                        {% for notification in notifications %}
+                            {% set background %}
+                                {% if notification.status=='New' %}alert-success
+                                {% elseif notification.status=='Shared' %}alert-success
+                                {% else %}#dbf8ff
+                                {% endif %}
+                            {% endset %}
+                            <div class="alert {{ background }} margin">
+                                <strong>{{ notification.date |date("m/d/Y g:ia") }}</strong>
+                                <br/>
+                                {% if notification.post %}
+                                    {{ notification.post.body|raw }}
+                                {% endif %}
+                                {{ notification.body|raw }}
+                                {% if notification.status!='Shared' %}
+                                    <a class="btn btn-primary  "
+                                       href="{{ path('notification_dismiss',  { 'id': notification.id }) }}">
+                                        Dismiss
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
 
-                    {# notifications for checkpoints #}
-                    {% if upcoming > 0 %}
-                        <div class="alert alert-info margin">You have {{ upcoming }} upcoming
-                            Capstone Timeline Task(s)
-                        </div>
+                        {# notifications for checkpoints #}
+                        {% if upcoming > 0 %}
+                            <div class="alert alert-info margin">You have {{ upcoming }} upcoming
+                                Capstone Timeline Task(s)
+                            </div>
+                        {% endif %}
+                        {% if overdue > 0 %}
+                            <div class="alert alert-danger margin">You have {{ overdue }} overdue
+                                Capstone Timeline Task(s)
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        No notifications at this time.
                     {% endif %}
-                    {% if overdue > 0 %}
-                        <div class="alert alert-danger margin">You have {{ overdue }} overdue
-                            Capstone  Timeline Task(s)
-                        </div>
-                    {% endif %}
+                    <hr/>
                 </div>
+
             {% endif %}
         {% endif %}
 
@@ -158,7 +175,9 @@
                 </p>
                 <p>Updated: {{ entity.notesChanged|date("m/d/Y g:ia") }}</p>
                 <p>Last login: {{ entity.lastLogin|date("m/d/Y g:ia") }}</p>
+                <hr/>
             </div>
+
         {% endif %}
 
 
@@ -218,8 +237,9 @@
                             I'd like to be a Mentor.
                         </a>
                     {% endfor %}
-
+                    <hr/>
                 </div>
+
             {% endif %}
         {% endif %}
 
@@ -230,7 +250,7 @@
             {#  *********************** Portfolio  ***********************  #}
             {% if entity.checklist %}
                 <div id="portfolio" class="profile">
-                    <h5 class="mb-0">Portfolio</h5>
+                    <h3>Portfolio</h3>
 
                     <div class="alert alert-info margin-top" role="alert">
                         <p>For more information about your portfolio, see our <a
@@ -241,6 +261,7 @@
                     </div>
                     <a href="{{ entity.checklist.portfolio }}"
                        target="_blank">{{ entity.checklist.portfolio }}</a>
+                    <hr/>
                 </div>
             {% endif %}
         {% endif %}
