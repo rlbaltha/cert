@@ -292,7 +292,7 @@
                         {% endif %}
                         {# Link to list work plans ready for review #}
                         {% if app.user.capstone %}
-                            <a class="btn btn-primary  btn-sm float-sm-right margin-left" href="{{ path('user', { 'tag': 'Ready for Peer Review' }) }}">
+                            <a class="btn btn-primary  btn-sm float-sm-right margin-left" href="{{ path('capstone', { 'tag': 'Ready for Peer Review' }) }}">
                                 Review other work plans
                             </a>
                         {% endif %}
