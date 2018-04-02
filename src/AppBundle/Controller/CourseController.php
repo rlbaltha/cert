@@ -95,7 +95,7 @@ class CourseController extends Controller
      *
      * @Route("/listall", name="course_listall")
      * @Method("GET")
-     * @Template("AppBundle:Course:index.html.twig")
+     * @Template("AppBundle:Course:all.html.twig")
      */
     public function listallAction()
     {

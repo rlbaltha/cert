@@ -147,29 +147,23 @@
                 <table class="table sort">
                     <thead class="hidden-xs-down">
                     <tr>
-                        <th>Name</th>
-                        <th>Title</th>
-                        <th>Prereqs</th>
-                        <th>Requirement</th>
-                        <th>Level</th>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <th>Status</th>
-                        {% endif %}
+                        <th>Prefix</th>
+                        <th>Number</th>
+                        <th>Cross listing</th>
+                        <th>Split</th>
+                        <th>Postfix</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for entity in entities %}
                         <tr>
                             <td>
-                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
+                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.prefix }}</a>
                             </td>
-                            <td>{{ entity.title }}</td>
-                            <td class="hidden-xs-down">{{ entity.prereqs }}</td>
-                            <td class="hidden-xs-down">{{ entity.pillar }}</td>
-                            <td class="hidden-xs-down">{{ entity.level }}</td>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <td class="hidden-xs-down">{{ entity.status }}</td>
-                            {% endif %}
+                            <td>{{ entity.coursenumber }}</td>
+                            <td class="hidden-xs-down">{{ entity.crosslisting }}</td>
+                            <td class="hidden-xs-down">{{ entity.split }}</td>
+                            <td class="hidden-xs-down">{{ entity.post }}</td>
                         </tr>
 
                     {% endfor %}
