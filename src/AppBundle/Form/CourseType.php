@@ -16,13 +16,13 @@ class CourseType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Name'),))
-            ->add('prefix', 'text', array('attr' => array('class' => 'text form-control',), 'label' => 'Prefix',))
-            ->add('cross', 'text', array('attr' => array('class' => 'text form-control',), 'label' => 'Cross Listing',))
-            ->add('number', 'text', array('attr' => array('class' => 'text form-control',),'label' => 'Course Number',))
-            ->add('split', 'text', array('attr' => array('class' => 'text form-control',),'label' => 'Split-level Number',))
-            ->add('post', 'text', array('attr' => array('class' => 'text form-control',),'label' => 'Postfix',))
-            ->add('title', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),))
-            ->add('offered', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Offered'),))
+            ->add('prefix', 'text', array('required' => false,'attr' => array('class' => 'text form-control',), 'label' => 'Prefix',))
+            ->add('cross', 'text', array('required' => false,'attr' => array('class' => 'text form-control',), 'label' => 'Cross Listing',))
+            ->add('coursenumber', 'text', array('required' => false,'attr' => array('class' => 'text form-control',),'label' => 'Course Number',))
+            ->add('split', 'text', array('required' => false,'attr' => array('class' => 'text form-control',),'label' => 'Split-level Number',))
+            ->add('post', 'text', array('required' => false,'attr' => array('class' => 'text form-control',),'label' => 'Postfix',))
+            ->add('title', 'text', array('required' => false,'attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),))
+            ->add('offered', 'text', array('required' => false,'attr' => array('class' => 'text form-control', 'placeholder' => 'Offered'),))
             ->add('prereqs', 'text', array('required' => false, 'attr' => array('class' => 'text form-control',
               'placeholder' => 'Prereqs'),))
             ->add('school', 'entity', array('required' => true,'class' => 'AppBundle\Entity\School',

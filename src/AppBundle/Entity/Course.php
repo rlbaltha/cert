@@ -38,16 +38,16 @@ class Course
     /**
      * @var string
      *
-     * @ORM\Column(name="cross", type="string", length=255, nullable=true)
+     * @ORM\Column(name="crosslisting", type="string", length=255, nullable=true)
      */
-    private $cross;
+    private $crosslisting;
 
     /**
      * @var string
      *
      * @ORM\Column(name="number", type="string", length=255, nullable=true)
      */
-    private $number;
+    private $coursenumber;
 
     /**
      * @var string
@@ -621,54 +621,7 @@ class Course
     {
         return $this->school;
     }
-
-    /**
-     * Set cross
-     *
-     * @param string $cross
-     *
-     * @return Course
-     */
-    public function setCross($cross)
-    {
-        $this->cross = $cross;
-
-        return $this;
-    }
-
-    /**
-     * Get cross
-     *
-     * @return string
-     */
-    public function getCross()
-    {
-        return $this->cross;
-    }
-
-    /**
-     * Set number
-     *
-     * @param string $number
-     *
-     * @return Course
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
-    /**
-     * Get number
-     *
-     * @return string
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
+    
 
     /**
      * Set split
@@ -740,5 +693,53 @@ class Course
     public function getPrefix()
     {
         return $this->prefix;
+    }
+
+    /**
+     * Set coursenumber
+     *
+     * @param string $coursenumber
+     *
+     * @return Course
+     */
+    public function setCoursenumber($coursenumber)
+    {
+        $this->coursenumber = $coursenumber;
+
+        return $this;
+    }
+
+    /**
+     * Get coursenumber
+     *
+     * @return string
+     */
+    public function getCoursenumber()
+    {
+        return $this->coursenumber;
+    }
+
+    /**
+     * Set crosslisting
+     *
+     * @param string $crosslisting
+     *
+     * @return Course
+     */
+    public function setCrosslisting($crosslisting)
+    {
+        $this->crosslisting = $crosslisting;
+
+        return $this;
+    }
+
+    /**
+     * Get crosslisting
+     *
+     * @return string
+     */
+    public function getCrosslisting()
+    {
+        return $this->crosslisting;
     }
 }
