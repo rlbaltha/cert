@@ -161,7 +161,7 @@
                     {% for entity in entities %}
                         <tr>
                             <td>
-                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
+                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}{{ entity.postfix }}</a>
                             </td>
                             <td>{{ entity.title }}</td>
                             <td class="hidden-xs-down">{{ entity.prereqs }}</td>
