@@ -16,6 +16,7 @@ class CourseType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Name'),))
+            ->add('prefix', 'text', array('attr' => array('class' => 'text form-control',), 'label' => 'Prefix',))
             ->add('cross', 'text', array('attr' => array('class' => 'text form-control',), 'label' => 'Cross Listing',))
             ->add('number', 'text', array('attr' => array('class' => 'text form-control',),'label' => 'Course Number',))
             ->add('split', 'text', array('attr' => array('class' => 'text form-control',),'label' => 'Split-level Number',))

@@ -28,32 +28,38 @@ class Course
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prefix", type="string", length=255, nullable=true)
+     */
+    private $prefix;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cross", type="string", length=255)
+     * @ORM\Column(name="cross", type="string", length=255, nullable=true)
      */
     private $cross;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=255)
+     * @ORM\Column(name="number", type="string", length=255, nullable=true)
      */
     private $number;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="split", type="string", length=255)
+     * @ORM\Column(name="split", type="string", length=255, nullable=true)
      */
     private $split;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="post", type="string", length=255)
+     * @ORM\Column(name="post", type="string", length=255, nullable=true)
      */
     private $post;
 
@@ -710,5 +716,29 @@ class Course
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Set prefix
+     *
+     * @param string $prefix
+     *
+     * @return Course
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * Get prefix
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
     }
 }
