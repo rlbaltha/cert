@@ -32,6 +32,34 @@ class Course
     /**
      * @var string
      *
+     * @ORM\Column(name="cross", type="string", length=255)
+     */
+    private $cross;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="number", type="string", length=255)
+     */
+    private $number;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="split", type="string", length=255)
+     */
+    private $split;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="post", type="string", length=255)
+     */
+    private $post;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
@@ -586,5 +614,101 @@ class Course
     public function getSchool()
     {
         return $this->school;
+    }
+
+    /**
+     * Set cross
+     *
+     * @param string $cross
+     *
+     * @return Course
+     */
+    public function setCross($cross)
+    {
+        $this->cross = $cross;
+
+        return $this;
+    }
+
+    /**
+     * Get cross
+     *
+     * @return string
+     */
+    public function getCross()
+    {
+        return $this->cross;
+    }
+
+    /**
+     * Set number
+     *
+     * @param string $number
+     *
+     * @return Course
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return string
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * Set split
+     *
+     * @param string $split
+     *
+     * @return Course
+     */
+    public function setSplit($split)
+    {
+        $this->split = $split;
+
+        return $this;
+    }
+
+    /**
+     * Get split
+     *
+     * @return string
+     */
+    public function getSplit()
+    {
+        return $this->split;
+    }
+
+    /**
+     * Set post
+     *
+     * @param string $post
+     *
+     * @return Course
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return string
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 }
