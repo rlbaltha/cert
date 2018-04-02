@@ -147,6 +147,7 @@
                 <table class="table sort">
                     <thead class="hidden-xs-down">
                     <tr>
+                        <th>Name</th>
                         <th>Prefix</th>
                         <th>Number</th>
                         <th>Cross listing</th>
@@ -158,7 +159,10 @@
                     {% for entity in entities %}
                         <tr>
                             <td>
-                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.prefix }}</a>
+                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
+                            </td>
+                            <td>
+                                {{ entity.prefix }}
                             </td>
                             <td>{{ entity.coursenumber }}</td>
                             <td class="hidden-xs-down">{{ entity.crosslisting }}</td>
