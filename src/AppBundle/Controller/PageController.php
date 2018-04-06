@@ -35,6 +35,7 @@ class PageController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Page entity.
      *
@@ -123,9 +124,31 @@ class PageController extends Controller
 
 
     /**
+     * Finds and displays the default page by section.
+     *
+     * @Route("/{section}", name="page_section")
+     * @Method("GET")
+     * @Template("AppBundle:Page:show.html.twig")
+     */
+    public function sectionAction($section)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Page')->findPageBySection($section);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
+        }
+
+        return array(
+            'entity'      => $entity,
+        );
+    }
+
+    /**
      * Finds and displays a Page entity.
      *
-     * @Route("/{id}", name="page_show")
+     * @Route("/{id}/show", name="page_show")
      * @Method("GET")
      * @Template()
      */

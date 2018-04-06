@@ -27,5 +27,25 @@ public function findCurrent() {
 		->getSingleResult();
 	return $page;
 }
-	
+
+
+
+    /**
+     * find page by section
+     *
+     * @return Page
+     */
+    public function findPageBySection($section) {
+        $page = $this->createQueryBuilder('p')
+            ->join('p.section', 's')
+            ->andWhere('s.title = :title')
+            ->setParameter('title', $section)
+            ->orderBy('p.sortorder')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
+        return $page;
+    }
+
+
 }
