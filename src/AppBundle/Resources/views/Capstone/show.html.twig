@@ -54,11 +54,17 @@
         {#  *********************** Capstone Workplan *********************** #}
         <h2>Capstone
             for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
-
-        <a class='btn btn-primary' href="{{ path('user_show', { 'id': app.user.id }) }}">Return to your Profile</a>
-        {% if app.user.username == entity.username %}
-                        <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Work on your
-                Checklist</a>
+        <a class='btn btn-primary' href="{{ path('user_show', { 'id': app.user.id }) }}">Profile</a>
+        {% if app.user.username == entity.username  or is_granted('ROLE_SUPER_ADMIN') %}
+            <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
+            {% if entity.checklist %}
+                <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
+            {% endif %}
+        {% endif %}
+        <a class='btn btn-primary disabled' href="#">Capstone</a>
+        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+            <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
+                Exit login as</a>
         {% endif %}
 
 
@@ -169,13 +175,13 @@
                             {% if entity.capstone %}
                                 {# Mark Ready for Peer or Director Review #}
                                 <a class="btn btn-primary {% if entity.capstone.status == 'Ready for Director Review' or entity.capstone.status == 'Approved'
-                                or entity.capstone.status == 'Ready for Peer Review' or entity.capstone.status == 'Completed' %}hidden{% endif %}"
+                                    or entity.capstone.status == 'Ready for Peer Review' or entity.capstone.status == 'Completed' %}hidden{% endif %}"
                                    href="{{ path('capstone_ready',  { 'id': entity.capstone.id , 'type':'Peer'}) }}">
                                     Ready for Review
                                 </a>
 
                                 <a class="btn btn-primary {% if entity.capstone.responsesets|length < 2 or entity.capstone.status == 'Ready for Director Review' or entity.capstone.status == 'Approved'
-                                or entity.capstone.status == 'Completed' %}hidden{% endif %}"
+                                    or entity.capstone.status == 'Completed' %}hidden{% endif %}"
                                    href="{{ path('capstone_ready',  { 'id': entity.capstone.id, 'type':'Director' }) }}">
                                     Ready for Director
                                 </a>
@@ -292,7 +298,8 @@
                         {% endif %}
                         {# Link to list work plans ready for review #}
                         {% if app.user.capstone %}
-                            <a class="btn btn-primary  btn-sm float-sm-right margin-left" href="{{ path('capstone', { 'tag': 'Ready for Peer Review' }) }}">
+                            <a class="btn btn-primary  btn-sm float-sm-right margin-left"
+                               href="{{ path('capstone', { 'tag': 'Ready for Peer Review' }) }}">
                                 Review other work plans
                             </a>
                         {% endif %}

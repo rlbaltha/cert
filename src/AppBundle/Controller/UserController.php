@@ -84,15 +84,25 @@ class UserController extends Controller
         } elseif ($tag == 'term') {
             $entities = $em->getRepository('AppBundle:User')->findUsersByTerm($term, $date);
         } else {
-            $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
-            $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());
+            $currenttag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
+            $entities = $em->getRepository('AppBundle:User')->findByTag($currenttag->getId());
         }
 
         $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
-        return array(
-            'entities' => $entities,
-            'tags' => $tags,
-        );
+
+        if ($tag=='Alumni') {
+            return $this->render('AppBundle:User:alumni.html.twig', array(
+                'entities' => $entities,
+                'tags' => $tags,
+            ));
+        }
+        else {
+            return $this->render('AppBundle:User:index.html.twig', array(
+                'entities' => $entities,
+                'tags' => $tags,
+            ));
+        }
+
     }
 
     /**

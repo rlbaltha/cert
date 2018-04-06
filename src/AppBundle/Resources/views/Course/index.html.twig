@@ -79,11 +79,6 @@
                                 <a href="{{ path('course', { 'pillar':'capstone', 'level':'undergrad' }) }}">undergrad</a> /
                                 <a href="{{ path('course', { 'pillar':'capstone', 'level':'grad' }) }}">grad</a>
                             </li>
-                            {% if is_granted('ROLE_USER') %}
-                                <li class="nav-item">
-                                    <a href="{{ path('course_listbystatus', { 'status':'exception'}) }}">Exceptions</a>
-                                </li>
-                            {% endif %}
                             <li class="nav-item">
                                 <a href="{{ path('course_listbylocation', { 'location':'Abroad', 'status':'approved' }) }}">Study
                                     Abroad</a>
@@ -161,7 +156,7 @@
                     {% for entity in entities %}
                         <tr>
                             <td>
-                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}{{ entity.postfix }}</a>
+                                <a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}{{ entity.post }}</a>
                             </td>
                             <td>{{ entity.title }}</td>
                             <td class="hidden-xs-down">{{ entity.prereqs }}</td>

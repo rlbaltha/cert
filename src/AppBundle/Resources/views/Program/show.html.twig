@@ -11,136 +11,154 @@
 
 
 {% block body -%}
-<div class="col-sm-8 col-xs-12">
-    {% if app.session.flashBag.has('success') %}
-        <div class="alert alert-success">
-            {% for msg in app.session.flashBag.get('success') %}
-                {{ msg }}
-            {% endfor %}
+    <div class="col-sm-8 col-xs-12">
+        {% if app.session.flashBag.has('success') %}
+            <div class="alert alert-success">
+                {% for msg in app.session.flashBag.get('success') %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {#  *********************** Applcation ***********************  #}
+        <h2>Application
+            for {{ entity.firstname }} {{ entity.lastname }}  {% if entity.program %}({{ entity.program.status }}){% endif %}</h2>
+
+        <p>
+            {% if app.user.username == entity.username or is_granted('ROLE_SUPER_ADMIN') %}
+                <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a>
+                <a class='btn btn-primary disabled' href="#">Application</a>
+                {% if entity.checklist %}
+                    <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
+                {% endif %}
+                {% if entity.capstone %}
+                    <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+                {% endif %}
+            {% endif %}
+            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
+                    Exit login as</a>
+            {% endif %}
+        </p>
+
+        <div class="alert alert-info" role="alert">
+            <p>Please fill out the Application form completely. You may return to edit it at any
+                time.</p>
+            <p>When you have completed the application, click <strong>Ready for Review.</strong>
+                You will be notified by the Director when your application is approved.</p>
         </div>
-    {% endif %}
-    {#  *********************** Applcation ***********************  #}
-    <h2>Application {% if entity.program %}({{ entity.program.status }}){% endif %}</h2>
 
-    <div class="alert alert-info" role="alert">
-        <p>Please fill out the Application form completely. You may return to edit it at any
-            time.</p>
-        <p>When you have completed the application, click <strong>Ready for Review.</strong>
-            You will be notified by the Director when your application is approved.</p>
-    </div>
-
-    {% if entity.program %}
-        {% if is_granted('ROLE_SUPER_ADMIN') and entity.program.status == 'Ready for Review' %}
-            <a title="Approve this application" class="btn btn-primary  align-right"
-               href="{{ path('program_approve',  { 'id': entity.program.id }) }}">
-                Approve App
-            </a>
-        {% endif %}
-        {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <a class="btn btn-primary  align-right "
-               href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
-                Admin Update
-            </a>
-        {% endif %}
-        {% if app.user.username == entity.username and entity.program.status == 'Created' %}
-            <a class="btn btn-primary  align-right "
-               href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
-                Update Application
-            </a>
-            <a title="Application Ready for Review"
+        {% if entity.program %}
+            {% if is_granted('ROLE_SUPER_ADMIN') and entity.program.status == 'Ready for Review' %}
+                <a title="Approve this application" class="btn btn-primary  align-right"
+                   href="{{ path('program_approve',  { 'id': entity.program.id }) }}">
+                    Approve App
+                </a>
+            {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <a class="btn btn-primary  align-right "
+                   href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
+                    Admin Update
+                </a>
+            {% endif %}
+            {% if app.user.username == entity.username and entity.program.status == 'Created' %}
+                <a class="btn btn-primary  align-right "
+                   href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
+                    Update Application
+                </a>
+                <a title="Application Ready for Review"
+                   class="btn btn-primary  align-right  "
+                   href="{{ path('program_ready',  { 'id': entity.program.id }) }}">
+                    Ready for Review
+                </a>
+            {% endif %}
+        {% else %}
+            <a title="Get started on your application"
                class="btn btn-primary  align-right  "
-               href="{{ path('program_ready',  { 'id': entity.program.id }) }}">
-                Ready for Review
+               href="{{ path('program_new') }}">
+                Get Started
             </a>
         {% endif %}
-    {% else %}
-        <a title="Get started on your application"
-           class="btn btn-primary  align-right  "
-           href="{{ path('program_new') }}">
-            Get Started
-        </a>
-    {% endif %}
 
 
 
 
-    {% if entity.program %}
-        <table class="table margin-top">
-            <tbody>
-            <tr>
-                <th>Email</th>
-                <td>{{ entity.email }}</td>
-            </tr>
-            <tr>
-                <th>School :: Program</th>
-                <td>
-                    {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
-                    {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
-                    {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
-                    {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Uga Id</th>
-                <td>{{ entity.program.ugaid }}</td>
-            </tr>
-            <tr>
-                <th>Level</th>
-                <td>{{ entity.program.level }}</td>
-            </tr>
-            <tr>
-                <th>Previous Degree(s)</th>
-                <td>{{ entity.program.degree }}</td>
-            </tr>
-            <tr>
-                <th>Previous Institution(s)</th>
-                <td>{{ entity.program.institution }}</td>
-            </tr>
-            <tr>
-                <th>Expected Graduation</th>
-                <td>{{ entity.program.graddate }} {{ entity.program.gradterm }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ entity.program.address }}</td>
-            </tr>
-            <tr>
-                <th>City State Zip</th>
-                <td>{{ entity.program.cityst }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ entity.program.country }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ entity.program.phone }}</td>
-            </tr>
-            <tr>
-                <th>Areas of Interest</th>
-                <td>{% for area in entity.program.area %}{{ area }} {% endfor %}</td>
-            </tr>
-            <tr>
-                <th>Interest in Sustainability</th>
-                <td>{{ entity.program.interest | raw }}</td>
-            </tr>
-            <tr>
-                <th>Experience</th>
-                <td>{{ entity.program.experience | raw }}</td>
-            </tr>
-            <tr>
-                <th>Goals</th>
-                <td>{{ entity.program.goals | raw }}</td>
-            </tr>
-            <tr>
-                <th>Application Status</th>
-                <td>{{ entity.program.status }}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{{ entity.program.updated |date("m/d/Y g:ia") }}</td>
-            </tr>
-            </tbody>
-        </table>
-    {% endif %}
-</div>
+        {% if entity.program %}
+            <table class="table margin-top">
+                <tbody>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ entity.email }}</td>
+                </tr>
+                <tr>
+                    <th>School :: Program</th>
+                    <td>
+                        {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
+                        {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
+                        {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
+                        {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Uga Id</th>
+                    <td>{{ entity.program.ugaid }}</td>
+                </tr>
+                <tr>
+                    <th>Level</th>
+                    <td>{{ entity.program.level }}</td>
+                </tr>
+                <tr>
+                    <th>Previous Degree(s)</th>
+                    <td>{{ entity.program.degree }}</td>
+                </tr>
+                <tr>
+                    <th>Previous Institution(s)</th>
+                    <td>{{ entity.program.institution }}</td>
+                </tr>
+                <tr>
+                    <th>Expected Graduation</th>
+                    <td>{{ entity.program.graddate }} {{ entity.program.gradterm }}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ entity.program.address }}</td>
+                </tr>
+                <tr>
+                    <th>City State Zip</th>
+                    <td>{{ entity.program.cityst }}</td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td>{{ entity.program.country }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ entity.program.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Areas of Interest</th>
+                    <td>{% for area in entity.program.area %}{{ area }} {% endfor %}</td>
+                </tr>
+                <tr>
+                    <th>Interest in Sustainability</th>
+                    <td>{{ entity.program.interest | raw }}</td>
+                </tr>
+                <tr>
+                    <th>Experience</th>
+                    <td>{{ entity.program.experience | raw }}</td>
+                </tr>
+                <tr>
+                    <th>Goals</th>
+                    <td>{{ entity.program.goals | raw }}</td>
+                </tr>
+                <tr>
+                    <th>Application Status</th>
+                    <td>{{ entity.program.status }}</td>
+                </tr>
+                <tr>
+                    <th>Updated</th>
+                    <td>{{ entity.program.updated |date("m/d/Y g:ia") }}</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -13,19 +13,6 @@
 
                     <ul class="nav navbar-sidenav">
 
-                        {% if (app.user.username == entity.username  and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
-                            <li class="nav-item"><a href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a></li>
-
-                            <li class="nav-item"><a
-                                        href="{{ path('program_show', { 'id': entity.id }) }}">Application</a></li>
-                            <li class="nav-item"><a
-                                        href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a></li>
-                            <li class="nav-item"><a href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
-                            </li>
-                        {% else %}
-                            <li class="nav-item"><a href="{{ path('user_profile') }}">Profile</a></li>
-                        {% endif %}
-
                         {% if is_granted('ROLE_SUPER_ADMIN') %}
                             <li class="nav-item">Admin</li>
                             <li class="nav-item"><a href="{{ path('user_edit', { 'id': entity.id }) }}">
@@ -47,20 +34,15 @@
                             <li class="nav-item">
                                 <a href="{{ path('user', {'type': 'students'}) }}">All
                                     Students</a></li>
+                            {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+                                <li class="nav-item"><a
+                                            href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
+                                        As</a>
+                                </li>
+                            {% endif %}
 
                         {% endif %}
-                        {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
-                            <li class="nav-item"><a
-                                        href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
-                                    As</a>
-                            </li>
-                        {% endif %}
-                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                            <li class="nav-item"><a
-                                        href="{{ path('user_profile') }}?_switch_user=_exit">
-                                    Exit login as</a>
-                            </li>
-                        {% endif %}
+
 
                     </ul>
                 </div>

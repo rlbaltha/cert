@@ -78,6 +78,14 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="altemail", type="string", length=255, nullable=true)
+     */
+    private $altemail;
+
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
@@ -765,4 +773,29 @@ class User extends BaseUser
     {
         return $this->tags;
     }
+
+    /**
+     * Set altemail
+     *
+     * @param string $altemail
+     *
+     * @return User
+     */
+    public function setAltemail($altemail)
+    {
+        $this->altemail = $altemail;
+
+        return $this;
+    }
+
+    /**
+     * Get altemail
+     *
+     * @return string
+     */
+    public function getAltemail()
+    {
+        return $this->altemail;
+    }
+
 }

@@ -18,6 +18,7 @@ class ProfileType extends AbstractType
         $builder
             ->add('firstname', 'text', array('label' => 'First Name', 'attr' => array('class' => 'form-control'),))
             ->add('lastname', 'text', array('label' => 'Last Name','attr' => array('class' => 'form-control'),))
+            ->add('altemail', 'text', array('required' => false, 'label' => 'Alternative Email Account','attr' => array('class' => 'form-control'),))
         ;
     }
 

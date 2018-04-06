@@ -1,0 +1,72 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "filter", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"],
+                    filter_reset: ".reset",
+                    filter_cssFilter: "form-control",
+                },
+                headers: {
+                    5: {sorter: false, filter: false},
+                }
+            });
+            var rowCount = $('tbody tr:visible').length;
+            $( "span.count" ).html( '(' + rowCount  + ')' );
+        });
+    </script>
+{% endblock %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Alt Email</th>
+                    <th>Graduation</th>
+                    <th>Major</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}</a></td>
+                        <td>{{ entity.firstname }}</td>
+                        <td>{{ entity.altemail }}</td>
+                        <td>{{ entity.checklist.graddate }} {{ entity.checklist.gradterm }}</td>
+                        <td>{% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
+                            {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
+                            {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
+                            {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <p>Email
+                list: <span id="email_list">{% for entity in entities %}{% if entity.altemail !='' %}{{ entity.altemail }};{% endif %}{% endfor %}</span></p>
+
+        </div>
+
+    </div>
+
+{% endblock %}

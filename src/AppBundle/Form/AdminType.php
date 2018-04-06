@@ -22,6 +22,7 @@ class AdminType extends AbstractType
             ->add('progress', 'entity', array('required' => true, 'class' => 'AppBundle\Entity\Status',
                 'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Status', 'attr' => array
                 ('class' => 'form-control'),))
+            ->add('altemail', 'text', array('required' => false, 'label' => 'Alternative Email Account','attr' => array('class' => 'form-control'),))
             ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
             ->add('peermentor', 'entity', array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
