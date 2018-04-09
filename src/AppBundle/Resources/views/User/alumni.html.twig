@@ -27,7 +27,7 @@
                 }
             });
             var rowCount = $('tbody tr:visible').length;
-            $( "span.count" ).html( '(' + rowCount  + ')' );
+            $("span.count").html('(' + rowCount + ')');
         });
     </script>
 {% endblock %}
@@ -62,9 +62,13 @@
                 </tbody>
             </table>
 
-            <p>Email
-                list: <span id="email_list">{% for entity in entities %}{% if entity.altemail !='' %}{{ entity.altemail }};{% endif %}{% endfor %}</span></p>
-
+            <p>Email list:</p>
+            <p>(semicolon): <span
+                        id="email_list">{% for entity in entities %}{% if entity.altemail !='' %}{{ entity.altemail }}; {% endif %}{% endfor %}</span>
+            </p>
+            <p>(comma): <span
+                        id="email_list">{% for entity in entities %}{% if entity.altemail !='' %}{{ entity.altemail }}, {% endif %}{% endfor %}</span>
+            </p>
         </div>
 
     </div>

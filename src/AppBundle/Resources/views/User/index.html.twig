@@ -93,7 +93,7 @@
 
             </div>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-10">
             <h1>Certificate Accounts <span class="count"></span> </h1>
 
 
@@ -102,8 +102,8 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th class="hidden-sm-down">Capstone Term</th>
-                    <th class="hidden-sm-down">Graduation Term</th>
+                    <th class="hidden-sm-down">Capstone/Graduation Term</th>
+                    <th class="hidden-sm-down">Program</th>
                     <th>Progress</th>
                 </tr>
                 </thead>
@@ -118,13 +118,19 @@
                             {% if entity.checklist %}
                                 {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
                             {% endif %}
-                        </td>
-                        <td class="hidden-sm-down">
                             {% if entity.program %}
                                 <div class="btn btn-primary btn-sm tag{{ entity.program.graddate }}{{ entity.program.gradterm }}"
                                      style="background-color: #20773b">{{ entity.program.graddate }} {{ entity.program.gradterm }}</div>
 
                                 {#<a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>#}
+                            {% endif %}
+                        </td>
+                        <td class="hidden-sm-down">
+                            {% if entity.program %}
+                                {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
+                                {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
+                                {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
+                                {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}<br/>
                             {% endif %}
                         </td>
                         <td>
