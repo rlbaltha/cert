@@ -53,7 +53,7 @@
     <!-- ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="container marketing">
+    <div class="container-fluid marketing">
 
         <!-- FEATURES -->
 
@@ -78,7 +78,7 @@
         <!-- Three COLUMNS of text below the carousel -->
         <div class="row">
             {% for feature in features  if feature.type=='column' %}
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {% if feature.image!='' %}
                     <img class="img-thumbnail rounded" src="{{ feature.image }}" alt="Slide {{ loop.index }}"
                          width="80%">
