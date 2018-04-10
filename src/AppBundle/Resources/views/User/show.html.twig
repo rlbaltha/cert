@@ -86,8 +86,8 @@
             {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
             {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}<br/>
         {% endif %}
-        {% if entity.checklist %}Graduation: {{ entity.checklist.graddate }} {{ entity.checklist.gradterm }}
-            <br/>{% endif %}
+        Graduation: {{ entity.graddate }} {{ entity.gradterm }}
+            <br/><br/>
 
         <a class="btn btn-primary align-right margin-bottom"
            href="{{ path('user_edit',  { 'id': entity.id }) }}">

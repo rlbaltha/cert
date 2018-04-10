@@ -150,40 +150,6 @@ class ChecklistType extends AbstractType
             )
           ->add('portfolio', 'text', array('required'=> false,'attr' => array('class' => 'text form-control hr', 'placeholder' =>
             'https://ctlsites.uga.edu/sustainability-/'),))
-
-            ->add('gradterm', 'choice', array(
-                'required' => true,
-                'multiple' => false,
-                'label' => 'Expected Graduation Term',
-                'choices' => array(
-                    'Spring' => 'Spring',
-                    'Summer' => 'Summer',
-                    'Fall' => 'Fall',
-                ),
-                // *this line is important*
-                'choices_as_values' => true,
-                'expanded' => true,
-            ))
-            ->add('graddate', 'choice', array(
-                'required' => true,
-                'multiple' => false,
-                'label' => 'Expected Graduation Year',
-                'choices' => array(
-                    '2017' => '2017',
-                    '2018' => '2018',
-                    '2019' => '2019',
-                    '2020' => '2020',
-                    '2021' => '2021',
-                    '2022' => '2022',
-                    '2023' => '2023',
-                    '2024' => '2024',
-                    '2025' => '2025',
-                ),
-                // *this line is important*
-                'choices_as_values' => true,
-                'expanded' => false,
-                'attr' => array('class' =>'form-control hr'),
-            ))
             ->add('post_assess','date', array('attr' => array('class' => ' hr'), 'label'  => 'Post-Certificate Survey 
             Completed', 'required' => false,))
 

@@ -71,6 +71,21 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="graddate", type="string", length=255, nullable=true)
+     */
+    private $graddate;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gradterm", type="string", length=255, nullable=true)
+     */
+    private $gradterm;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="status", type="string", length=255, nullable=true)
      */
     private $status='Account Created';
@@ -798,4 +813,52 @@ class User extends BaseUser
         return $this->altemail;
     }
 
+
+    /**
+     * Set graddate
+     *
+     * @param string $graddate
+     *
+     * @return User
+     */
+    public function setGraddate($graddate)
+    {
+        $this->graddate = $graddate;
+
+        return $this;
+    }
+
+    /**
+     * Get graddate
+     *
+     * @return string
+     */
+    public function getGraddate()
+    {
+        return $this->graddate;
+    }
+
+    /**
+     * Set gradterm
+     *
+     * @param string $gradterm
+     *
+     * @return User
+     */
+    public function setGradterm($gradterm)
+    {
+        $this->gradterm = $gradterm;
+
+        return $this;
+    }
+
+    /**
+     * Get gradterm
+     *
+     * @return string
+     */
+    public function getGradterm()
+    {
+        return $this->gradterm;
+    }
 }
