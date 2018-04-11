@@ -55,9 +55,13 @@
                 <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
                 {% if entity.checklist %}
                     <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
+                {% else %}
+                    <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
                 {% endif %}
                 {% if entity.capstone %}
                     <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+                {% else %}
+                    <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
                 {% endif %}
             {% endif %}
             {% if is_granted('ROLE_PREVIOUS_ADMIN') %}

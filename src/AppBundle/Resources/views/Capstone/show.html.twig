@@ -59,6 +59,8 @@
             <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
             {% if entity.checklist %}
                 <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
+            {% else %}
+                <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
             {% endif %}
         {% endif %}
         <a class='btn btn-primary disabled' href="#">Capstone</a>

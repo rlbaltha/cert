@@ -21,6 +21,8 @@
             <a class='btn btn-primary disabled' href="#">Checklist</a>
             {% if entity.capstone %}
                 <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+            {% else %}
+                <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
             {% endif %}
         {% endif %}
         {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
@@ -57,12 +59,6 @@
                 <a class="btn btn-primary align-right margin-bottom"
                    href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
                     Update Checklist
-                </a>
-            {% else %}
-                <a title="Get started on your checklist"
-                   class="btn btn-primary margin-bottom {% if not entity.program or entity.program.status != 'Approved' %}disabled{% endif %}"
-                   href="{{ path('checklist_new') }}">
-                    Start your Checklist
                 </a>
             {% endif %}
         {% endif %}
