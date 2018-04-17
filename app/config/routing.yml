@@ -9,6 +9,13 @@ logout:
 login_check:
     path: /login_check
 
+alumni:
+    path: /alumni
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /page/Alumni
+        permanent: true
+
 adesigns_calendar:
   resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
 
