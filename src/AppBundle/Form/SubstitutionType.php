@@ -21,6 +21,7 @@ class SubstitutionType extends AbstractType
                 'label' => 'Requirement',
                 'choices' => array(
                     'Anchor' => 'Anchor',
+                    'Seminar' => 'Seminar',
                     'Social Sphere' => 'Social Sphere',
                     'Economic Sphere' => 'Economic Sphere',
                     'Ecological Sphere' => 'Ecological Sphere',
