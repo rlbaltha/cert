@@ -37,121 +37,122 @@
 //                $(window).scrollTop(0);
 //            });
             var rowCount = $('tbody tr:visible').length;
-            $( "span.count" ).html( '(' + rowCount  + ')' );
+            $("span.count").html('(' + rowCount + ')');
         });
     </script>
 {% endblock %}
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-2">
-            <div class="bootstrap-vertical-nav">
-                <nav class="navbar navbar-dark">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
-                            data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <a class="btn btn-secondary btn-sm" style="background-color: green;color:white;" href="{{ path('user', {'tag': 'all'}) }}">All Accounts</a>
-                        <a class="btn btn-primary btn-sm" href="{{ path('user', {'tag': 'students'}) }}">Students</a>
-                        <br/><br/>
-                        {% for tag in tags if tag.subs|length > 0 %}
-                            <a href="{{ path('user', { 'tag': tag.title }) }}" id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                               style="background-color: {{ tag.color }}">{{ tag.title }}</a>
-                            {% for tag in tag.subs %}
-                                <a href="{{ path('user', { 'tag': tag.title }) }}" id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                                   style="background-color: {{ tag.color }}">{{ tag.title }}</a>
-                            {% endfor %}
-                        {% endfor %}
-                        {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
-                            <a href="{{ path('user', { 'tag': tag.title }) }}" id="{{ tag.id }}" class="btn btn-primary btn-sm tag_filter"
-                               style="background-color: {{ tag.color }}">{{ tag.title }}</a>
-                        {% endfor %}
-                        <br/>
-                        <br/>
-                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2018' }) }}"  class="btn btn-primary btn-sm tag_filter"
-                           style="background-color: green">2018 Spring</a>
-                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2018' }) }}"  class="btn btn-primary btn-sm tag_filter"
-                           style="background-color: green">2018 Summer</a>
-                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2018' }) }}"  class="btn btn-primary btn-sm tag_filter"
-                           style="background-color: green">2018 Fall</a>
-                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2019' }) }}"  class="btn btn-primary btn-sm tag_filter"
-                           style="background-color: green">2019 Spring</a>
-                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2019' }) }}"  class="btn btn-primary btn-sm tag_filter"
-                           style="background-color: green">2019 Summer</a>
-                        <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2019' }) }}"  class="btn btn-primary btn-sm tag_filter"
-                           style="background-color: green">2019 Fall</a>
+        <div class="row" style="padding:2em;padding-top:1em">
+            <div class="col-sm-12">
+                <h1 class="inline">Certificate Accounts <span class="count"></span></h1>
 
-                        <br/>
-                        <br/>
+                <a class="btn btn-primary"
+                   href="{{ path('user', {'tag': app.request.get("tag"), 'term': app.request.get('term'), 'date': app.request.get('date'),'view':'grad'}) }}">Grad
+                    View</a>
+                <br/>
 
-                        <a class="btn btn-secondary btn-sm" style="background-color: green; color:white" href="{{ path('user_mentor_mapping') }}">Mentor
-                            Mapping</a>
-                        <a class="btn btn-secondary btn-sm" style="background-color: green; color:white" href="{{ path('user_table') }}">Alt Display</a>
-                    </div>
-                </nav>
-
-            </div>
-        </div>
-        <div class="col-sm-10">
-            <h1>Certificate Accounts <span class="count"></span> </h1>
-
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th class="hidden-sm-down">Capstone/Graduation Term</th>
-                    <th class="hidden-sm-down">Program</th>
-                    <th>Progress</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for entity in entities %}
-                    <tr class="user_row" id="{{ entity.id }}">
-                        <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
-                                , {{ entity.firstname }}</a>
-                        </td>
-                        <td class="email">{{ entity.email }}; </td>
-                        <td class="hidden-sm-down">
-                            {% if entity.checklist %}
-                                {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
-                            {% endif %}
-                            {% if entity.program %}
-                                <div class="btn btn-primary btn-sm tag{{ entity.program.graddate }}{{ entity.program.gradterm }}"
-                                     style="background-color: #20773b">{{ entity.graddate }} {{ entity.gradterm }}</div>
-
-                                {#<a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>#}
-                            {% endif %}
-                        </td>
-                        <td class="hidden-sm-down">
-                            {% if entity.program %}
-                                {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
-                                {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
-                                {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
-                                {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}<br/>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {#{% if entity.progress %}#}
-                                {#<a href="{{ path('user', { 'type': entity.progress.id }) }}">{{ entity.progress.name }}</a>#}
-                            {#{% else %}#}
-                                {#Account Created#}
-                            {#{% endif %}#}
-                            {% for tag in entity.tags %}
-                                <div class="btn btn-primary btn-sm tag{{ tag.id }}"
-                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                            {% endfor %}
-                        </td>
-                    </tr>
+                <a class="btn btn-primary btn-sm"
+                   href="{{ path('user', {'tag': 'students', 'term': 'All', 'date': 'All','view':'index'}) }}">All
+                    Students</a>
+                {% for tag in tags if tag.subs|length > 0 %}
+                    <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
+                       id="{{ tag.id }}"
+                       class="btn btn-primary btn-sm"
+                       style="background-color: {{ tag.color }}">{{ tag.title }}</a>
+                    {% for tag in tag.subs %}
+                        <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
+                           id="{{ tag.id }}"
+                           class="btn btn-primary btn-sm"
+                           style="background-color: {{ tag.color }}">{{ tag.title }}</a>
+                    {% endfor %}
                 {% endfor %}
-                </tbody>
-            </table>
-            <p>Email
-                list: <span id="email_list">{% for entity in entities %}{{ entity.email }}{% if not loop.last %}; {% endif %}{% endfor %}</span></p>
+                {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                    <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
+                       id="{{ tag.id }}"
+                       class="btn btn-primary btn-sm"
+                       style="background-color: {{ tag.color }}">{{ tag.title }}</a>
+                {% endfor %}
+                <a class="btn btn-secondary btn-sm" style="background-color: green; color:white"
+                   href="{{ path('user_mentor_mapping') }}">Mentor
+                    Mapping</a>
+                <br/>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2018','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2018 Spring</a>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2018','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2018 Summer</a>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2018','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2018 Fall</a>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2019','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2019 Spring</a>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2019','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2019 Summer</a>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2019','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2019 Fall</a>
+
+                <table class="table" style="margin-top: 2em">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th class="hidden-sm-down">Capstone/Graduation Term</th>
+                        <th class="hidden-sm-down">Program</th>
+                        <th>Progress</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr class="user_row" id="{{ entity.id }}">
+                            <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
+                                    , {{ entity.firstname }}</a>
+                            </td>
+                            <td class="email">{{ entity.email }};</td>
+                            <td class="hidden-sm-down">
+                                {% if entity.checklist %}
+                                    {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
+                                {% endif %}
+                                {% if entity.program %}
+                                    <div class="btn btn-primary btn-sm tag{{ entity.program.graddate }}{{ entity.program.gradterm }}"
+                                         style="background-color: #20773b">{{ entity.graddate }} {{ entity.gradterm }}</div>
+
+                                    {#<a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>#}
+                                {% endif %}
+                            </td>
+                            <td class="hidden-sm-down">
+                                {% if entity.program %}
+                                    {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
+                                    {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
+                                    {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
+                                    {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}<br/>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% for tag in entity.tags %}
+                                    <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                                         style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <p>Email
+                    list: <span
+                            id="email_list">{% for entity in entities %}{{ entity.email }}; {% endfor %}</span>
+                </p>
+                <p>Alt Email
+                    list: <span
+                            id="email_list">{% for entity in entities if entity.altemail!='' %}{{ entity.altemail }}; {% endfor %}</span>
+                </p>
+            </div>
+
         </div>
-
     </div>
-
 {% endblock %}

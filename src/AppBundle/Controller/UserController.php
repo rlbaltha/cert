@@ -69,12 +69,12 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/list/{tag}/{term}/{date}", name="user", defaults={"tag" = "students", "term" = "All", "date" = "All"})
+     * @Route("/list/{tag}/{term}/{date}/{view}", name="user", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
      * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
-    public function indexAction($tag, $term, $date)
+    public function indexAction($tag, $term, $date, $view)
     {
         $em = $this->getDoctrine()->getManager();
         if ($tag == 'all') {
@@ -90,18 +90,12 @@ class UserController extends Controller
 
         $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
 
-        if ($tag=='Alumni') {
-            return $this->render('AppBundle:User:alumni.html.twig', array(
+        $view = 'AppBundle:User:' . $view . '.html.twig';
+
+            return $this->render($view, array(
                 'entities' => $entities,
                 'tags' => $tags,
             ));
-        }
-        else {
-            return $this->render('AppBundle:User:index.html.twig', array(
-                'entities' => $entities,
-                'tags' => $tags,
-            ));
-        }
 
     }
 
