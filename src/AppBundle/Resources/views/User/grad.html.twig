@@ -106,6 +106,7 @@
                     <th class="hidden-sm-down">Capstone</th>
                     <th class=" hidden-sm-down">Presentation</th>
                     <th class="hidden-sm-down">Portfolio</th>
+                    <th class="hidden-sm-down">Applied for Grad.</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -141,6 +142,9 @@
                         </td>
                         <td>
                             {% if entity.checklist %}<a target="_blank" href="{{ entity.checklist.portfolio }}">View</a>{% endif %}
+                        </td>
+                        <td>
+                            {% if entity.checklist %}{{ entity.checklist.athena|date('m/d/Y') }}{% endif %}
                         </td>
                     </tr>
                 {% endfor %}
