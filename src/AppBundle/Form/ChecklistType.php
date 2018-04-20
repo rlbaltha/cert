@@ -16,75 +16,75 @@ class ChecklistType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('athena','date', array('attr' => array('class' => ''), 'label'  => 'Date Certificate was added in Athena', 'required' => false,))
-            ->add('pre_assess','date', array('attr' => array('class' => ''), 'label'  => 'Pre-Certificate Survey 
+            ->add('athena', 'date', array('attr' => array('class' => ''), 'label' => 'Date Certificate was added in Athena', 'required' => false,))
+            ->add('pre_assess', 'date', array('attr' => array('class' => ''), 'label' => 'Pre-Certificate Survey 
             Completed', 'required' => false,))
-            ->add('orientation','date', array('attr' => array('class' => ' hr'), 'label'  => 'Orientation 
+            ->add('orientation', 'date', array('attr' => array('class' => ' hr'), 'label' => 'Orientation 
             Completed', 'required' => false,))
             ->add('anchor', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
-              'query_builder' => function (EntityRepository $er) {
-                  return $er->createQueryBuilder('c')
-                    ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
-                      ->andWhere('c.status = :status1 or c.status = :status2')
-                      ->setParameter('pillar1', 'anchor')
-                      ->setParameter('pillar2', 'any')
-                      ->setParameter('status1', 'approved')
-                      ->setParameter('status2', 'exception')
-                    ->orderBy('c.name ');
-              },
-            'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Anchor Course', 'attr' => array
-              ('class' => 'form-control'),))
-          ->add('sphere1', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('c')
-                    ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
-                    ->andWhere('c.status = :status1 or c.status = :status2')
-                    ->setParameter('pillar1', 'ecological')
-                    ->setParameter('pillar2', 'any')
-                    ->setParameter('status1', 'approved')
-                    ->setParameter('status2', 'exception')
-                  ->orderBy('c.name ');
-            },
-            'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Ecological Sphere', 'attr' => array
-            ('class' => 'form-control'),))
-          ->add('sphere2', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('c')
-                    ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
-                    ->andWhere('c.status = :status1 or c.status = :status2')
-                    ->setParameter('pillar1', 'economic')
-                    ->setParameter('pillar2', 'any')
-                    ->setParameter('status1', 'approved')
-                    ->setParameter('status2', 'exception')
-                  ->orderBy('c.name ');
-            },
-            'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Economic Sphere', 'attr' => array
-            ('class' => 'form-control'),))
-          ->add('sphere3', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('c')
-                    ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
-                    ->andWhere('c.status = :status1 or c.status = :status2')
-                    ->setParameter('pillar1', 'social')
-                    ->setParameter('pillar2', 'any')
-                    ->setParameter('status1', 'approved')
-                    ->setParameter('status2', 'exception')
-                  ->orderBy('c.name ');
-            },
-            'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Social Sphere', 'attr' => array
-            ('class' => 'form-control'),))
-          ->add('seminar', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('c')
-                  ->andWhere('c.pillar = :pillar')
-                    ->andWhere('c.status = :status1 or c.status = :status2')
-                    ->setParameter('pillar', 'seminar')
-                    ->setParameter('status1', 'approved')
-                    ->setParameter('status2', 'exception')
-                  ->orderBy('c.name ');
-            },
-            'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Seminar', 'attr' => array
-            ('class' => 'form-control hr'),))
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
+                        ->andWhere('c.status = :status1 or c.status = :status2')
+                        ->setParameter('pillar1', 'anchor')
+                        ->setParameter('pillar2', 'any')
+                        ->setParameter('status1', 'approved')
+                        ->setParameter('status2', 'exception')
+                        ->orderBy('c.name ');
+                },
+                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Anchor Course', 'attr' => array
+                ('class' => 'form-control'),))
+            ->add('sphere1', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
+                        ->andWhere('c.status = :status1 or c.status = :status2')
+                        ->setParameter('pillar1', 'ecological')
+                        ->setParameter('pillar2', 'any')
+                        ->setParameter('status1', 'approved')
+                        ->setParameter('status2', 'exception')
+                        ->orderBy('c.name ');
+                },
+                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Ecological Sphere', 'attr' => array
+                ('class' => 'form-control'),))
+            ->add('sphere2', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
+                        ->andWhere('c.status = :status1 or c.status = :status2')
+                        ->setParameter('pillar1', 'economic')
+                        ->setParameter('pillar2', 'any')
+                        ->setParameter('status1', 'approved')
+                        ->setParameter('status2', 'exception')
+                        ->orderBy('c.name ');
+                },
+                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Economic Sphere', 'attr' => array
+                ('class' => 'form-control'),))
+            ->add('sphere3', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.pillar = :pillar1 or c.pillar = :pillar2')
+                        ->andWhere('c.status = :status1 or c.status = :status2')
+                        ->setParameter('pillar1', 'social')
+                        ->setParameter('pillar2', 'any')
+                        ->setParameter('status1', 'approved')
+                        ->setParameter('status2', 'exception')
+                        ->orderBy('c.name ');
+                },
+                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Social Sphere', 'attr' => array
+                ('class' => 'form-control'),))
+            ->add('seminar', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->andWhere('c.pillar = :pillar')
+                        ->andWhere('c.status = :status1 or c.status = :status2')
+                        ->setParameter('pillar', 'seminar')
+                        ->setParameter('status1', 'approved')
+                        ->setParameter('status2', 'exception')
+                        ->orderBy('c.name ');
+                },
+                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Seminar', 'attr' => array
+                ('class' => 'form-control hr'),))
             ->add('capstoneterm', 'choice', array(
                 'required' => true,
                 'multiple' => false,
@@ -116,7 +116,7 @@ class ChecklistType extends AbstractType
                 // *this line is important*
                 'choices_as_values' => true,
                 'expanded' => false,
-                'attr' => array('class' =>'form-control'),
+                'attr' => array('class' => 'form-control'),
             ))
             ->add('capstone', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
                 'query_builder' => function (EntityRepository $er) {
@@ -128,7 +128,7 @@ class ChecklistType extends AbstractType
                         ->setParameter('status2', 'exception')
                         ->orderBy('c.name ');
                 },
-                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Capstone Course', 'attr' => array
+                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Capstone Course', 'attr' => array
                 ('class' => 'form-control'),))
             ->add(
                 'presentation',
@@ -148,14 +148,27 @@ class ChecklistType extends AbstractType
                     'required' => false,
                 )
             )
-          ->add('portfolio', 'text', array('required'=> false,'attr' => array('class' => 'text form-control hr', 'placeholder' =>
-            'https://ctlsites.uga.edu/sustainability-/'),))
-            ->add('post_assess','date', array('attr' => array('class' => ' hr'), 'label'  => 'Post-Certificate Survey 
-            Completed', 'required' => false,))
-
-        ;
+            ->add('portfolio', 'text', array('required' => false, 'attr' => array('class' => 'text form-control hr', 'placeholder' =>
+                'https://ctlsites.uga.edu/sustainability-/'),))
+            ->add(
+                'appliedtograd',
+                'choice',
+                array(
+                    'choices' => array(
+                        'Yes' => 'Yes',
+                        'No' => 'No',
+                    ),
+                    // *this line is important*
+                    'choices_as_values' => true,
+                    'expanded' => true, 'multiple' => false,
+                    'label' => 'Have you applied to graduate with the Certificate in Athena?',
+                    'required' => true,
+                )
+            )
+            ->add('post_assess', 'date', array('attr' => array('class' => ''), 'label' => 'Post-Certificate Survey 
+            Completed', 'required' => false,));
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

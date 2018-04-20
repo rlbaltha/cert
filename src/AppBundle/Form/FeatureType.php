@@ -25,6 +25,7 @@ class FeatureType extends AbstractType
                     'carousel' => 'carousel',
                     'column' => 'column',
                     'feature' => 'feature',
+                    'archive' => 'archive',
                 ),
                 // *this line is important*
                 'choices_as_values' => true,

@@ -70,18 +70,25 @@
             {% endif %}
         </p>
 
-        {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <p>
-                {% for role in entity.roles %}
-                    {{ role }}
-                {% endfor %}
+
+
+        <div class="alert alert-info margin-top" role="alert">
+            <p>Your profile includes basic information about you.  You may update it at any time.
             </p>
-        {% endif %}
+        </div>
+
+        <a class="btn btn-primary align-right margin-bottom"
+           href="{{ path('user_edit',  { 'id': entity.id }) }}">
+            Update Profile
+        </a>
+        <br/>
+
 
         {% for tag in entity.tags %}
         <div class="btn btn-primary btn-sm tag{{ tag.id }}"
              style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-        {% endfor %}<br/>
+        {% endfor %}
+        <br/><br/>
         {{ entity.email }}<br/>
         {% if entity.altemail %}{{ entity.altemail }}<br/>{% endif %}
         {% if entity.program %}
@@ -93,12 +100,15 @@
         Graduation: {{ entity.graddate }} {{ entity.gradterm }}
             <br/><br/>
 
-        <a class="btn btn-primary align-right margin-bottom"
-           href="{{ path('user_edit',  { 'id': entity.id }) }}">
-            Update Profile
-        </a>
 
-        <hr/>
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <p>
+                {% for role in entity.roles %}
+                    {{ role }}
+                {% endfor %}
+            </p>
+        {% endif %}
+
         <a class="btn btn-secondary" id="notifications_toggle"
            href="javascript:void(0);">Notifications</a></li>
         {% if entity.capstoneMentees|length > 0 %}
@@ -117,7 +127,9 @@
             <a class="btn btn-secondary" id="directornotes_toggle" href="javascript:void(0);">Director
                 Notes</a>
         {% endif %}
-        <hr/>
+
+
+        <br/><br/>
 
         {# *********************** Notifications *********************** #}
         {# set variables for checkpoints #}

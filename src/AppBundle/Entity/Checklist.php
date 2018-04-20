@@ -107,6 +107,13 @@ class Checklist
     private $gradterm;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="appliedtograd", type="text", nullable=true)
+     */
+    private $appliedtograd='no';
+
+    /**
      * @ORM\ManyToOne(targetEntity="Course")
      */
     protected $anchor;
@@ -690,5 +697,29 @@ class Checklist
     public function getSubstitutions()
     {
         return $this->substitutions;
+    }
+
+    /**
+     * Set appliedtograd
+     *
+     * @param string $appliedtograd
+     *
+     * @return Checklist
+     */
+    public function setAppliedtograd($appliedtograd)
+    {
+        $this->appliedtograd = $appliedtograd;
+
+        return $this;
+    }
+
+    /**
+     * Get appliedtograd
+     *
+     * @return string
+     */
+    public function getAppliedtograd()
+    {
+        return $this->appliedtograd;
     }
 }

@@ -19,7 +19,7 @@
                 {% endfor %}
             </div>
         {% endif %}
-        {#  *********************** Applcation ***********************  #}
+        {#  *********************** Application ***********************  #}
         <h2>Application
             for {{ entity.firstname }} {{ entity.lastname }}  {% if entity.program %}({{ entity.program.status }}){% endif %}</h2>
 
@@ -116,10 +116,6 @@
                 <tr>
                     <th>Previous Institution(s)</th>
                     <td>{{ entity.program.institution }}</td>
-                </tr>
-                <tr>
-                    <th>Expected Graduation</th>
-                    <td>{{ entity.program.graddate }} {{ entity.program.gradterm }}</td>
                 </tr>
                 <tr>
                     <th>Address</th>
