@@ -31,7 +31,7 @@
         "stephanecollot/datetimepicker-bundle": "dev-master",
         "jmikola/auto-login-bundle": "~1.0",
         "twig/twig": "~1.35",
-        "vich/uploader-bundle": "^1.7"
+        "vich/uploader-bundle": "~1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
