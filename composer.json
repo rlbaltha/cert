@@ -30,7 +30,7 @@
         "friendsofsymfony/jsrouting-bundle": "^1.6",
         "stephanecollot/datetimepicker-bundle": "dev-master",
         "jmikola/auto-login-bundle": "~1.0",
-        "twig/twig": "^2.4",
+        "twig/twig": "~1.35",
         "vich/uploader-bundle": "^1.7"
     },
     "require-dev": {
