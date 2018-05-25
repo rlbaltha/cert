@@ -17,7 +17,6 @@
         "symfony/monolog-bundle": "^3.0.2",
         "symfony/swiftmailer-bundle": "~2.3,>=2.3.10",
         "symfony/symfony": "2.8.*",
-        "twig/twig": "^1.0||^2.0",
         "symfony/assetic-bundle": "~2.3",
         "symfony/polyfill-iconv": "~1.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
@@ -25,13 +24,14 @@
         "ircmaxell/password-compat": "~1.0.4",
         "ddeboer/data-import-bundle": "^0.1.0",
         "egeloen/ckeditor-bundle": "^3.0",
-        "vich/uploader-bundle": "^0.14.0",
-        "knplabs/knp-snappy-bundle": "dev-master",
+        "knplabs/knp-snappy-bundle": "1.4",
         "besimple/sso-auth-bundle": "@dev",
         "adesigns/calendar-bundle": "^1.1",
         "friendsofsymfony/jsrouting-bundle": "^1.6",
         "stephanecollot/datetimepicker-bundle": "dev-master",
-        "jmikola/auto-login-bundle": "~1.0"
+        "jmikola/auto-login-bundle": "~1.0",
+        "twig/twig": "^2.4",
+        "vich/uploader-bundle": "^1.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
