@@ -313,7 +313,7 @@ class ProgramController extends Controller
         $text = $text . '<p>We would also like for you to take a survey as part of our assessment of the certificate program: 
                  <a href="https://ugeorgia.qualtrics.com/SE/?SID=SV_eQWZLWcQhfLEb0V" target="_blank">Pre-Certificate Survey</a></p>
                  <p>Be sure to record the date that you took the survey in your <a href="https://www.sustain.uga.edu/user/profile" target="_blank">Checklist</a></p>
-                 <p>We will have an orientation at the beginning of each semester, but you are welcome to contact the director at any time: scdirector@uga.edu.</p>
+                 <p>We will have an orientation at the beginning of Fall semester, but you are welcome to contact the director at any time: scdirector@uga.edu.</p>
                  <p>The Cert Staff</p>
                  <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>';
 
@@ -337,8 +337,7 @@ class ProgramController extends Controller
         $message2 = \Swift_Message::newInstance()
             ->setSubject('Certificate Application Approved')
             ->setFrom('scdirector@uga.edu')
-            ->setTo('sac@uga.edu')
-            ->setCc('alampp@uga.edu')
+            ->setTo('alampp@uga.edu')
             ->setBcc('scdirector@uga.edu')
             ->setBody(
                 $this->renderView(
