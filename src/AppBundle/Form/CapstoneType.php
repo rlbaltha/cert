@@ -118,21 +118,21 @@ class CapstoneType extends AbstractType
                 )
             )
             ->add(
+                'success_metrics',
+                'ckeditor',
+                array(
+                    'required' => false,
+                    'label' => 'Indicators: How will you know that your project was a success? What qualitative/quantitative metrics will you use to demonstrate this?',
+                    'config_name' => 'editor_simple',
+                )
+            )
+            ->add(
                 'personal_objectives',
                 'ckeditor',
                 array(
                     'required' => false,
                     'label' => 'Personal Objectives:  What are the job skills, experience, and knowledge that you hope to gain in the course of your project?
 ',
-                    'config_name' => 'editor_simple',
-                )
-            )
-            ->add(
-                'success_metrics',
-                'ckeditor',
-                array(
-                    'required' => false,
-                    'label' => 'Indicators: How will you know that your project was a success? What qualitative/quantitative metrics will you use to demonstrate this?',
                     'config_name' => 'editor_simple',
                 )
             )
