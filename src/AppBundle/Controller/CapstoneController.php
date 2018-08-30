@@ -8,10 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Capstone;
 use AppBundle\Form\CapstoneType;
 use AppBundle\Entity\Project;
 use AppBundle\Entity\Checkpoint;
+use Dompdf\Dompdf;
+
 
 /**
  * Capstone controller.
@@ -105,12 +108,11 @@ class CapstoneController extends Controller
             $checkpoint1->setProject($project);
             $checkpoint1->setType('Capstone');
             $checkpoint1->setName('Design Process');
-            $checkpoint1->setDescription('<p>Please complete this checkpoint by the first day of the semester.</p>
+            $checkpoint1->setDescription('<p></p>
                                             <ul>
                                             <li>Completed work plan including checkpoints</li>
                                             <li>Received two peer reviews</li>
                                             <li>Provided two peer reviews</li>
-                                            <li>Marked work plan as <strong>Ready for Director Review</strong></li>
                                             <li>Enrolled in a capstone course</li>
                                             </ul>');
             $em->persist($checkpoint1);
@@ -118,16 +120,34 @@ class CapstoneController extends Controller
             $checkpoint2 = new Checkpoint();
             $checkpoint2->setProject($project);
             $checkpoint2->setType('Capstone');
-            $checkpoint2->setName('One Month Check-in');
-            $checkpoint2->setDescription('List of tasks/events that should be completed or underway by one month in.');
+            $checkpoint2->setName('Mentor Check-in:  Approval of Work Plan and Timeline');
+            $checkpoint2->setDescription('<ul>
+                                            <li>Review completed work plan with mentor</li>
+                                            <li>Revise as needed</li>
+                                            <li>Complete Capstone Progress Report form, sign and have mentor sign</li>
+                                            <li>Turn in form to Certificate Director</li>
+                                            </ul>');
             $em->persist($checkpoint2);
 
             $checkpoint3 = new Checkpoint();
             $checkpoint3->setProject($project);
             $checkpoint3->setType('Capstone');
-            $checkpoint3->setName('Midpoint Check-in');
-            $checkpoint3->setDescription('List of tasks/events that should be completed or underway by midpoint.');
+            $checkpoint3->setName('Mentor Check-in:  Midpoint Progress Report');
+            $checkpoint3->setDescription('<ul>
+                                            <li>Complete Capstone Progress Report form, sign and have mentor sign</li>
+                                            <li>Turn in form to Certificate Director</li>
+                                            </ul>');
             $em->persist($checkpoint3);
+
+            $checkpoint5 = new Checkpoint();
+            $checkpoint5->setProject($project);
+            $checkpoint5->setType('Capstone');
+            $checkpoint5->setName('Mentor Check-in:  Final Progress Report');
+            $checkpoint5->setDescription('<ul>
+                                            <li>Complete Capstone Progress Report form, sign and have mentor sign</li>
+                                            <li>Turn in form to Certificate Director</li>
+                                            </ul>');
+            $em->persist($checkpoint5);
 
             $checkpoint4 = new Checkpoint();
             $checkpoint4->setProject($project);
@@ -297,6 +317,51 @@ class CapstoneController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Creates a pdf of capstone work plan
+     *
+     * @Route("/{id}/capstone_pdf", name="capstone_pdf")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function createPdfAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:User')->find($id);
+
+        $name = $entity->getLastname();
+        $filename = 'attachment; filename="' . $name . '.pdf"';
+
+
+        $html = $this->renderView('AppBundle:Capstone:pdf.html.twig', array(
+            'entity' => $entity,
+        ));
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        //        $dompdf->stream($name);
+        return new Response(
+            $dompdf->output(),
+            200,
+            array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => $filename
+            )
+        );
+
+    }
+
 
     /**
      * Capstone Ready for review and send email.

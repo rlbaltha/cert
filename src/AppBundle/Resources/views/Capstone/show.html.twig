@@ -166,6 +166,10 @@
                                 Update Work Plan
                             </a>
                         {% endif %}
+                        <a title="Update your capstone" class="btn btn-primary"
+                           href="{{ path('capstone_pdf',  { 'id': entity.id }) }}">
+                            Create PDF
+                        </a>
                     {% endif %}
                     {% if entity.program %}
                         {% if app.user.username==entity.program.user.username %}

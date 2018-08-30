@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="initial-scale=1">
+    <title>{% block title %}Sustainability Certificate{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link type="text/css" rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/css/theme.bootstrap.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
+        <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/local.css') }}">
+    {% endblock %}
+
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('apple-touch-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('apple-touch-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('apple-touch-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('apple-touch-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('apple-touch-icon-120x120.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('favicon-96x96.png') }}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{{ asset('favicon-16x16.png') }}" sizes="16x16">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <link rel="mask-icon" href="{{ asset('safari-pinned-tab.svg') }}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+
+
+        {% block body -%}
+        <div class="col-sm-12 col-xs-12">
+
+            {#  *********************** Capstone Workplan *********************** #}
+            <h2>Capstone
+                for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
+
+            <div class="card-block">
+                <div class="toggle" id="workplan_div">
+
+                    <h4>Work Plan</h4>
+
+                    {% if entity.capstone %}
+
+
+                    <table class="table margin-top">
+                        <tbody>
+                        <tr>
+                            <th>Title</th>
+                            <td>{{ entity.capstone.title }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type of Project</th>
+                            <td>{{ entity.capstone.type }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ entity.capstone.description|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Mentors/Reviewers</th>
+                            <td>{% for mentor in entity.capstone.capstoneMentor %}{{ mentor.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Mentor Involvement</th>
+                            <td>{{ entity.capstone.mentorExpectations|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Group</th>
+                            <td>{{ entity.capstone.groupProject }}</td>
+                        </tr>
+                        <tr>
+                            <th>Group Members/Your Role</th>
+                            <td>{{ entity.capstone.groupMembers|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Resources/Partners</th>
+                            <td>{{ entity.capstone.partners|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Targets</th>
+                            <td>{{ entity.capstone.objectives|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Indicators</th>
+                            <td>{{ entity.capstone.successMetrics|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Personal Objectives</th>
+                            <td>{{ entity.capstone.personalObjectives|raw }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Application</th>
+                            <td>{{ entity.capstone.application|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Expected Completion Date</th>
+                            <td>{{ entity.capstone.timeframe }}</td>
+                        </tr>
+                        <tr>
+                            <th>After Completion</th>
+                            <td>{{ entity.capstone.completion|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Repeatable/Extendable</th>
+                            <td>{{ entity.capstone.repeatable }}</td>
+                        </tr>
+                        <tr>
+                            <th>Repeatable/Extendable Information</th>
+                            <td>{{ entity.capstone.repeatinfo|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>{{ entity.capstone.status }}<a name="reviews"></a></td>
+                        </tr>
+                        <tr>
+                            <th>Last Updated</th>
+                            <td>{{ entity.capstone.updated |date("m/d/Y g:ia") }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                {#  *********************** Capstone Timeline (aka Checkpoints)  *********************** #}
+                <div class="toggle" id="checkpoints_div">
+
+                    <h4>Timeline</h4>
+
+
+                    {% for checkpoint in entity.capstone.project.checkpoints %}
+                        <div class="card margin-top checkpoints_card">
+                            <div class="card-header">
+
+                                <h4 class="card-title">
+                                    {{ checkpoint.name }}
+                                </h4>
+
+                                <p class="">
+                                    {% if checkpoint.deadline %}
+                                        {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
+                                            {% set alert %}alert-danger{% endset %}
+                                        {% else %}
+                                            {% set alert %}alert-success{% endset %}
+                                        {% endif %}
+                                        <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
+                                    {% endif %}
+                                    {% if checkpoint.lead != '' %}
+                                        <span class="alert alert-info">Lead: {{ checkpoint.lead }}</span>
+                                    {% endif %}
+                                    {{ checkpoint.description|raw }}
+                                </p>
+                                <hr/>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>
