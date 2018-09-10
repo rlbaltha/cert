@@ -44,13 +44,16 @@ class SendMailCommand extends ContainerAwareCommand
             $user = $c->getProject()->getCapstone()->getUser()->getName();
             $email = $c->getProject()->getCapstone()->getUser()->getEmail();
             $mentors = $c->getProject()->getCapstone()->getCapstoneMentor();
+            $task = $c->getDescription();
             $mentoremail = array();
             foreach($mentors as $m)    {
                 $mentoremail[] = $m->getEmail();
             }
 
-            $text = '<p>' .$user. ', you have a task deadline on <strong>'. $deadline->format('m-d-Y h:i A'). '</strong>.  Please <a href="https://www.sustain.uga.edu/user/profile" target="_blank">login</a> and review.
-            Thanks for all your good work! </p> <p>Mentors, please check in on the progress of this capstone. Thanks for mentoring.</p>';
+            $text = '<p>' .$user. ', you have a task deadline on <strong>'. $deadline->format('m-d-Y h:i A').
+                '</strong><p><strong>'.$name.'</strong></p><p>'.$task.'</p>
+            <p>Thanks for all your good work! </p> 
+            <p>Mentors, please check in on the progress of this capstone. Thanks for mentoring.</p>';
             $message = \Swift_Message::newInstance()
                 ->setSubject('Sustainability Capstone Timeline Task: '. $name)
                 ->setFrom('scdirector@uga.edu')
