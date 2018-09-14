@@ -233,7 +233,7 @@ class ChecklistController extends Controller
         $user = $entity->getUser();
         $user_entity = $em->getRepository('AppBundle:User')->find($user);
         $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
-        $text = $name. 'has complete her or his portfolio.';
+        $text = $name. ' has completed her or his portfolio.';
         $message = \Swift_Message::newInstance()
             ->setSubject('Portfolio Complete')
             ->setFrom('scdirector@uga.edu')
@@ -282,7 +282,7 @@ class ChecklistController extends Controller
         $user = $entity->getUser();
         $user_entity = $em->getRepository('AppBundle:User')->find($user);
         $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
-        $text = $name. 'has complete her or his certificate.';
+        $text = $name. ' has completed her or his certificate. Please review for graduation.';
         $message = \Swift_Message::newInstance()
             ->setSubject('Certificate Complete')
             ->setFrom('scdirector@uga.edu')
