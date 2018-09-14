@@ -17,21 +17,6 @@ class CapstoneType extends AbstractType
     {
         $builder
             ->add('title', 'text', array('label' => 'Project Title', 'attr' => array('class' => 'text form-control'),))
-            ->add(
-                'type',
-                'choice',
-                array(
-                    'choices' => array(
-                        'Research' => 'Research',
-                        'Internship' => 'Internship',
-                        'Independent/Group Project' => 'Independent/Group Project',
-                    ),
-                    // *this line is important*
-                    'choices_as_values' => true,
-                    'label' => 'Type of Project',
-                    'attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),
-                )
-            )
             ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')

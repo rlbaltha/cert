@@ -56,18 +56,6 @@ class AdminType extends AbstractType
                 'attr' => array('class' =>'form-control hr'),
             ))
             ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
-            ->add('peermentor', 'entity', array('class' => 'AppBundle\Entity\User',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->join('u.progress', 'p')
-                        ->join('u.program', 'pr')
-                        ->andWhere(':tag MEMBER OF u.tags')
-                        ->setParameter('tag', '103')
-                        ->addOrderBy('u.lastname', 'ASC')
-                        ->addOrderBy('u.firstname', 'ASC');
-                },
-                'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => false, 'label' => 'Mentor', 'attr' => array('class' =>
-                    'checkbox'),))
             ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')

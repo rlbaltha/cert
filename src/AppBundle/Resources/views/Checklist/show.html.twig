@@ -12,8 +12,14 @@
 
 {% block body -%}
     <div class="col-sm-8 col-xs-12">
-        {#  *********************** Certificate Checklist ***********************  #}
-        <h2>Checklist for {{ entity.firstname }} {{ entity.lastname }}</h2>
+
+        {% for flash_message in app.session.flashBag.get('notice') %}
+            <div class="alert alert-success flash-notice">
+                <h4 class="alert-heading">Congrats!</h4>
+                <p>{{ flash_message }}</p>
+            </div>
+        {% endfor %}
+
 
         {% if app.user.username == entity.username or is_granted('ROLE_SUPER_ADMIN') %}
             <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a>
@@ -29,7 +35,11 @@
             <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
                 Exit login as</a>
         {% endif %}
+        <hr/>
 
+
+        {#  *********************** Certificate Checklist ***********************  #}
+        <h2>Checklist for {{ entity.firstname }} {{ entity.lastname }}</h2>
 
         <div class="alert alert-info margin-top" role="alert">
             <p>The checklist allows you to track your progress through the program. Please
@@ -42,30 +52,47 @@
                     <strong>Guidelines for the Certificate.</strong>
                 </a></p>
         </div>
-        <div class="alert alert-success" role="alert">
-            <p>
-                    We require that at least one of the spheres come
-                    from
-                    courses outside you major and highly recommended that
-                    two of
-                    the three spheres come from courses outside of your
-                    major to
-                    develop the broadest perspective on sustainability.
-            </p>
-        </div>
 
         {% if app.user.username == entity.username %}
             {% if entity.checklist %}
-                <a class="btn btn-primary align-right margin-bottom"
+                <a class="btn btn-primary"
                    href="{{ path('checklist_edit',  { 'id': entity.checklist.id }) }}">
                     Update Checklist
                 </a>
+                <a class="btn btn-primary" href="{{ path('substitution_new') }}">
+                    Apply for a Substitution
+                </a>
+                {% if entity.checklist.portDate == null %}
+                    <a class='btn btn-primary'
+                       href="{{ path('checklist_portcomplete',  { 'id': entity.checklist.id}) }}">I've Completed the
+                        Portfolio
+                    </a>
+                {% endif %}
+                {% set count = 0 %}
+                {% for tag in entity.tags %}
+                    {% if tag.id ==112 %}{%  set count = count + 1 %}{% endif %}
+                {% endfor %}
+                {% if count == 0 %}
+                <a class='btn btn-primary'
+                   href="{{ path('checklist_certcomplete',  { 'id': entity.checklist.id}) }}">I've Completed my
+                    Certficate</strong>
+                </a>
+                {% endif %}
             {% endif %}
         {% endif %}
 
         {% if entity.checklist %}
             <table class="table margin-top">
                 <tbody>
+                <tr>
+                    <th>Progress</th>
+                    <td>
+                        {% for tag in entity.tags %}
+                            <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                                 style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                        {% endfor %}
+                    </td>
+                </tr>
                 <tr>
                     <th>Certificate added in Athena</th>
                     <td>{% if entity.checklist.athena %}{{ entity.checklist.athena|date('m/d/Y') }}
@@ -98,6 +125,21 @@
                                 : {{ entity.checklist.anchor.title }}
                             </a>
                         {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="alert alert-success" role="alert">
+                            <p>
+                                We require that at least one of the spheres come
+                                from
+                                courses outside you major and highly recommended that
+                                two of
+                                the three spheres come from courses outside of your
+                                major to
+                                develop the broadest perspective on sustainability.
+                            </p>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -175,7 +217,7 @@
                     <td><p>Applied to Graduate: {{ entity.checklist.appliedtograd }}</p>
                         <p>Please remember to apply to
                             graduate with the Sustainability Certificate in Athena the
-                            semester you will graduate from UGA.  <a
+                            semester you will graduate from UGA. <a
                                     href="https://sis-ssb-prod.uga.edu/PROD/twbkwbis.P_GenMenu?name=homepage"
                                     target="_blank">Apply Now</a></p></td>
                 </tr>
@@ -183,7 +225,18 @@
                     <th>Graduation Term</th>
                     <td>{{ entity.checklist.graddate }} {{ entity.checklist.gradterm }}</td>
                 </tr>
+                <tr>
+                    <th>Portfolio</th>
+                    <td><a href="{{ entity.checklist.portfolio }}"
+                           target="_blank">{{ entity.checklist.portfolio }}</a><br/>
 
+                        {% if entity.checklist.portDate == null %}
+                            The portfolio is not yet complete
+                        {% else %}
+                            Completed:  {{ entity.checklist.portDate | date("m/d/Y g:ia") }}
+                        {% endif %}
+                    </td>
+                </tr>
                 <tr>
                     <th>Updated</th>
                     <td>{{ entity.checklist.updated | date("m/d/Y g:ia") }}</td>
@@ -193,12 +246,6 @@
 
 
             <h3>Substitutions</h3>
-            {% if app.user.username == entity.username %}
-                <a class="btn btn-primary" href="{{ path('substitution_new') }}">
-                    Apply for a substitution for one of the requirements
-                </a>
-            {% endif %}
-
 
             <p>{{ entity.checklist.exceptions | raw }}</p>
 
@@ -208,7 +255,7 @@
                        href="{{ path('substitution_edit', { 'id': substitution.id }) }}">
                         Edit
                     </a>
-                    {% if is_granted('ROLE_SUPER_ADMIN')%}
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <a class="btn btn-primary float-sm-right"
                            href="{{ path('substitution_approve', { 'id': substitution.id }) }}">
                             Approve

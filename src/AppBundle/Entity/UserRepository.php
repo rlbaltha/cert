@@ -308,4 +308,5 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $data;
     }
+
 }

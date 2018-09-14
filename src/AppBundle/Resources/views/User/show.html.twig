@@ -47,30 +47,28 @@
             </div>
         {% endif %}
 
+        <a class='btn btn-primary disabled' href="#">Profile</a>
+        {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
+            <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
+            {% if entity.checklist %}
+                <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
+            {% else %}
+                <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
+            {% endif %}
+            {% if entity.capstone %}
+                <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+            {% else %}
+                <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
+            {% endif %}
+        {% endif %}
+        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+            <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
+                Exit login as</a>
+        {% endif %}
+        <hr/>
+
         {# Name and notes #}
         <h2>Profile for {{ entity.firstname }} {{ entity.lastname }}</h2>
-        <p>
-            <a class='btn btn-primary disabled' href="#">Profile</a>
-            {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
-                <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
-                {% if entity.checklist %}
-                    <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
-                {% else %}
-                    <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
-                {% endif %}
-                {% if entity.capstone %}
-                    <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
-                {% else %}
-                    <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
-                {% endif %}
-            {% endif %}
-            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
-                    Exit login as</a>
-            {% endif %}
-        </p>
-
-
 
         <div class="alert alert-info margin-top" role="alert">
             <p>Your profile includes basic information about you.  You may update it at any time.
@@ -83,12 +81,6 @@
         </a>
         <br/>
 
-
-        {% for tag in entity.tags %}
-        <div class="btn btn-primary btn-sm tag{{ tag.id }}"
-             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-        {% endfor %}
-        <br/><br/>
         {{ entity.email }}<br/>
         {% if entity.altemail %}{{ entity.altemail }}<br/>{% endif %}
         {% if entity.program %}
@@ -116,8 +108,6 @@
                 for Review</a>
         {% endif %}
         {% if entity.progress.name!='Faculty' %}
-            <a class="btn btn-secondary" id="mentoring_toggle"
-               href="javascript:void(0);">Mentoring</a>
 
             <a class="btn btn-secondary" id="portfolio_toggle"
                href="javascript:void(0);">Portfolio</a>

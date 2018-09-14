@@ -114,6 +114,14 @@ class Checklist
     private $appliedtograd='no';
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="port_date", type="datetime", nullable=true)
+     */
+    private $port_date;
+    
+
+    /**
      * @ORM\ManyToOne(targetEntity="Course")
      */
     protected $anchor;
@@ -721,5 +729,29 @@ class Checklist
     public function getAppliedtograd()
     {
         return $this->appliedtograd;
+    }
+
+    /**
+     * Set portDate
+     *
+     * @param \DateTime $portDate
+     *
+     * @return Checklist
+     */
+    public function setPortDate($portDate)
+    {
+        $this->port_date = $portDate;
+
+        return $this;
+    }
+
+    /**
+     * Get portDate
+     *
+     * @return \DateTime
+     */
+    public function getPortDate()
+    {
+        return $this->port_date;
     }
 }

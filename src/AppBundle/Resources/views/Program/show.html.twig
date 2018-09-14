@@ -19,30 +19,30 @@
                 {% endfor %}
             </div>
         {% endif %}
+
+        {% if app.user.username == entity.username or is_granted('ROLE_SUPER_ADMIN') %}
+            <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a>
+            <a class='btn btn-primary disabled' href="#">Application</a>
+            {% if entity.checklist %}
+                <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
+            {% else %}
+                <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
+            {% endif %}
+            {% if entity.capstone %}
+                <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+            {% else %}
+                <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
+            {% endif %}
+        {% endif %}
+        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+            <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
+                Exit login as</a>
+        {% endif %}
+        <hr/>
+
         {#  *********************** Application ***********************  #}
         <h2>Application
             for {{ entity.firstname }} {{ entity.lastname }}  {% if entity.program %}({{ entity.program.status }}){% endif %}</h2>
-
-        <p>
-            {% if app.user.username == entity.username or is_granted('ROLE_SUPER_ADMIN') %}
-                <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a>
-                <a class='btn btn-primary disabled' href="#">Application</a>
-                {% if entity.checklist %}
-                    <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
-                {% else %}
-                    <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
-                {% endif %}
-                {% if entity.capstone %}
-                    <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
-                {% else %}
-                    <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
-                {% endif %}
-            {% endif %}
-            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
-                    Exit login as</a>
-            {% endif %}
-        </p>
 
         <div class="alert alert-info" role="alert">
             <p>Please fill out the Application form completely. You may return to edit it at any

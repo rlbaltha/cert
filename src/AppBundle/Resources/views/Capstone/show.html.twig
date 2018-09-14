@@ -51,9 +51,6 @@
 {% block body -%}
     <div class="col-sm-8 col-xs-12">
 
-        {#  *********************** Capstone Workplan *********************** #}
-        <h2>Capstone
-            for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
         <a class='btn btn-primary' href="{{ path('user_show', { 'id': app.user.id }) }}">Profile</a>
         {% if app.user.username == entity.username  or is_granted('ROLE_SUPER_ADMIN') %}
             <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
@@ -68,7 +65,11 @@
             <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
                 Exit login as</a>
         {% endif %}
+        <hr/>
 
+        {#  *********************** Capstone Workplan *********************** #}
+        <h2>Capstone
+            for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
 
         <ul class="nav nav-tabs margin-top">
             <li class="nav-item">
@@ -215,10 +216,6 @@
                     <tr>
                         <th>Title</th>
                         <td>{{ entity.capstone.title }}</td>
-                    </tr>
-                    <tr>
-                        <th>Type of Project</th>
-                        <td>{{ entity.capstone.type }}</td>
                     </tr>
                     <tr>
                         <th>Description</th>

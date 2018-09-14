@@ -43,7 +43,7 @@ class CourseType extends AbstractType
                 true,
                 'expanded' => true, 'multiple' => false, 'label' => 'Location',
                 'attr' => array('class' => 'radio'),))
-            ->add('status', 'choice', array('choices' => array('pending' => 'pending', 'approved' => 'approved','denied' => 'denied'),
+            ->add('status', 'choice', array('choices' => array('pending' => 'pending', 'approved' => 'approved','denied' => 'denied','substitution' => 'substitution'),
              'required' =>true,
             'expanded' => true, 'multiple' => false, 'label' => 'Status',
             'attr' => array('class' => 'radio'),))

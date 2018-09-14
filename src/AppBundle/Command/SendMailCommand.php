@@ -51,7 +51,7 @@ class SendMailCommand extends ContainerAwareCommand
             }
 
             $text = '<p>' .$user. ', you have a task deadline on <strong>'. $deadline->format('m-d-Y h:i A').
-                '</strong><p><strong>'.$name.'</strong></p><p>'.$task.'</p>
+                '</strong><hr/><p><strong>'.$name.'</strong></p><p>'.$task.'</p><hr/>
             <p>Thanks for all your good work! </p> 
             <p>Mentors, please check in on the progress of this capstone. Thanks for mentoring.</p>';
             $message = \Swift_Message::newInstance()

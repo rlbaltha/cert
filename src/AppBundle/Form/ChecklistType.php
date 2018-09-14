@@ -103,7 +103,6 @@ class ChecklistType extends AbstractType
                 'multiple' => false,
                 'label' => 'Expected Capstone Year',
                 'choices' => array(
-                    '2017' => '2017',
                     '2018' => '2018',
                     '2019' => '2019',
                     '2020' => '2020',
