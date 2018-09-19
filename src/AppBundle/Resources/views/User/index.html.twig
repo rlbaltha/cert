@@ -51,6 +51,23 @@
                 <a class="btn btn-primary"
                    href="{{ path('user', {'tag': app.request.get("tag"), 'term': app.request.get('term'), 'date': app.request.get('date'),'view':'grad'}) }}">Grad
                     View</a>
+
+                Graduation Term:
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2018','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2018 Summer</a>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2018','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2018 Fall</a>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2019','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2019 Spring</a>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2019','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2019 Summer</a>
+                <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2019','view':'index' }) }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: green">2019 Fall</a>
                 <br/>
 
                 <a class="btn btn-primary btn-sm"
@@ -74,35 +91,15 @@
                        class="btn btn-primary btn-sm"
                        style="background-color: {{ tag.color }}">{{ tag.title }}</a>
                 {% endfor %}
-                <a class="btn btn-secondary btn-sm" style="background-color: green; color:white"
-                   href="{{ path('user_mentor_mapping') }}">Mentor
-                    Mapping</a>
-                <br/>
-                <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2018','view':'index' }) }}"
-                   class="btn btn-primary btn-sm"
-                   style="background-color: green">2018 Spring</a>
-                <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2018','view':'index' }) }}"
-                   class="btn btn-primary btn-sm"
-                   style="background-color: green">2018 Summer</a>
-                <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2018','view':'index' }) }}"
-                   class="btn btn-primary btn-sm"
-                   style="background-color: green">2018 Fall</a>
-                <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2019','view':'index' }) }}"
-                   class="btn btn-primary btn-sm"
-                   style="background-color: green">2019 Spring</a>
-                <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2019','view':'index' }) }}"
-                   class="btn btn-primary btn-sm"
-                   style="background-color: green">2019 Summer</a>
-                <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2019','view':'index' }) }}"
-                   class="btn btn-primary btn-sm"
-                   style="background-color: green">2019 Fall</a>
+
 
                 <table class="table" style="margin-top: 2em">
                     <thead>
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th class="hidden-sm-down">Capstone/Graduation Term</th>
+                        <th class="hidden-sm-down">Graduation</th>
+                        <th class="hidden-sm-down">Capstone</th>
                         <th class="hidden-sm-down">Program</th>
                         <th>Progress</th>
                     </tr>
@@ -115,14 +112,12 @@
                             </td>
                             <td class="email">{{ entity.email }};</td>
                             <td class="hidden-sm-down">
+                                    <div class="btn btn-primary btn-sm tag{{ entity.graddate }}{{ entity.gradterm }}"
+                                         style="background-color: #20773b">{{ entity.graddate }} {{ entity.gradterm }}</div>
+                            </td>
+                            <td class="hidden-sm-down">
                                 {% if entity.checklist %}
                                     {{ entity.checklist.capstonedate }} {{ entity.checklist.capstoneterm }}
-                                {% endif %}
-                                {% if entity.program %}
-                                    <div class="btn btn-primary btn-sm tag{{ entity.program.graddate }}{{ entity.program.gradterm }}"
-                                         style="background-color: #20773b">{{ entity.graddate }} {{ entity.gradterm }}</div>
-
-                                    {#<a href="{{ path('user_graddate', { 'term': entity.program.gradterm, 'date': entity.program.graddate, }) }}">{{ entity.program.graddate }} {{ entity.program.gradterm }}</a>#}
                                 {% endif %}
                             </td>
                             <td class="hidden-sm-down">
