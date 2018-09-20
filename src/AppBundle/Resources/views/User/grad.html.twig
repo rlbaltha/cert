@@ -136,7 +136,13 @@
                             {% if entity.checklist %}{{ entity.checklist.presentation }}{% endif %}
                         </td>
                         <td>
-                            {% if entity.checklist %}<a target="_blank" href="{{ entity.checklist.portfolio }}">View</a>{% endif %}
+                            {% if entity.checklist %}<a target="_blank" href="{{ entity.checklist.portfolio }}">View</a>:
+                                {% if entity.checklist.portDate == null %}
+                                    Incomplete
+                                {% else %}
+                                    Complete
+                                {% endif %}
+                            {% endif %}
                         </td>
                         <td>
                             {% if entity.checklist %}{{ entity.checklist.appliedtograd }}{% endif %}
