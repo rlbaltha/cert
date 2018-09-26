@@ -231,7 +231,6 @@
             <a class="btn btn-primary" href="{{ path('substitution_new') }}">
                 Apply for a Substitution
             </a>
-            <p>{{ entity.checklist.exceptions | raw }}</p>
 
             {% for substitution in entity.checklist.substitutions %}
                 <p>{{ substitution.requirement }} (Status: {{ substitution.status }})
