@@ -30,6 +30,7 @@ class ProgramController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
 
         $entity = $em->getRepository('AppBundle:User')->find($id);
 
@@ -41,7 +42,7 @@ class ProgramController extends Controller
 
         return array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'tags'      => $tags,
         );
     }
 

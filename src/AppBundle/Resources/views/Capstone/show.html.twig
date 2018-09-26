@@ -49,26 +49,11 @@
 
 
 {% block body -%}
-    <div class="col-sm-8 col-xs-12">
-
-        <a class='btn btn-primary' href="{{ path('user_show', { 'id': app.user.id }) }}">Profile</a>
-        {% if app.user.username == entity.username  or is_granted('ROLE_SUPER_ADMIN') %}
-            <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
-            {% if entity.checklist %}
-                <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
-            {% else %}
-                <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
-            {% endif %}
-        {% endif %}
-        <a class='btn btn-primary disabled' href="#">Capstone</a>
-        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-            <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
-                Exit login as</a>
-        {% endif %}
-        <hr/>
+    {{ parent() }}
+    <div class="col-sm-12">
 
         {#  *********************** Capstone Workplan *********************** #}
-        <h2>Capstone
+        <h2 class="margin-top">Capstone
             for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
 
         <ul class="nav nav-tabs margin-top">

@@ -11,8 +11,8 @@
 
 
 {% block body -%}
-    <div class="col-sm-8 col-xs-12">
-
+    {{ parent() }}
+    <div class="col-sm-12">
         {% for flash_message in app.session.flashBag.get('notice') %}
             <div class="alert alert-success flash-notice">
                 <h4 class="alert-heading">Congrats!</h4>
@@ -20,26 +20,8 @@
             </div>
         {% endfor %}
 
-
-        {% if app.user.username == entity.username or is_granted('ROLE_SUPER_ADMIN') %}
-            <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a>
-            <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
-            <a class='btn btn-primary disabled' href="#">Checklist</a>
-            {% if entity.capstone %}
-                <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
-            {% else %}
-                <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
-            {% endif %}
-        {% endif %}
-        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-            <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
-                Exit login as</a>
-        {% endif %}
-        <hr/>
-
-
         {#  *********************** Certificate Checklist ***********************  #}
-        <h2>Checklist for {{ entity.firstname }} {{ entity.lastname }}</h2>
+        <h2 class="margin-top">Checklist for {{ entity.firstname }} {{ entity.lastname }}</h2>
 
         <div class="alert alert-info margin-top" role="alert">
             <p>The checklist allows you to track your progress through the program. Please
@@ -246,7 +228,9 @@
 
 
             <h3>Substitutions</h3>
-
+            <a class="btn btn-primary" href="{{ path('substitution_new') }}">
+                Apply for a Substitution
+            </a>
             <p>{{ entity.checklist.exceptions | raw }}</p>
 
             {% for substitution in entity.checklist.substitutions %}

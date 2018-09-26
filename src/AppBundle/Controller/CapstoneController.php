@@ -303,6 +303,7 @@ class CapstoneController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
 
         $entity = $em->getRepository('AppBundle:User')->find($id);
 
@@ -313,8 +314,8 @@ class CapstoneController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'tags' => $tags,
         );
     }
 

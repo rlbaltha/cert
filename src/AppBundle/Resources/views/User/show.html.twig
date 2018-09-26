@@ -4,41 +4,41 @@
     {{ parent() }}
     <script language="javascript">
         $(document).ready(function () {
-            $(".profile").hide();
-            $("#notifications").show();
-
-            $("#notifications_toggle").click(function () {
-                $(".profile").hide();
-                $("#notifications_toggle").addClass('active');
-                $("#notifications").show();
-            });
-            $("#mentoring_toggle").click(function () {
-                $(".profile").hide();
-                $("#mentoring_toggle").addClass('active');
-                $("#mentoring").show();
-            });
-            $("#directornotes_toggle").click(function () {
-                $(".profile").hide();
-                $("#directornotes_toggle").addClass('active');
-                $("#directornotes").show();
-            });
-            $("#portfolio_toggle").click(function () {
-                $(".profile").hide();
-                $("#portfolio_toggle").addClass('active');
-                $("#portfolio").show();
-            });
-            $("#capstones_toggle").click(function () {
-                $(".profile").hide();
-                $("#capstones_toggle").addClass('active');
-                $("#capstonesforreview").show();
-            });
+            // $("#notifications").show();
+            //
+            // $("#notifications_toggle").click(function () {
+            //     $(".profile").hide();
+            //     $("#notifications_toggle").addClass('active');
+            //     $("#notifications").show();
+            // });
+            // $("#mentoring_toggle").click(function () {
+            //     $(".profile").hide();
+            //     $("#mentoring_toggle").addClass('active');
+            //     $("#mentoring").show();
+            // });
+            // $("#directornotes_toggle").click(function () {
+            //     $(".profile").hide();
+            //     $("#directornotes_toggle").addClass('active');
+            //     $("#directornotes").show();
+            // });
+            // $("#portfolio_toggle").click(function () {
+            //     $(".profile").hide();
+            //     $("#portfolio_toggle").addClass('active');
+            //     $("#portfolio").show();
+            // });
+            // $("#capstones_toggle").click(function () {
+            //     $(".profile").hide();
+            //     $("#capstones_toggle").addClass('active');
+            //     $("#capstonesforreview").show();
+            // });
         });
     </script>
 {% endblock %}
 
 
 {% block body -%}
-    <div class="col-sm-8 col-xs-12">
+    {{ parent() }}
+    <div class="col-sm-12">
         {% if app.session.flashBag.has('success') %}
             <div class="alert alert-success">
                 {% for msg in app.session.flashBag.get('success') %}
@@ -47,37 +47,20 @@
             </div>
         {% endif %}
 
-        <a class='btn btn-primary disabled' href="#">Profile</a>
-        {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
-            <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
-            {% if entity.checklist %}
-                <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
-            {% else %}
-                <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
-            {% endif %}
-            {% if entity.capstone %}
-                <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
-            {% else %}
-                <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
-            {% endif %}
-        {% endif %}
-        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-            <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
-                Exit login as</a>
-        {% endif %}
-        <hr/>
-
         {# Name and notes #}
-        <h2>Profile for {{ entity.firstname }} {{ entity.lastname }}</h2>
+        <h2 class="margin-top">Profile for {{ entity.firstname }} {{ entity.lastname }}</h2>
 
         <div class="alert alert-info margin-top" role="alert">
-            <p>Your profile includes basic information about you.  You may update it at any time.
+            <p>Your profile includes basic information about you. You may update it at any time.
             </p>
         </div>
 
-        <a class="btn btn-primary align-right margin-bottom"
+        <a class="btn btn-primary"
            href="{{ path('user_edit',  { 'id': entity.id }) }}">
             Update Profile
+        </a>
+        <a class='btn btn-primary' href="{{ path('pdf',  { 'id': entity.id }) }}">
+            Create PDF
         </a>
         <br/>
 
@@ -90,36 +73,45 @@
             {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}<br/>
         {% endif %}
         Graduation: {{ entity.graddate }} {{ entity.gradterm }}
-            <br/><br/>
 
 
-        {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <p>
-                {% for role in entity.roles %}
-                    {{ role }}
-                {% endfor %}
-            </p>
-        {% endif %}
 
-        <a class="btn btn-secondary" id="notifications_toggle"
-           href="javascript:void(0);">Notifications</a></li>
-        {% if entity.capstoneMentees|length > 0 %}
-            <a class="btn btn-secondary" id="capstones_toggle" href="javascript:void(0);">Capstones
-                for Review</a>
-        {% endif %}
-        {% if entity.progress.name!='Faculty' %}
+        {#<a class="btn btn-secondary" id="notifications_toggle"#}
+        {#href="javascript:void(0);">Notifications</a></li>#}
+        {#{% if entity.capstoneMentees|length > 0 %}#}
+        {#<a class="btn btn-secondary" id="capstones_toggle" href="javascript:void(0);">Capstones#}
+        {#for Review</a>#}
+        {#{% endif %}#}
+        {#{% if entity.progress.name!='Faculty' %}#}
 
-            <a class="btn btn-secondary" id="portfolio_toggle"
-               href="javascript:void(0);">Portfolio</a>
+        {#<a class="btn btn-secondary" id="portfolio_toggle"#}
+        {#href="javascript:void(0);">Portfolio</a>#}
 
-        {% endif %}
-        {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <a class="btn btn-secondary" id="directornotes_toggle" href="javascript:void(0);">Director
-                Notes</a>
-        {% endif %}
+        {#{% endif %}#}
+        {#{% if is_granted('ROLE_SUPER_ADMIN') %}#}
+        {#<a class="btn btn-secondary" id="directornotes_toggle" href="javascript:void(0);">Director#}
+        {#Notes</a>#}
+        {#{% endif %}#}
 
 
         <br/><br/>
+        {#  *********************** Portfolio  ***********************  #}
+        {% if entity.checklist %}
+            <div id="portfolio" class="profile">
+                <h3>Portfolio</h3>
+
+                <div class="alert alert-info margin-top" role="alert">
+                    <p>For more information about your portfolio, see our <a
+                                href="{{ path('page_show',  { 'id': '16'}) }}">
+                            Porfolio Guidelines.
+                        </a>
+                    </p>
+                </div>
+                <a href="{{ entity.checklist.portfolio }}"
+                   target="_blank">{{ entity.checklist.portfolio }}</a>
+                <hr/>
+            </div>
+        {% endif %}
 
         {# *********************** Notifications *********************** #}
         {# set variables for checkpoints #}
@@ -184,10 +176,7 @@
                                 Capstone Timeline Task(s)
                             </div>
                         {% endif %}
-                    {% else %}
-                        No notifications at this time.
                     {% endif %}
-                    <hr/>
                 </div>
 
             {% endif %}
@@ -199,6 +188,13 @@
         {% if is_granted('ROLE_SUPER_ADMIN') %}
             <div id="directornotes" class="profile">
                 <h3>Director Notes</h3>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <p>
+                        {% for role in entity.roles %}
+                            {{ role }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
                 <p>{{ entity.notes |raw }}
                     {% if entity.notes|length < 1 %}No notes yet.{% endif %}
                 </p>
@@ -213,87 +209,70 @@
 
         {#  *********************** Mentoring ***********************  #}
         {# check to see if profile matches currrent user and is not Faculty #}
-        {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
-            {#  *** Check for application****  #}
-            {% if entity.program %}
-                <div id="mentoring" class="profile">
-                    <h3>Peer Mentoring</h3>
-                    {% if entity.peermentor %}
-                        <span class="alert alert-info">
-                                                    Your mentor is {{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }}
-                            ({{ entity.peermentor.email }})
-                                                </span>
-                    {% endif %}
-                    {% if entity.peermentees|length > 0 %}
-                        <span class="alert alert-info">Thanks for serving as a certificate mentor.
-                                                    Your mentee{% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}
-                            {% for mentee in entity.peermentees %}
-                                {% if loop.last %}and{% endif %}
-                                {{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})
-                            {% endfor %}
-                                                </span>
-                    {% endif %}
+        {#{% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}#}
+        {#  *** Check for application****  #}
+        {#{% if entity.program %}#}
+        {#<div id="mentoring" class="profile">#}
+        {#<h3>Peer Mentoring</h3>#}
+        {#{% if entity.peermentor %}#}
+        {#<span class="alert alert-info">#}
+        {#Your mentor is {{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }}#}
+        {#({{ entity.peermentor.email }})#}
+        {#</span>#}
+        {#{% endif %}#}
+        {#{% if entity.peermentees|length > 0 %}#}
+        {#<span class="alert alert-info">Thanks for serving as a certificate mentor.#}
+        {#Your mentee{% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}#}
+        {#{% for mentee in entity.peermentees %}#}
+        {#{% if loop.last %}and{% endif %}#}
+        {#{{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})#}
+        {#{% endfor %}#}
+        {#</span>#}
+        {#{% endif %}#}
 
-                    <div class="alert alert-info margin-top" role="alert">
-                        <strong>Requirements for Mentees/Mentors are as follows:</strong>
-                        <ul>
-                            <li>Mentees and Mentors must attend orientation</li>
-                            <li>Mentees and Mentors must have at least one face-to-face meeting</li>
-                            <li>Mentees and Mentors should celebrate the end of the term together at
-                                Semester in Review
-                            </li>
-                        </ul>
-                        <strong>Requirements for application to be a Mentor:</strong>
-                        <ul>
-                            <li>Can only apply if they are a sophomore or higher and have participated in at
-                                least
-                                one Sustainability Seminar
-                            </li>
-                            <li>All students must learn to smell the roses and appreciate the sunshine</li>
-                        </ul>
-                        <p>Read more about out mentoring program <a
-                                    href="{{ path('page_show',  { 'id': '42' }) }}">here</a>.</p>
-                    </div>
+        {#<div class="alert alert-info margin-top" role="alert">#}
+        {#<strong>Requirements for Mentees/Mentors are as follows:</strong>#}
+        {#<ul>#}
+        {#<li>Mentees and Mentors must attend orientation</li>#}
+        {#<li>Mentees and Mentors must have at least one face-to-face meeting</li>#}
+        {#<li>Mentees and Mentors should celebrate the end of the term together at#}
+        {#Semester in Review#}
+        {#</li>#}
+        {#</ul>#}
+        {#<strong>Requirements for application to be a Mentor:</strong>#}
+        {#<ul>#}
+        {#<li>Can only apply if they are a sophomore or higher and have participated in at#}
+        {#least#}
+        {#one Sustainability Seminar#}
+        {#</li>#}
+        {#<li>All students must learn to smell the roses and appreciate the sunshine</li>#}
+        {#</ul>#}
+        {#<p>Read more about out mentoring program <a#}
+        {#href="{{ path('page_show',  { 'id': '42' }) }}">here</a>.</p>#}
+        {#</div>#}
 
-                    {% for tag in entity.tags if tag.title == 'Mentoring' %}
-                    {% else %}
-                        <a class="btn btn-primary margin-left"
-                           href="{{ path('user_mentee',  { 'id': entity.id }) }}">
-                            I'd like to have a Mentor.
-                        </a>
-                        <a class="btn btn-primary margin-left"
-                           href="{{ path('user_mentor',  { 'id': entity.id }) }}">
-                            I'd like to be a Mentor.
-                        </a>
-                    {% endfor %}
-                    <hr/>
-                </div>
+        {#{% for tag in entity.tags if tag.title == 'Mentoring' %}#}
+        {#{% else %}#}
+        {#<a class="btn btn-primary margin-left"#}
+        {#href="{{ path('user_mentee',  { 'id': entity.id }) }}">#}
+        {#I'd like to have a Mentor.#}
+        {#</a>#}
+        {#<a class="btn btn-primary margin-left"#}
+        {#href="{{ path('user_mentor',  { 'id': entity.id }) }}">#}
+        {#I'd like to be a Mentor.#}
+        {#</a>#}
+        {#{% endfor %}#}
+        {#<hr/>#}
+        {#</div>#}
 
-            {% endif %}
-        {% endif %}
+        {#{% endif %}#}
+        {#{% endif %}#}
 
         {# check to see if profile matches currrent user and is not Faculty #}
-        {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
+        {#{% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}#}
 
 
-            {#  *********************** Portfolio  ***********************  #}
-            {% if entity.checklist %}
-                <div id="portfolio" class="profile">
-                    <h3>Portfolio</h3>
 
-                    <div class="alert alert-info margin-top" role="alert">
-                        <p>For more information about your portfolio, see our <a
-                                    href="{{ path('page_show',  { 'id': '16'}) }}">
-                                Porfolio Guidelines.
-                            </a>
-                        </p>
-                    </div>
-                    <a href="{{ entity.checklist.portfolio }}"
-                       target="_blank">{{ entity.checklist.portfolio }}</a>
-                    <hr/>
-                </div>
-            {% endif %}
-        {% endif %}
 
 
 

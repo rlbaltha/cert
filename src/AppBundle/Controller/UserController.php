@@ -88,13 +88,18 @@ class UserController extends Controller
             $entities = $em->getRepository('AppBundle:User')->findByTag($currenttag->getId());
         }
 
+        if ($view == 'index') {
+            $template = 'AppBundle:User:index.html.twig';
+        } else {
+            $template = 'AppBundle:User:grad.html.twig';
+        }
+
         $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
 
-        $view = 'AppBundle:User:' . $view . '.html.twig';
-
-            return $this->render($view, array(
+            return $this->render($template, array(
                 'entities' => $entities,
                 'tags' => $tags,
+                'view' => $view,
             ));
 
     }
@@ -145,16 +150,26 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/{id}", name="user_show")
+     * @Route("/show/{id}/{tag}/{term}/{date}", name="user_show", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
      * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
-    public function showAction($id)
+    public function showAction($id,$tag, $term, $date,$view)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
         $entity = $em->getRepository('AppBundle:User')->find($id);
+        if ($tag == 'all') {
+            $entities = $em->getRepository('AppBundle:User')->findAccounts();
+        } elseif ($tag == 'students') {
+            $entities = $em->getRepository('AppBundle:User')->findStudents();
+        } elseif ($tag == 'term') {
+            $entities = $em->getRepository('AppBundle:User')->findUsersByTerm($term, $date);
+        } else {
+            $currenttag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
+            $entities = $em->getRepository('AppBundle:User')->findByTag($currenttag->getId());
+        }
         $notifications = $em->getRepository('AppBundle:Notification')->findCurrent($entity);
         $status = $em->getRepository('AppBundle:Status')->findAllSorted();
 
@@ -167,6 +182,8 @@ class UserController extends Controller
             'entity' => $entity,
             'notifications' => $notifications,
             'status' => $status,
+            'tags' => $tags,
+            'view' => $view,
         );
     }
 

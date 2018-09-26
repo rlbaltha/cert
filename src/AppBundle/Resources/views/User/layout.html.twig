@@ -1,55 +1,81 @@
 {% extends '::base.html.twig' %}
 
-{% block subnav %}
+{% block body %}
+    <div class="col-sm-12">
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <a class="btn btn-primary btn-sm"
+               href="{{ path('user', {'tag': 'students', 'term': 'All', 'date': 'All','view':'index'}) }}">All
+                Students</a>
+            {% for tag in tags if tag.subs|length > 0 %}
+                <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
+                   id="{{ tag.id }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: {{ tag.color }}">{{ tag.title }}</a>
+                {% for tag in tag.subs %}
+                    <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
+                       id="{{ tag.id }}"
+                       class="btn btn-primary btn-sm"
+                       style="background-color: {{ tag.color }}">{{ tag.title }}</a>
+                {% endfor %}
+            {% endfor %}
+            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
+                <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
+                   id="{{ tag.id }}"
+                   class="btn btn-primary btn-sm"
+                   style="background-color: {{ tag.color }}">{{ tag.title }}</a>
+            {% endfor %}
+            <br/>
+            Graduation Term:
+            <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2018','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: green">2018 Summer</a>
+            <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2018','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: green">2018 Fall</a>
+            <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2019','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: green">2019 Spring</a>
+            <a href="{{ path('user', { 'tag': 'term', 'term': 'Summer', 'date': '2019','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: green">2019 Summer</a>
+            <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2019','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: green">2019 Fall</a>
+            <br/><br/>
+        {% endif %}
+        {% if entity is defined %}
+            {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
+                <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a>
+                <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
+                {% if entity.checklist %}
+                    <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
+                {% else %}
+                    <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
+                {% endif %}
+                {% if entity.capstone %}
+                    <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+                {% else %}
+                    <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
+                {% endif %}
+            {% endif %}
 
-    <div class="col-sm-2">
-        <div class="bootstrap-vertical-nav">
-            <nav class="navbar navbar-dark">
-                <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
-                        data-target="#exCollapsingNavbar2">
-                    &#9776;
-                </button>
-                <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                Admin:
+                <a class='btn btn-primary' href="{{ path('user_inactive', { 'id': entity.id }) }}">
+                    Mark Inactive
+                </a>
+                {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+                    <a class='btn btn-primary' href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
+                        As</a>
+                {% endif %}
 
-                    <ul class="nav navbar-sidenav">
+            {% endif %}
 
-                        {% if is_granted('ROLE_SUPER_ADMIN') %}
-                            <li class="nav-item">Admin</li>
-                            <li class="nav-item"><a href="{{ path('user_edit', { 'id': entity.id }) }}">
-                                    Admin Update
-                                </a>
-                            </li>
-                            <li class="nav-item"><a href="{{ path('pdf',  { 'id': entity.id }) }}">
-                                    Create PDF
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ path('user_inactive', { 'id': entity.id }) }}">
-                                    Mark Inactive
-                                </a>
-                            </li>
-
-                            <li class="nav-item"><a href="{{ path('user', {'type': 'all'}) }}">All
-                                    Accounts</a></li>
-                            <li class="nav-item">
-                                <a href="{{ path('user', {'type': 'students'}) }}">All
-                                    Students</a></li>
-                            {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
-                                <li class="nav-item"><a
-                                            href="{{ path('user_profile') }}?_switch_user={{ entity.username }}">Login
-                                        As</a>
-                                </li>
-                            {% endif %}
-
-                        {% endif %}
-
-
-                    </ul>
-                </div>
-            </nav>
-
-        </div>
+            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
+                    Exit login as</a>
+            {% endif %}
+        {% endif %}
     </div>
-
 
 {% endblock %}
