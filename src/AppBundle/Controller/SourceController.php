@@ -39,30 +39,55 @@ class SourceController extends Controller
             'tags' => $tags,
         );
     }
+
+    /**
+     * Lists Content Source entities.
+     *
+     * @Route("/content", name="content_source")
+     * @Method("GET")
+     * @Template()
+     */
+    public function content_indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('AppBundle:Source')->findContentSorted();
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('content');
+
+        return array(
+            'entities' => $entities,
+            'tags' => $tags,
+        );
+    }
+
+
     /**
      * Creates a new Source entity.
      *
-     * @Route("/", name="source_create")
+     * @Route("/create/{type}", name="source_create")
      * @Method("POST")
      * @Template("AppBundle:Shared:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $type)
     {
         $entity = new Source();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $type);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            if ($type == 'content') {
+                return $this->redirect($this->generateUrl('content_source', array('id' => $entity->getId())));
+            } else {
+                return $this->redirect($this->generateUrl('source_show', array('id' => $entity->getId())));
+            }
 
-            return $this->redirect($this->generateUrl('source_show', array('id' => $entity->getId())));
         }
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -73,12 +98,20 @@ class SourceController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Source $entity)
+    private function createCreateForm(Source $entity, $type)
     {
-        $form = $this->createForm(new SourceType(), $entity, array(
-            'action' => $this->generateUrl('source_create'),
-            'method' => 'POST',
-        ));
+        if ($type != 'content') {
+            $form = $this->createForm(new SourceType(), $entity, array(
+                'action' => $this->generateUrl('source_create', array('type' => 'default')),
+                'method' => 'POST',
+            ));
+        } else {
+            $form = $this->createForm(new SourceType(), $entity, array(
+                'action' => $this->generateUrl('source_create', array('type' => 'content')),
+                'method' => 'POST',
+            ));
+        }
+
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -88,18 +121,19 @@ class SourceController extends Controller
     /**
      * Displays a form to create a new Source entity.
      *
-     * @Route("/new", name="source_new")
+     * @Route("/new/{type}", name="source_new", defaults={"type" = "default"})
      * @Method("GET")
      * @Template("AppBundle:Shared:new.html.twig")
      */
-    public function newAction()
+    public function newAction($type)
     {
         $entity = new Source();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $type);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'type' => $type,
+            'form' => $form->createView(),
         );
     }
 
@@ -125,7 +159,7 @@ class SourceController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'section' => $section,
             'tags' => $tags,
             'delete_form' => $deleteForm->createView(),
@@ -153,19 +187,19 @@ class SourceController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Source entity.
-    *
-    * @param Source $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Source entity.
+     *
+     * @param Source $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Source $entity)
     {
         $form = $this->createForm(new SourceType(), $entity, array(
@@ -173,10 +207,11 @@ class SourceController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
+
     /**
      * Edits an existing Source entity.
      *
@@ -205,11 +240,12 @@ class SourceController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Source entity.
      *
@@ -248,8 +284,7 @@ class SourceController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('source_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
+            ->getForm();
     }
 }

@@ -25,7 +25,7 @@ class SourceType extends AbstractType
                 ),
                 // *this line is important*
                 'choices_as_values' => true,
-                'required' => true,'expanded'=>false,'multiple'=>false,'label'  => 'Tags', 'attr' => array('class' =>
+                'required' => true,'expanded'=>false,'multiple'=>false,'label'  => 'Type', 'attr' => array('class' =>
                     'form-control'),
             ))
             ->add('name', 'text', array('attr' => array('class' => 'text form-control'), 'required' => false,))

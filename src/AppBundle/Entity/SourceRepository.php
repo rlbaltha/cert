@@ -24,6 +24,22 @@ class SourceRepository extends \Doctrine\ORM\EntityRepository
         return $sources;
     }
 
+    /**
+     * Find sources
+     *
+     * @return Source
+     */
+    public function findContentSorted()
+    {
+        $sources = $this->createQueryBuilder('s')
+            ->join('s.tags', 't')
+            ->andWhere("t.type = :type")
+            ->setParameter('type', 'content')
+            ->addOrderBy('s.name', 'DESC')
+            ->getQuery()
+            ->getResult();
+        return $sources;
+    }
 
     /**
      * Find users by term
