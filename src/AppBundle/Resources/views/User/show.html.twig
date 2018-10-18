@@ -50,6 +50,11 @@
         {# Name and notes #}
         <h2 class="margin-top">Profile for {{ entity.firstname }} {{ entity.lastname }}</h2>
 
+        Progress:  {% for tag in entity.tags %}
+        <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+        {% endfor %}
+
         <div class="alert alert-info margin-top" role="alert">
             <p>Your profile includes basic information about you. You may update it at any time.
             </p>
@@ -63,6 +68,7 @@
             Create PDF
         </a>
         <br/>
+
 
         {{ entity.email }}<br/>
         {% if entity.altemail %}{{ entity.altemail }}<br/>{% endif %}

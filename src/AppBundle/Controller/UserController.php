@@ -338,11 +338,35 @@ class UserController extends Controller
 
         $status = $em->getRepository('AppBundle:Status')->findByName('Inactive');
         $entity->setProgress($status);
+        $entity->removeAllTags();
+        $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle("Inactive");
+        $entity->addTag($tag);
         $timestamp = date('m/d/Y h:i:s A');
         $notes = $entity->getNotes();
-        $entity->setNotes($notes . '<p>As per request, student marked inactive. ' . $timestamp . '</p>');
+        $entity->setNotes($notes . '<p>Student marked inactive. ' . $timestamp . '</p>');
         $em->persist($entity);
         $em->flush();
+
+        $name = $entity->getFirstname() . ' ' . $entity->getLastname();
+        $email = $entity->getEmail();
+        $text = $name . ' it looks as if you are not planning to complete the Sustainability Certificate.  We have marked you inactive.  Please let us know if we are
+        mistaken and you plan to continue.';
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Sustainability Certificate')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo($email)
+            ->setBcc('scdirector@uga.edu')
+            ->setBody(
+                $this->renderView(
+
+                    'AppBundle:Email:apply.html.twig',
+                    array('name' => $name,
+                        'text' => $text)
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
 
 
         return $this->redirect($this->generateUrl('user_show', array('id' => $id)));

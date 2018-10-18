@@ -779,6 +779,7 @@ class User extends BaseUser
         $this->tags->removeElement($tag);
     }
 
+
     /**
      * Get tags
      *
@@ -787,6 +788,19 @@ class User extends BaseUser
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Remove all tags
+     *
+     * @return null
+     */
+    public function removeAllTags()
+    {
+        foreach ($this->tags as $tag)
+        {
+            $this->removeTag($tag);
+        }
     }
 
     /**
