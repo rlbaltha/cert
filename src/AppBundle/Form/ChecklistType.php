@@ -124,7 +124,7 @@ class ChecklistType extends AbstractType
                         ->andWhere('c.status = :status1 or c.status = :status2')
                         ->setParameter('pillar', 'capstone')
                         ->setParameter('status1', 'approved')
-                        ->setParameter('status2', 'exception')
+                        ->setParameter('status2', 'substitution')
                         ->orderBy('c.name ');
                 },
                 'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Capstone Course', 'attr' => array

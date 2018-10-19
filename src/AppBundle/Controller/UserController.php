@@ -104,6 +104,37 @@ class UserController extends Controller
 
     }
 
+
+    /**
+     * Lists all User entities.
+     *
+     * @Route("/toggle_grad/{id}/{term}/{date}", name="user_toggle_grad", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
+     * @Method("GET")
+     * @Template()
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function toggleGradAction($id, $term, $date, $view)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:User')->find($id);
+        $checklist = $entity->getChecklist();
+        $checklist->setAppliedtograd('Yes');
+        $em->persist($checklist);
+        $em->flush();
+        $entities = $em->getRepository('AppBundle:User')->findUsersByTerm($term, $date);
+        $template = 'AppBundle:User:grad.html.twig';
+
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
+
+        return $this->render($template, array(
+            'entities' => $entities,
+            'tags' => $tags,
+            'view' => $view,
+        ));
+
+    }
+
+
     /**
      * Lists all User entities.
      *
@@ -349,8 +380,8 @@ class UserController extends Controller
 
         $name = $entity->getFirstname() . ' ' . $entity->getLastname();
         $email = $entity->getEmail();
-        $text = $name . ' it looks as if you are not planning to complete the Sustainability Certificate.  We have marked you inactive.  Please let us know if we are
-        mistaken and you plan to continue.';
+        $text = $name . ', it looks as if you are not planning to complete the Sustainability Certificate.  We have listed you as inactive.  Please let us know if we are
+        mistaken and you plan to continue.  We wish you well in all you undertake.';
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Sustainability Certificate')

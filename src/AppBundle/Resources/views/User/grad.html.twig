@@ -106,7 +106,13 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if entity.checklist %}{{ entity.checklist.appliedtograd }}{% endif %}
+                        {% if entity.checklist %}{{ entity.checklist.appliedtograd }}
+                        {% if entity.checklist.appliedtograd == "No" %}
+                        <a class="btn btn-primary btn-sm"
+                           href="{{ path('user_toggle_grad', {'id': entity.id,'term': app.request.get('term'),'date': app.request.get('date')}) }}">Toggle</a>
+                        {% endif %}
+                        {% endif %}
+
                     </td>
                 </tr>
             {% endfor %}
