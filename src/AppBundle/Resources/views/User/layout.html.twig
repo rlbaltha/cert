@@ -1,5 +1,26 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            {% if 'profile' in app.request.pathinfo %}
+            $("a").removeClass('active');
+            $("#profile_toggle").addClass('active');
+            {% elseif 'checklist' in app.request.pathinfo %}
+            $("a").removeClass('active');
+            $("#checklist_toggle").addClass('active');
+            {% elseif 'capstone' in app.request.pathinfo %}
+            $("a").removeClass('active');
+            $("#capstone_toggle").addClass('active');
+            {% elseif 'program' in app.request.pathinfo %}
+            $("a").removeClass('active');
+            $("#application_toggle").addClass('active');
+            {% endif %}
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <div class="col-sm-12">
         {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -44,21 +65,6 @@
             <br/><br/>
         {% endif %}
         {% if entity is defined %}
-            {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
-                <a class='btn btn-primary' href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a>
-                <a class='btn btn-primary' href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
-                {% if entity.checklist %}
-                    <a class='btn btn-primary' href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
-                {% else %}
-                    <a class='btn btn-primary' href="{{ path('checklist_new') }}">Create Checklist</a>
-                {% endif %}
-                {% if entity.capstone %}
-                    <a class='btn btn-primary' href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
-                {% else %}
-                    <a class='btn btn-primary' href="{{ path('capstone_new') }}">Start Capstone</a>
-                {% endif %}
-            {% endif %}
-
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 Admin:
                 <a class='btn btn-primary' href="{{ path('user_inactive', { 'id': entity.id }) }}">
@@ -74,6 +80,42 @@
             {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                 <a class="btn btn-primary" href="{{ path('user_profile') }}?_switch_user=_exit">
                     Exit login as</a>
+            {% endif %}
+            {% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}
+                <ul class="nav nav-tabs margin-top">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="profile_toggle"
+                           href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a>
+                    </li>
+                    {% if app.user.username == entity.username and entity.program.status != 'Approved' %}
+                        <li class="nav-item">
+                            <a class="nav-link " id="application_toggle"
+                               href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
+                        </li>
+                    {% endif %}
+                    {% if entity.checklist %}
+                        <li class="nav-item">
+                            <a class='nav-link' id="checklist_toggle"
+                               href="{{ path('checklist_show', { 'id': entity.id }) }}">Checklist</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class='nav-link' id="checklist_toggle" href="{{ path('checklist_new') }}">Create
+                                Checklist</a>
+                        </li>
+                    {% endif %}
+                    {% if entity.capstone %}
+                        <li class="nav-item">
+                            <a class='nav-link' id="capstone_toggle"
+                               href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class='nav-link' id="capstone_toggle" href="{{ path('capstone_new') }}">Start
+                                Capstone</a>
+                        </li>
+                    {% endif %}
+                </ul>
             {% endif %}
         {% endif %}
     </div>
