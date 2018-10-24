@@ -29,7 +29,6 @@ class AdminType extends AbstractType
                 'label' => 'Expected Graduation Term',
                 'choices' => array(
                     'Spring' => 'Spring',
-                    'Summer' => 'Summer',
                     'Fall' => 'Fall',
                 ),
                 // *this line is important*

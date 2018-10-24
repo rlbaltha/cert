@@ -91,7 +91,6 @@ class ChecklistType extends AbstractType
                 'label' => 'Expected Capstone Term',
                 'choices' => array(
                     'Spring' => 'Spring',
-                    'Summer' => 'Summer',
                     'Fall' => 'Fall',
                 ),
                 // *this line is important*
