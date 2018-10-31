@@ -101,7 +101,13 @@
                 </tr>
                 <tr>
                     <th>Anchor</th>
-                    <td>{% if entity.checklist.anchor %}
+
+                    <td>{% for substitution in entity.checklist.substitutions %}
+                        {% if substitution.requirement =='Anchor' and substitution.status =='Approved' %}
+                        See Substitution
+                        {% endif %}
+                        {% endfor %}
+                        {% if entity.checklist.anchor %}
                             <a href="{{ path('course_show', { 'id': entity.checklist.anchor.id }) }}">
                                 {{ entity.checklist.anchor.name }}
                                 : {{ entity.checklist.anchor.title }}
@@ -126,7 +132,12 @@
                 </tr>
                 <tr>
                     <th>Ecological Sphere</th>
-                    <td>{% if entity.checklist.sphere1 %}
+                    <td>{% for substitution in entity.checklist.substitutions %}
+                            {% if substitution.requirement =='Ecological Sphere' and substitution.status =='Approved' %}
+                                See Substitution
+                            {% endif %}
+                        {% endfor %}
+                        {% if entity.checklist.sphere1 %}
                             <a href="{{ path('course_show', { 'id': entity.checklist.sphere1.id }) }}">
                                 {{ entity.checklist.sphere1.name }}
                                 : {{ entity.checklist.sphere1.title }}
@@ -136,7 +147,12 @@
                 </tr>
                 <tr>
                     <th>Economic Sphere</th>
-                    <td>{% if entity.checklist.sphere2 %}
+                    <td>{% for substitution in entity.checklist.substitutions %}
+                            {% if substitution.requirement =='Economic Sphere' and substitution.status =='Approved' %}
+                                See Substitution
+                            {% endif %}
+                        {% endfor %}
+                        {% if entity.checklist.sphere2 %}
                             <a href="{{ path('course_show', { 'id': entity.checklist.sphere2.id }) }}">
                                 {{ entity.checklist.sphere2.name }}
                                 : {{ entity.checklist.sphere2.title }}
@@ -146,7 +162,12 @@
                 </tr>
                 <tr>
                     <th>Social Sphere</th>
-                    <td>{% if entity.checklist.sphere3 %}
+                    <td>{% for substitution in entity.checklist.substitutions %}
+                            {% if substitution.requirement =='Social Sphere' and substitution.status =='Approved' %}
+                                See Substitution
+                            {% endif %}
+                        {% endfor %}
+                        {% if entity.checklist.sphere3 %}
                             <a href="{{ path('course_show', { 'id': entity.checklist.sphere3.id }) }}">
                                 {{ entity.checklist.sphere3.name }}
                                 : {{ entity.checklist.sphere3.title }}
@@ -156,7 +177,12 @@
                 </tr>
                 <tr>
                     <th>Seminar (2 semesters required)</th>
-                    <td>{% if entity.checklist.seminar %}
+                    <td>{% for substitution in entity.checklist.substitutions %}
+                            {% if substitution.requirement =='Seminar' and substitution.status =='Approved' %}
+                                See Substitution
+                            {% endif %}
+                        {% endfor %}
+                        {% if entity.checklist.seminar %}
                             <a href="{{ path('course_show', { 'id': entity.checklist.seminar.id }) }}">
                                 {{ entity.checklist.seminar.name }}
                                 : {{ entity.checklist.seminar.title }}
@@ -172,6 +198,11 @@
                                 : {{ entity.checklist.capstone.title }}
                             </a>
                         {% endif %}
+                        {% for substitution in entity.checklist.substitutions %}
+                            {% if substitution.requirement =='Capstone' and substitution.status =='Approved' %}
+                                See Substitution
+                            {% endif %}
+                        {% endfor %}
                         {% if entity.capstone %}
                             {{ entity.capstone.status }}
                         {% endif %}
