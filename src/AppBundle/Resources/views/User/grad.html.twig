@@ -57,6 +57,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>81x</th>
                 <th class="hidden-sm-down">Graduation Term</th>
                 <th class="hidden-sm-down">Program</th>
                 <th class="hidden-sm-down">Capstone</th>
@@ -72,6 +73,7 @@
                             , {{ entity.firstname }}</a>
                     </td>
                     <td class="email">{{ entity.email }};</td>
+                    <td class="email">{{ entity.program.ugaid }}</td>
                     <td class="hidden-sm-down">
                         <div class="btn btn-primary btn-sm tag{{ entity.graddate }}{{ entity.gradterm }}"
                              style="background-color: #20773b">{{ entity.graddate }} {{ entity.gradterm }}</div>
