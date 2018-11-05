@@ -380,8 +380,10 @@ class UserController extends Controller
 
         $name = $entity->getFirstname() . ' ' . $entity->getLastname();
         $email = $entity->getEmail();
-        $text = $name . ', it looks as if you are not planning to complete the Sustainability Certificate.  We have listed you as inactive.  Please let us know if we are
-        mistaken and you plan to continue.  We wish you well in all you undertake.';
+        $text = '<p>' . $name . ', it looks as if you are not planning to complete the Sustainability Certificate.  We have listed you as inactive.  Please let us know if we are
+        mistaken and you plan to continue.  We wish you well in all you undertake.</p>
+        <p>The Sustainability Certificate Staff</p>
+        <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>';
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Sustainability Certificate')
