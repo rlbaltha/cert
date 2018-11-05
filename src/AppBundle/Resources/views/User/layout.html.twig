@@ -87,7 +87,7 @@
                         <a class="nav-link active" id="profile_toggle"
                            href="{{ path('user_show', { 'id': entity.id }) }}">Profile</a>
                     </li>
-                    {% if app.user.username == entity.username and entity.program.status != 'Approved' %}
+                    {% if (app.user.username == entity.username or is_granted('ROLE_SUPER_ADMIN')) and entity.program.status != 'Approved' %}
                         <li class="nav-item">
                             <a class="nav-link " id="application_toggle"
                                href="{{ path('program_show', { 'id': entity.id }) }}">Application</a>
