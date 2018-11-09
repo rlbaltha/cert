@@ -235,9 +235,10 @@ class SubstitutionController extends Controller
         $user_entity = $entity->getChecklist()->getUser();
         $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
         $email = $user_entity->getEmail();
-        $text = '<p>' . $name . ', your application for a substituion for your checklist has been 
+        $text = '<p>' . $name . ', your application for a substitution for your checklist has been 
         approved.  Please review your checklist and update as needed.</p>
-        <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>';
+        <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>
+        <p>The Cert Staff</p>';
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Sustainability Certificate Substitution')
