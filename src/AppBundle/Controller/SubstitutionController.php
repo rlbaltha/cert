@@ -22,16 +22,16 @@ class SubstitutionController extends Controller
     /**
      * Lists all Substitution entities.
      *
-     * @Route("/", name="substitution")
+     * @Route("/index/{status}", name="substitution", defaults={"status" = "Created"})
      * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function indexAction()
+    public function indexAction($status)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Substitution')->findAll();
+        $entities = $em->getRepository('AppBundle:Substitution')->findByStatus($status);
 
         return array(
             'entities' => $entities,
