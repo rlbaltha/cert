@@ -229,12 +229,33 @@ class SubstitutionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Substitution')->find($id);
-        $user = $entity->getChecklist()->getUser();
         $entity->setStatus('Approved');
         $em->persist($entity);
         $em->flush();
+        $user_entity = $entity->getChecklist()->getUser();
+        $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
+        $email = $user_entity->getEmail();
+        $text = '<p>' . $name . ', your application for a substituion for your checklist has been 
+        approved.  Please review your checklist and update as needed.</p>
+        <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>';
 
-        return $this->redirect($this->generateUrl('checklist_show', array('id' => $user->getId())));
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Sustainability Certificate Substitution')
+            ->setFrom('scdirector@uga.edu')
+            ->setTo($email)
+            ->setBcc('scdirector@uga.edu')
+            ->setBody(
+                $this->renderView(
+
+                    'AppBundle:Email:apply.html.twig',
+                    array('name' => $name,
+                        'text' => $text)
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
+
+        return $this->redirect($this->generateUrl('substitution'));
 
     }
 
