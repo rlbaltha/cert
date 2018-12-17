@@ -177,6 +177,11 @@ class User extends BaseUser
     protected $tags;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Partner", mappedBy="users")
+     */
+    protected $partners;
+
+    /**
      * @var \DateTime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -874,5 +879,41 @@ class User extends BaseUser
     public function getGradterm()
     {
         return $this->gradterm;
+    }
+    
+
+
+    /**
+     * Add partner
+     *
+     * @param \AppBundle\Entity\Partner $partner
+     *
+     * @return User
+     */
+    public function addPartner(\AppBundle\Entity\Partner $partner)
+    {
+        $this->partners[] = $partner;
+
+        return $this;
+    }
+
+    /**
+     * Remove partner
+     *
+     * @param \AppBundle\Entity\Partner $partner
+     */
+    public function removePartner(\AppBundle\Entity\Partner $partner)
+    {
+        $this->partners->removeElement($partner);
+    }
+
+    /**
+     * Get partners
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPartners()
+    {
+        return $this->partners;
     }
 }

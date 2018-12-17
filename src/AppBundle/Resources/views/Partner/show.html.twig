@@ -1,68 +1,107 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Partner</h1>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="bootstrap-vertical-nav">
+                <nav class="navbar navbar-dark">
+                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
+                            data-target="#exCollapsingNavbar2">
+                        &#9776;
+                    </button>
+                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
+                        <ul class="nav navbar-sidenav">
+                            {% if section is defined %}
+                                {% for page in section.pages if page.access=='public' %}
+                                    {% if (page.link is null or page.link == '') %}
+                                        <li class="nav-item"><a
+                                                    href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item"><strong>Admin</strong></li>
+                                    {% for page in section.pages if page.access=='admin' %}
+                                        {% if (page.link is null or page.link == '') %}
+                                            <li class="nav-item"><a
+                                                        href="{{ path('page_show', { 'id': page.id }) }}">{{ page.title }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="nav-item"><a href="{{ page.link }}">{{ page.title }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>Purpose</th>
-                <td>{{ entity.purpose }}</td>
-            </tr>
-            <tr>
-                <th>Background</th>
-                <td>{{ entity.background }}</td>
-            </tr>
-            <tr>
-                <th>Contribution</th>
-                <td>{{ entity.contribution }}</td>
-            </tr>
-            <tr>
-                <th>Details</th>
-                <td>{{ entity.details }}</td>
-            </tr>
-            <tr>
-                <th>Deliverables</th>
-                <td>{{ entity.deliverables }}</td>
-            </tr>
-            <tr>
-                <th>Outcomes</th>
-                <td>{{ entity.outcomes }}</td>
-            </tr>
-            <tr>
-                <th>Considerations</th>
-                <td>{{ entity.considerations }}</td>
-            </tr>
-            <tr>
-                <th>Sources</th>
-                <td>{{ entity.sources }}</td>
-            </tr>
-            <tr>
-                <th>Qualifications</th>
-                <td>{{ entity.qualifications }}</td>
-            </tr>
-        </tbody>
-    </table>
+            </div>
+        </div>
+        <div class="col-sm-8">
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('partner') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('partner_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            <h1>{{ entity.title }}</h1>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="float-sm-right btn btn-primary"
+                   href="{{ path('partner_status', { 'id': entity.id, 'status': 'pending' }) }}">
+                    Pending
+                </a>
+                <a class="float-sm-right btn btn-primary"
+                   href="{{ path('partner_status', { 'id': entity.id, 'status': 'current' }) }}">
+                    Current
+                </a>
+                <a class="float-sm-right btn btn-primary" href="{{ path('partner_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            {% endif %}
+
+            <strong>Purpose: </strong>{{ entity.purpose|raw }}
+            <strong>Background: </strong>{{ entity.background|raw }}
+            <strong>Contribution:  </strong> {{ entity.contribution|raw }}
+            <strong>Details: </strong>{{ entity.details|raw }}
+            <stong>Deliverables: </stong>{{ entity.deliverables|raw }}
+            <strong>Outcomes: </strong> {{ entity.outcomes|raw }}
+            <strong>Considerations: </strong>{{ entity.considerations|raw }}
+            <strong>Sources: </strong>{{ entity.sources|raw }}
+            <strong>Qualifications: </strong>{{ entity.qualifications|raw }}
+
+
+            <h1>Resource list</h1>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Organization</th>
+                    <th>Contact/URL</th>
+                    <th>Tags</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for source in sources %}
+                    <tr>
+                        <td><a href="{{ path('source_show', { 'id': source.id }) }}">{{ source.name }}</a></td>
+                        <td><a href="{{ path('source_show', { 'id': source.id }) }}">{{ source.organization }}</a></td>
+                        <td>{% if 'http' in source.contact %}
+                                <a href="{{ source.contact }}" target="_blank">{{ source.contact }}</a>
+                            {% else %}
+                                {{ source.contact }}
+                            {% endif %}</td>
+                        <td>{% for tag in source.tags %}
+                                <div class="btn btn-primary btn-sm"
+                                     style="background-color: {{ tag.color }}">{{ tag.title }}</div>{% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
 {% endblock %}
+

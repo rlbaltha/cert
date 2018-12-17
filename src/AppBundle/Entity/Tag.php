@@ -55,6 +55,11 @@ class Tag
     protected $ideas;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Partner", mappedBy="tags")
+     */
+    protected $partners;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Capstone", mappedBy="tags")
      */
     protected $capstones;
@@ -434,5 +439,73 @@ class Tag
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Add partner
+     *
+     * @param \AppBundle\Entity\Partner $partner
+     *
+     * @return Tag
+     */
+    public function addPartner(\AppBundle\Entity\Partner $partner)
+    {
+        $this->partners[] = $partner;
+
+        return $this;
+    }
+
+    /**
+     * Remove partner
+     *
+     * @param \AppBundle\Entity\Partner $partner
+     */
+    public function removePartner(\AppBundle\Entity\Partner $partner)
+    {
+        $this->partners->removeElement($partner);
+    }
+
+    /**
+     * Get partners
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPartners()
+    {
+        return $this->partners;
+    }
+
+    /**
+     * Add notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     *
+     * @return Tag
+     */
+    public function addNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notifications[] = $notification;
+
+        return $this;
+    }
+
+    /**
+     * Remove notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     */
+    public function removeNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notifications->removeElement($notification);
+    }
+
+    /**
+     * Get notifications
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
     }
 }

@@ -138,7 +138,6 @@ class IdeaController extends Controller
             'sources'      => $sources,
             'section'      => $section,
             'tags'         => $tags,
-            'delete_form' => $deleteForm->createView(),
         );
     }
 
@@ -224,7 +223,7 @@ class IdeaController extends Controller
     }
 
     /**
-     * Mark an existing Idea entity apptoved.
+     * Mark an existing Idea entity approved.
      *
      * @Route("/{id}/{status}", name="idea_approve")
      * @Method("GET")

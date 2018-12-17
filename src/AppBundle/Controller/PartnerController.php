@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Partner;
 use AppBundle\Form\PartnerType;
 
@@ -21,18 +22,22 @@ class PartnerController extends Controller
     /**
      * Lists all Partner entities.
      *
-     * @Route("/", name="partner")
+     * @Route("/{section}/{status}/list", name="partner", defaults={"status" = "current", "section" = "capstone"})
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($status, $section)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AppBundle:Partner')->findAll();
+        $section = ucfirst($section);
+        $entities = $em->getRepository('AppBundle:Partner')->findByStatus($status);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
         return array(
             'entities' => $entities,
+            'section' => $section,
+            'tags' => $tags,
         );
     }
     /**
@@ -40,7 +45,7 @@ class PartnerController extends Controller
      *
      * @Route("/", name="partner_create")
      * @Method("POST")
-     * @Template("AppBundle:Partner:new.html.twig")
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -86,7 +91,7 @@ class PartnerController extends Controller
      *
      * @Route("/new", name="partner_new")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
@@ -102,25 +107,30 @@ class PartnerController extends Controller
     /**
      * Finds and displays a Partner entity.
      *
-     * @Route("/{id}", name="partner_show")
+     * @Route("/{section}/{id}/detail", name="partner_show", defaults={"section" = "capstone"})
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction($id, $section)
     {
         $em = $this->getDoctrine()->getManager();
 
+        $section = ucfirst($section);
         $entity = $em->getRepository('AppBundle:Partner')->find($id);
+        $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
+        $sources = $em->getRepository('AppBundle:Source')->findSourcesByIdea($id);
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Partner entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'       => $entity,
+            'sources'      => $sources,
+            'section'      => $section,
+            'tags'         => $tags,
         );
     }
 
@@ -129,7 +139,7 @@ class PartnerController extends Controller
      *
      * @Route("/{id}/edit", name="partner_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -174,7 +184,7 @@ class PartnerController extends Controller
      *
      * @Route("/{id}", name="partner_update")
      * @Method("PUT")
-     * @Template("AppBundle:Partner:edit.html.twig")
+     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -193,7 +203,7 @@ class PartnerController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('partner_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('partner_show', array('id' => $id)));
         }
 
         return array(
@@ -202,6 +212,29 @@ class PartnerController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Mark an existing Idea entity approved.
+     *
+     * @Route("/{id}/{status}", name="partner_status")
+     * @Method("GET")
+     * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function statusAction($id, $status)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $idea = $em->getRepository('AppBundle:Partner')->find($id);
+        $idea->setStatus(lcfirst($status));
+        $em->persist($idea);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('partner'));
+
+    }
+
+
     /**
      * Deletes a Partner entity.
      *
