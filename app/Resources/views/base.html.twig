@@ -40,12 +40,12 @@
 <body>
 
 <div class="container-fluid">
-    <nav class="navbar navbar-dark navbar-fixed-top">
+    <nav class="navbar navbar-light navbar-fixed-top">
         <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse"
                 data-target="#responsiveCollapse">
             &#9776;
         </button>
-        <div class="collapse navbar-toggleable-xs" id="responsiveCollapse">
+        <div class="collapse navbar-toggleable-xs col-sm-10 offset-sm-1" id="responsiveCollapse">
 
             <ul class="nav navbar-nav">
                 <li class="nav-item"><a href="{{ path('homepage') }}" title="Return to the homepage">Home</a></li>
@@ -57,7 +57,6 @@
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '7' }) }}">Faculty</a></li>
                 <li class="nav-item"><a href="{{ path('course') }}">Courses</a></li>
                 <li class="nav-item"><a href="{{ path('idea', {"status":"identified"}) }}">Capstones</a></li>
-                <li class="nav-item"><a href="{{ path('event', {"section":"events"}) }}">Events</a></li>
                 <li class="nav-item"><a href="{{ path('page_show', { 'id': '26' }) }}">Contact Us</a></li>
                 <li class="nav-item"><a href="{{ path('page_section', { 'section': 'Alumni' }) }}">Alumni</a></li>
 
@@ -120,8 +119,9 @@
         </div>
     </nav>
 
+    {% block cover %}{% endblock %}
 
-    <section class="main-content">
+    <section class="main-content col-sm-10 offset-sm-1">
         {% block subnav %}{% endblock %}
 
         {% block body %}{% endblock %}
@@ -144,10 +144,10 @@
     </section>
 
 </div>
-{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-<img class="cert-logo" alt="Certificate logo"
-     src="{{ asset('bundles/app/images/certificatelogo.gif') }}">
-{% endif %}
+{#{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}#}
+{#<img class="cert-logo" alt="Certificate logo"#}
+     {#src="{{ asset('bundles/app/images/certificatelogo.gif') }}">#}
+{#{% endif %}#}
 
 </body>
 </html>

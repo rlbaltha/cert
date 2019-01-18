@@ -13,12 +13,56 @@
     </script>
 {% endblock %}
 
-{% block body %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        html,
+        body {
+            background: white;
+            height: 100vh;
+        }
 
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            color: #fff;
+            box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+        }
+
+
+        @media (min-width: 48em) {
+            .masthead-brand {
+                float: left;
+            }
+            .nav-masthead {
+                float: right;
+            }
+        }
+
+
+        #myCarousel {
+            margin-top: -1.5em;
+            height: 90vh;
+
+        }
+
+        .carousel-caption p {
+            font-size: larger;
+        }
+
+        .slide {
+            object-fit: scale-down;
+        }
+
+
+    </style>
+{% endblock %}
+
+{% block cover %}
 
     <!-- Carousel
      ================================================== -->
-    <div id="myCarousel" class="carousel slide hidden-xs-down" data-ride="carousel">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             {% for feature in features  if feature.type=='carousel' %}
@@ -29,7 +73,7 @@
         <div class="carousel-inner" role="listbox">
             {% for feature in features  if feature.type=='carousel' %}
                 <div class="carousel-item {% if loop.first %}active{% endif %}">
-                    <img class="slide" src="{{ feature.image }}" alt="Slide {{ loop.index }}">
+                    <img class="slide img-fluid" src="{{ feature.image }}" alt="Slide {{ loop.index }}">
                     <div class="container">
                         <div class="carousel-caption text-xs-left">
                             <h1>{{ feature.title}}</h1>
@@ -50,104 +94,100 @@
     </div><!-- /.carousel -->
 
 
-    <!-- ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
+    {#<!-- ================================================== -->#}
+    {#<!-- Wrap the rest of the page in another container to center all the content. -->#}
 
-    <div class="container-fluid marketing">
+    {#<div class="container-fluid marketing">#}
 
-        <!-- FEATURES -->
+        {#<!-- FEATURES -->#}
 
-        <hr class="featurette-divider">
-        {% for feature in features  if feature.type=='feature' %}
-            <div class="row featurette">
-                <div class="col-sm-7">
-                    <h3 class="featurette-heading">{{ feature.title }}</h3>
-                    {{ feature.body|raw }}
-                    {% if feature.url!='' %}
-                        <a class="btn btn-primary" href="{{ feature.url }}" title="Read more about {{ feature.title }}">Read more</a>
-                    {% endif %}
-                </div>
-                <div class="col-md-5">
-                    <img class="featurette-image img-fluid mx-auto" src="{{ feature.image }}"
-                         alt="Featurette {{ loop.index }}" width="100%">
-                </div>
-            </div>
-            <hr class="featurette-divider">
-        {% endfor %}
+        {#<hr class="featurette-divider">#}
+        {#{% for feature in features  if feature.type=='feature' %}#}
+            {#<div class="row featurette">#}
+                {#<div class="col-sm-7">#}
+                    {#<h3 class="featurette-heading">{{ feature.title }}</h3>#}
+                    {#{{ feature.body|raw }}#}
+                    {#{% if feature.url!='' %}#}
+                        {#<a class="btn btn-primary" href="{{ feature.url }}" title="Read more about {{ feature.title }}">Read more</a>#}
+                    {#{% endif %}#}
+                {#</div>#}
+                {#<div class="col-md-5">#}
+                    {#<img class="featurette-image img-fluid mx-auto" src="{{ feature.image }}"#}
+                         {#alt="Featurette {{ loop.index }}" width="100%">#}
+                {#</div>#}
+            {#</div>#}
+            {#<hr class="featurette-divider">#}
+        {#{% endfor %}#}
 
-        <!-- Three COLUMNS of text below the carousel -->
-        <div class="row">
-            {% for feature in features  if feature.type=='column' %}
-                <div class="col-sm-4">
-                    {% if feature.image!='' %}
-                    <img class="img-thumbnail rounded" src="{{ feature.image }}" alt="Slide {{ loop.index }}"
-                         width="80%">
-                    {% endif %}
-                    {% if feature.title!='' %}
-                    <h3>{{ feature.title }}</h3>
-                    {% endif %}
-                    {{ feature.body|raw }}
-                    {% if feature.url!='' %}
-                    <a class="btn btn-primary" href="{{ feature.url }}" title="Read more about {{ feature.title }}">Read more</a>
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div><!-- /.row -->
+        {#<!-- Three COLUMNS of text below the carousel -->#}
+        {#<div class="row">#}
+            {#{% for feature in features  if feature.type=='column' %}#}
+                {#<div class="col-sm-4">#}
+                    {#{% if feature.image!='' %}#}
+                    {#<img class="img-thumbnail rounded" src="{{ feature.image }}" alt="Slide {{ loop.index }}"#}
+                         {#width="80%">#}
+                    {#{% endif %}#}
+                    {#{% if feature.title!='' %}#}
+                    {#<h3>{{ feature.title }}</h3>#}
+                    {#{% endif %}#}
+                    {#{{ feature.body|raw }}#}
+                    {#{% if feature.url!='' %}#}
+                    {#<a class="btn btn-primary" href="{{ feature.url }}" title="Read more about {{ feature.title }}">Read more</a>#}
+                    {#{% endif %}#}
+                {#</div>#}
+            {#{% endfor %}#}
+        {#</div><!-- /.row -->#}
 
-    </div><!-- /.container -->
+    {#</div><!-- /.container -->#}
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h2>Contact Us</h2>
-                    <p>Ron Balthazor, Director</p>
-                    <p>Talley Vodicka, Administrative Specialist</p>
-                    <p>Melissa Ray, Graduate Assistant</p>
-                    <p>Megan Reeves, Intern</p>
-                    <p>Email: scdirector@uga.edu (preferred)</p>
-                    <p>Phone: 706-542-0458</p>
-                    <img alt="Sustainability logo" class="img-responsive
-                navbar-logo hidden-xs" src="{{ asset('bundles/app/images/sustainableugawhitenav.png') }}">
-                    <p><a id="scroll3" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Up</a></p>
-                </div>
-                <div class="col-sm-6">
-                    <h2>Participants</h2>
-                    <p><a class="inverse" href="http://sustainability.uga.edu/" target="_blank">Office of
-                            Sustainability</a></p>
-                    <p><a class="inverse" href="http://cicr.uga.edu/" target="_blank">Center for Intergrative
-                            Conservation
-                            Research</a></p>
-                    <p><a class="inverse" href="http://franklin.uga.edu/" target="_blank">The Franklin College of Arts
-                            and
-                            Science</a></p>
-                    <p><a class="inverse" href="http://www.caes.uga.edu/" target="_blank">College of Agricultural and
-                            Environmental Sciences</a></p>
-                    <p><a class="inverse" href="http://www.terry.uga.edu/" target="_blank">Terry College of Business</a>
-                    </p>
-                    <p><a class="inverse" href="http://www.ecology.uga.edu/" target="_blank">Odum School of Ecology</a>
-                    </p>
-                    <p><a class="inverse" href="http://www.engineering.uga.edu/" target="_blank">College of
-                            Engineering</a></p>
-                    <p><a class="inverse" href="http://www.ced.uga.edu/" target="_blank">College of Environment and
-                            Design</a>
-                    </p>
-                    <p><a class="inverse" href="http://www.fcs.uga.edu/" target="_blank">College of Family and Consumer
-                            Sciences</a></p>
-                    <p><a class="inverse" href="http://www.warnell.uga.edu/" target="_blank">Warnell School of Forestry
-                            and
-                            Natural Resources</a></p>
-                    <p><a class="inverse" href="http://ssw.uga.edu/" target="_blank">School of Social Work</a></p>
+    {#<!-- FOOTER -->#}
+    {#<footer>#}
+        {#<div class="container">#}
+            {#<div class="row">#}
+                {#<div class="col-sm-6">#}
+                    {#<h2>Contact Us</h2>#}
+                    {#<p>Email: scdirector@uga.edu (preferred)</p>#}
+                    {#<p>Phone: 706-542-0458</p>#}
+                    {#<img alt="Sustainability logo" class="img-responsive#}
+                {#navbar-logo hidden-xs" src="{{ asset('bundles/app/images/sustainableugawhitenav.png') }}">#}
+                    {#<p><a id="scroll3" class="btn btn-primary scrollbtn" href="javascript:void(0);">Scroll Up</a></p>#}
+                {#</div>#}
+                {#<div class="col-sm-6">#}
+                    {#<h2>Participants</h2>#}
+                    {#<p><a class="inverse" href="http://sustainability.uga.edu/" target="_blank">Office of#}
+                            {#Sustainability</a></p>#}
+                    {#<p><a class="inverse" href="http://cicr.uga.edu/" target="_blank">Center for Intergrative#}
+                            {#Conservation#}
+                            {#Research</a></p>#}
+                    {#<p><a class="inverse" href="http://franklin.uga.edu/" target="_blank">The Franklin College of Arts#}
+                            {#and#}
+                            {#Science</a></p>#}
+                    {#<p><a class="inverse" href="http://www.caes.uga.edu/" target="_blank">College of Agricultural and#}
+                            {#Environmental Sciences</a></p>#}
+                    {#<p><a class="inverse" href="http://www.terry.uga.edu/" target="_blank">Terry College of Business</a>#}
+                    {#</p>#}
+                    {#<p><a class="inverse" href="http://www.ecology.uga.edu/" target="_blank">Odum School of Ecology</a>#}
+                    {#</p>#}
+                    {#<p><a class="inverse" href="http://www.engineering.uga.edu/" target="_blank">College of#}
+                            {#Engineering</a></p>#}
+                    {#<p><a class="inverse" href="http://www.ced.uga.edu/" target="_blank">College of Environment and#}
+                            {#Design</a>#}
+                    {#</p>#}
+                    {#<p><a class="inverse" href="http://www.fcs.uga.edu/" target="_blank">College of Family and Consumer#}
+                            {#Sciences</a></p>#}
+                    {#<p><a class="inverse" href="http://www.warnell.uga.edu/" target="_blank">Warnell School of Forestry#}
+                            {#and#}
+                            {#Natural Resources</a></p>#}
+                    {#<p><a class="inverse" href="http://ssw.uga.edu/" target="_blank">School of Social Work</a></p>#}
 
 
-                </div>
+                {#</div>#}
 
-            </div>
+            {#</div>#}
 
-        </div>
+        {#</div>#}
 
-    </footer>
+    {#</footer>#}
 
 
 {% endblock %}
