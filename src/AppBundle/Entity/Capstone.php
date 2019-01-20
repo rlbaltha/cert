@@ -29,6 +29,71 @@ class Capstone
      */
     private $title;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="purpose", type="text", nullable=true)
+     */
+    private $purpose;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="background", type="text", nullable=true)
+     */
+    private $background;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contribution", type="text", nullable=true)
+     */
+    private $contribution;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="details", type="text", nullable=true)
+     */
+    private $details;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="deliverables", type="text", nullable=true)
+     */
+    private $deliverables;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="outcomes", type="text", nullable=true)
+     */
+    private $outcomes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="considerations", type="text", nullable=true)
+     */
+    private $considerations;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sources", type="text", nullable=true)
+     */
+    private $sources;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="qualifications", type="text", nullable=true)
+     */
+    private $qualifications;
+
+
     /**
      * @var string
      *
@@ -182,6 +247,15 @@ class Capstone
      * @ORM\OneToOne(targetEntity="User", inversedBy="capstone")
      */
     private $user;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="capstoneproject")
+     * @ORM\JoinTable(name="user_capstoneproject")
+     *
+     */
+    private $users;
+
 
     /**
      * @ORM\OneToOne(targetEntity="Project", mappedBy="capstone")
@@ -967,5 +1041,256 @@ class Capstone
     public function getCapstoneMentor()
     {
         return $this->capstone_mentor;
+    }
+
+    /**
+     * Set purpose
+     *
+     * @param string $purpose
+     *
+     * @return Capstone
+     */
+    public function setPurpose($purpose)
+    {
+        $this->purpose = $purpose;
+
+        return $this;
+    }
+
+    /**
+     * Get purpose
+     *
+     * @return string
+     */
+    public function getPurpose()
+    {
+        return $this->purpose;
+    }
+
+    /**
+     * Set background
+     *
+     * @param string $background
+     *
+     * @return Capstone
+     */
+    public function setBackground($background)
+    {
+        $this->background = $background;
+
+        return $this;
+    }
+
+    /**
+     * Get background
+     *
+     * @return string
+     */
+    public function getBackground()
+    {
+        return $this->background;
+    }
+
+    /**
+     * Set contribution
+     *
+     * @param string $contribution
+     *
+     * @return Capstone
+     */
+    public function setContribution($contribution)
+    {
+        $this->contribution = $contribution;
+
+        return $this;
+    }
+
+    /**
+     * Get contribution
+     *
+     * @return string
+     */
+    public function getContribution()
+    {
+        return $this->contribution;
+    }
+
+    /**
+     * Set details
+     *
+     * @param string $details
+     *
+     * @return Capstone
+     */
+    public function setDetails($details)
+    {
+        $this->details = $details;
+
+        return $this;
+    }
+
+    /**
+     * Get details
+     *
+     * @return string
+     */
+    public function getDetails()
+    {
+        return $this->details;
+    }
+
+    /**
+     * Set deliverables
+     *
+     * @param string $deliverables
+     *
+     * @return Capstone
+     */
+    public function setDeliverables($deliverables)
+    {
+        $this->deliverables = $deliverables;
+
+        return $this;
+    }
+
+    /**
+     * Get deliverables
+     *
+     * @return string
+     */
+    public function getDeliverables()
+    {
+        return $this->deliverables;
+    }
+
+    /**
+     * Set outcomes
+     *
+     * @param string $outcomes
+     *
+     * @return Capstone
+     */
+    public function setOutcomes($outcomes)
+    {
+        $this->outcomes = $outcomes;
+
+        return $this;
+    }
+
+    /**
+     * Get outcomes
+     *
+     * @return string
+     */
+    public function getOutcomes()
+    {
+        return $this->outcomes;
+    }
+
+    /**
+     * Set considerations
+     *
+     * @param string $considerations
+     *
+     * @return Capstone
+     */
+    public function setConsiderations($considerations)
+    {
+        $this->considerations = $considerations;
+
+        return $this;
+    }
+
+    /**
+     * Get considerations
+     *
+     * @return string
+     */
+    public function getConsiderations()
+    {
+        return $this->considerations;
+    }
+
+    /**
+     * Set sources
+     *
+     * @param string $sources
+     *
+     * @return Capstone
+     */
+    public function setSources($sources)
+    {
+        $this->sources = $sources;
+
+        return $this;
+    }
+
+    /**
+     * Get sources
+     *
+     * @return string
+     */
+    public function getSources()
+    {
+        return $this->sources;
+    }
+
+    /**
+     * Set qualifications
+     *
+     * @param string $qualifications
+     *
+     * @return Capstone
+     */
+    public function setQualifications($qualifications)
+    {
+        $this->qualifications = $qualifications;
+
+        return $this;
+    }
+
+    /**
+     * Get qualifications
+     *
+     * @return string
+     */
+    public function getQualifications()
+    {
+        return $this->qualifications;
+    }
+
+
+    /**
+     * Add user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Capstone
+     */
+    public function addUser(\AppBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \AppBundle\Entity\User $user
+     */
+    public function removeUser(\AppBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

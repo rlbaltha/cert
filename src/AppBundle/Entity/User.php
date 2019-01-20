@@ -157,6 +157,12 @@ class User extends BaseUser
     protected $progress;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Capstone", mappedBy="capstoneproject")
+     * @ORM\JoinTable(name="user_capstoneproject")
+     */
+    protected $capstoneproject;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Capstone", mappedBy="capstone_mentor")
      */
     private $capstone_mentees;
@@ -915,5 +921,40 @@ class User extends BaseUser
     public function getPartners()
     {
         return $this->partners;
+    }
+
+
+    /**
+     * Add capstoneproject
+     *
+     * @param \AppBundle\Entity\Capstone $capstoneproject
+     *
+     * @return User
+     */
+    public function addCapstoneproject(\AppBundle\Entity\Capstone $capstoneproject)
+    {
+        $this->capstoneproject[] = $capstoneproject;
+
+        return $this;
+    }
+
+    /**
+     * Remove capstoneproject
+     *
+     * @param \AppBundle\Entity\Capstone $capstoneproject
+     */
+    public function removeCapstoneproject(\AppBundle\Entity\Capstone $capstoneproject)
+    {
+        $this->capstoneproject->removeElement($capstoneproject);
+    }
+
+    /**
+     * Get capstoneproject
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCapstoneproject()
+    {
+        return $this->capstoneproject;
     }
 }

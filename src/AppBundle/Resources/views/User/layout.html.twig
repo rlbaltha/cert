@@ -65,7 +65,7 @@
             <br/><br/>
         {% endif %}
         {% if entity is defined %}
-            {% if is_granted('ROLE_SUPER_ADMIN') %}
+            {% if is_granted('ROLE_ADMIN') %}
                 Admin:
                 <a class='btn btn-primary' href="{{ path('user_inactive', { 'id': entity.id }) }}">
                     Mark Inactive
@@ -104,17 +104,21 @@
                                 Checklist</a>
                         </li>
                     {% endif %}
-                    {% if entity.capstone %}
-                        <li class="nav-item">
-                            <a class='nav-link' id="capstone_toggle"
-                               href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class='nav-link' id="capstone_toggle" href="{{ path('capstone_new') }}">Start
-                                Capstone</a>
-                        </li>
-                    {% endif %}
+                    <li class="nav-item">
+                    <a class='nav-link' id="capstone_toggle"
+                    href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+                    </li>
+                    {#{% if entity.capstone %}#}
+                        {#<li class="nav-item">#}
+                            {#<a class='nav-link' id="capstone_toggle"#}
+                               {#href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>#}
+                        {#</li>#}
+                    {#{% else %}#}
+                        {#<li class="nav-item">#}
+                            {#<a class='nav-link' id="capstone_toggle" href="{{ path('capstone_new') }}">Start#}
+                                {#Capstone</a>#}
+                        {#</li>#}
+                    {#{% endif %}#}
                 </ul>
             {% endif %}
         {% endif %}

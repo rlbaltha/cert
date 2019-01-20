@@ -16,11 +16,16 @@
                 theme: "bootstrap",
                 widthFixed: true,
                 headerTemplate: '{content} {icon}',
-                widgets: ["uitheme", "zebra"],
+                widgets: ["uitheme", "filter", "zebra"],
                 widgetOptions: {
-                    zebra: ["even", "odd"]
+                    zebra: ["even", "odd"],
+                    filter_reset: ".reset",
+                    filter_cssFilter: "form-control",
+                },
+                headers: {
+                    5: {sorter: false, filter: false},
                 }
-           });
+            });
         });
     </script>
 {% endblock %}
@@ -31,21 +36,16 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Name Email</th>
-                    <th>Peer Reviews</th>
+                    <th>Capstone</th>
+                    <th>Owner</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('capstone_show', { 'id': entity.id }) }}">{{ entity.firstname }}, {{ entity.lastname }}</a> {{ entity.email }}</td>
-                        <td>{% if entity.capstone.responsesets|length > 0 %}
-                                {% for responseset in entity.capstone.responsesets %}
-                                    <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
-                                        {{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
-                                    </a>
-                                {% endfor %}
-                            {% endif %}
+                        <td>
+                            <a href="{{ path('capstone_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
+                        <td>{{ entity.user.lastname }}, {{ entity.user.firstname }}
                         </td>
                     </tr>
                 {% endfor %}

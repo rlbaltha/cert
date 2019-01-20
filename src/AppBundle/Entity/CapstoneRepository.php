@@ -35,4 +35,11 @@ class CapstoneRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
         return $capstones;
     }
+
+    public function findByGroup($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT c FROM AppBundle:Capstone c JOIN c.user u LEFT JOIN c.users us WHERE (u.id = ?1 OR us.id = ?1)')->setParameter('1', $id)
+            ->getResult();
+    }
 }

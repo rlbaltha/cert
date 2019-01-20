@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Capstone;
 use AppBundle\Form\CapstoneType;
+use AppBundle\Form\WorkplanType;
 use AppBundle\Entity\Project;
 use AppBundle\Entity\Checkpoint;
 use Dompdf\Dompdf;
@@ -38,6 +39,24 @@ class CapstoneController extends Controller
 
         $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
         $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+
+    /**
+     * Lists all Page entities.
+     *
+     * @Route("/list", name="capstone_admin")
+     * @Method("GET")
+     * @Template("AppBundle:Capstone:admin.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function adminindexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('AppBundle:Capstone')->findAll();
 
         return array(
             'entities' => $entities,
@@ -214,12 +233,12 @@ class CapstoneController extends Controller
     /**
      * Displays a form to edit an existing Capstone entity.
      *
-     * @Route("/{id}/edit", name="capstone_edit")
+     * @Route("/{id}/{part}/edit", name="capstone_edit")
      * @Method("GET")
      * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
-    public function editAction($id)
+    public function editAction($id, $part)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -229,7 +248,7 @@ class CapstoneController extends Controller
             throw $this->createNotFoundException('Unable to find Capstone entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $part);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -246,12 +265,20 @@ class CapstoneController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Capstone $entity)
+    private function createEditForm(Capstone $entity, $part)
     {
-        $form = $this->createForm(new CapstoneType(), $entity, array(
-            'action' => $this->generateUrl('capstone_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        if ($part == 'project') {
+            $form = $this->createForm(new CapstoneType(), $entity, array(
+                'action' => $this->generateUrl('capstone_update', array('id' => $entity->getId(), 'part'=> $part)),
+                'method' => 'PUT',
+            ));
+        }
+        else {
+            $form = $this->createForm(new WorkplanType(), $entity, array(
+                'action' => $this->generateUrl('capstone_update', array('id' => $entity->getId(), 'part'=> $part)),
+                'method' => 'PUT',
+            ));
+        }
 
         $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
@@ -260,14 +287,16 @@ class CapstoneController extends Controller
     /**
      * Edits an existing Capstone entity.
      *
-     * @Route("/{id}", name="capstone_update")
+     * @Route("/{part}/{id}", name="capstone_update")
      * @Method("PUT")
      * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, $part)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
 
         $entity = $em->getRepository('AppBundle:Capstone')->find($id);
 
@@ -276,13 +305,13 @@ class CapstoneController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $part);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('capstone_show', array('id' => $entity->getUser()->getId())));
+            return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
         }
 
         return array(
@@ -306,6 +335,7 @@ class CapstoneController extends Controller
         $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
 
         $entity = $em->getRepository('AppBundle:User')->find($id);
+        $capstones = $em->getRepository('AppBundle:Capstone')->findByGroup($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Capstone entity.');
@@ -315,6 +345,7 @@ class CapstoneController extends Controller
 
         return array(
             'entity' => $entity,
+            'capstones' => $capstones,
             'tags' => $tags,
         );
     }

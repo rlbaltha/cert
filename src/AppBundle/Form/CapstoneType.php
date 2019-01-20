@@ -22,7 +22,7 @@ class CapstoneType extends AbstractType
                     return $er->createQueryBuilder('t')
                         ->andWhere("t.type = 'resource'");
                 },
-                'property' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Tags: Please select as many as are appropriate (limit 5)', 'attr' => array('class' =>
+                'property' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Tags: Please select up to 5', 'attr' => array('class' =>
                     'checkbox'),))
             ->add(
                 'description',
@@ -33,6 +33,16 @@ class CapstoneType extends AbstractType
                     'config_name' => 'editor_simple',
                 )
             )
+            ->add('users', 'entity', array('class' => 'AppBundle\Entity\User',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->join('u.checklist', 'c')
+                        ->andWhere("c.capstonedate IS NOT NULL")
+                        ->addOrderBy('u.lastname', 'ASC')
+                        ->addOrderBy('u.firstname', 'ASC');
+                },
+                'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Team Members', 'attr' => array('class' =>
+                    ''),))
             ->add('capstoneMentor', 'entity', array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
@@ -41,136 +51,77 @@ class CapstoneType extends AbstractType
                         ->addOrderBy('u.lastname', 'ASC')
                         ->addOrderBy('u.firstname', 'ASC');
                 },
-                'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Mentor', 'attr' => array('class' =>
+                'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Faculty Mentor / Sustainability Rep', 'attr' => array('class' =>
                     ''),))
             ->add(
-                'mentor_expectations',
+                'purpose',
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'Mentor Involvement: Outline the nature and amount of invovlement in your project you expect from your mentor?',
+                    'label' => 'Main Purpose',
                     'config_name' => 'editor_simple',
                 )
             )
             ->add(
-                'group_project',
-                'choice',
-                array(
-                    'choices' => array(
-                        'Yes' => 'Yes',
-                        'No' => 'No',
-                    ),
-                    // *this line is important*
-                    'choices_as_values' => true,
-                    'label' => 'Are you working in a group?',
-                    'attr' => array('class' => 'text form-control'),
-                )
-            )
-            ->add(
-                'group_members',
+                'background',
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'If so, please list your group members and describe your role on the team.',
+                    'label' => 'Background and Context',
                     'config_name' => 'editor_simple',
                 )
             )
             ->add(
-                'partners',
+                'contribution',
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'Resources and Project Partners: What and who will help you complete your project and achieve your goals? ',
+                    'label' => 'Contribution to Sustainability',
                     'config_name' => 'editor_simple',
                 )
             )
             ->add(
-                'funding',
+                'details',
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'Funding:  Will you need funding to purchase materials? If so, what is your estimated budget? What are your funding sources?',
+                    'label' => 'Project Outline',
                     'config_name' => 'editor_simple',
                 )
             )
             ->add(
-                'objectives',
+                'outcomes',
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'Targets: What are at least 3 long-term, concrete targets? Targets should be Specific, Measurable, Attainable, Relevant, and Timely (SMART).',
+                    'label' => 'Anticipated Outcomes',
                     'config_name' => 'editor_simple',
                 )
             )
             ->add(
-                'success_metrics',
+                'considerations',
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'Indicators: How will you know that your project was a success? What qualitative/quantitative metrics will you use to demonstrate this?',
+                    'label' => 'Special Considerations',
                     'config_name' => 'editor_simple',
                 )
             )
             ->add(
-                'personal_objectives',
+                'sources',
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'Personal Objectives:  What are the job skills, experience, and knowledge that you hope to gain in the course of your project?
-',
+                    'label' => 'Potential Information Sources',
                     'config_name' => 'editor_simple',
                 )
             )
             ->add(
-                'application',
+                'qualifications',
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'How will this project apply to and extend your course of study?',
-                    'config_name' => 'editor_simple',
-                )
-            )
-            ->add(
-                'timeframe',
-                'text',
-                array(
-                    'required' => false,
-                    'label' => 'Expected completion date',
-                    'attr' => array('class' => 'text form-control'),
-                )
-            )
-            ->add(
-                'completion',
-                'ckeditor',
-                array(
-                    'required' => false,
-                    'label' => 'Completion: At the end of this semester, will your project be complete or will it have future needs? What future needs should be addressed? 
-                        Will the project require upkeep? If so, who will maintain it? 
-                        If the project will be complete, how will it be wrapped up and documented?
-                        ',
-                    'config_name' => 'editor_simple',
-                )
-            )
-            ->add(
-                'repeatable',
-                'choice',
-                array(
-                    'choices' => array(
-                        'Yes' => 'Yes',
-                        'No' => 'No',
-                    ),
-                    // *this line is important*
-                    'choices_as_values' => true,
-                    'label' => 'Could your project be extended or repeated by a student in the future?',
-                    'attr' => array('class' => 'text form-control'),
-                )
-            )
-            ->add(
-                'repeatinfo',
-                'ckeditor',
-                array(
-                    'required' => false,
-                    'label' => 'If extendable or repeatable, please explain how.',
+                    'label' => 'Desired Team Qualifications',
                     'config_name' => 'editor_simple',
                 )
             )
