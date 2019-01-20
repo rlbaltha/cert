@@ -1,0 +1,58 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"]
+                }
+           });
+        });
+    </script>
+{% endblock %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name Email</th>
+                    <th>Peer Reviews</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('capstone_show', { 'id': entity.id }) }}">{{ entity.firstname }}, {{ entity.lastname }}</a> {{ entity.email }}</td>
+                        <td>{% if entity.capstone.responsesets|length > 0 %}
+                                {% for responseset in entity.capstone.responsesets %}
+                                    <a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">
+                                        {{ responseset.user.firstname }} {{ responseset.user.lastname }}{% if not loop.last %}, {% endif %}
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}
