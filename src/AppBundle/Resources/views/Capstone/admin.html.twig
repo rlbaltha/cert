@@ -33,6 +33,10 @@
 {% block body -%}
     <div class="row">
         <div class="col-sm-8 offset-sm-2">
+            <a class="btn btn-primary" href="{{ path('capstone_admin', { 'status': 'Created' }) }}">Created</a>
+            <a class="btn btn-primary" href="{{ path('capstone_admin', { 'status': 'Ready for Director Review' }) }}">Ready for Review</a>
+            <a class="btn btn-primary" href="{{ path('capstone_admin', { 'status': 'Completed' }) }}">Completed</a>
+            <a class="btn btn-primary" href="{{ path('capstone_admin', { 'status': 'Inactive' }) }}">Inactive</a>
             <table class="table">
                 <thead>
                 <tr>

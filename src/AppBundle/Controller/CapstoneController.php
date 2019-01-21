@@ -48,15 +48,21 @@ class CapstoneController extends Controller
     /**
      * Lists all Page entities.
      *
-     * @Route("/adminindex", name="capstone_admin")
+     * @Route("/adminindex/{status}", name="capstone_admin", defaults = {"status" = "all"})
      * @Method("GET")
      * @Template("AppBundle:Capstone:admin.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function adminindexAction()
+    public function adminindexAction($status)
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:Capstone')->findAll();
+        if ($status == 'all') {
+            $entities = $em->getRepository('AppBundle:Capstone')->findAll();
+        }
+        else {
+            $entities = $em->getRepository('AppBundle:Capstone')->findByStatus($status);
+        }
+
 
         return array(
             'entities' => $entities,
