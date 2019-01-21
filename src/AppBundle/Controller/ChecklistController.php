@@ -318,6 +318,38 @@ class ChecklistController extends Controller
 
 
     /**
+     * Edits an existing Checklist entity.
+     *
+     * @Route("/{id}/graduate", name="checklist_graduate")
+     * @Method("GET")
+     * @Template("AppBundle:Shared:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function graduateAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppBundle:Checklist')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Checklist entity.');
+        }
+        $user = $entity->getUser();
+        $user_entity = $em->getRepository('AppBundle:User')->find($user);
+
+        $tags = $user_entity->getTags();
+        foreach ($tags as &$tag) {
+            $user_entity->removeTag($tag);
+        }
+        $tag1 = $em->getRepository('AppBundle:Tag')->find(107);
+        $user_entity->addTag($tag1);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('checklist_show', array('id' => $entity->getUser()->getId())));
+
+    }
+
+    /**
      * Deletes a Checklist entity.
      *
      * @Route("/{id}", name="checklist_delete")
