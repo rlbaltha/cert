@@ -81,24 +81,6 @@ class CapstoneType extends AbstractType
                 )
             )
             ->add(
-                'details',
-                'ckeditor',
-                array(
-                    'required' => false,
-                    'label' => 'Project Outline',
-                    'config_name' => 'editor_simple',
-                )
-            )
-            ->add(
-                'outcomes',
-                'ckeditor',
-                array(
-                    'required' => false,
-                    'label' => 'Anticipated Outcomes',
-                    'config_name' => 'editor_simple',
-                )
-            )
-            ->add(
                 'considerations',
                 'ckeditor',
                 array(

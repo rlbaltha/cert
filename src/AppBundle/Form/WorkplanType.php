@@ -57,7 +57,7 @@ class WorkplanType extends AbstractType
                 'ckeditor',
                 array(
                     'required' => false,
-                    'label' => 'Deliverables',
+                    'label' => 'Deliverables:  What particular products will this capstone produce?',
                     'config_name' => 'editor_simple',
                 )
             )
