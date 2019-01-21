@@ -64,7 +64,7 @@
 {% block body -%}
     {{ parent() }}
     <div class="col-sm-12">
-        {% for capstone in capstones %}
+        {% for capstone in capstones if capstone.status!='Inactive'%}
             {#  *********************** Capstone  *********************** #}
             <h2 class="margin-top">Capstone
                 for {{ entity.firstname }} {{ entity.lastname }} {% if capstone %}({{ capstone.status }}){% endif %}</h2>
