@@ -67,9 +67,11 @@
         {% if entity is defined %}
             {% if is_granted('ROLE_ADMIN') %}
                 Admin:
-                <a class='btn btn-primary' href="{{ path('checklist_graduate', { 'id': entity.id }) }}">
-                    Graduate
-                </a>
+                {% if entity.checklist %}
+                    <a class='btn btn-primary' href="{{ path('checklist_graduate', { 'id': entity.checklist.id }) }}">
+                        Graduate
+                    </a>
+                {% endif %}
                 <a class='btn btn-primary' href="{{ path('user_inactive', { 'id': entity.id }) }}">
                     Mark Inactive
                 </a>
@@ -108,19 +110,19 @@
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                    <a class='nav-link' id="capstone_toggle"
-                    href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
+                        <a class='nav-link' id="capstone_toggle"
+                           href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>
                     </li>
                     {#{% if entity.capstone %}#}
-                        {#<li class="nav-item">#}
-                            {#<a class='nav-link' id="capstone_toggle"#}
-                               {#href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>#}
-                        {#</li>#}
+                    {#<li class="nav-item">#}
+                    {#<a class='nav-link' id="capstone_toggle"#}
+                    {#href="{{ path('capstone_show', { 'id': entity.id }) }}">Capstone</a>#}
+                    {#</li>#}
                     {#{% else %}#}
-                        {#<li class="nav-item">#}
-                            {#<a class='nav-link' id="capstone_toggle" href="{{ path('capstone_new') }}">Start#}
-                                {#Capstone</a>#}
-                        {#</li>#}
+                    {#<li class="nav-item">#}
+                    {#<a class='nav-link' id="capstone_toggle" href="{{ path('capstone_new') }}">Start#}
+                    {#Capstone</a>#}
+                    {#</li>#}
                     {#{% endif %}#}
                 </ul>
             {% endif %}
