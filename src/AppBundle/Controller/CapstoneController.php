@@ -59,6 +59,9 @@ class CapstoneController extends Controller
         if ($status == 'all') {
             $entities = $em->getRepository('AppBundle:Capstone')->findAll();
         }
+        elseif ($status == 'Current') {
+            $entities = $em->getRepository('AppBundle:Capstone')->findCurrent($status);
+        }
         else {
             $entities = $em->getRepository('AppBundle:Capstone')->findByStatus($status);
         }

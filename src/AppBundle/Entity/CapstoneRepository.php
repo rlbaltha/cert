@@ -52,6 +52,27 @@ class CapstoneRepository extends \Doctrine\ORM\EntityRepository
         return $capstones;
     }
 
+    /**
+     * Find capstones by status
+     *
+     * @return Capstone
+     */
+    public function findCurrent()
+    {
+
+        $capstones = $this->createQueryBuilder('c')
+            ->andWhere("c.status = :status1")
+            ->orWhere("c.status = :status2")
+            ->orWhere("c.status = :status3")
+            ->setParameter('status1', 'Created')
+            ->setParameter('status2', 'Ready for Peer Review')
+            ->setParameter('status3', 'Ready for Director Review')
+            ->orderBy('c.status')
+            ->getQuery()
+            ->getResult();
+        return $capstones;
+    }
+
     public function findByGroup($id)
     {
         return $this->getEntityManager()
