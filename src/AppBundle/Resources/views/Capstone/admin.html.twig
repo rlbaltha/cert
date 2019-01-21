@@ -23,7 +23,7 @@
                     filter_cssFilter: "form-control",
                 },
                 headers: {
-                    5: {sorter: false, filter: false},
+                    0: {sorter: false, filter: false},
                 }
             });
         });
@@ -42,6 +42,7 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>Capstone</th>
                     <th>Owners</th>
                     <th>Mentors</th>
@@ -51,6 +52,7 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
+                        <td>{{ loop.index }}</td>
                         <td>
                             {{ entity.title }}</td>
                         <td><a href="{{ path('capstone_show', { 'id': entity.user.id }) }}">{{ entity.user.name }}</a>{% if entity.users|length > 0 %}, {% endif %}{% for user in entity.users %}<a href="{{ path('capstone_show', { 'id': user.id }) }}">{{ user.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}

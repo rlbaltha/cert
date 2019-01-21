@@ -232,6 +232,38 @@
                             <th>Group Members</th>
                             <td>{{ capstone.user.name }}{% if capstone.users|length > 0 %}, {% endif %}{% for user in capstone.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
                         </tr>
+                        <tr>
+                            <th>Main Purpose</th>
+                            <td>{{ capstone.purpose|raw }}{% if capstone.users|length > 0 %}, {% endif %}{% for user in capstone.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Background and Context</th>
+                            <td>{{ capstone.background|raw }}{% if capstone.users|length > 0 %}, {% endif %}{% for user in capstone.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Contribution to Sustainability</th>
+                            <td>{{ capstone.contribution|raw }}{% if capstone.users|length > 0 %}, {% endif %}{% for user in capstone.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Project Outline</th>
+                            <td>{{ capstone.details|raw }}{% if capstone.users|length > 0 %}, {% endif %}{% for user in capstone.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Anticipated Outcomes</th>
+                            <td>{{ capstone.outcomes|raw }}{% if capstone.users|length > 0 %}, {% endif %}{% for user in capstone.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Special Considerations</th>
+                            <td>{{ capstone.considerations|raw }}{% if capstone.users|length > 0 %}, {% endif %}{% for user in capstone.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Potential Information Sources</th>
+                            <td>{{ capstone.sources|raw }}{% if capstone.users|length > 0 %}, {% endif %}{% for user in capstone.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Desired Team Qualifications</th>
+                            <td>{{ capstone.qualifications|raw }}{% if capstone.users|length > 0 %}, {% endif %}{% for user in capstone.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
