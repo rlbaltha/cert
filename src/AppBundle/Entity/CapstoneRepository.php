@@ -11,9 +11,9 @@ namespace AppBundle\Entity;
 class CapstoneRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * Find users by type
+     * Find capstone by type
      *
-     * @return User
+     * @return Capstone
      */
     public function findByType($type)
     {
@@ -31,6 +31,22 @@ class CapstoneRepository extends \Doctrine\ORM\EntityRepository
             ->join("c.user", "u")
             ->andWhere("u.type = :type")
             ->setParameter('type', $status)
+            ->getQuery()
+            ->getResult();
+        return $capstones;
+    }
+
+    /**
+     * Find capstones by status
+     *
+     * @return Capstone
+     */
+    public function findByStatus($status)
+    {
+
+        $capstones = $this->createQueryBuilder('c')
+            ->andWhere("c.status = :status")
+            ->setParameter('status', $status)
             ->getQuery()
             ->getResult();
         return $capstones;

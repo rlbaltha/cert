@@ -37,16 +37,18 @@
                 <thead>
                 <tr>
                     <th>Capstone</th>
-                    <th>Owner</th>
+                    <th>Owners</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for entity in entities %}
                     <tr>
                         <td>
-                            <a href="{{ path('capstone_show', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                        <td>{{ entity.user.lastname }}, {{ entity.user.firstname }}
+                            <a href="{{ path('capstone_show', { 'id': entity.user.id }) }}">{{ entity.title }}</a></td>
+                        <td>{{ entity.user.name }}{% if entity.users|length > 0 %}, {% endif %}{% for user in entity.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}
                         </td>
+                        <td>{{ entity.status }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

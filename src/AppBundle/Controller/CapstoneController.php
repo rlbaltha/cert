@@ -48,7 +48,7 @@ class CapstoneController extends Controller
     /**
      * Lists all Page entities.
      *
-     * @Route("/list", name="capstone_admin")
+     * @Route("/adminindex", name="capstone_admin")
      * @Method("GET")
      * @Template("AppBundle:Capstone:admin.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
@@ -63,27 +63,27 @@ class CapstoneController extends Controller
         );
     }
 
-    /**
-     * Lists all Page entities.
-     *
-     * @Route("/completed", name="capstones_completed")
-     * @Method("GET")
-     * @Template("AppBundle:Capstone:completed.html.twig")
-     */
-    public function completedAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $type = 'Completed';
-        $entities = $em->getRepository('AppBundle:Capstone')->findByType($type);
-        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
-        $tags = $em->getRepository('AppBundle:Tag')->findAll();
-
-        return array(
-            'entities' => $entities,
-            'section' => $section,
-            'tags' => $tags,
-        );
-    }
+//    /**
+//     * Lists all Page entities.
+//     *
+//     * @Route("/completed", name="capstones_completed")
+//     * @Method("GET")
+//     * @Template("AppBundle:Capstone:completed.html.twig")
+//     */
+//    public function completedAction()
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//        $type = 'Completed';
+//        $entities = $em->getRepository('AppBundle:Capstone')->findByType($type);
+//        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
+//        $tags = $em->getRepository('AppBundle:Tag')->findAll();
+//
+//        return array(
+//            'entities' => $entities,
+//            'section' => $section,
+//            'tags' => $tags,
+//        );
+//    }
 
 
     /**

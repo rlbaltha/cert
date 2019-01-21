@@ -74,10 +74,10 @@
                  aria-label="Capstone Progress Buttons">
                 {# Update the work plan (always available) #}
                 {% if capstone %}
-                        <a title="Update your capstone" class="btn btn-primary"
-                           href="{{ path('capstone_edit',  { 'id': capstone.id, 'part': 'project' }) }}">
-                            Update Project
-                        </a>
+                    <a title="Update your capstone" class="btn btn-primary"
+                       href="{{ path('capstone_edit',  { 'id': capstone.id, 'part': 'project' }) }}">
+                        Update Project
+                    </a>
                     <a title="Update your capstone" class="btn btn-primary"
                        href="{{ path('capstone_edit',  { 'id': capstone.id, 'part': 'workplan' }) }}">
                         Update Work Plan
@@ -88,24 +88,24 @@
                     </a>
                 {% endif %}
                 {% if entity.program %}
-                    {% if app.user.username==entity.program.user.username %}
+                    {% if app.user.username==entity.program.user.username or is_granted('ROLE_SUPER_ADMIN') %}
 
                         {% if capstone %}
                             {# Mark Ready for Peer or Director Review #}
                             {#<a class="btn btn-primary {% if capstone.status == 'Ready for Director Review' or capstone.status == 'Approved'#}
-                                {#or capstone.status == 'Ready for Peer Review' or capstone.status == 'Completed' %}hidden{% endif %}"#}
-                               {#href="{{ path('capstone_ready',  { 'id': capstone.id , 'type':'Peer'}) }}">#}
-                                {#Ready for Review#}
+                            {#or capstone.status == 'Ready for Peer Review' or capstone.status == 'Completed' %}hidden{% endif %}"#}
+                            {#href="{{ path('capstone_ready',  { 'id': capstone.id , 'type':'Peer'}) }}">#}
+                            {#Ready for Review#}
                             {#</a>#}
 
                             {#<a class="btn btn-primary {% if capstone.responsesets|length < 2 or capstone.status == 'Ready for Director Review' or capstone.status == 'Approved'#}
-                                {#or capstone.status == 'Completed' %}hidden{% endif %}"#}
-                               {#href="{{ path('capstone_ready',  { 'id': capstone.id, 'type':'Director' }) }}">#}
-                                {#Ready for Director#}
+                            {#or capstone.status == 'Completed' %}hidden{% endif %}"#}
+                            {#href="{{ path('capstone_ready',  { 'id': capstone.id, 'type':'Director' }) }}">#}
+                            {#Ready for Director#}
                             {#</a>#}
-                            <a class="btn btn-primary align-right {% if capstone.status != 'Approved' %}hidden{% endif %}"
+                            <a class="btn btn-primary align-right"
                                href="{{ path('capstone_ready',  { 'id': capstone.id, 'type':'Completed' }) }}">
-                                Completed
+                                Mark Completed
                             </a>
 
                             {# Director workplan approval #}
@@ -123,62 +123,62 @@
 
             {#  *********************** Capstone Instructions  *********************** #}
             {#<div class="alert alert-info margin-top" role="alert">#}
-                {#{% if app.user.username != entity.program.user.username %}#}
-                    {#<p><strong>Reviewers:</strong> Thanks for offering reviews of this work#}
-                        {#plan.#}
-                        {#Click#}
-                        {#the <strong>Reviews</strong> tab to get started.</p>#}
+            {#{% if app.user.username != entity.program.user.username %}#}
+            {#<p><strong>Reviewers:</strong> Thanks for offering reviews of this work#}
+            {#plan.#}
+            {#Click#}
+            {#the <strong>Reviews</strong> tab to get started.</p>#}
 
-                    {#{% if entity.responsesets|length > 0  and app.user.username==capstone.user.username %}#}
-                        {#<p>You have offered peer reviews for:#}
-                            {#{% for responseset in entity.responsesets %}#}
-                                {#<a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">#}
-                                    {#{{ responseset.capstone.user.firstname }} {{ responseset.capstone.user.lastname }}{% if not loop.last %}, {% endif %}#}
-                                {#</a>#}
-                            {#{% endfor %}#}
-                        {#</p>#}
-                    {#{% endif %}#}
+            {#{% if entity.responsesets|length > 0  and app.user.username==capstone.user.username %}#}
+            {#<p>You have offered peer reviews for:#}
+            {#{% for responseset in entity.responsesets %}#}
+            {#<a href="{{ path('responseset_show',  { 'id': responseset.id }) }}">#}
+            {#{{ responseset.capstone.user.firstname }} {{ responseset.capstone.user.lastname }}{% if not loop.last %}, {% endif %}#}
+            {#</a>#}
+            {#{% endfor %}#}
+            {#</p>#}
+            {#{% endif %}#}
 
-                    {#<p><strong>Mentors:</strong> Thanks for mentoring this capstone. Click the#}
-                        {#<strong>Reviews</strong> tab to offer a Review of this work plan and#}
-                        {#the <strong>Checkpoints</strong> tab to review the progress of the#}
-                        {#capstone.#}
-                    {#</p>#}
-                {#{% elseif not capstone %}#}
-                    {#<p>The capstone project provides an opportunity to apply classroom#}
-                        {#learning to hands-on sustainability challenges.#}
-                    {#</p>#}
+            {#<p><strong>Mentors:</strong> Thanks for mentoring this capstone. Click the#}
+            {#<strong>Reviews</strong> tab to offer a Review of this work plan and#}
+            {#the <strong>Checkpoints</strong> tab to review the progress of the#}
+            {#capstone.#}
+            {#</p>#}
+            {#{% elseif not capstone %}#}
+            {#<p>The capstone project provides an opportunity to apply classroom#}
+            {#learning to hands-on sustainability challenges.#}
+            {#</p>#}
 
-                    {#<p>Under the advisement of your capstone mentor, develop a work plan for the#}
-                        {#capstone project, outlining goals, targets, timeline,#}
-                        {#resources/partners, personal objectives, and indicators.</p>#}
-                    {#<p>Before you get started, please review the <a#}
-                                {#href="{{ path('page_show',  { 'id': '17'}) }}">#}
-                            {#Guidelines for the Capstone.#}
-                        {#</a></p>#}
-                {#{% elseif capstone.status == 'Created' %}#}
-                    {#<p>You may update your work plan at any time by clicking <strong>Update Work#}
-                            {#Plan</strong> above.</p>#}
-                    {#<p>Once your work plan is complete, mark it <strong>Ready for#}
-                            {#Review.</strong>#}
-                    {#</p>#}
+            {#<p>Under the advisement of your capstone mentor, develop a work plan for the#}
+            {#capstone project, outlining goals, targets, timeline,#}
+            {#resources/partners, personal objectives, and indicators.</p>#}
+            {#<p>Before you get started, please review the <a#}
+            {#href="{{ path('page_show',  { 'id': '17'}) }}">#}
+            {#Guidelines for the Capstone.#}
+            {#</a></p>#}
+            {#{% elseif capstone.status == 'Created' %}#}
+            {#<p>You may update your work plan at any time by clicking <strong>Update Work#}
+            {#Plan</strong> above.</p>#}
+            {#<p>Once your work plan is complete, mark it <strong>Ready for#}
+            {#Review.</strong>#}
+            {#</p>#}
 
-                {#{% elseif capstone.status == 'Ready for Peer Review' %}#}
-                    {#<p>Your work plan must receive at least two peer reviews by fellow capstone#}
-                        {#students.#}
-                        {#(You are also be required to provide two peer reviews.) Click the#}
-                        {#<strong>Reviews</strong>#}
-                        {#tab to get started.</p>#}
-                    {#<p>When you feel your work plan is complete, mark it <strong>Ready for#}
-                            {#Director</strong>.</p>#}
+            {#{% elseif capstone.status == 'Ready for Peer Review' %}#}
+            {#<p>Your work plan must receive at least two peer reviews by fellow capstone#}
+            {#students.#}
+            {#(You are also be required to provide two peer reviews.) Click the#}
+            {#<strong>Reviews</strong>#}
+            {#tab to get started.</p>#}
+            {#<p>When you feel your work plan is complete, mark it <strong>Ready for#}
+            {#Director</strong>.</p>#}
 
-                {#{% elseif capstone.status == 'Ready for Director Review' %}#}
-                    {#<p>You will be notified by the director when your work plan is approved.</p>#}
-                {#{% else %}#}
-                    {#<p>Your work plan has been approved. When you have completed your capstone,#}
-                        {#please#}
-                        {#click the <strong>Completed</strong> button.</p>#}
-                {#{% endif %}#}
+            {#{% elseif capstone.status == 'Ready for Director Review' %}#}
+            {#<p>You will be notified by the director when your work plan is approved.</p>#}
+            {#{% else %}#}
+            {#<p>Your work plan has been approved. When you have completed your capstone,#}
+            {#please#}
+            {#click the <strong>Completed</strong> button.</p>#}
+            {#{% endif %}#}
 
 
             {#</div>#}
@@ -401,100 +401,101 @@
                     </p>
                 </div>
 
-
-                {% for checkpoint in capstone.project.checkpoints %}
-                    {% set background %}
-                        {% if checkpoint.status=='Complete' %}#dff0d8
-                        {% else %}#F7F7E3
-                        {% endif %}
-                    {% endset %}
-                    <div class="card margin-top checkpoints_card">
-                        <div class="card-header" style="background-color: {{ background }} ">
-                            {% if app.user.username == capstone.user.username %}
-                                {% if checkpoint.status!='Complete' %}
-                                    <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
-                                       class="float-sm-right btn btn-primary">Complete</a>
-                                {% endif %}
-                                <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
-                                   class="float-sm-right btn btn-primary">Edit</a>
+                {% if capstone.project %}
+                    {% for checkpoint in capstone.project.checkpoints %}
+                        {% set background %}
+                            {% if checkpoint.status=='Complete' %}#dff0d8
+                            {% else %}#F7F7E3
                             {% endif %}
-
-                            <h4 class="card-title">
-                                <a href="javascript:void(0)" title="click to toggle">
-                                    {{ checkpoint.name }}
-                                </a>
-                                {% if checkpoint.status=='Complete' %}
-                                    <i class="fa fa-check fa-2x" aria-hidden="true"></i>
-                                {% endif %}
-                            </h4>
-
-                            <p class="{% if checkpoint.status=='Complete' %}hidden{% endif %}">
-                                {% if checkpoint.deadline %}
-                                    {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
-                                        {% set alert %}alert-danger{% endset %}
-                                    {% else %}
-                                        {% set alert %}alert-success{% endset %}
+                        {% endset %}
+                        <div class="card margin-top checkpoints_card">
+                            <div class="card-header" style="background-color: {{ background }} ">
+                                {% if app.user.username == capstone.user.username %}
+                                    {% if checkpoint.status!='Complete' %}
+                                        <a href="{{ path('checkpoint_complete', { 'id': checkpoint.id }) }}"
+                                           class="float-sm-right btn btn-primary">Complete</a>
                                     {% endif %}
-                                    <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
+                                    <a href="{{ path('checkpoint_edit', { 'id': checkpoint.id }) }}"
+                                       class="float-sm-right btn btn-primary">Edit</a>
                                 {% endif %}
-                                {% if checkpoint.lead != '' %}
-                                    <span class="alert alert-info">Lead: {{ checkpoint.lead }}</span>
-                                {% endif %}
-                            </p>
-                        </div>
-                        <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
-                            {{ checkpoint.description |raw }}
-                            <div class="alert alert-success">
-                                Reviewers:
-                                {# self review#}
-                                {% if app.user.username == entity.username %}
-                                    <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': entity.id }) }}"
-                                       class="">{{ entity.firstname }} {{ entity.lastname }},</a>
-                                {% else %}{{ entity.firstname }} {{ entity.lastname }},
-                                {% endif %}
-                                {# mentor and director review#}
-                                {% for mentor in checkpoint.project.capstone.capstoneMentor %}
-                                    {% if app.user.username == mentor.username %}
-                                        <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': mentor.id }) }}"
-                                           class="">{{ mentor.name }} </a>
-                                    {% else %}{{ mentor.name }}{% endif %}
-                                    {% if not loop.last %}, {% endif %}
-                                {% endfor %}
-                                {# other selected reviewer#}
-                                {% for reviewer in checkpoint.reviewers %}
-                                    {% if app.user.username == reviewer.username %}
-                                        <a
-                                        href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': reviewer.id }) }}"
-                                        class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
+
+                                <h4 class="card-title">
+                                    <a href="javascript:void(0)" title="click to toggle">
+                                        {{ checkpoint.name }}
+                                    </a>
+                                    {% if checkpoint.status=='Complete' %}
+                                        <i class="fa fa-check fa-2x" aria-hidden="true"></i>
+                                    {% endif %}
+                                </h4>
+
+                                <p class="{% if checkpoint.status=='Complete' %}hidden{% endif %}">
+                                    {% if checkpoint.deadline %}
+                                        {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
+                                            {% set alert %}alert-danger{% endset %}
+                                        {% else %}
+                                            {% set alert %}alert-success{% endset %}
+                                        {% endif %}
+                                        <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
+                                    {% endif %}
+                                    {% if checkpoint.lead != '' %}
+                                        <span class="alert alert-info">Lead: {{ checkpoint.lead }}</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="card-block {% if checkpoint.status=='Complete' %}hidden{% endif %}">
+                                {{ checkpoint.description |raw }}
+                                <div class="alert alert-success">
+                                    Reviewers:
+                                    {# self review#}
+                                    {% if app.user.username == entity.username %}
+                                        <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': entity.id }) }}"
+                                           class="">{{ entity.firstname }} {{ entity.lastname }},</a>
+                                    {% else %}{{ entity.firstname }} {{ entity.lastname }},
+                                    {% endif %}
+                                    {# mentor and director review#}
+                                    {% for mentor in checkpoint.project.capstone.capstoneMentor %}
+                                        {% if app.user.username == mentor.username %}
+                                            <a href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': mentor.id }) }}"
+                                               class="">{{ mentor.name }} </a>
+                                        {% else %}{{ mentor.name }}{% endif %}
+                                        {% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                    {# other selected reviewer#}
+                                    {% for reviewer in checkpoint.reviewers %}
+                                        {% if app.user.username == reviewer.username %}
+                                            <a
+                                            href="{{ path('review_new', { 'checkpointid': checkpoint.id, 'reviewerid': reviewer.id }) }}"
+                                            class="">{{ reviewer.firstname }} {{ reviewer.lastname }}</a>{% else %}{{ reviewer.firstname }} {{ reviewer.lastname }}{% endif %}{% if not loop.last %},{% endif %}
+                                    {% endfor %}
+                                </div>
+                                {% for review in checkpoint.reviews %}
+                                    {% set review_background %}
+                                        {% if review.status=='Complete' %}#dff0d8
+                                        {% else %}#ffffe6
+                                        {% endif %}
+                                    {% endset %}
+                                    <div class="card">
+                                        <div class="card-header"
+                                             style="background-color: {{ review_background }}">
+                                            Review by {{ review.reviewer.name }}
+                                            <span class="btn btn-secondary">Recommended Status: {{ review.status }}</span>
+                                            {% if review.status=='Complete' %}
+                                                <i class="fa fa-check fa-2x" aria-hidden="true"></i>
+                                            {% endif %}
+                                            {% if app.user.username == review.reviewer.username %}
+                                                <a href="{{ path('review_edit', { 'id': review.id }) }}"
+                                                   class="float-sm-right btn btn-primary">Edit</a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-block">
+                                            <p>{{ review.body | raw }}</p>
+                                        </div>
+                                    </div>
                                 {% endfor %}
                             </div>
-                            {% for review in checkpoint.reviews %}
-                                {% set review_background %}
-                                    {% if review.status=='Complete' %}#dff0d8
-                                    {% else %}#ffffe6
-                                    {% endif %}
-                                {% endset %}
-                                <div class="card">
-                                    <div class="card-header"
-                                         style="background-color: {{ review_background }}">
-                                        Review by {{ review.reviewer.name }}
-                                        <span class="btn btn-secondary">Recommended Status: {{ review.status }}</span>
-                                        {% if review.status=='Complete' %}
-                                            <i class="fa fa-check fa-2x" aria-hidden="true"></i>
-                                        {% endif %}
-                                        {% if app.user.username == review.reviewer.username %}
-                                            <a href="{{ path('review_edit', { 'id': review.id }) }}"
-                                               class="float-sm-right btn btn-primary">Edit</a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="card-block">
-                                        <p>{{ review.body | raw }}</p>
-                                    </div>
-                                </div>
-                            {% endfor %}
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                {% endif %}
                 </div>
 
             {% endif %}
