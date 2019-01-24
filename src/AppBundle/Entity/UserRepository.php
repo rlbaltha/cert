@@ -74,13 +74,20 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     public function findStudents()
     {
         $users = $this->createQueryBuilder('u')
-            ->join('u.progress', 'p')
-            ->join('u.program', 'pr')
-            ->andWhere("p.name != 'Inactive' and p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
+            ->leftjoin('u.progress', 'p')
+            ->leftjoin('u.program', 'pr')
+            ->andWhere(':tag1 MEMBER OF u.tags')
+            ->orWhere(':tag2 MEMBER OF u.tags')
+            ->orWhere(':tag3 MEMBER OF u.tags')
+            ->orWhere(':tag4 MEMBER OF u.tags')
             ->addOrderBy('u.graddate', 'ASC')
             ->addOrderBy('u.gradterm', 'DESC')
             ->addOrderBy('u.lastname', 'ASC')
             ->addOrderBy('u.firstname', 'ASC')
+            ->setParameter('tag1', 91)
+            ->setParameter('tag2', 107)
+            ->setParameter('tag3', 105)
+            ->setParameter('tag4', 99)
             ->getQuery()
             ->getResult();
         return $users;

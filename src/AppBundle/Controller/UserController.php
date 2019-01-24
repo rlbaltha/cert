@@ -105,6 +105,54 @@ class UserController extends Controller
     }
 
 
+
+    /**
+     * Lists all User entities.
+     *
+     * @Route("/updateactive/{tag}/{term}/{date}/{view}", name="user_updateactive", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
+     * @Method("GET")
+     * @Template("AppBundle:User:index.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function upateactiveAction($tag, $term, $date, $view)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle("Active");
+        $tag1 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Alumni");
+        $tag2 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Faculty");
+        $tag3 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Account Created");
+        $tag4 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Administration");
+        $tag5 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Inactive");
+        $entities = $em->getRepository('AppBundle:User')->findAccounts();
+        foreach($entities as $entity)
+        {
+            $entity->addTag($tag);
+            if (!$entity->hasProgram() or $entity->hasTag($tag1) or $entity->hasTag($tag2) or $entity->hasTag($tag3)
+                or $entity->hasTag($tag4) or $entity->hasTag($tag5)) {
+                $entity->removeTag($tag);
+            }
+            $em->persist($entity);
+        }
+
+        $em->flush();
+
+        $tags = $em->getRepository('AppBundle:Tag')->findByType('user');
+        if ($view == 'index') {
+            $template = 'AppBundle:User:index.html.twig';
+        } else {
+            $template = 'AppBundle:User:grad.html.twig';
+        }
+        $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());
+
+        return $this->render($template, array(
+            'entities' => $entities,
+            'tags' => $tags,
+            'view' => $view,
+        ));
+
+    }
+
     /**
      * Lists all User entities.
      *
@@ -405,6 +453,7 @@ class UserController extends Controller
         return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
 
     }
+
 
     /**
      * Application Ready for review and send email.

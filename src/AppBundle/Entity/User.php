@@ -23,6 +23,7 @@ ugaid
 */
 namespace AppBundle\Entity;
 
+use Doctrine\DBAL\Types\BooleanType;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -957,4 +958,28 @@ class User extends BaseUser
     {
         return $this->capstoneproject;
     }
+
+
+    /**
+     *
+     *
+     */
+    public function hasTag($tag)
+    {
+        if ($this->tags->contains($tag)) {
+            return true;
+        }
+    }
+
+    /**
+     *
+     *
+     */
+    public function hasProgram()
+    {
+        if ($this->getProgram()) {
+            return true;
+        }
+    }
+
 }
