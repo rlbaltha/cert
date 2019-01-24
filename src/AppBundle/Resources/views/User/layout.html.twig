@@ -24,9 +24,6 @@
 {% block body %}
     <div class="col-sm-12">
         {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <a class="btn btn-primary btn-sm"
-               href="{{ path('user', {'tag': 'students', 'term': 'All', 'date': 'All','view':'index'}) }}">All
-                Students</a>
             {% for tag in tags if tag.subs|length > 0 %}
                 <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
                    id="{{ tag.id }}"
@@ -47,9 +44,7 @@
             {% endfor %}
             <br/>
             Graduation Term:
-            <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2018','view':'index' }) }}"
-               class="btn btn-primary btn-sm"
-               style="background-color: green">2018 Fall</a>
+
             <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2019','view':'index' }) }}"
                class="btn btn-primary btn-sm"
                style="background-color: green">2019 Spring</a>
@@ -62,6 +57,9 @@
             <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2020','view':'index' }) }}"
                class="btn btn-primary btn-sm"
                style="background-color: green">2020 Fall</a>
+            <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2021','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: green">2021 Spring</a>
             <br/><br/>
         {% endif %}
         {% if entity is defined %}

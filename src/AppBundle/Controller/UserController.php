@@ -80,7 +80,8 @@ class UserController extends Controller
         if ($tag == 'all') {
             $entities = $em->getRepository('AppBundle:User')->findAccounts();
         } elseif ($tag == 'students') {
-            $entities = $em->getRepository('AppBundle:User')->findStudents();
+            $currenttag = $em->getRepository('AppBundle:Tag')->findOneByTitle('Active');
+            $entities = $em->getRepository('AppBundle:User')->findByTag($currenttag->getId());
         } elseif ($tag == 'term') {
             $entities = $em->getRepository('AppBundle:User')->findUsersByTerm($term, $date);
         } else {
@@ -114,7 +115,7 @@ class UserController extends Controller
      * @Template("AppBundle:User:index.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function upateactiveAction($tag, $term, $date, $view)
+    public function updateactiveAction($tag, $term, $date, $view)
     {
         $em = $this->getDoctrine()->getManager();
 
