@@ -69,17 +69,7 @@ class ProgramType extends AbstractType
                 'editor_simple',))
             ->add('goals', 'ckeditor', array('required' => false, 'label' => 'What are your goals', 'config_name'
             =>
-                'editor_simple',))
-            ->add('mentor', 'choice', array(
-                'label' => 'Would you like to have a Certificate mentor?',
-                'choices' => array(
-                    'Yes' => 'Yes',
-                    'No' => 'No'
-                ),
-                // *this line is important*
-                'choices_as_values' => true,
-                'expanded' => true,
-            ));
+                'editor_simple',));
     }
 
     /**

@@ -104,6 +104,8 @@ class FacultyController extends Controller
             $userentity->setLastname($entity->getLastname());
             $userentity->setFirstname($entity->getFirstname());
             $userentity->setProgress($status);
+            $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle("Faculty");
+            $userentity->addTag($tag);
 
             $em->persist($entity);
             $em->persist($userentity);

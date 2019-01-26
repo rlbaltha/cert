@@ -73,16 +73,15 @@
                             <a class="dropdown-item" href="{{ path('project') }}">Projects</a>
                             <a class="dropdown-item" href="{{ path('data_index') }}">Data</a>
                             <a class="dropdown-item" href="{{ path('school') }}">Schools</a>
-                            <a class="dropdown-item" href="{{ path('notification') }}">Notifications</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ path('upload') }}">Upload</a>
                             <a class="dropdown-item" href="{{ path('section') }}">Sections</a>
                             <a class="dropdown-item" href="{{ path('page') }}">Pages</a>
-                            <a class="dropdown-item" href="{{ path('forum') }}">Forums</a>
                             <a class="dropdown-item" href="{{ path('tag') }}">Tags</a>
                             <a class="dropdown-item" href="{{ path('status') }}">Status</a>
                             <a class="dropdown-item" href="{{ path('substitution') }}">Substitutions</a>
                             <a class="dropdown-item" href="{{ path('capstone_admin') }}">Capstones</a>
+                            <a class="dropdown-item" href="{{ path('term') }}">Terms</a>
 
 
                         </div>
@@ -92,16 +91,9 @@
 
             <ul class="nav navbar-nav float-sm-right">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    {% if is_granted('ROLE_SUPER_ADMIN') %}
-                        <li class="nav-item">
-                            <a class="" href="{{ path('user', {'tag': 'students'}) }}">List Accounts</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="" href="{{ path('user_profile') }}">{{ app.user.firstname }}'s Profile</a>
-                        </li>
-                    {% endif %}
-
+                    <li class="nav-item">
+                        <a class="" href="{{ path('user_profile') }}">{{ app.user.firstname }}'s Profile</a>
+                    </li>
 
                     <li class="nav-item">
                         <a href="{{ path('logout') }}">Logout</a>
@@ -145,7 +137,7 @@
 </div>
 {#{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}#}
 {#<img class="cert-logo" alt="Certificate logo"#}
-     {#src="{{ asset('bundles/app/images/certificatelogo.gif') }}">#}
+{#src="{{ asset('bundles/app/images/certificatelogo.gif') }}">#}
 {#{% endif %}#}
 
 </body>

@@ -4,33 +4,6 @@
     {{ parent() }}
     <script language="javascript">
         $(document).ready(function () {
-            // $("#notifications").show();
-            //
-            // $("#notifications_toggle").click(function () {
-            //     $(".profile").hide();
-            //     $("#notifications_toggle").addClass('active');
-            //     $("#notifications").show();
-            // });
-            // $("#mentoring_toggle").click(function () {
-            //     $(".profile").hide();
-            //     $("#mentoring_toggle").addClass('active');
-            //     $("#mentoring").show();
-            // });
-            // $("#directornotes_toggle").click(function () {
-            //     $(".profile").hide();
-            //     $("#directornotes_toggle").addClass('active');
-            //     $("#directornotes").show();
-            // });
-            // $("#portfolio_toggle").click(function () {
-            //     $(".profile").hide();
-            //     $("#portfolio_toggle").addClass('active');
-            //     $("#portfolio").show();
-            // });
-            // $("#capstones_toggle").click(function () {
-            //     $(".profile").hide();
-            //     $("#capstones_toggle").addClass('active');
-            //     $("#capstonesforreview").show();
-            // });
         });
     </script>
 {% endblock %}
@@ -49,12 +22,10 @@
 
         {# Name and notes #}
         <h2 class="margin-top">Profile for {{ entity.firstname }} {{ entity.lastname }}</h2>
-
-        Progress:  {% for tag in entity.tags %}
-        <div class="btn btn-primary btn-sm tag{{ tag.id }}"
-             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+        {% for tag in entity.tags %}
+            <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                 style="background-color: {{ tag.color }}">{{ tag.title }}</div>
         {% endfor %}
-
         <div class="alert alert-info margin-top" role="alert">
             <p>Your profile includes basic information about you. You may update it at any time.
             </p>
@@ -64,9 +35,10 @@
            href="{{ path('user_edit',  { 'id': entity.id }) }}">
             Update Profile
         </a>
-        <a class='btn btn-primary' href="{{ path('pdf',  { 'id': entity.id }) }}">
-            Create PDF
-        </a>
+
+        {#<a class='btn btn-primary' href="{{ path('pdf',  { 'id': entity.id }) }}">#}
+        {#Create PDF#}
+        {#</a>#}
         <br/>
 
 
@@ -80,27 +52,22 @@
         {% endif %}
         Graduation: {{ entity.graddate }} {{ entity.gradterm }}
 
-
-
-        {#<a class="btn btn-secondary" id="notifications_toggle"#}
-        {#href="javascript:void(0);">Notifications</a></li>#}
-        {#{% if entity.capstoneMentees|length > 0 %}#}
-        {#<a class="btn btn-secondary" id="capstones_toggle" href="javascript:void(0);">Capstones#}
-        {#for Review</a>#}
-        {#{% endif %}#}
-        {#{% if entity.progress.name!='Faculty' %}#}
-
-        {#<a class="btn btn-secondary" id="portfolio_toggle"#}
-        {#href="javascript:void(0);">Portfolio</a>#}
-
-        {#{% endif %}#}
-        {#{% if is_granted('ROLE_SUPER_ADMIN') %}#}
-        {#<a class="btn btn-secondary" id="directornotes_toggle" href="javascript:void(0);">Director#}
-        {#Notes</a>#}
-        {#{% endif %}#}
-
-
         <br/><br/>
+        {#  *********************** Application Prompt  ***********************  #}
+        <div class="alert alert-info" role="alert">
+            <p>Please fill out the Application form completely. You may return to edit it at any
+                time.</p>
+            <p>When you have completed the application, click <strong>Ready for Review.</strong>
+                You will be notified by the Director when your application is approved.</p>
+        </div>
+        {% if entity.program.status != 'Approved' %}
+            <a class="btn btn-primary"
+               href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
+                Open Application
+            </a>
+        {% endif %}
+
+
         {#  *********************** Portfolio  ***********************  #}
         {% if entity.checklist %}
             <div id="portfolio" class="profile">
@@ -118,76 +85,6 @@
                 <hr/>
             </div>
         {% endif %}
-
-        {# *********************** Notifications *********************** #}
-        {# set variables for checkpoints #}
-        {% set overdue = 0 %}
-        {% set upcoming = 0 %}
-
-        {# check to see if profile matches currrent user #}
-        {% if app.user.username == entity.username %}
-            {% if entity.notifications %}
-                {% set count_notifications = notifications|length %}
-                {# count checkpoint deadlines #}
-                {% if entity.capstone %}
-                    {% for checkpoint in entity.capstone.project.checkpoints %}
-                        {% if checkpoint.deadline %}
-                            {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d')  and checkpoint.status!='Complete' %}
-                                {% set overdue = overdue + 1 %}
-                            {% endif %}
-                            {% if "now"|date('Y-m-d') <= checkpoint.deadline|date|date('Y-m-d')  and checkpoint.status!='Complete' %}
-                                {% set upcoming = upcoming + 1 %}
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                    {% if overdue > 0 %}{% set count_notifications = count_notifications + 1 %}{% endif %}
-                    {% if upcoming > 0 %}{% set count_notifications = count_notifications + 1 %}{% endif %}
-                {% endif %}
-
-                <div id="notifications" class="profile">
-                    {% if entity.notifications|length > 0 %}
-                        <h3 class="">Notifications</h3>
-
-                        {% for notification in notifications %}
-                            {% set background %}
-                                {% if notification.status=='New' %}alert-success
-                                {% elseif notification.status=='Shared' %}alert-success
-                                {% else %}#dbf8ff
-                                {% endif %}
-                            {% endset %}
-                            <div class="alert {{ background }} margin">
-                                <strong>{{ notification.date |date("m/d/Y g:ia") }}</strong>
-                                <br/>
-                                {% if notification.post %}
-                                    {{ notification.post.body|raw }}
-                                {% endif %}
-                                {{ notification.body|raw }}
-                                {% if notification.status!='Shared' %}
-                                    <a class="btn btn-primary  "
-                                       href="{{ path('notification_dismiss',  { 'id': notification.id }) }}">
-                                        Dismiss
-                                    </a>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-
-                        {# notifications for checkpoints #}
-                        {% if upcoming > 0 %}
-                            <div class="alert alert-info margin">You have {{ upcoming }} upcoming
-                                Capstone Timeline Task(s)
-                            </div>
-                        {% endif %}
-                        {% if overdue > 0 %}
-                            <div class="alert alert-danger margin">You have {{ overdue }} overdue
-                                Capstone Timeline Task(s)
-                            </div>
-                        {% endif %}
-                    {% endif %}
-                </div>
-
-            {% endif %}
-        {% endif %}
-
 
 
         {#  *********************** Director Notes ***********************  #}
@@ -210,77 +107,6 @@
             </div>
 
         {% endif %}
-
-
-
-        {#  *********************** Mentoring ***********************  #}
-        {# check to see if profile matches currrent user and is not Faculty #}
-        {#{% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}#}
-        {#  *** Check for application****  #}
-        {#{% if entity.program %}#}
-        {#<div id="mentoring" class="profile">#}
-        {#<h3>Peer Mentoring</h3>#}
-        {#{% if entity.peermentor %}#}
-        {#<span class="alert alert-info">#}
-        {#Your mentor is {{ entity.peermentor.firstname }} {{ entity.peermentor.lastname }}#}
-        {#({{ entity.peermentor.email }})#}
-        {#</span>#}
-        {#{% endif %}#}
-        {#{% if entity.peermentees|length > 0 %}#}
-        {#<span class="alert alert-info">Thanks for serving as a certificate mentor.#}
-        {#Your mentee{% if entity.peermentees|length > 1 %}s are{% else %} is {% endif %}#}
-        {#{% for mentee in entity.peermentees %}#}
-        {#{% if loop.last %}and{% endif %}#}
-        {#{{ mentee.firstname }} {{ mentee.lastname }} ({{ mentee.email }})#}
-        {#{% endfor %}#}
-        {#</span>#}
-        {#{% endif %}#}
-
-        {#<div class="alert alert-info margin-top" role="alert">#}
-        {#<strong>Requirements for Mentees/Mentors are as follows:</strong>#}
-        {#<ul>#}
-        {#<li>Mentees and Mentors must attend orientation</li>#}
-        {#<li>Mentees and Mentors must have at least one face-to-face meeting</li>#}
-        {#<li>Mentees and Mentors should celebrate the end of the term together at#}
-        {#Semester in Review#}
-        {#</li>#}
-        {#</ul>#}
-        {#<strong>Requirements for application to be a Mentor:</strong>#}
-        {#<ul>#}
-        {#<li>Can only apply if they are a sophomore or higher and have participated in at#}
-        {#least#}
-        {#one Sustainability Seminar#}
-        {#</li>#}
-        {#<li>All students must learn to smell the roses and appreciate the sunshine</li>#}
-        {#</ul>#}
-        {#<p>Read more about out mentoring program <a#}
-        {#href="{{ path('page_show',  { 'id': '42' }) }}">here</a>.</p>#}
-        {#</div>#}
-
-        {#{% for tag in entity.tags if tag.title == 'Mentoring' %}#}
-        {#{% else %}#}
-        {#<a class="btn btn-primary margin-left"#}
-        {#href="{{ path('user_mentee',  { 'id': entity.id }) }}">#}
-        {#I'd like to have a Mentor.#}
-        {#</a>#}
-        {#<a class="btn btn-primary margin-left"#}
-        {#href="{{ path('user_mentor',  { 'id': entity.id }) }}">#}
-        {#I'd like to be a Mentor.#}
-        {#</a>#}
-        {#{% endfor %}#}
-        {#<hr/>#}
-        {#</div>#}
-
-        {#{% endif %}#}
-        {#{% endif %}#}
-
-        {# check to see if profile matches currrent user and is not Faculty #}
-        {#{% if (app.user.username == entity.username and entity.progress.name!='Faculty') or is_granted('ROLE_SUPER_ADMIN') %}#}
-
-
-
-
-
 
 
         {#  *********************** Capstones For Review *********************** #}

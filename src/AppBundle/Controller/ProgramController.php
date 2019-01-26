@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Program;
+use AppBundle\Entity\Checklist;
 use AppBundle\Form\ProgramType;
 
 /**
@@ -232,9 +233,11 @@ class ProgramController extends Controller
         $entity->setStatus('Ready for Review');
 
         //add and remove tags
-        $tag2 = $em->getRepository('AppBundle:Tag')->find(109);
-        $user_entity->addTag($tag2);
+        $tag0 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Application Created");
+        $tag1 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Ready for Review");
 
+        $user_entity->addTag($tag1);
+        $user_entity->removeTag($tag0);
 
         $em->persist($entity);
         $em->persist($user_entity);
@@ -292,10 +295,25 @@ class ProgramController extends Controller
         $entity->setStatus('Approved');
 
         //add and remove tags
-        $tag = $em->getRepository('AppBundle:Tag')->find(100);
-        $removetag = $em->getRepository('AppBundle:Tag')->find(109);
-        $user_entity->addTag($tag);
-        $user_entity->removeTag($removetag);
+        $tag0 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Ready for Review");
+        $tag1 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Application Approved");
+        $tag2 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Checklist Created");
+
+        $user_entity->addTag($tag1);
+        $user_entity->addTag($tag2);
+        $user_entity->removeTag($tag0);
+        $default_term = $em->getRepository('AppBundle:Term')->findDefault();
+
+        if (!$user_entity->getChecklist()) {
+            $checklist = new Checklist();
+            $checklist->setUser($user_entity);
+            $checklist->setCapstonedate($default_term->getYear());
+            $checklist->setCapstoneterm($default_term->getTerm());
+            $checklist->setGraddate($default_term->getYear());
+            $checklist->setGradterm($default_term->getTerm());
+            $checklist->setAppliedtograd('No');
+            $em->persist($checklist);
+        }
 
         $em->persist($entity);
         $em->persist($user_entity);

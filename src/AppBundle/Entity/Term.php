@@ -31,6 +31,20 @@ class Term
     /**
      * @var string
      *
+     * @ORM\Column(name="year", type="string", length=255)
+     */
+    private $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="term", type="string", length=255)
+     */
+    private $term;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
@@ -139,5 +153,53 @@ class Term
     public function getCourses()
     {
         return $this->courses;
+    }
+
+    /**
+     * Set year
+     *
+     * @param string $year
+     *
+     * @return Term
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return string
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set term
+     *
+     * @param string $term
+     *
+     * @return Term
+     */
+    public function setTerm($term)
+    {
+        $this->term = $term;
+
+        return $this;
+    }
+
+    /**
+     * Get term
+     *
+     * @return string
+     */
+    public function getTerm()
+    {
+        return $this->term;
     }
 }

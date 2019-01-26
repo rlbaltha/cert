@@ -37,7 +37,6 @@ class UserType extends BaseType
                 'multiple' => false,
                 'label' => 'Expected Graduation Year',
                 'choices' => array(
-                    '2018' => '2018',
                     '2019' => '2019',
                     '2020' => '2020',
                     '2021' => '2021',

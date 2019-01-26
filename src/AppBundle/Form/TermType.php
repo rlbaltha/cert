@@ -16,11 +16,14 @@ class TermType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('attr' => array('class' => 'text form-control'),))
+            ->add('year', 'text', array('attr' => array('class' => 'text form-control'),))
+            ->add('term', 'text', array('attr' => array('class' => 'text form-control'),))
             ->add('status', 'choice', array(
                 'choices' => array(
                     'Current' => 'Current',
                     'Archive' => 'Archive',
-                    'Display' => 'Display'
+                    'Display' => 'Display',
+                    'Default' => 'Default'
                 ),
                 // *this line is important*
                 'choices_as_values' => true,

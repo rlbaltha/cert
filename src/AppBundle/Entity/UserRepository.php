@@ -152,7 +152,6 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         return $users;
     }
 
-
     /**
      * Find student users
      *

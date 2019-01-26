@@ -49,7 +49,7 @@
             {% if app.user.username == entity.username and entity.program.status == 'Created' %}
                 <a class="btn btn-primary  align-right "
                    href="{{ path('program_edit',  { 'id': entity.program.id }) }}">
-                    Update Application
+                    Open Application
                 </a>
                 <a title="Application Ready for Review"
                    class="btn btn-primary  align-right  "

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Program;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -37,9 +38,7 @@ class UserController extends Controller
         $user = $this->getUser();
 
         $entity = $em->getRepository('AppBundle:User')->find($user);
-        $notifications = $em->getRepository('AppBundle:Notification')->findCurrent($user);
 
-        $status = $em->getRepository('AppBundle:Status')->findAllSorted();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -60,9 +59,6 @@ class UserController extends Controller
 
         return array(
             'entity' => $entity,
-            'mentees' => $mentees,
-            'notifications' => $notifications,
-            'status' => $status,
         );
     }
 
@@ -375,6 +371,16 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
+        if (!$entity->getProgram()){
+            $program = new Program();
+            $program->setUser($entity);
+            $tag1 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Application Created");
+            $tag2 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Active");
+            $entity->addTag($tag1);
+            $entity->addTag($tag2);
+            $em->persist($program);
+        }
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity, $return);
         $editForm->handleRequest($request);
@@ -382,12 +388,7 @@ class UserController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            if ($return == 'mentor') {
-                return $this->redirect($this->generateUrl('user_mentor_mapping'));
-            }
-            else {
-                return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
-            }
+            return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
 
         }
 

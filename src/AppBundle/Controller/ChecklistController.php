@@ -116,11 +116,14 @@ class ChecklistController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $entity->setUser($user);
-        $program = $em->getRepository('AppBundle:Program')->findOneByUser($user);
-        $entity->setCapstonedate($program->getGraddate());
-        $entity->setCapstoneterm($program->getGradterm());
-        $entity->setGraddate($program->getGraddate());
-        $entity->setGradterm($program->getGradterm());
+
+        $default_term = $em->getRepository('AppBundle:Term')->findDefault();
+        $entity->setCapstonedate($default_term->getYear());
+        $entity->setCapstoneterm($default_term->getTerm());
+        $entity->setGraddate($default_term->getYear());
+        $entity->setGradterm($default_term->getTerm());
+        $entity->setAppliedtograd('No');
+
         $form = $this->createCreateForm($entity);
 
         return array(

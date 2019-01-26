@@ -49,7 +49,7 @@ class Program
      *
      * @ORM\Column(name="level", type="string", length=255, nullable=true)
      */
-    private $level;
+    private $level='Undergrad';
 
 
     /**

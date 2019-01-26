@@ -74,7 +74,7 @@ class User extends BaseUser
      *
      * @ORM\Column(name="graddate", type="string", length=255, nullable=true)
      */
-    private $graddate;
+    private $graddate = '2021';
 
 
     /**
@@ -82,7 +82,7 @@ class User extends BaseUser
      *
      * @ORM\Column(name="gradterm", type="string", length=255, nullable=true)
      */
-    private $gradterm;
+    private $gradterm = 'Spring';
 
     /**
      * @var string
@@ -158,7 +158,7 @@ class User extends BaseUser
     protected $progress;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Capstone", mappedBy="capstoneproject")
+     * @ORM\ManyToMany(targetEntity="Capstone", mappedBy="users")
      * @ORM\JoinTable(name="user_capstoneproject")
      */
     protected $capstoneproject;
@@ -924,6 +924,28 @@ class User extends BaseUser
         return $this->partners;
     }
 
+    /**
+     *
+     *
+     */
+    public function hasTag($tag)
+    {
+        if ($this->tags->contains($tag)) {
+            return true;
+        }
+    }
+
+    /**
+     *
+     *
+     */
+    public function hasProgram()
+    {
+        if ($this->getProgram()) {
+            return true;
+        }
+    }
+
 
     /**
      * Add capstoneproject
@@ -958,28 +980,4 @@ class User extends BaseUser
     {
         return $this->capstoneproject;
     }
-
-
-    /**
-     *
-     *
-     */
-    public function hasTag($tag)
-    {
-        if ($this->tags->contains($tag)) {
-            return true;
-        }
-    }
-
-    /**
-     *
-     *
-     */
-    public function hasProgram()
-    {
-        if ($this->getProgram()) {
-            return true;
-        }
-    }
-
 }
