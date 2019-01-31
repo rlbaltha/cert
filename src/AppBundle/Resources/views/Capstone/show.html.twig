@@ -85,7 +85,7 @@
                                 Update Work Plan
                             </a>
                             <a title="Update your capstone" class="btn btn-primary"
-                               href="{{ path('capstone_pdf',  { 'id': entity.id }) }}">
+                               href="{{ path('capstone_pdf',  { 'id': capstone.id }) }}">
                                 Create PDF
                             </a>
                             {#<a class="btn btn-primary {% if capstone.status == 'Ready for Director Review' or capstone.status == 'Approved'#}
@@ -267,8 +267,6 @@
             <h4>Work Plan</h4>
 
             {% if capstone %}
-
-
 
                 <table class="table margin-top">
                     <tbody>

@@ -370,10 +370,9 @@ class CapstoneController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:User')->find($id);
+        $entity = $em->getRepository('AppBundle:Capstone')->find($id);
 
-        $name = $entity->getLastname();
-        $filename = 'attachment; filename="' . $name . '.pdf"';
+        $filename = 'attachment; filename="capstone.pdf"';
 
 
         $html = $this->renderView('AppBundle:Capstone:pdf.html.twig', array(

@@ -6,12 +6,17 @@
     <title>{% block title %}Sustainability Certificate{% endblock %}</title>
 
     {% block stylesheets %}
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+              integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi"
+              crossorigin="anonymous">
         <link type="text/css" rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link type="text/css" rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.22.5/css/theme.bootstrap.min.css">
-        <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+              integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+              crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/local.css') }}">
     {% endblock %}
 
@@ -40,135 +45,155 @@
         {% block body -%}
         <div class="col-sm-12 col-xs-12">
 
-            {#  *********************** Capstone Workplan *********************** #}
-            <h2>Capstone
-                for {{ entity.firstname }} {{ entity.lastname }} {% if entity.capstone %}({{ entity.capstone.status }}){% endif %}</h2>
+            <h2>Capstone:  {{ entity.title }}</h2>
+
+
+            {#  ***********************  Project *********************** #}
 
             <div class="card-block">
-                <div class="toggle" id="workplan_div">
+                <div class="toggle" id="project_div">
+                    <h4>Project</h4>
 
-                    <h4>Work Plan</h4>
-
-                    {% if entity.capstone %}
-
+                    {% for tag in entity.tags %}
+                        <div class="btn btn-primary btn-sm tag{{ tag.id }}"
+                             style="background-color: {{ tag.color }}">{{ tag.title }}</div>
+                    {% endfor %}
 
                     <table class="table margin-top">
                         <tbody>
                         <tr>
-                            <th>Title</th>
-                            <td>{{ entity.capstone.title }}</td>
-                        </tr>
-                        <tr>
-                            <th>Type of Project</th>
-                            <td>{{ entity.capstone.type }}</td>
-                        </tr>
-                        <tr>
                             <th>Description</th>
-                            <td>{{ entity.capstone.description|raw }}</td>
+                            <td>{{ entity.description|raw }}</td>
                         </tr>
                         <tr>
-                            <th>Mentors/Reviewers</th>
-                            <td>{% for mentor in entity.capstone.capstoneMentor %}{{ mentor.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                            <th>Mentors/Sustainability Reps</th>
+                            <td>{% for mentor in entity.capstoneMentor %}{{ mentor.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
                         </tr>
                         <tr>
-                            <th>Mentor Involvement</th>
-                            <td>{{ entity.capstone.mentorExpectations|raw }}</td>
+                            <th>Group Members</th>
+                            <td>{{ entity.user.name }}{% if entity.users|length > 0 %}, {% endif %}{% for user in entity.users %}{{ user.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
                         </tr>
                         <tr>
-                            <th>Group</th>
-                            <td>{{ entity.capstone.groupProject }}</td>
+                            <th>Main Purpose</th>
+                            <td>{{ entity.purpose|raw }}</td>
                         </tr>
                         <tr>
-                            <th>Group Members/Your Role</th>
-                            <td>{{ entity.capstone.groupMembers|raw }}</td>
+                            <th>Background and Context</th>
+                            <td>{{ entity.background|raw }}</td>
                         </tr>
                         <tr>
-                            <th>Resources/Partners</th>
-                            <td>{{ entity.capstone.partners|raw }}</td>
+                            <th>Contribution to Sustainability</th>
+                            <td>{{ entity.contribution|raw }}</td>
                         </tr>
                         <tr>
-                            <th>Targets</th>
-                            <td>{{ entity.capstone.objectives|raw }}</td>
+                            <th>Special Considerations</th>
+                            <td>{{ entity.considerations|raw }}</td>
                         </tr>
                         <tr>
-                            <th>Indicators</th>
-                            <td>{{ entity.capstone.successMetrics|raw }}</td>
+                            <th>Potential Information Sources</th>
+                            <td>{{ entity.sources|raw }}</td>
                         </tr>
                         <tr>
-                            <th>Personal Objectives</th>
-                            <td>{{ entity.capstone.personalObjectives|raw }}</td>
-                        </tr>
-
-                        <tr>
-                            <th>Application</th>
-                            <td>{{ entity.capstone.application|raw }}</td>
-                        </tr>
-                        <tr>
-                            <th>Expected Completion Date</th>
-                            <td>{{ entity.capstone.timeframe }}</td>
-                        </tr>
-                        <tr>
-                            <th>After Completion</th>
-                            <td>{{ entity.capstone.completion|raw }}</td>
-                        </tr>
-                        <tr>
-                            <th>Repeatable/Extendable</th>
-                            <td>{{ entity.capstone.repeatable }}</td>
-                        </tr>
-                        <tr>
-                            <th>Repeatable/Extendable Information</th>
-                            <td>{{ entity.capstone.repeatinfo|raw }}</td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td>{{ entity.capstone.status }}<a name="reviews"></a></td>
-                        </tr>
-                        <tr>
-                            <th>Last Updated</th>
-                            <td>{{ entity.capstone.updated |date("m/d/Y g:ia") }}</td>
+                            <th>Desired Team Qualifications</th>
+                            <td>{{ entity.qualifications|raw }}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {#  *********************** Capstone Timeline (aka Checkpoints)  *********************** #}
-                <div class="toggle" id="checkpoints_div">
 
-                    <h4>Timeline</h4>
+            </div>
+
+            {#  ***********************  Workplan  *********************** #}
+            <div class="toggle" id="workplan_div">
+
+                <h4>Work Plan</h4>
 
 
-                    {% for checkpoint in entity.capstone.project.checkpoints %}
-                        <div class="card margin-top checkpoints_card">
-                            <div class="card-header">
+                <table class="table margin-top">
+                    <tbody>
+                    <tr>
+                        <th>Mentor Involvement</th>
+                        <td>{{ entity.mentorExpectations|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Resources/Partners</th>
+                        <td>{{ entity.partners|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Targets</th>
+                        <td>{{ entity.objectives|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Indicators</th>
+                        <td>{{ entity.successMetrics|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Deliverables</th>
+                        <td>{{ entity.deliverables|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Expected Completion Date</th>
+                        <td>{{ entity.timeframe }}</td>
+                    </tr>
+                    <tr>
+                        <th>After Completion</th>
+                        <td>{{ entity.completion|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Repeatable/Extendable</th>
+                        <td>{{ entity.repeatable }}</td>
+                    </tr>
+                    <tr>
+                        <th>Repeatable/Extendable Information</th>
+                        <td>{{ entity.repeatinfo|raw }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ entity.status }}<a name="reviews"></a></td>
+                    </tr>
+                    <tr>
+                        <th>Last Updated</th>
+                        <td>{{ entity.updated |date("m/d/Y g:ia") }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                                <h4 class="card-title">
-                                    {{ checkpoint.name }}
-                                </h4>
+            {#  *********************** entity Timeline (aka Checkpoints)  *********************** #}
+            <div class="toggle" id="checkpoints_div">
 
-                                <p class="">
-                                    {% if checkpoint.deadline %}
-                                        {% if "now"|date('Y-m-d') > checkpoint.deadline|date|date('Y-m-d') %}
-                                            {% set alert %}alert-danger{% endset %}
-                                        {% else %}
-                                            {% set alert %}alert-success{% endset %}
-                                        {% endif %}
-                                        <span class="alert {{ alert }}">Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}</span>
-                                    {% endif %}
-                                    {% if checkpoint.lead != '' %}
-                                        <span class="alert alert-info">Lead: {{ checkpoint.lead }}</span>
-                                    {% endif %}
-                                    {{ checkpoint.description|raw }}
-                                </p>
-                                <hr/>
-                            </div>
+                <h4>Timeline</h4>
+
+
+                {% for checkpoint in entity.project.checkpoints %}
+                    <div class="card margin-top checkpoints_card">
+                        <div class="card-header">
+
+                            <h4 class="card-title">
+                                {{ checkpoint.name }}
+                            </h4>
+
+                            <p class="">
+                                {% if checkpoint.deadline %}
+                                    Deadline: {{ checkpoint.deadline|date('m-d-Y h:i A') }}
+                                {% endif %}
+                                {% if checkpoint.lead != '' %}
+                                    Lead: {{ checkpoint.lead }}
+                                {% endif %}
+                                {{ checkpoint.description|raw }}
+                            </p>
+                            <hr/>
                         </div>
-                    {% endfor %}
-                    {% endif %}
-                </div>
+                    </div>
+                {% endfor %}
+
             </div>
         </div>
-        {% endblock %}
+
     </div>
+    {% endblock %}
+</div>
 </div>
 </body>
 </html>
