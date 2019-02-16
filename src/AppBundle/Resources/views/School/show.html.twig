@@ -1,0 +1,155 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $('.anchors').hide();
+            $('.social').hide();
+            $('.ecological').hide();
+            $('.economic').hide();
+            var totalcount = 0;
+            var anchorcount = 0;
+            $('.anchors').each(function() {
+                var str1 = "{% for course in entity.courses %}{{ course.name }} {% endfor %}";
+                var str2 = $(this).children(":first").text();
+                if (str1.indexOf(str2) >= 0) {
+                    $(this).show();
+                    anchorcount = anchorcount + +($(this).find('.count').text());
+                }
+                });
+            $('#anchor').append(anchorcount);
+
+            var socialcount = 0;
+            $('.social').each(function() {
+                var str1 = "{% for course in entity.courses %}{{ course.name }} {% endfor %}";
+                var str2 = $(this).children(":first").text();
+                if (str1.indexOf(str2) >= 0) {
+                    $(this).show();
+                    socialcount = socialcount + +($(this).find('.count').text());
+                }
+            });
+            $('#social').append(socialcount);
+
+            var ecologicalcount = 0;
+            $('.ecological').each(function() {
+                var str1 = "{% for course in entity.courses %}{{ course.name }} {% endfor %}";
+                var str2 = $(this).children(":first").text();
+                if (str1.indexOf(str2) >= 0) {
+                    $(this).show();
+                    ecologicalcount = ecologicalcount + +($(this).find('.count').text());
+                }
+            });
+            $('#ecological').append(ecologicalcount);
+
+            var economiccount = 0;
+            $('.economic').each(function() {
+                var str1 = "{% for course in entity.courses %}{{ course.name }} {% endfor %}";
+                var str2 = $(this).children(":first").text();
+                if (str1.indexOf(str2) >= 0) {
+                    $(this).show();
+                    economiccount = economiccount + +($(this).find('.count').text());
+                }
+            });
+            $('#economic').append(economiccount);
+            totalcount = anchorcount + socialcount + ecologicalcount + economiccount;
+            $('#total').append(totalcount);
+            });
+    </script>
+{% endblock %}
+
+{% block body -%}
+    <div class="row">
+
+        <div class="col-sm-0 offset-sm-1">
+            {% for entity in schools %}
+                <a class="btn btn-primary btn-sm"
+                   href="{{ path('school_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
+            {% endfor %}
+
+            <h2 class="margin-top">{{ entity.name }}</h2>
+
+            <p>
+                <strong>Alumni {{ alumni|length }}</strong>:
+                {% for user in alumni %}
+                    <a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.firstname }} {{ user.lastname }}
+                    </a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Active {{ active|length }}</strong>:
+                {% for user in active %}
+                    <a
+                    href="{{ path('user_show', { 'id': user.id }) }}">{{ user.firstname }} {{ user.lastname }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Courses {{ entity.courses|length }}</strong>:
+                {% for course in entity.courses %}
+                    <a
+                    href="{{ path('course_show', { 'id': course.id }) }}">{{ course.name }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Anchor Courses (<span id="anchor"></span>)</strong>:
+                {% for course in anchors %}
+                    <span class="anchors"><span class="course">{{ course.area }}</span> (<span class="count">{{ course.value }}</span>)</span>
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Social Sphere (<span id="social"></span>)</strong>:
+                {% for course in social %}
+                    <span class="social"><span class="course">{{ course.area }}</span> (<span class="count">{{ course.value }}</span>)</span>
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Ecological Sphere (<span id="ecological"></span>)</strong>:
+                {% for course in ecological %}
+                    <span class="ecological"><span class="course">{{ course.area }}</span> (<span class="count">{{ course.value }}</span>)</span>
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Economic Sphere (<span id="economic"></span>)</strong>:
+                {% for course in economic %}
+                    <span class="economic"><span class="course">{{ course.area }}</span> (<span class="count">{{ course.value }}</span>)</span>
+                {% endfor %}
+            </p>
+            <p><strong>Total Seats (<span id="total"></span>)</strong>:</p>
+
+
+            {#{% if entity.courses|length > 0 %}#}
+            {#<table class="table sort">#}
+            {#<thead>#}
+            {#<tr>#}
+            {#<th>Name</th>#}
+            {#<th>Title</th>#}
+            {#<th class="hidden-xs-down">Offered</th>#}
+            {#<th class="hidden-xs-down">Prereqs</th>#}
+            {#<th class="hidden-xs-down">Requirement</th>#}
+            {#<th class="hidden-xs-down">Level</th>#}
+            {#</tr>#}
+            {#</thead>#}
+            {#<tbody>#}
+            {#{% for entity in entity.courses %}#}
+            {#<tr>#}
+            {#<td><a href="{{ path('course_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>#}
+            {#<td>{{ entity.title }}</td>#}
+            {#<td class="hidden-xs-down">{{ entity.offered }}</td>#}
+            {#<td class="hidden-xs-down">{{ entity.prereqs }}</td>#}
+            {#<td class="hidden-xs-down">{{ entity.pillar }}</td>#}
+            {#<td class="hidden-xs-down">{{ entity.level }}</td>#}
+            {#{% if is_granted('ROLE_ADMIN') %}#}
+            {#<td class="hidden-xs-down">#}
+            {#<a class="btn btn-primary"#}
+            {#href="{{ path('course_edit', { 'id': entity.id }) }}">edit</a>#}
+            {#</td>#}
+            {#{% endif %}#}
+            {#</tr>#}
+            {#{% endfor %}#}
+            {#</tbody>#}
+            {#</table>#}
+            {#{% else %}#}
+            {#{% endif %}#}
+        </div>
+    </div>
+{% endblock %}

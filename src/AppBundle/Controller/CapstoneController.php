@@ -48,7 +48,7 @@ class CapstoneController extends Controller
     /**
      * Lists all Page entities.
      *
-     * @Route("/adminindex/{status}", name="capstone_admin", defaults = {"status" = "all"})
+     * @Route("/adminindex/{status}", name="capstone_admin", defaults = {"status" = "Current"})
      * @Method("GET")
      * @Template("AppBundle:Capstone:admin.html.twig")
      * @Security("has_role('ROLE_ADMIN')")

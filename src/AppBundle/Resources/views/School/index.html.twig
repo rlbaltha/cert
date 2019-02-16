@@ -2,75 +2,11 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-sm-3">
-            <div class="bootstrap-vertical-nav">
-
-                <nav class="navbar navbar-light">
-                    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse"
-                            data-target="#exCollapsingNavbar2">
-                        &#9776;
-                    </button>
-                    <div class="collapse navbar-toggleable-sm" id="exCollapsingNavbar2">
-                        <ul class="nav navbar-sidenav">
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li class="nav-item">
-                                    <a href="{{ path('school_new') }}">
-                                        New School
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </nav>
-
-            </div>
-        </div>
-        <div class="col-sm-8">
+        <div class="col-sm-0 offset-sm-1">
             <h1>Schools</h1>
 
-            <div id="accordion" role="tablist" aria-multiselectable="true">
                 {% for entity in entities %}
-                    <div class="card">
-                        <div class="card-header" role="tab" id="heading{{ loop.index }}">
-                            <h5 class="mb-0">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}"
-                                   aria-expanded="true" aria-controls="collapse{{ loop.index }}">
-                                    {{ entity.name }}
-                                </a>
-                            </h5>
-                            {% set graduated = 0 %}
-                            {% set inactive = 0 %}
-                            {% set admin = 0 %}
-                            {% set grad = 0 %}
-                            {% for entity in entity.program1 if entity.user.progress.name=='Graduated' %}
-                                {% set graduated = graduated + 1 %}
-                            {% endfor %}
-                            {% for entity in entity.program1 if entity.user.progress.name=='Inactive' %}
-                                {% set inactive = inactive + 1 %}
-                            {% endfor %}
-                            {% for entity in entity.program1 if entity.user.progress.name=='Administration' %}
-                                {% set admin = admin + 1 %}
-                            {% endfor %}
-                            {% for entity in entity.program1 if entity.user.program.level=='Grad' and entity.user.progress.name!='Inactive' %}
-                                {% set grad = grad + 1 %}
-                            {% endfor %}
-                            <p> Graduates:{{ graduated }} Inactive:{{ inactive }}
-                                Grad Students:{{ grad }} Total
-                                Active:{{ entity.program1|length - (inactive + graduated + admin) }}</p>
-                        </div>
-
-                        <div id="collapse{{ loop.index }}" class="collapse show" role="tabpanel"
-                             aria-labelledby="heading{{ loop.index }}">
-                            <div class="card-block">
-                                {% for entity in entity.program1 %}
-                                    <p>{% if entity.user.program.level=='Grad' %}+{% endif %}
-                                        <a href="{{ path('user_show', { 'id': entity.user.id }) }}">{{ entity.user.lastname }}
-                                            , {{ entity.user.firstname }}</a>
-                                        ,  (Progress: {{ entity.user.progress.name }})</p>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
+                    <a href="{{ path('school_show', { 'id': entity.id }) }}">{{ entity.name }}</a>
                 {% endfor %}
             </div>
 

@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\School;
 use AppBundle\Form\SchoolType;
 
@@ -178,6 +179,46 @@ class SchoolController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Finds and displays a School entity with report.
+     *
+     * @Route("/show/{id}", name="school_show")
+     * @Method("GET")
+     * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $schools = $em->getRepository('AppBundle:School')->findAll();
+        $school = $em->getRepository('AppBundle:School')->find($id);
+        $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle("Alumni");
+        $alumni = $em->getRepository('AppBundle:User')->findByTagSchool($tag->getId() ,$school);
+        $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle("Active");
+        $active = $em->getRepository('AppBundle:User')->findByTagSchool($tag->getId() ,$school);
+        $anchors = $em->getRepository('AppBundle:Checklist')->findAnchorData();
+        $social = $em->getRepository('AppBundle:Checklist')->findSphere3Data();
+        $economic = $em->getRepository('AppBundle:Checklist')->findSphere2Data();
+        $ecological = $em->getRepository('AppBundle:Checklist')->findSphere1Data();
+
+        if (!$school) {
+            throw $this->createNotFoundException('Unable to find Capstone entity.');
+        }
+
+        return array(
+            'entity' => $school,
+            'alumni' => $alumni,
+            'active' => $active,
+            'schools' => $schools,
+            'anchors' => $anchors,
+            'social' => $social,
+            'economic' => $economic,
+            'ecological' => $ecological,
+        );
+    }
+
+
     /**
      * Deletes a School entity.
      *
