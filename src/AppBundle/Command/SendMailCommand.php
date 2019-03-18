@@ -43,13 +43,17 @@ class SendMailCommand extends ContainerAwareCommand
             $deadline = $c->getDeadline();
             $user = $c->getProject()->getCapstone()->getUser()->getName();
             $email = $c->getProject()->getCapstone()->getUser()->getEmail();
+            $group = $c->getProject()->getCapstone()->getUsers();
             $mentors = $c->getProject()->getCapstone()->getCapstoneMentor();
             $task = $c->getDescription();
             $mentoremail = array();
             foreach($mentors as $m)    {
                 $mentoremail[] = $m->getEmail();
             }
-
+            $groupemail = array();
+            foreach($group as $g)    {
+                $groupemail[] = $g->getEmail();
+            }
             $text = '<p>' .$user. ', you have a task deadline on <strong>'. $deadline->format('m-d-Y h:i A').
                 '</strong><hr/><p><strong>'.$name.'</strong></p><p>'.$task.'</p><hr/>
             <p>Thanks for all your good work! </p> 
@@ -57,7 +61,7 @@ class SendMailCommand extends ContainerAwareCommand
             $message = \Swift_Message::newInstance()
                 ->setSubject('Sustainability Capstone Timeline Task: '. $name)
                 ->setFrom('scdirector@uga.edu')
-                ->setTo($email)
+                ->setTo($groupemail)
                 ->setCc($mentoremail)
                 ->setBcc('scdirector@uga.edu')
                 ->setBody(
