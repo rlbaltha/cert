@@ -54,9 +54,7 @@ class SendMailCommand extends ContainerAwareCommand
             foreach($group as $g)    {
                 $groupemail[] = $g->getEmail();
             }
-            $text = '<p>Please forgive the duplicate emails today.  We are making adjustments to the program and wanted 
-to make sure everyone was getting them.</p>
-<p>Capstoners, you have a task deadline on <strong>'. $deadline->format('m-d-Y h:i A').
+            $text = '<p>Capstoners, you have a task deadline on <strong>'. $deadline->format('m-d-Y h:i A').
                 '</strong><hr/><p><strong>'.$name.'</strong></p><p>'.$task.'</p><hr/>
             <p>Thanks for all your good work! </p> 
             <p>Mentors, please check in on the progress of this capstone. Thanks for mentoring.</p>';
