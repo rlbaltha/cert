@@ -153,7 +153,7 @@ ivory_ck_editor:
             startupFocus: true
             toolbar: "toolbar_page"
             removePlugins: "elementspath,contextmenu,liststyle,tabletools"
-            allowedContent: 'p h2 h3 h4 img{text-align,margin-left}(*); a[*]{*}(*);div(*); table th tr td strong em; ol ul li span(*){font-size,font-family,color,background-color}; img[*]{*}; iframe{*}[*];'
+            allowedContent: 'p h2 h3 h4 img{text-align,margin-left}(*); a[*]{*}(*);div[*]{*}(*); table th tr td strong em; ol ul li span(*){font-size,font-family,color,background-color}; img[*]{*}; iframe{*}[*];'
             disableNativeSpellChecker: false
             height: 500
             stylesSet: 'cert_styles:../../bundles/app/js/ckeditor_styles.js'
