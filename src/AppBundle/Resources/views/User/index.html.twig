@@ -65,7 +65,7 @@
                 <th>Email</th>
                 <th class="hidden-sm-down">Graduation</th>
                 <th class="hidden-sm-down">Capstone</th>
-                <th class="hidden-sm-down">Program</th>
+                <th class="hidden-sm-down">Program/Placement</th>
                 <th>Progress</th>
             </tr>
             </thead>
@@ -92,6 +92,7 @@
                             {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
                             {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}<br/>
                         {% endif %}
+                        {% if entity.placement != '' %}<br/>Placement: {{ entity.placement }}{% endif %}
                     </td>
                     <td>
                         {% for tag in entity.tags %}
