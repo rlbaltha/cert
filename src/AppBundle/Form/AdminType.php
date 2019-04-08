@@ -52,8 +52,9 @@ class AdminType extends AbstractType
                 // *this line is important*
                 'choices_as_values' => true,
                 'expanded' => false,
-                'attr' => array('class' =>'form-control hr'),
+                'attr' => array('class' =>'form-control'),
             ))
+            ->add('placement', 'text', array('required' => false, 'label' => 'After Graduation Placement','attr' => array('class' => 'form-control'),))
             ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
             ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
                 'query_builder' => function (EntityRepository $er) {
