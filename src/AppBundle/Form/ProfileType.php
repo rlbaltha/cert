@@ -51,6 +51,7 @@ class ProfileType extends AbstractType
                 'attr' => array('class' =>'form-control'),
             ))
             ->add('altemail', 'text', array('required' => false, 'label' => 'Alternative Email Account','attr' => array('class' => 'form-control'),))
+            ->add('placement', 'text', array('required' => false, 'label' => 'After Graduation Placement','attr' => array('class' => 'form-control'),))
         ;
     }
 

@@ -50,8 +50,8 @@
             {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
             {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}<br/>
         {% endif %}
-        Graduation: {{ entity.graddate }} {{ entity.gradterm }}
-
+        Graduation: {{ entity.graddate }} {{ entity.gradterm }}<br/>
+        {% if entity.placement != '' %}After Graduation Placement: {{ entity.placement }}{% endif %}
         <br/><br/>
         {#  *********************** Application Prompt  ***********************  #}
         <div class="alert alert-info" role="alert">

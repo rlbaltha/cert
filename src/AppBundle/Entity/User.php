@@ -98,6 +98,13 @@ class User extends BaseUser
      */
     private $altemail;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="placement", type="string", length=255, nullable=true)
+     */
+    private $placement;
+
 
     /**
      * @var string
@@ -979,5 +986,29 @@ class User extends BaseUser
     public function getCapstoneproject()
     {
         return $this->capstoneproject;
+    }
+
+    /**
+     * Set placement
+     *
+     * @param string $placement
+     *
+     * @return User
+     */
+    public function setPlacement($placement)
+    {
+        $this->placement = $placement;
+
+        return $this;
+    }
+
+    /**
+     * Get placement
+     *
+     * @return string
+     */
+    public function getPlacement()
+    {
+        return $this->placement;
     }
 }
