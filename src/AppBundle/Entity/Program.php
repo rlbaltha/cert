@@ -178,6 +178,13 @@ class Program
     /**
      * @var string
      *
+     * @ORM\Column(name="minors", type="string", length=255, nullable=true)
+     */
+    private $minors;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="mentor", type="string", length=255, nullable=true)
      */
     private $mentor='Yes';
@@ -851,5 +858,29 @@ class Program
     public function getMentor()
     {
         return $this->mentor;
+    }
+
+    /**
+     * Set minors
+     *
+     * @param string $minors
+     *
+     * @return Program
+     */
+    public function setMinors($minors)
+    {
+        $this->minors = $minors;
+
+        return $this;
+    }
+
+    /**
+     * Get minors
+     *
+     * @return string
+     */
+    public function getMinors()
+    {
+        return $this->minors;
     }
 }

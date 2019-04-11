@@ -106,6 +106,7 @@ class User extends BaseUser
     private $placement;
 
 
+
     /**
      * @var string
      *
@@ -1011,4 +1012,5 @@ class User extends BaseUser
     {
         return $this->placement;
     }
+
 }

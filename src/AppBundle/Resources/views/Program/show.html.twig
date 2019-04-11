@@ -76,12 +76,14 @@
                     <td>{{ entity.email }}</td>
                 </tr>
                 <tr>
-                    <th>School :: Program</th>
+                    <th>School :: Program (Minor)</th>
                     <td>
                         {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
                         {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
                         {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
-                        {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}</td>
+                        {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}
+                        {% if entity.program.minors %}  ({{ entity.program.minors }}){% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <th>Uga Id</th>
