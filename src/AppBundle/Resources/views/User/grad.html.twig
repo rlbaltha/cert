@@ -87,6 +87,12 @@
                         {% endif %}
                     </td>
                     <td>
+                        {% for substitution in entity.checklist.substitutions %}
+                            {% if substitution.requirement =='Capstone' and substitution.status =='Approved' %}
+                                Approved Substitution
+                            {% endif %}
+                        {% endfor %}
+
                         {% if entity.checklist %}
                             {% if entity.checklist.capstone %}
                                 <a href="{{ path('course_show', { 'id': entity.checklist.capstone.id }) }}">
