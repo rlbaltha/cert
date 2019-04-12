@@ -41,7 +41,7 @@ class Checklist
      *
      * @ORM\Column(name="presentation", type="string", length=255, nullable=true)
      */
-    private $presentation;
+    private $presentation="Seminar";
 
     /**
      * @ORM\OneToOne(targetEntity="User", inversedBy="checklist")
