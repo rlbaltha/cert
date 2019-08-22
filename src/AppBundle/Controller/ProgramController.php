@@ -356,7 +356,7 @@ class ProgramController extends Controller
         $message2 = \Swift_Message::newInstance()
             ->setSubject('Certificate Application Approved')
             ->setFrom('scdirector@uga.edu')
-            ->setTo('alampp@uga.edu')
+            ->setTo('ameya.sawadkar@uga.edu')
             ->setBcc('scdirector@uga.edu')
             ->setBody(
                 $this->renderView(
