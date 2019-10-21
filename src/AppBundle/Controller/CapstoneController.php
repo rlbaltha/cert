@@ -139,8 +139,6 @@ class CapstoneController extends Controller
             $checkpoint1->setDescription('<p></p>
                                             <ul>
                                             <li>Completed work plan including checkpoints</li>
-                                            <li>Received two peer reviews</li>
-                                            <li>Provided two peer reviews</li>
                                             <li>Enrolled in a capstone course</li>
                                             </ul>');
             $em->persist($checkpoint1);
