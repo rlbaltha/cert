@@ -1,3 +1,20 @@
+/.web-server-pid
+/app/config/parameters.yml
+/build/
+/phpunit.xml
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/vendor/
+/web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*
 !app/cache/.gitkeep
@@ -6,8 +23,18 @@
 /app/phpunit.xml
 /bin/
 /composer.phar
-/vendor/
-/web/bundles/
 .idea
-/app/config/parameters.yml
 /uploads/
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###

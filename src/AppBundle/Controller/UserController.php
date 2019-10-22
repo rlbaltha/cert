@@ -57,9 +57,10 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('AppBundle:User:show.html.twig', array(
             'entity' => $entity,
-        );
+        ));
+
     }
 
     /**
@@ -253,14 +254,13 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-
-        return array(
+        return $this->render('AppBundle:User:show.html.twig', array(
             'entity' => $entity,
             'notifications' => $notifications,
             'status' => $status,
             'tags' => $tags,
             'view' => $view,
-        );
+        ));
     }
 
 
