@@ -2,7 +2,11 @@
 
 namespace AppBundle\Form;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -15,44 +19,44 @@ class CourseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('attr' => array('class' => 'text form-control', 'placeholder' => 'Name'),))
-            ->add('prefix', 'text', array('required' => false,'attr' => array('class' => 'text form-control',), 'label' => 'Prefix',))
-            ->add('crosslisting', 'text', array('required' => false,'attr' => array('class' => 'text form-control',), 'label' => 'Cross Listing',))
-            ->add('coursenumber', 'text', array('required' => false,'attr' => array('class' => 'text form-control',),'label' => 'Course Number',))
-            ->add('split', 'text', array('required' => false,'attr' => array('class' => 'text form-control',),'label' => 'Split-level Number',))
-            ->add('post', 'text', array('required' => false,'attr' => array('class' => 'text form-control',),'label' => 'Postfix',))
-            ->add('title', 'text', array('required' => false,'attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),))
-            ->add('offered', 'text', array('required' => false,'attr' => array('class' => 'text form-control', 'placeholder' => 'Offered'),))
-            ->add('prereqs', 'text', array('required' => false, 'attr' => array('class' => 'text form-control',
+            ->add('name', TextType::class, array('attr' => array('class' => 'text form-control', 'placeholder' => 'Name'),))
+            ->add('prefix', TextType::class, array('required' => false,'attr' => array('class' => 'text form-control',), 'label' => 'Prefix',))
+            ->add('crosslisting', TextType::class, array('required' => false,'attr' => array('class' => 'text form-control',), 'label' => 'Cross Listing',))
+            ->add('coursenumber', TextType::class, array('required' => false,'attr' => array('class' => 'text form-control',),'label' => 'Course Number',))
+            ->add('split', TextType::class, array('required' => false,'attr' => array('class' => 'text form-control',),'label' => 'Split-level Number',))
+            ->add('post', TextType::class, array('required' => false,'attr' => array('class' => 'text form-control',),'label' => 'Postfix',))
+            ->add('title', TextType::class, array('required' => false,'attr' => array('class' => 'text form-control', 'placeholder' => 'Title'),))
+            ->add('offered', TextType::class, array('required' => false,'attr' => array('class' => 'text form-control', 'placeholder' => 'Offered'),))
+            ->add('prereqs', TextType::class, array('required' => false, 'attr' => array('class' => 'text form-control',
               'placeholder' => 'Prereqs'),))
-            ->add('school', 'entity', array('required' => true,'class' => 'AppBundle\Entity\School',
+            ->add('school', EntityType::class, array('required' => true,'class' => 'AppBundle\Entity\School',
                 'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
                     'form-control'),))
-            ->add('pillar', 'choice', array('choices' => array('Anchor' => 'Anchor','Seminar' => 'Seminar','Social' => 'Social', 'Economic'
+            ->add('pillar', ChoiceType::class, array('choices' => array('Anchor' => 'Anchor','Seminar' => 'Seminar','Social' => 'Social', 'Economic'
                  => 'Economic', 'Ecological' => 'Ecological', 'Capstone' => 'Capstone', 'Any' => 'Anchor or Any Pillar'),
                 'required' =>  true,
                 'expanded' => true,
                 'multiple' => false,
                 'label' => 'Pillar',
                 'attr' => array('class' => 'radio'),))
-            ->add('level', 'choice', array('choices' => array('Grad' => 'Grad', 'Undergrad' => 'Undergrad', 'Split' => 'Split'), 'required' =>
+            ->add('level', ChoiceType::class, array('choices' => array('Grad' => 'Grad', 'Undergrad' => 'Undergrad', 'Split' => 'Split'), 'required' =>
                 true,
                 'expanded' => true, 'multiple' => false, 'label' => 'Level',
                 'attr' => array('class' => 'radio'),))
-            ->add('location', 'choice', array('choices' => array('Campus' => 'Campus', 'Abroad' => 'Abroad'), 'required' =>
+            ->add('location', ChoiceType::class, array('choices' => array('Campus' => 'Campus', 'Abroad' => 'Abroad'), 'required' =>
                 true,
                 'expanded' => true, 'multiple' => false, 'label' => 'Location',
                 'attr' => array('class' => 'radio'),))
-            ->add('status', 'choice', array('choices' => array('pending' => 'pending', 'approved' => 'approved','denied' => 'denied','substitution' => 'substitution'),
+            ->add('status', ChoiceType::class, array('choices' => array('pending' => 'pending', 'approved' => 'approved','denied' => 'denied','substitution' => 'substitution'),
              'required' =>true,
             'expanded' => true, 'multiple' => false, 'label' => 'Status',
             'attr' => array('class' => 'radio'),))
-            ->add('description', 'ckeditor', array('config_name' => 'editor_default',))
-            ->add('syllabus', 'ckeditor', array('config_name' => 'editor_default',))
-            ->add('notes', 'ckeditor', array('config_name' => 'editor_default',))
-            ->add('contact', 'text', array('required' =>false, 'attr' => array('label' => 'Contact', 'class' => 'text
+            ->add('description', CKEditorType::class, array('config_name' => 'editor_default',))
+            ->add('syllabus', CKEditorType::class, array('config_name' => 'editor_default',))
+            ->add('notes', CKEditorType::class, array('config_name' => 'editor_default',))
+            ->add('contact', TextType::class, array('required' =>false, 'attr' => array('label' => 'Contact', 'class' => 'text
             form-control'),))
-            ->add('contact_email', 'text', array('required' =>false, 'attr' => array('label' => 'Contact Email', 'class' => 'text
+            ->add('contact_email', TextType::class, array('required' =>false, 'attr' => array('label' => 'Contact Email', 'class' => 'text
             form-control'),));
     }
 

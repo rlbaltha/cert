@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 
 class SchoolType extends AbstractType
 {
@@ -15,7 +17,7 @@ class SchoolType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('attr' => array('class' => 'text form-control'),))
+            ->add('name', TextType::class, array('attr' => array('class' => 'text form-control'),))
         ;
     }
     

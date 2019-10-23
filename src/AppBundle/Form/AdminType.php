@@ -2,10 +2,12 @@
 
 namespace AppBundle\Form;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use AppBundle\Entity\Status;
 use Doctrine\ORM\EntityRepository;
 
 class AdminType extends AbstractType
@@ -17,13 +19,13 @@ class AdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', 'text', array('label' => 'First Name', 'attr' => array('class' => 'form-control'),))
-            ->add('lastname', 'text', array('label' => 'Last Name','attr' => array('class' => 'form-control'),))
-            ->add('progress', 'entity', array('required' => true, 'class' => 'AppBundle\Entity\Status',
-                'property' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Status', 'attr' => array
+            ->add('firstname', TextType::class, array('label' => 'First Name', 'attr' => array('class' => 'form-control'),))
+            ->add('lastname', TextType::class, array('label' => 'Last Name','attr' => array('class' => 'form-control'),))
+            ->add('progress', EntityType::class, array('required' => true, 'class' => 'AppBundle\Entity\Status',
+                'choice_label' => 'name', 'expanded' => false, 'multiple' => false, 'label' => 'Status', 'attr' => array
                 ('class' => 'form-control'),))
-            ->add('altemail', 'text', array('required' => false, 'label' => 'Alternative Email Account','attr' => array('class' => 'form-control'),))
-            ->add('gradterm', 'choice', array(
+            ->add('altemail', TextType::class, array('required' => false, 'label' => 'Alternative Email Account','attr' => array('class' => 'form-control'),))
+            ->add('gradterm', ChoiceType::class, array(
                 'required' => true,
                 'multiple' => false,
                 'label' => 'Expected Graduation Term',
@@ -35,7 +37,7 @@ class AdminType extends AbstractType
                 'choices_as_values' => true,
                 'expanded' => true,
             ))
-            ->add('graddate', 'choice', array(
+            ->add('graddate', ChoiceType::class, array(
                 'required' => true,
                 'multiple' => false,
                 'label' => 'Expected Graduation Year',
@@ -54,15 +56,15 @@ class AdminType extends AbstractType
                 'expanded' => false,
                 'attr' => array('class' =>'form-control'),
             ))
-            ->add('placement', 'text', array('required' => false, 'label' => 'After Graduation Placement','attr' => array('class' => 'form-control'),))
-            ->add('notes', 'ckeditor', array('config_name' => 'editor_simple',))
-            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+            ->add('placement', TextType::class, array('required' => false, 'label' => 'After Graduation Placement','attr' => array('class' => 'form-control'),))
+            ->add('notes', CKEditorType::class, array('config_name' => 'editor_simple',))
+            ->add('tags', EntityType::class, array('class' => 'AppBundle\Entity\Tag',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->andWhere("t.type = 'user'")
                         ->addOrderBy('t.sortorder', 'ASC');
                 },
-                'required' => false, 'property' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Status/Progress', 'attr' => array('class' =>
+                'required' => false, 'choice_label' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Status/Progress', 'attr' => array('class' =>
                     'checkbox'),))
         ;
     }

@@ -5,6 +5,11 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 class SourceType extends AbstractType
 {
@@ -15,8 +20,8 @@ class SourceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', 'text', array('attr' => array('class' => 'text form-control'),))
-            ->add('type', 'choice', array(
+            ->add('type', TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('type', ChoiceType::class, array(
                 'choices'  => array(
                     'Person' => 'Person',
                     'Organization:Campus' => 'Organization:Campus',
@@ -28,12 +33,12 @@ class SourceType extends AbstractType
                 'required' => true,'expanded'=>false,'multiple'=>false,'label'  => 'Type', 'attr' => array('class' =>
                     'form-control'),
             ))
-            ->add('name', 'text', array('attr' => array('class' => 'text form-control'), 'required' => false,))
-            ->add('title', 'text', array('attr' => array('class' => 'text form-control'),'required' => false,))
-            ->add('organization', 'text', array('attr' => array('class' => 'text form-control'),'required' => false,))
-            ->add('contact', 'text', array('attr' => array('class' => 'text form-control'),'required' => false,))
-            ->add('description', 'ckeditor', array('config_name' => 'editor_default',))
-            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+            ->add('name', TextType::class, array('attr' => array('class' => 'text form-control'), 'required' => false,))
+            ->add('title', TextType::class, array('attr' => array('class' => 'text form-control'),'required' => false,))
+            ->add('organization', TextType::class, array('attr' => array('class' => 'text form-control'),'required' => false,))
+            ->add('contact', TextType::class, array('attr' => array('class' => 'text form-control'),'required' => false,))
+            ->add('description', CkeditorType::class, array('config_name' => 'editor_default',))
+            ->add('tags', EntityType::class, array('class' => 'AppBundle\Entity\Tag',
                 'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
                     'checkbox'),))
         ;

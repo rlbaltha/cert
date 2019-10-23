@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 
 class QuestionsetType extends AbstractType
 {
@@ -15,7 +17,7 @@ class QuestionsetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', array('attr' => array('class' => 'text form-control'),))
+            ->add('title', TextType::class, array('attr' => array('class' => 'text form-control'),))
         ;
     }
     

@@ -3,8 +3,13 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 class UploadType extends AbstractType
 {
@@ -15,15 +20,15 @@ class UploadType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file', array('label' => 'File to Upload', 'attr' => array('class' => '')))
-            ->add('type', 'choice', array('choices' => array('Syllabus' =>
+            ->add('file', FileType::class, array('label' => 'File to Upload', 'attr' => array('class' => '')))
+            ->add('type', ChoiceType::class, array('choices' => array('Syllabus' =>
                 'Syllabus', 'Image' =>
                 'Image', 'iCal' =>
                 'iCal'), 'required' => true,
                 'expanded' => FALSE, 'multiple' => false, 'label' => 'Type',
                 'attr' => array('class' => 'form-control'),))
-            ->add('color', 'text', array('required' => false, 'label' => 'Calendar Color', 'attr' => array('class' => 'form-control'),))
-            ->add('course', 'entity', array(
+            ->add('color', TextType::class, array('required' => false, 'label' => 'Calendar Color', 'attr' => array('class' => 'form-control'),))
+            ->add('course', EntityType::class, array(
                 'required' => false,
                 'empty_data' => null,
                 'class' => 'AppBundle:Course',

@@ -2,7 +2,10 @@
 
 namespace AppBundle\Form;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
@@ -18,19 +21,19 @@ class CheckpointType extends AbstractType
     {
 
         $builder
-            ->add('name', 'text', array('attr' => array('class' => 'text form-control'),))
-            ->add('description', 'ckeditor', array('config_name' => 'editor_simple',))
+            ->add('name', TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('description', CKEditorType::class, array('config_name' => 'editor_simple',))
             ->add('deadline', DatetimeType::class, array('pickerOptions' =>
                 array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
                 ),
                 'attr' => array('class' => 'form-control'),))
-            ->add('status', 'choice', array('choices' => array('Opened' => 'Open', 'Complete' => 'Complete'),
+            ->add('status', ChoiceType::class, array('choices' => array('Opened' => 'Open', 'Complete' => 'Complete'),
                 'required' => true,
                 'expanded' => true,
                 'multiple' => false,
                 'label' => 'Status',
                 'attr' => array('class' => ''),))
-            ->add('lead', 'text', array('required' => false,'label' => 'Lead Person', 'attr' => array('class' => 'text form-control'),));
+            ->add('lead', TextType::class, array('required' => false,'label' => 'Lead Person', 'attr' => array('class' => 'text form-control'),));
     }
 
     /**

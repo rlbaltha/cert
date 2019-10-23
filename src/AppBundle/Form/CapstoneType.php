@@ -2,7 +2,10 @@
 
 namespace AppBundle\Form;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
@@ -16,24 +19,24 @@ class CapstoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', array('label' => 'Project Title', 'attr' => array('class' => 'text form-control'),))
-            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+            ->add('title', TextType::class, array('label' => 'Project Title', 'attr' => array('class' => 'text form-control'),))
+            ->add('tags', EntityType::class, array('class' => 'AppBundle\Entity\Tag',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->andWhere("t.type = 'resource'");
                 },
-                'property' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Tags: Please select up to 5', 'attr' => array('class' =>
+                'choice_label' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Tags: Please select up to 5', 'attr' => array('class' =>
                     'checkbox'),))
             ->add(
                 'description',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Project Description:  What will you do and how does the project relate to all three spheres of sustainability?',
                     'config_name' => 'editor_simple',
                 )
             )
-            ->add('users', 'entity', array('class' => 'AppBundle\Entity\User',
+            ->add('users', EntityType::class, array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->join('u.checklist', 'c')
@@ -41,9 +44,9 @@ class CapstoneType extends AbstractType
                         ->addOrderBy('u.lastname', 'ASC')
                         ->addOrderBy('u.firstname', 'ASC');
                 },
-                'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Team Members', 'attr' => array('class' =>
+                'required' => false, 'choice_label' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Team Members', 'attr' => array('class' =>
                     ''),))
-            ->add('capstoneMentor', 'entity', array('class' => 'AppBundle\Entity\User',
+            ->add('capstoneMentor', EntityType::class, array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->join('u.facultylisting', 'f')
@@ -51,11 +54,11 @@ class CapstoneType extends AbstractType
                         ->addOrderBy('u.lastname', 'ASC')
                         ->addOrderBy('u.firstname', 'ASC');
                 },
-                'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Faculty Mentor / Sustainability Rep', 'attr' => array('class' =>
+                'required' => false, 'choice_label' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Faculty Mentor / Sustainability Rep', 'attr' => array('class' =>
                     ''),))
             ->add(
                 'purpose',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Main Purpose',
@@ -64,7 +67,7 @@ class CapstoneType extends AbstractType
             )
             ->add(
                 'background',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Background and Context',
@@ -73,7 +76,7 @@ class CapstoneType extends AbstractType
             )
             ->add(
                 'contribution',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Contribution to Sustainability',
@@ -82,7 +85,7 @@ class CapstoneType extends AbstractType
             )
             ->add(
                 'considerations',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Special Considerations',
@@ -91,7 +94,7 @@ class CapstoneType extends AbstractType
             )
             ->add(
                 'sources',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Potential Information Sources',
@@ -100,7 +103,7 @@ class CapstoneType extends AbstractType
             )
             ->add(
                 'qualifications',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Desired Team Qualifications',

@@ -5,7 +5,9 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
-use AppBundle\Form\OrganizationType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class UserType extends BaseType
 {
@@ -18,9 +20,9 @@ class UserType extends BaseType
         parent::buildForm($builder, $options);
 
         $builder
-            ->add('firstname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Firstname'),))
-            ->add('lastname', 'text', array('attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),))
-            ->add('gradterm', 'choice', array(
+            ->add('firstname', TextType::class, array('attr' => array('class' => 'form-control', 'placeholder' => 'Firstname'),))
+            ->add('lastname', TextType::class, array('attr' => array('class' => 'form-control', 'placeholder' => 'Lastname'),))
+            ->add('gradterm', ChoiceType::class, array(
                 'required' => true,
                 'multiple' => false,
                 'label' => 'Expected Graduation Term',
@@ -32,7 +34,7 @@ class UserType extends BaseType
                 'choices_as_values' => true,
                 'expanded' => true,
             ))
-            ->add('graddate', 'choice', array(
+            ->add('graddate', ChoiceType::class, array(
                 'required' => true,
                 'multiple' => false,
                 'label' => 'Expected Graduation Year',

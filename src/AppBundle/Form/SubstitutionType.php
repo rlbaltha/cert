@@ -5,6 +5,9 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class SubstitutionType extends AbstractType
 {
@@ -15,7 +18,7 @@ class SubstitutionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('requirement', 'choice', array(
+            ->add('requirement', ChoiceType::class, array(
                 'required' => true,
                 'multiple' => false,
                 'label' => 'Requirement',
@@ -31,7 +34,7 @@ class SubstitutionType extends AbstractType
                 'choices_as_values' => true,
                 'expanded' => true,
             ))
-            ->add('description', 'ckeditor', array('label'  => 'Exception:  Please offer your exception to the above requirement and the reason for it.','config_name' => 'editor_simple',))
+            ->add('description', CkeditorType::class, array('label'  => 'Exception:  Please offer your exception to the above requirement and the reason for it.','config_name' => 'editor_simple',))
         ;
     }
     

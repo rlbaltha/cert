@@ -5,6 +5,9 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class TermType extends AbstractType
 {
@@ -15,10 +18,10 @@ class TermType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('attr' => array('class' => 'text form-control'),))
-            ->add('year', 'text', array('attr' => array('class' => 'text form-control'),))
-            ->add('term', 'text', array('attr' => array('class' => 'text form-control'),))
-            ->add('status', 'choice', array(
+            ->add('name', TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('year', TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('term', TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('status', ChoiceType::class, array(
                 'choices' => array(
                     'Current' => 'Current',
                     'Archive' => 'Archive',

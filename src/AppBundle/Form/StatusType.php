@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 
 class StatusType extends AbstractType
 {
@@ -15,8 +17,8 @@ class StatusType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('attr' => array('class' => 'text form-control'),))
-            ->add('position', 'text', array('attr' => array('class' => 'text form-control'),))
+            ->add('name', TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('position', TextType::class, array('attr' => array('class' => 'text form-control'),))
         ;
     }
     

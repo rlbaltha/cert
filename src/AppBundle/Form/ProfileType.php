@@ -5,7 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use AppBundle\Entity\Status;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ProfileType extends AbstractType
 {
@@ -16,9 +17,9 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', 'text', array('label' => 'First Name', 'attr' => array('class' => 'form-control'),))
-            ->add('lastname', 'text', array('label' => 'Last Name','attr' => array('class' => 'form-control'),))
-            ->add('gradterm', 'choice', array(
+            ->add('firstname', TextType::class, array('label' => 'First Name', 'attr' => array('class' => 'form-control'),))
+            ->add('lastname', TextType::class, array('label' => 'Last Name','attr' => array('class' => 'form-control'),))
+            ->add('gradterm', ChoiceType::class, array(
                 'required' => true,
                 'multiple' => false,
                 'label' => 'Expected Graduation Term',
@@ -31,7 +32,7 @@ class ProfileType extends AbstractType
                 'choices_as_values' => true,
                 'expanded' => true,
             ))
-            ->add('graddate', 'choice', array(
+            ->add('graddate', ChoiceType::class, array(
                 'required' => true,
                 'multiple' => false,
                 'label' => 'Expected Graduation Year',
@@ -50,8 +51,8 @@ class ProfileType extends AbstractType
                 'expanded' => false,
                 'attr' => array('class' =>'form-control'),
             ))
-            ->add('altemail', 'text', array('required' => false, 'label' => 'Alternative Email Account','attr' => array('class' => 'form-control'),))
-            ->add('placement', 'text', array('required' => false, 'label' => 'After Graduation Placement','attr' => array('class' => 'form-control'),))
+            ->add('altemail', TextType::class, array('required' => false, 'label' => 'Alternative Email Account','attr' => array('class' => 'form-control'),))
+            ->add('placement', TextType::class, array('required' => false, 'label' => 'After Graduation Placement','attr' => array('class' => 'form-control'),))
         ;
     }
 

@@ -16,9 +16,9 @@ class FacultyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('firstname','text', array('attr' => array('label'=> 'Firstname','class' => 'text form-control'),))
-          ->add('lastname','text', array('attr' => array('label'=> 'Lastname','class' => 'text form-control'),))
-          ->add('status', 'choice', array(
+          ->add('firstname',TextType::class, array('attr' => array('label'=> 'Firstname','class' => 'text form-control'),))
+          ->add('lastname',TextType::class, array('attr' => array('label'=> 'Lastname','class' => 'text form-control'),))
+          ->add('status', ChoiceType::class, array(
                 'required'=> true,
                 'multiple'=> false,
                 'label' => 'Status',
@@ -31,7 +31,7 @@ class FacultyType extends AbstractType
               'choices_as_values' => true,
               'expanded' => true,
           ))
-          ->add('mentor', 'choice', array(
+          ->add('mentor', ChoiceType::class, array(
                 'required'=> true,
                 'multiple'=> false,
                 'label' => 'Capstone Mentor',
@@ -43,14 +43,14 @@ class FacultyType extends AbstractType
                 'choices_as_values' => true,
                 'expanded' => true,
             ))
-          ->add('dept','text', array('attr' => array('label'=> 'Department','class' => 'text form-control',
+          ->add('dept',TextType::class, array('attr' => array('label'=> 'Department','class' => 'text form-control',
             'placeholder' => 'Dept'),'required'=>false))
-          ->add('email','text', array('attr' => array('label'=> 'Email','class' => 'text form-control', 'placeholder'
+          ->add('email',TextType::class, array('attr' => array('label'=> 'Email','class' => 'text form-control', 'placeholder'
           => 'email@uga.edu','required'=>false),'required'=>false))
-          ->add('photo','text', array('label'=> 'Photo URL', 'attr' => array('class' => 'text form-control',
+          ->add('photo',TextType::class, array('label'=> 'Photo URL', 'attr' => array('class' => 'text form-control',
             'placeholder'=>'https://dept.uga.edu/photo.jpg'),'required'=>false))
-          ->add('detail', 'ckeditor', array('label'=> 'Bio and Reseach','config_name' => 'editor_default','required'=>false))
-          ->add('courses', 'entity', array('required' => false, 'class' => 'AppBundle\Entity\Course',
+          ->add('detail', CkeditorType::class, array('label'=> 'Bio and Reseach','config_name' => 'editor_default','required'=>false))
+          ->add('courses', EntityType::class, array('required' => false, 'class' => 'AppBundle\Entity\Course',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
                         ->andWhere('c.status = :status1 or c.status = :status2')
@@ -59,10 +59,10 @@ class FacultyType extends AbstractType
                         ->orderBy('c.name ');
                 },
               'property' => 'name','expanded'=>true,'multiple'=>true,'label'  => 'Courses', 'label_attr'=> array('class' => 'checkbox-inline'),))
-            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+            ->add('tags', EntityType::class, array('class' => 'AppBundle\Entity\Tag',
                 'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
                     'checkbox'),))
-            ->add('user', 'entity', array('class' => 'AppBundle\Entity\User',
+            ->add('user', EntityType::class, array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->andWhere('u.lastname != :lastname')

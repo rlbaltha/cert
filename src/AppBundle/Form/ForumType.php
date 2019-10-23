@@ -15,16 +15,16 @@ class ForumType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', array('attr' => array('class' => 'text form-control'),))
-            ->add('body', 'ckeditor', array('config_name' => 'editor_default',))
-            ->add('parent', 'entity', array(
+            ->add('title', TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('body', CkeditorType::class, array('config_name' => 'editor_default',))
+            ->add('parent', EntityType::class, array(
                 'required'    => false,
                 'empty_data'  => null,
                 'class' => 'AppBundle:Forum',
                 'choice_label' => 'title',
                 'label' => 'Forum',
                 'attr' => array('class' => 'form-control'),))
-            ->add('network', 'choice', array(
+            ->add('network', ChoiceType::class, array(
                 'attr' => array('class' => 'form-control'),
                 'choices'  => array(
                     'Yes' => 0,

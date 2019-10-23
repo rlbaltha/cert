@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,10 +17,10 @@ class PartnerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', array('label' => 'Project Title', 'attr' => array('class' => 'text form-control'),))
+            ->add('title', TextType::class, array('label' => 'Project Title', 'attr' => array('class' => 'text form-control'),))
             ->add(
                 'purpose',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Main Purpose',
@@ -28,7 +29,7 @@ class PartnerType extends AbstractType
             )
             ->add(
                 'background',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Background and Context',
@@ -37,7 +38,7 @@ class PartnerType extends AbstractType
             )
             ->add(
                 'contribution',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Contribution to Sustainability',
@@ -46,7 +47,7 @@ class PartnerType extends AbstractType
             )
             ->add(
                 'details',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Project Outline',
@@ -55,7 +56,7 @@ class PartnerType extends AbstractType
             )
             ->add(
                 'deliverables',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Deliverables',
@@ -64,7 +65,7 @@ class PartnerType extends AbstractType
             )
             ->add(
                 'outcomes',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Anticipated Outcomes',
@@ -73,7 +74,7 @@ class PartnerType extends AbstractType
             )
             ->add(
                 'considerations',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Special Considerations',
@@ -82,7 +83,7 @@ class PartnerType extends AbstractType
             )
             ->add(
                 'sources',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Potential Information Sources',
@@ -91,14 +92,14 @@ class PartnerType extends AbstractType
             )
             ->add(
                 'qualifications',
-                'ckeditor',
+                CKEditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Desired Team Qualifications',
                     'config_name' => 'editor_simple',
                 )
             )
-            ->add('users', 'entity', array('class' => 'AppBundle\Entity\User',
+            ->add('users', EntityType::class, array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->join('u.checklist', 'c')

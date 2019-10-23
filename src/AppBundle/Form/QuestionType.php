@@ -5,6 +5,10 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 class QuestionType extends AbstractType
 {
@@ -15,10 +19,10 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('question', 'ckeditor', array('config_name' => 'editor_default',))
-            ->add('position', 'text', array('attr' => array('class' => 'text form-control'),))
+            ->add('question', CkeditorType::class, array('config_name' => 'editor_default',))
+            ->add('position', TextType::class, array('attr' => array('class' => 'text form-control'),))
             ->add('questionset')
-            ->add('questionset', 'entity', array('class' => 'AppBundle\Entity\Questionset',
+            ->add('questionset', EntityType::class, array('class' => 'AppBundle\Entity\Questionset',
                 'property' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Question Set', 'attr' => array('class' =>
                     'form-control'),))
         ;

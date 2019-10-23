@@ -5,6 +5,10 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProgramType extends AbstractType
 {
@@ -15,22 +19,22 @@ class ProgramType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('school1', 'entity', array('required' => true,'class' => 'AppBundle\Entity\School',
+            ->add('school1', EntityType::class, array('required' => true,'class' => 'AppBundle\Entity\School',
                 'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
                     'form-control'),))
-            ->add('major1', 'entity', array('required' => true,'class' => 'AppBundle\Entity\Major',
+            ->add('major1', EntityType::class, array('required' => true,'class' => 'AppBundle\Entity\Major',
                 'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Major/Degree Program', 'attr' => array('class' =>
                     'form-control'),))
-            ->add('school2', 'entity', array('required' => false,'class' => 'AppBundle\Entity\School',
+            ->add('school2', EntityType::class, array('required' => false,'class' => 'AppBundle\Entity\School',
                 'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => '2nd School/College', 'attr' => array('class' =>
                     'form-control'),))
-            ->add('major2', 'entity', array('required' => false,'class' => 'AppBundle\Entity\Major',
+            ->add('major2', EntityType::class, array('required' => false,'class' => 'AppBundle\Entity\Major',
                 'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => '2nd Major/Degree Program', 'attr' => array('class' =>
                     'form-control'),))
-            ->add('minors', 'text', array('label' => 'Minor(s) ', 'attr' => array('class' => 'form-control'),))
-            ->add('ugaid', 'text', array('label' => 'UGA ID ', 'attr' => array('class' => 'form-control',
+            ->add('minors', TextType::class, array('label' => 'Minor(s) ', 'attr' => array('class' => 'form-control'),))
+            ->add('ugaid', TextType::class, array('label' => 'UGA ID ', 'attr' => array('class' => 'form-control',
                 'placeholder' => '811000000'),))
-            ->add('level', 'choice', array(
+            ->add('level', ChoiceType::class, array(
                 'choices' => array(
                     'Undergrad' => 'Undergrad',
                     'Grad' => 'Grad'
@@ -39,15 +43,15 @@ class ProgramType extends AbstractType
                 'choices_as_values' => true,
                 'expanded' => true,
             ))
-            ->add('degree', 'text', array('required' => false, 'label' => 'Previous degree(s)', 'attr' => array('class' =>
+            ->add('degree', TextType::class, array('required' => false, 'label' => 'Previous degree(s)', 'attr' => array('class' =>
                 'form-control'),))
-            ->add('institution', 'text', array('required' => false, 'label' => 'Previous Institution(s)', 'attr' => array('class' => 'form-control'),))
-            ->add('address', 'text', array('required' => false, 'label' => 'Street', 'attr' => array('class' => 'form-control'),))
-            ->add('cityst', 'text', array('required' => false, 'label' => 'City, State, Zip', 'attr' => array('class' => 'form-control'),))
-            ->add('country', 'text', array('required' => false, 'label' => 'Country', 'attr' => array('class' =>
+            ->add('institution', TextType::class, array('required' => false, 'label' => 'Previous Institution(s)', 'attr' => array('class' => 'form-control'),))
+            ->add('address', TextType::class, array('required' => false, 'label' => 'Street', 'attr' => array('class' => 'form-control'),))
+            ->add('cityst', TextType::class, array('required' => false, 'label' => 'City, State, Zip', 'attr' => array('class' => 'form-control'),))
+            ->add('country', TextType::class, array('required' => false, 'label' => 'Country', 'attr' => array('class' =>
                 'form-control'),))
-            ->add('phone', 'text', array('required' => false, 'label' => 'Phone', 'attr' => array('class' => 'form-control'),))
-            ->add('area', 'choice', array(
+            ->add('phone', TextType::class, array('required' => false, 'label' => 'Phone', 'attr' => array('class' => 'form-control'),))
+            ->add('area', ChoiceType::class, array(
                 'required' => false,
                 'multiple' => true,
                 'label' => 'Areas of Interest',
@@ -62,13 +66,13 @@ class ProgramType extends AbstractType
                 'choices_as_values' => true,
                 'expanded' => true,
             ))
-            ->add('interest', 'ckeditor', array('required' => false, 'label' => 'Details on your interest in Sustainability', 'config_name'
+            ->add('interest', CkeditorType::class, array('required' => false, 'label' => 'Details on your interest in Sustainability', 'config_name'
             =>
                 'editor_simple',))
-            ->add('experience', 'ckeditor', array('required' => false, 'label' => 'Experience in Sustainability', 'config_name'
+            ->add('experience', CkeditorType::class, array('required' => false, 'label' => 'Experience in Sustainability', 'config_name'
             =>
                 'editor_simple',))
-            ->add('goals', 'ckeditor', array('required' => false, 'label' => 'What are your goals', 'config_name'
+            ->add('goals', CkeditorType::class, array('required' => false, 'label' => 'What are your goals', 'config_name'
             =>
                 'editor_simple',));
     }

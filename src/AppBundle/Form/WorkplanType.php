@@ -5,7 +5,9 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class WorkplanType extends AbstractType
 {
@@ -18,7 +20,7 @@ class WorkplanType extends AbstractType
         $builder
             ->add(
                 'mentor_expectations',
-                'ckeditor',
+                CkeditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Mentor Involvement: Outline the nature and amount of invovlement in your project you expect from your mentor?',
@@ -27,7 +29,7 @@ class WorkplanType extends AbstractType
             )
             ->add(
                 'partners',
-                'ckeditor',
+                CkeditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Resources and Project Partners: What and who will help you complete your project and achieve your goals? ',
@@ -36,7 +38,7 @@ class WorkplanType extends AbstractType
             )
             ->add(
                 'funding',
-                'ckeditor',
+                CkeditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Funding:  Will you need funding to purchase materials? If so, what is your estimated budget? What are your funding sources?',
@@ -45,7 +47,7 @@ class WorkplanType extends AbstractType
             )
             ->add(
                 'objectives',
-                'ckeditor',
+                CkeditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Targets: What are at least 3 long-term, concrete targets? Targets should be Specific, Measurable, Attainable, Relevant, and Timely (SMART).',
@@ -54,7 +56,7 @@ class WorkplanType extends AbstractType
             )
             ->add(
                 'deliverables',
-                'ckeditor',
+                CkeditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Deliverables:  What particular products will this capstone produce?',
@@ -63,7 +65,7 @@ class WorkplanType extends AbstractType
             )
             ->add(
                 'success_metrics',
-                'ckeditor',
+                CkeditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Indicators: How will you know that your project was a success? What qualitative/quantitative metrics will you use to demonstrate this?',
@@ -81,7 +83,7 @@ class WorkplanType extends AbstractType
             )
             ->add(
                 'completion',
-                'ckeditor',
+                CkeditorType::class,
                 array(
                     'required' => false,
                     'label' => 'Completion: At the end of this semester, will your project be complete or will it have future needs? What future needs should be addressed? 
@@ -93,7 +95,7 @@ class WorkplanType extends AbstractType
             )
             ->add(
                 'repeatable',
-                'choice',
+                ChoiceType::class,
                 array(
                     'choices' => array(
                         'Yes' => 'Yes',
@@ -107,7 +109,7 @@ class WorkplanType extends AbstractType
             )
             ->add(
                 'repeatinfo',
-                'ckeditor',
+                CkeditorType::class,
                 array(
                     'required' => false,
                     'label' => 'If extendable or repeatable, please explain how.',

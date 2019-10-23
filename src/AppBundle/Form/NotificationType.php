@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 use Doctrine\ORM\EntityRepository;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class NotificationType extends AbstractType
 {
@@ -17,10 +19,10 @@ class NotificationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('post', 'entity', array('class' => 'AppBundle\Entity\Post',
+            ->add('post', EntityType::class, array('class' => 'AppBundle\Entity\Post',
                 'property' => 'title','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'Post', 'attr' => array('class' =>
                     'form-control'),))
-            ->add('body', 'ckeditor', array('config_name' => 'editor_default', 'label'  => 'Additional Text',))
+            ->add('body', CkeditorType::class, array('config_name' => 'editor_default', 'label'  => 'Additional Text',))
             ->add('date', DatetimeType::class, array('pickerOptions' =>
                 array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
                 ),
@@ -33,7 +35,7 @@ class NotificationType extends AbstractType
                 array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
                 ),
                 'attr' => array('class' => 'form-control'),))
-            ->add('status', 'choice', array(
+            ->add('status', ChoiceType::class, array(
                 'attr' => array('class' => 'form-control'),
                 'choices'  => array(
                     'Individual' => "New",
@@ -42,7 +44,7 @@ class NotificationType extends AbstractType
                 ),
                 // *this line is important*
                 'choices_as_values' => true,))
-            ->add('tags', 'entity', array('class' => 'AppBundle\Entity\Tag',
+            ->add('tags', EntityType::class, array('class' => 'AppBundle\Entity\Tag',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->andWhere('t.type = :type')
@@ -51,7 +53,7 @@ class NotificationType extends AbstractType
                 },
                 'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'required'=>false, 'attr' => array('class' =>
                     'checkbox'),))
-            ->add('user', 'entity', array('class' => 'AppBundle\Entity\User',
+            ->add('user', EntityType::class, array('class' => 'AppBundle\Entity\User',
                 'property' => 'name','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'User', 'attr' => array('class' =>
                     'form-control'),))
         ;

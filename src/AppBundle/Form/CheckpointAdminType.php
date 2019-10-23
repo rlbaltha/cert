@@ -2,7 +2,11 @@
 
 namespace AppBundle\Form;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
@@ -18,19 +22,19 @@ class CheckpointAdminType extends AbstractType
     {
 
         $builder
-            ->add('name', 'text', array('attr' => array('class' => 'text form-control'),))
-            ->add('description', 'ckeditor', array('config_name' => 'editor_simple',))
+            ->add('name', TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('description', CKEditorType::class, array('config_name' => 'editor_simple',))
             ->add('deadline', DatetimeType::class, array('pickerOptions' =>
                 array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
                 ),
                 'attr' => array('class' => 'form-control'),))
-            ->add('status', 'choice', array('choices' => array('Opened' => 'Open', 'Complete' => 'Complete'),
+            ->add('status', ChoiceType::class, array('choices' => array('Opened' => 'Open', 'Complete' => 'Complete'),
                 'required' => true,
                 'expanded' => true,
                 'multiple' => false,
                 'label' => 'Status',
                 'attr' => array('class' => ''),))
-            ->add('reviewers', 'entity', array('class' => 'AppBundle\Entity\User',
+            ->add('reviewers', EntityType::class, array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
                         ->join('u.progress', 'p')
@@ -38,15 +42,15 @@ class CheckpointAdminType extends AbstractType
                         ->addOrderBy('u.lastname', 'ASC')
                         ->addOrderBy('u.firstname', 'ASC');
                 },
-                'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Reviewers', 'attr' => array('class' =>
+                'choice_label' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Reviewers', 'attr' => array('class' =>
                     'checkbox'),))
-            ->add('lead', 'text', array('required' => false,'label' => 'Lead Person', 'attr' => array('class' => 'text form-control'),))
-            ->add('posts', 'entity', array('class' => 'AppBundle\Entity\Post',
+            ->add('lead', TextType::class, array('required' => false,'label' => 'Lead Person', 'attr' => array('class' => 'text form-control'),))
+            ->add('posts', EntityType::class, array('class' => 'AppBundle\Entity\Post',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
                         ->addOrderBy('p.title', 'ASC');
                 },
-                'property' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Posts', 'attr' => array('class' =>
+                'choice_label' => 'title', 'expanded' => true, 'multiple' => true, 'label' => 'Posts', 'attr' => array('class' =>
                     ''),));
     }
 

@@ -3,8 +3,10 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class OrganizationType extends AbstractType
 {
@@ -15,8 +17,8 @@ class OrganizationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title','text', array('attr' => array('class' => 'text form-control'),))
-            ->add('body', 'ckeditor', array('config_name' => 'editor_default',))
+            ->add('title',TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('body', CkeditorType::class, array('config_name' => 'editor_default',))
         ;
     }
     

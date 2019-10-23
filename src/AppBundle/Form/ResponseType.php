@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+
 
 class ResponseType extends AbstractType
 {
@@ -15,7 +17,7 @@ class ResponseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('response', 'ckeditor', array('config_name' => 'editor_simple',))
+            ->add('response', CkeditorType::class, array('config_name' => 'editor_simple',))
         ;
     }
     

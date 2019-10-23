@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class PostType extends AbstractType
 {
@@ -15,7 +17,7 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('category', 'choice', array(
+            ->add('category', ChoiceType::class, array(
                 'required'=> true,
                 'multiple'=> false,
                 'label' => 'Category',
@@ -31,9 +33,9 @@ class PostType extends AbstractType
                 'choices_as_values' => true,
                 'expanded' => true,
             ))
-            ->add('title','text', array('attr' => array('class' => 'text form-control'),))
-            ->add('email', 'ckeditor', array('label'  => 'Email','config_name' => 'editor_default',))
-            ->add('body', 'ckeditor', array('label'  => 'Notification', 'config_name' => 'editor_default',))
+            ->add('title',TextType::class, array('attr' => array('class' => 'text form-control'),))
+            ->add('email', CkeditorType::class, array('label'  => 'Email','config_name' => 'editor_default',))
+            ->add('body', CkeditorType::class, array('label'  => 'Notification', 'config_name' => 'editor_default',))
         ;
     }
     
