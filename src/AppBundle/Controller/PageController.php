@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Page;
 use AppBundle\Form\PageType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Page controller.
@@ -77,7 +78,7 @@ class PageController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -211,7 +212,7 @@ class PageController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -286,7 +287,7 @@ class PageController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('page_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

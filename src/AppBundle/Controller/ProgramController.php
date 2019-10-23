@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Program;
 use AppBundle\Entity\Checklist;
 use AppBundle\Form\ProgramType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Program controller.
@@ -25,7 +26,6 @@ class ProgramController extends Controller
      *
      * @Route("/show/{id}", name="program_show")
      * @Method("GET")
-     * @Template()
      * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
@@ -39,12 +39,10 @@ class ProgramController extends Controller
             throw $this->createNotFoundException('Unable to find Capstone entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
+        return $this->render('AppBundle:Program:show.html.twig', array(
             'entity'      => $entity,
             'tags'      => $tags,
-        );
+        ));
     }
 
     /**
@@ -52,7 +50,6 @@ class ProgramController extends Controller
      *
      * @Route("/", name="program_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
@@ -78,10 +75,11 @@ class ProgramController extends Controller
             return $this->redirect($this->generateUrl('program_show', array('id' => $entity->getUser()->getId())));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
+
     }
 
     /**
@@ -98,7 +96,7 @@ class ProgramController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Submit Application', 'attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Submit Application', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -116,10 +114,11 @@ class ProgramController extends Controller
         $entity = new Program();
         $form = $this->createCreateForm($entity);
 
-        return array(
+
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
 
@@ -128,7 +127,6 @@ class ProgramController extends Controller
      *
      * @Route("/{id}/edit", name="program_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id)
@@ -144,11 +142,11 @@ class ProgramController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -165,7 +163,7 @@ class ProgramController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -175,7 +173,6 @@ class ProgramController extends Controller
      *
      * @Route("/{id}", name="program_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id)
@@ -198,11 +195,11 @@ class ProgramController extends Controller
             return $this->redirect($this->generateUrl('program_show', array('id' => $entity->getUser()->getId())));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -210,7 +207,6 @@ class ProgramController extends Controller
      *
      * @Route("/ready/{id}", name="program_ready")
      * @Method("GET")
-     * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function readyAction($id)
@@ -272,7 +268,6 @@ class ProgramController extends Controller
      *
      * @Route("/approve/{id}", name="program_approve")
      * @Method("GET")
-     * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function approveAction($id)
@@ -417,7 +412,7 @@ class ProgramController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('program_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
             ->getForm();
     }
 }

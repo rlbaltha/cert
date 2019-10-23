@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Partner;
 use AppBundle\Form\PartnerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Partner controller.
@@ -81,7 +82,7 @@ class PartnerController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -175,7 +176,7 @@ class PartnerController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -273,7 +274,7 @@ class PartnerController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('partner_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }

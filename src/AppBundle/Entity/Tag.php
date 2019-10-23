@@ -49,10 +49,6 @@ class Tag
      */
     private $sortorder;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Idea", mappedBy="tags")
-     */
-    protected $ideas;
 
     /**
      * @ORM\ManyToMany(targetEntity="Partner", mappedBy="tags")

@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Project;
 use AppBundle\Form\ProjectType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Project controller.
@@ -138,7 +139,7 @@ class ProjectController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -227,7 +228,7 @@ class ProjectController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -302,7 +303,7 @@ class ProjectController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('project_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }
