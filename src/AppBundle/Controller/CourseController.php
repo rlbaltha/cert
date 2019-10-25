@@ -26,7 +26,6 @@ class CourseController extends Controller
      * @Route("/list/{level}/{pillar}/{status}", name="course", defaults={"pillar" = "all", "level" = "all", "status" =
      *     "approved"})
      * @Method("GET")
-     * @Template()
      */
     public function indexAction($pillar, $level, $status)
     {
@@ -41,11 +40,11 @@ class CourseController extends Controller
             $entities = $em->getRepository('AppBundle:Course')->findSeminarCapstone($pillar, $level, $status);
         }
 
-
-        return array(
+        return $this->render('AppBundle:Course:index.html.twig', array(
             'entities' => $entities,
             'section' => $section,
-        );
+        ));
+
     }
 
     /**
@@ -53,7 +52,6 @@ class CourseController extends Controller
      *
      * @Route("/listbystatus/{status}", name="course_listbystatus")
      * @Method("GET")
-     * @Template("AppBundle:Course:index.html.twig")
      */
     public function listbystatusAction($status)
     {
@@ -63,10 +61,10 @@ class CourseController extends Controller
         $entities = $em->getRepository('AppBundle:Course')->findByStatus($status);
 
 
-        return array(
+        return $this->render('AppBundle:Course:index.html.twig', array(
             'entities' => $entities,
             'section' => $section,
-        );
+        ));
     }
 
     /**
@@ -74,7 +72,6 @@ class CourseController extends Controller
      *
      * @Route("/listbylocation/{location}/{status}", name="course_listbylocation")
      * @Method("GET")
-     * @Template("AppBundle:Course:index.html.twig")
      */
     public function listbylocationAction($location, $status)
     {
@@ -84,10 +81,10 @@ class CourseController extends Controller
         $entities = $em->getRepository('AppBundle:Course')->findByLocation($location, $status);
 
 
-        return array(
+        return $this->render('AppBundle:Course:index.html.twig', array(
             'entities' => $entities,
             'section' => $section,
-        );
+        ));
     }
 
 
@@ -96,7 +93,6 @@ class CourseController extends Controller
      *
      * @Route("/listall", name="course_listall")
      * @Method("GET")
-     * @Template("AppBundle:Course:all.html.twig")
      */
     public function listallAction()
     {
@@ -105,11 +101,10 @@ class CourseController extends Controller
 
         $entities = $em->getRepository('AppBundle:Course')->findAllSorted();
 
-
-        return array(
+        return $this->render('AppBundle:Course:all.html.twig', array(
             'entities' => $entities,
             'section' => $section,
-        );
+        ));
     }
 
 
@@ -118,7 +113,6 @@ class CourseController extends Controller
      *
      * @Route("/", name="course_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -134,10 +128,12 @@ class CourseController extends Controller
             return $this->redirect($this->generateUrl('course_show', array('id' => $entity->getId())));
         }
 
-        return array(
+
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
+
     }
 
     /**
@@ -149,7 +145,7 @@ class CourseController extends Controller
      */
     private function createCreateForm(Course $entity)
     {
-        $form = $this->createForm(new CourseType(), $entity, array(
+        $form = $this->createForm(CourseType::class, $entity, array(
             'action' => $this->generateUrl('course_create'),
             'method' => 'POST',
         ));
@@ -171,10 +167,10 @@ class CourseController extends Controller
         $entity = new Course();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -182,7 +178,6 @@ class CourseController extends Controller
      *
      * @Route("/{id}", name="course_show")
      * @Method("GET")
-     * @Template()
      */
     public function showAction($id)
     {
@@ -197,11 +192,12 @@ class CourseController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Course:show.html.twig', array(
             'entity' => $entity,
             'section' => $section,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
+
     }
 
     /**
@@ -209,7 +205,6 @@ class CourseController extends Controller
      *
      * @Route("/{id}/edit", name="course_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -224,11 +219,11 @@ class CourseController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -240,7 +235,7 @@ class CourseController extends Controller
      */
     private function createEditForm(Course $entity)
     {
-        $form = $this->createForm(new CourseType(), $entity, array(
+        $form = $this->createForm(CourseType::class, $entity, array(
             'action' => $this->generateUrl('course_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -255,7 +250,6 @@ class CourseController extends Controller
      *
      * @Route("/{id}", name="course_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -277,11 +271,11 @@ class CourseController extends Controller
             return $this->redirect($this->generateUrl('course_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -331,7 +325,6 @@ class CourseController extends Controller
      *
      * @Route("/approval/{state}/{id}", name="course_approval")
      * @Method("GET")
-     * @Template("AppBundle:Course:index.html.twig")
      */
     public function approveAction($id, $state)
     {

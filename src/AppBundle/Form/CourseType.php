@@ -30,7 +30,7 @@ class CourseType extends AbstractType
             ->add('prereqs', TextType::class, array('required' => false, 'attr' => array('class' => 'text form-control',
               'placeholder' => 'Prereqs'),))
             ->add('school', EntityType::class, array('required' => true,'class' => 'AppBundle\Entity\School',
-                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
+                'choice_label' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
                     'form-control'),))
             ->add('pillar', ChoiceType::class, array('choices' => array('Anchor' => 'Anchor','Seminar' => 'Seminar','Social' => 'Social', 'Economic'
                  => 'Economic', 'Ecological' => 'Ecological', 'Capstone' => 'Capstone', 'Any' => 'Anchor or Any Pillar'),
