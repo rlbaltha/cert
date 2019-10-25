@@ -22,12 +22,9 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AppBundle:Event')->findAll();
         $features = $em->getRepository('AppBundle:Feature')->findAllSorted();
 
         return array(
-            'entities' => $entities,
             'features' => $features,
         );
     }

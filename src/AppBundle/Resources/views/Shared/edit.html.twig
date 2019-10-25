@@ -2,7 +2,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ form_stylesheet(edit_form) }}
 {% endblock %}
 
 {% block javascripts %}
@@ -22,7 +21,6 @@
             $('.hr ').after(rule);
         });
     </script>
-    {{ form_javascript(edit_form) }}
 {% endblock %}
 
 {% block body -%}

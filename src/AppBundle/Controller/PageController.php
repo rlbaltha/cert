@@ -32,9 +32,9 @@ class PageController extends Controller
 
         $entities = $em->getRepository('AppBundle:Page')->findAll();
 
-        return array(
+        return $this->render('AppBundle:Page:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
@@ -106,7 +106,6 @@ class PageController extends Controller
      *
      * @Route("/news", name="page_newsletter")
      * @Method("GET")
-     * @Template("AppBundle:Page:show.html.twig")
      */
     public function newsletterAction()
     {
@@ -118,9 +117,9 @@ class PageController extends Controller
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
-        return array(
+        return $this->render('AppBundle:Page:show.html.twig', array(
             'entity'      => $entity,
-        );
+        ));
     }
 
 
@@ -129,7 +128,6 @@ class PageController extends Controller
      *
      * @Route("/{section}", name="page_section")
      * @Method("GET")
-     * @Template("AppBundle:Page:show.html.twig")
      */
     public function sectionAction($section)
     {
@@ -141,9 +139,10 @@ class PageController extends Controller
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
-        return array(
+
+        return $this->render('AppBundle:Page:show.html.twig', array(
             'entity'      => $entity,
-        );
+        ));
     }
 
     /**
@@ -164,11 +163,11 @@ class PageController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-
-        return array(
+        
+        return $this->render('AppBundle:Page:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }	
 
     /**

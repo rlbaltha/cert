@@ -154,43 +154,9 @@ class Tag
      */
     public function __construct()
     {
-        $this->ideas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sources = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add idea
-     *
-     * @param \AppBundle\Entity\Idea $idea
-     *
-     * @return Tag
-     */
-    public function addIdea(\AppBundle\Entity\Idea $idea)
-    {
-        $this->ideas[] = $idea;
-
-        return $this;
-    }
-
-    /**
-     * Remove idea
-     *
-     * @param \AppBundle\Entity\Idea $idea
-     */
-    public function removeIdea(\AppBundle\Entity\Idea $idea)
-    {
-        $this->ideas->removeElement($idea);
-    }
-
-    /**
-     * Get ideas
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getIdeas()
-    {
-        return $this->ideas;
-    }
 
     /**
      * Add source

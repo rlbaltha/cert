@@ -31,7 +31,6 @@ class CapstoneController extends Controller
      *
      * @Route("/list/{tag}", name="capstone")
      * @Method("GET")
-     * @Template()
      * @Security("has_role('ROLE_USER')")
      */
     public function indexAction($tag)
@@ -41,9 +40,9 @@ class CapstoneController extends Controller
         $tag = $em->getRepository('AppBundle:Tag')->findOneByTitle($tag);
         $entities = $em->getRepository('AppBundle:User')->findByTag($tag->getId());
 
-        return array(
+        return $this->render('AppBundle:Capstone:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
@@ -67,33 +66,10 @@ class CapstoneController extends Controller
             $entities = $em->getRepository('AppBundle:Capstone')->findByStatus($status);
         }
 
-
-        return array(
+        return $this->render('AppBundle:Capstone:admin.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
-
-//    /**
-//     * Lists all Page entities.
-//     *
-//     * @Route("/completed", name="capstones_completed")
-//     * @Method("GET")
-//     * @Template("AppBundle:Capstone:completed.html.twig")
-//     */
-//    public function completedAction()
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//        $type = 'Completed';
-//        $entities = $em->getRepository('AppBundle:Capstone')->findByType($type);
-//        $section = $em->getRepository('AppBundle:Section')->findOneByTitle('Capstone');
-//        $tags = $em->getRepository('AppBundle:Tag')->findAll();
-//
-//        return array(
-//            'entities' => $entities,
-//            'section' => $section,
-//            'tags' => $tags,
-//        );
-//    }
 
 
     /**
@@ -101,7 +77,6 @@ class CapstoneController extends Controller
      *
      * @Route("/", name="capstone_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
@@ -193,10 +168,10 @@ class CapstoneController extends Controller
             return $this->redirect($this->generateUrl('capstone_show', array('id' => $entity->getUser()->getId())));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -208,7 +183,7 @@ class CapstoneController extends Controller
      */
     private function createCreateForm(Capstone $entity)
     {
-        $form = $this->createForm(new CapstoneType(), $entity, array(
+        $form = $this->createForm(CapstoneType::class, $entity, array(
             'action' => $this->generateUrl('capstone_create'),
             'method' => 'POST',
         ));
@@ -231,10 +206,11 @@ class CapstoneController extends Controller
         $entity = new Capstone();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
 
@@ -243,7 +219,6 @@ class CapstoneController extends Controller
      *
      * @Route("/{id}/{part}/edit", name="capstone_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id, $part)
@@ -259,11 +234,12 @@ class CapstoneController extends Controller
         $editForm = $this->createEditForm($entity, $part);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -276,7 +252,7 @@ class CapstoneController extends Controller
     private function createEditForm(Capstone $entity, $part)
     {
         if ($part == 'project') {
-            $form = $this->createForm(new CapstoneType(), $entity, array(
+            $form = $this->createForm(CapstoneType::class, $entity, array(
                 'action' => $this->generateUrl('capstone_update', array('id' => $entity->getId(), 'part'=> $part)),
                 'method' => 'PUT',
             ));
@@ -297,7 +273,6 @@ class CapstoneController extends Controller
      *
      * @Route("/{part}/{id}", name="capstone_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id, $part)
@@ -322,11 +297,11 @@ class CapstoneController extends Controller
             return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -334,7 +309,6 @@ class CapstoneController extends Controller
      *
      * @Route("/show/{id}", name="capstone_show")
      * @Method("GET")
-     * @Template()
      * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
@@ -349,13 +323,12 @@ class CapstoneController extends Controller
             throw $this->createNotFoundException('Unable to find Capstone entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Capstone:show.html.twig', array(
             'entity' => $entity,
             'capstones' => $capstones,
             'tags' => $tags,
-        );
+        ));
     }
 
     /**
@@ -407,7 +380,6 @@ class CapstoneController extends Controller
      *
      * @Route("/ready/{type}/{id}", name="capstone_ready")
      * @Method("GET")
-     * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function readyAction($id, $type)
@@ -481,7 +453,6 @@ class CapstoneController extends Controller
      *
      * @Route("/approve/{id}", name="capstone_approve")
      * @Method("GET")
-     * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function approveAction($id)

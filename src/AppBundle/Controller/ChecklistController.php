@@ -38,12 +38,10 @@ class ChecklistController extends Controller
             throw $this->createNotFoundException('Unable to find Capstone entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
+        return $this->render('AppBundle:Checklist:show.html.twig', array(
             'entity' => $entity,
             'tags' => $tags,
-        );
+        ));
     }
 
     /**
@@ -51,7 +49,6 @@ class ChecklistController extends Controller
      *
      * @Route("/", name="checklist_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
@@ -77,10 +74,11 @@ class ChecklistController extends Controller
             return $this->redirect($this->generateUrl('checklist_show', array('id' => $entity->getUser()->getId())));
         }
 
-        return array(
+
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -107,7 +105,6 @@ class ChecklistController extends Controller
      *
      * @Route("/new", name="checklist_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function newAction()
@@ -127,10 +124,11 @@ class ChecklistController extends Controller
 
         $form = $this->createCreateForm($entity);
 
-        return array(
+
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
 
@@ -139,7 +137,6 @@ class ChecklistController extends Controller
      *
      * @Route("/{id}/edit", name="checklist_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id)
@@ -155,11 +152,12 @@ class ChecklistController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -186,7 +184,6 @@ class ChecklistController extends Controller
      *
      * @Route("/{id}", name="checklist_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id)
@@ -209,11 +206,12 @@ class ChecklistController extends Controller
             return $this->redirect($this->generateUrl('checklist_show', array('id' => $entity->getUser()->getId())));
         }
 
-        return array(
+
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
 
@@ -222,7 +220,6 @@ class ChecklistController extends Controller
      *
      * @Route("/{id}/portcomplete", name="checklist_portcomplete")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function portcompleteAction($id)
@@ -271,7 +268,6 @@ class ChecklistController extends Controller
      *
      * @Route("/{id}/certcomplete", name="checklist_certcomplete")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
     public function certcompleteAction($id)
@@ -326,7 +322,6 @@ class ChecklistController extends Controller
      *
      * @Route("/{id}/graduate", name="checklist_graduate")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function graduateAction($id)
