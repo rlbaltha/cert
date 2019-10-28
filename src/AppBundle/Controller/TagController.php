@@ -40,7 +40,7 @@ class TagController extends Controller
      *
      * @Route("/", name="tag_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      */
     public function createAction(Request $request)
     {
@@ -56,10 +56,10 @@ class TagController extends Controller
             return $this->redirect($this->generateUrl('tag', array('type' => $entity->getType())));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -86,17 +86,16 @@ class TagController extends Controller
      *
      * @Route("/new", name="tag_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
         $entity = new Tag();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
 
@@ -105,7 +104,6 @@ class TagController extends Controller
      *
      * @Route("/{id}/edit", name="tag_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -120,11 +118,11 @@ class TagController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -150,7 +148,7 @@ class TagController extends Controller
      *
      * @Route("/{id}", name="tag_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      */
     public function updateAction(Request $request, $id)
     {
@@ -172,11 +170,11 @@ class TagController extends Controller
             return $this->redirect($this->generateUrl('tag', array('type' => $entity->getType())));
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Tag entity.

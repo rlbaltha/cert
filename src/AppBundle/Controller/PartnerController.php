@@ -46,7 +46,7 @@ class PartnerController extends Controller
      *
      * @Route("/", name="partner_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      */
     public function createAction(Request $request)
     {
@@ -62,10 +62,10 @@ class PartnerController extends Controller
             return $this->redirect($this->generateUrl('partner_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -92,17 +92,16 @@ class PartnerController extends Controller
      *
      * @Route("/new", name="partner_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
         $entity = new Partner();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -140,7 +139,6 @@ class PartnerController extends Controller
      *
      * @Route("/{id}/edit", name="partner_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -155,11 +153,11 @@ class PartnerController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -185,7 +183,7 @@ class PartnerController extends Controller
      *
      * @Route("/{id}", name="partner_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      */
     public function updateAction(Request $request, $id)
     {
@@ -207,11 +205,11 @@ class PartnerController extends Controller
             return $this->redirect($this->generateUrl('partner_show', array('id' => $id)));
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**

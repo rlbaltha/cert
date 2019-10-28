@@ -36,11 +36,12 @@ class FacultyController extends Controller
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
-        return array(
+
+        return $this->render('AppBundle:Feature:index.html.twig', array(
             'entities' => $entities,
             'tags' => $tags,
             'section' => $section
-        );
+        ));
     }
 
     /**
@@ -48,7 +49,6 @@ class FacultyController extends Controller
      *
      * @Route("/", name="faculty_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -64,10 +64,10 @@ class FacultyController extends Controller
             return $this->redirect($this->generateUrl('faculty', array('status' => 'all')));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -145,17 +145,16 @@ class FacultyController extends Controller
      *
      * @Route("/new", name="faculty_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
         $entity = new Faculty();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -187,7 +186,6 @@ class FacultyController extends Controller
      *
      * @Route("/{id}/edit", name="faculty_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -233,7 +231,7 @@ class FacultyController extends Controller
      *
      * @Route("/{id}", name="faculty_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      */
     public function updateAction(Request $request, $id)
     {

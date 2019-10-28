@@ -47,7 +47,7 @@ class UploadController extends Controller
      *
      * @Route("/", name="upload_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function createAction(Request $request)
@@ -106,7 +106,7 @@ class UploadController extends Controller
      *
      * @Route("/new/{courseid}", name="upload_new" , defaults={"courseid" = 0}))
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction($courseid)
@@ -135,7 +135,7 @@ class UploadController extends Controller
      *
      * @Route("/{id}/edit", name="upload_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction($id)
@@ -188,7 +188,7 @@ class UploadController extends Controller
      *
      * @Route("/{id}", name="upload_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction(Request $request, $id)

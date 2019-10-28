@@ -302,7 +302,7 @@ class UserController extends Controller
      *
      * @Route("/{id}/{return}/edit", name="user_edit" , defaults={"return" = "show"})
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id, $return)
@@ -358,7 +358,7 @@ class UserController extends Controller
      *
      * @Route("/{id}/{return}", name="user_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id, $return)
@@ -404,7 +404,7 @@ class UserController extends Controller
      *
      * @Route("/inactive/{id}", name="user_inactive")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function inactiveAction($id)

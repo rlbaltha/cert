@@ -44,7 +44,7 @@ class CheckpointController extends Controller
      *
      * @Route("/{id}/create", name="checkpoint_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      */
     public function createAction(Request $request, $id)
     {
@@ -73,10 +73,10 @@ class CheckpointController extends Controller
 
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -139,7 +139,6 @@ class CheckpointController extends Controller
      *
      * @Route("/{id}/new", name="checkpoint_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction($id)
     {
@@ -165,10 +164,10 @@ class CheckpointController extends Controller
         }
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -201,7 +200,6 @@ class CheckpointController extends Controller
      *
      * @Route("/{id}/edit", name="checkpoint_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -216,11 +214,11 @@ class CheckpointController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -254,7 +252,7 @@ class CheckpointController extends Controller
      *
      * @Route("/{id}", name="checkpoint_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      */
     public function updateAction(Request $request, $id)
     {
@@ -282,11 +280,11 @@ class CheckpointController extends Controller
             }
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Checkpoint entity.

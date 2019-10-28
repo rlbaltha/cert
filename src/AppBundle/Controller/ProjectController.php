@@ -42,7 +42,7 @@ class ProjectController extends Controller
      *
      * @Route("/", name="project_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      */
     public function createAction(Request $request)
     {
@@ -63,10 +63,10 @@ class ProjectController extends Controller
             return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
 
@@ -149,17 +149,16 @@ class ProjectController extends Controller
      *
      * @Route("/new", name="project_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
         $entity = new Project();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -192,7 +191,6 @@ class ProjectController extends Controller
      *
      * @Route("/{id}/edit", name="project_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -207,11 +205,11 @@ class ProjectController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -237,7 +235,7 @@ class ProjectController extends Controller
      *
      * @Route("/{id}", name="project_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      */
     public function updateAction(Request $request, $id)
     {
@@ -259,11 +257,11 @@ class ProjectController extends Controller
             return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getId())));
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Project entity.

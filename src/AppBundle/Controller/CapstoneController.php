@@ -198,7 +198,7 @@ class CapstoneController extends Controller
      *
      * @Route("/new", name="capstone_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      * @Security("has_role('ROLE_USER')")
      */
     public function newAction()

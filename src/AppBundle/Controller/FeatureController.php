@@ -41,7 +41,7 @@ class FeatureController extends Controller
      *
      * @Route("/", name="feature_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      */
     public function createAction(Request $request)
     {
@@ -57,10 +57,10 @@ class FeatureController extends Controller
             return $this->redirect($this->generateUrl('feature'));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -87,17 +87,16 @@ class FeatureController extends Controller
      *
      * @Route("/new", name="feature_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
         $entity = new Feature();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
 
@@ -106,7 +105,6 @@ class FeatureController extends Controller
      *
      * @Route("/{id}/edit", name="feature_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -121,11 +119,11 @@ class FeatureController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -151,7 +149,6 @@ class FeatureController extends Controller
      *
      * @Route("/{id}", name="feature_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -173,11 +170,11 @@ class FeatureController extends Controller
             return $this->redirect($this->generateUrl('feature'));
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Feature entity.

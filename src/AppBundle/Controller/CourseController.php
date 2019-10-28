@@ -160,7 +160,6 @@ class CourseController extends Controller
      *
      * @Route("/new", name="course_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {

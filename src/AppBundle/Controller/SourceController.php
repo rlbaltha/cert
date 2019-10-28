@@ -65,7 +65,7 @@ class SourceController extends Controller
      *
      * @Route("/create/{type}", name="source_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      */
     public function createAction(Request $request, $type)
     {
@@ -123,7 +123,6 @@ class SourceController extends Controller
      *
      * @Route("/new/{type}", name="source_new", defaults={"type" = "default"})
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction($type)
     {
@@ -171,7 +170,6 @@ class SourceController extends Controller
      *
      * @Route("/{id}/edit", name="source_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -217,7 +215,7 @@ class SourceController extends Controller
      *
      * @Route("/{id}", name="source_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      */
     public function updateAction(Request $request, $id)
     {

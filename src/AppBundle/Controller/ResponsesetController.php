@@ -62,7 +62,6 @@ class ResponsesetController extends Controller
      *
      * @Route("/new/{id}/{questionsetid}", name="responseset_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction($id, $questionsetid)
     {
@@ -161,11 +160,11 @@ class ResponsesetController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -214,11 +213,11 @@ class ResponsesetController extends Controller
             return $this->redirect($this->generateUrl('capstone_show', array('id' => $capstone->getUser()->getId())));
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Responseset entity.

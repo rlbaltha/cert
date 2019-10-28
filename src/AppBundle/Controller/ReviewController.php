@@ -40,7 +40,7 @@ class ReviewController extends Controller
      *
      * @Route("/{checkpointid}/{reviewerid}", name="review_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      */
     public function createAction(Request $request, $checkpointid, $reviewerid)
     {
@@ -70,10 +70,10 @@ class ReviewController extends Controller
 
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -100,7 +100,6 @@ class ReviewController extends Controller
      *
      * @Route("/new/{checkpointid}/{reviewerid}", name="review_new", defaults = {"checkpointid" = 0, "reviewerid" = 0})
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction($checkpointid, $reviewerid)
     {
@@ -114,10 +113,10 @@ class ReviewController extends Controller
 
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -150,7 +149,6 @@ class ReviewController extends Controller
      *
      * @Route("/{id}/edit", name="review_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -165,11 +163,11 @@ class ReviewController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -195,7 +193,7 @@ class ReviewController extends Controller
      *
      * @Route("/{id}", name="review_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      */
     public function updateAction(Request $request, $id)
     {
@@ -223,11 +221,11 @@ class ReviewController extends Controller
             }
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Review entity.

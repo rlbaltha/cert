@@ -44,7 +44,7 @@ class NotificationController extends Controller
      *
      * @Route("/", name="notification_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      */
     public function createAction(Request $request)
     {
@@ -118,7 +118,6 @@ class NotificationController extends Controller
      *
      * @Route("/new", name="notification_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction()
     {
@@ -164,7 +163,6 @@ class NotificationController extends Controller
      *
      * @Route("/{id}/{checkpoint_id}/edit", name="notification_edit", defaults={"checkpoint_id" = 0})
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id, $checkpoint_id)
     {
@@ -210,7 +208,7 @@ class NotificationController extends Controller
      *
      * @Route("/{id}/{checkpoint_id}", name="notification_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      */
     public function updateAction(Request $request, $id, $checkpoint_id)
     {

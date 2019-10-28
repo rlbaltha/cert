@@ -24,7 +24,7 @@ class QuestionController extends Controller
      *
      * @Route("/", name="question_create")
      * @Method("POST")
-     * @Template("AppBundle:Shared:new.html.twig")
+
      */
     public function createAction(Request $request)
     {
@@ -40,10 +40,10 @@ class QuestionController extends Controller
             return $this->redirect($this->generateUrl('questionset_show', array('id' => $entity->getQuestionset()->getId())));
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -70,7 +70,6 @@ class QuestionController extends Controller
      *
      * @Route("/new/{id}", name="question_new")
      * @Method("GET")
-     * @Template("AppBundle:Shared:new.html.twig")
      */
     public function newAction($id)
     {
@@ -80,10 +79,10 @@ class QuestionController extends Controller
         $entity->setQuestionset($questionset);
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+            'form' => $form->createView(),
+        ));
     }
 
 
@@ -92,7 +91,6 @@ class QuestionController extends Controller
      *
      * @Route("/{id}/edit", name="question_edit")
      * @Method("GET")
-     * @Template("AppBundle:Shared:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -107,11 +105,11 @@ class QuestionController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -137,7 +135,7 @@ class QuestionController extends Controller
      *
      * @Route("/{id}", name="question_update")
      * @Method("PUT")
-     * @Template("AppBundle:Shared:edit.html.twig")
+
      */
     public function updateAction(Request $request, $id)
     {
@@ -159,11 +157,11 @@ class QuestionController extends Controller
             return $this->redirect($this->generateUrl('questionset_show', array('id' => $entity->getQuestionset()->getId())));
         }
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Question entity.
