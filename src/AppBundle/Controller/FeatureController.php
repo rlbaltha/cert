@@ -32,9 +32,9 @@ class FeatureController extends Controller
 
         $entities = $em->getRepository('AppBundle:Feature')->findAll();
 
-        return array(
+        return $this->render('AppBundle:Feature:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Feature entity.
@@ -72,7 +72,7 @@ class FeatureController extends Controller
      */
     private function createCreateForm(Feature $entity)
     {
-        $form = $this->createForm(new FeatureType(), $entity, array(
+        $form = $this->createForm(FeatureType::class, $entity, array(
             'action' => $this->generateUrl('feature_create'),
             'method' => 'POST',
         ));
@@ -135,7 +135,7 @@ class FeatureController extends Controller
     */
     private function createEditForm(Feature $entity)
     {
-        $form = $this->createForm(new FeatureType(), $entity, array(
+        $form = $this->createForm(FeatureType::class, $entity, array(
             'action' => $this->generateUrl('feature_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

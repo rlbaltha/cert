@@ -24,7 +24,6 @@ class MajorController extends Controller
      *
      * @Route("/", name="major")
      * @Method("GET")
-     * @Template()
      */
     public function indexAction()
     {
@@ -32,9 +31,9 @@ class MajorController extends Controller
 
         $entities = $em->getRepository('AppBundle:Major')->findAll();
 
-        return array(
+        return $this->render('AppBundle:Major:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Major entity.

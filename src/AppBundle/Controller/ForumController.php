@@ -34,13 +34,17 @@ class ForumController extends Controller
             'section' => $section,
             'entities' => $entities,
         );
+        return $this->render('AppBundle:Feature:index.html.twig', array(
+            'entities' => $entities,
+            'tags' => $tags,
+            'section' => $section
+        ));
     }
     /**
      * Creates a new Forum entity.
      *
      * @Route("/", name="forum_create")
      * @Method("POST")
-
      */
     public function createAction(Request $request)
     {

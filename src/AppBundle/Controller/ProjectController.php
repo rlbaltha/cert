@@ -25,7 +25,6 @@ class ProjectController extends Controller
      *
      * @Route("/{status}/list", name="project", defaults={"status" = "Active"})
      * @Method("GET")
-     * @Template()
      */
     public function indexAction($status)
     {
@@ -33,9 +32,9 @@ class ProjectController extends Controller
 
         $entities = $em->getRepository('AppBundle:Project')->findAdmin($status);
 
-        return array(
+        return $this->render('AppBundle:Project:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Project entity.
@@ -110,7 +109,6 @@ class ProjectController extends Controller
      *
      * @Route("/{id}/complete", name="project_complete")
      * @Method("GET")
-     * @Template()
      */
     public function completeAction($id)
     {
@@ -180,10 +178,10 @@ class ProjectController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Project:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
