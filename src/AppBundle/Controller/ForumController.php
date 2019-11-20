@@ -90,12 +90,12 @@ class ForumController extends Controller
      */
     private function createCreateForm(Forum $entity)
     {
-        $form = $this->createForm(new ForumType(), $entity, array(
+        $form = $this->createForm(ForumType::class, $entity, array(
             'action' => $this->generateUrl('forum_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -180,12 +180,12 @@ class ForumController extends Controller
     */
     private function createEditForm(Forum $entity)
     {
-        $form = $this->createForm(new ForumType(), $entity, array(
+        $form = $this->createForm(ForumType::class, $entity, array(
             'action' => $this->generateUrl('forum_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -271,7 +271,7 @@ class ForumController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('forum_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

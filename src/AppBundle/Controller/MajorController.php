@@ -71,7 +71,7 @@ class MajorController extends Controller
      */
     private function createCreateForm(Major $entity)
     {
-        $form = $this->createForm(new MajorType(), $entity, array(
+        $form = $this->createForm(MajorType::class, $entity, array(
             'action' => $this->generateUrl('major_create'),
             'method' => 'POST',
         ));
@@ -159,7 +159,7 @@ class MajorController extends Controller
     */
     private function createEditForm(Major $entity)
     {
-        $form = $this->createForm(new MajorType(), $entity, array(
+        $form = $this->createForm(MajorType::class, $entity, array(
             'action' => $this->generateUrl('major_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

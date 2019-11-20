@@ -37,7 +37,7 @@ class FacultyController extends Controller
         $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
 
-        return $this->render('AppBundle:Feature:index.html.twig', array(
+        return $this->render('AppBundle:Faculty:index.html.twig', array(
             'entities' => $entities,
             'tags' => $tags,
             'section' => $section
@@ -75,7 +75,6 @@ class FacultyController extends Controller
      *
      * @Route("/{id}/account", name="faculty_account")
      * @Method("GET")
-     * @Template()
      */
     public function accountAction($id)
     {
@@ -130,7 +129,7 @@ class FacultyController extends Controller
      */
     private function createCreateForm(Faculty $entity)
     {
-        $form = $this->createForm(new FacultyType(), $entity, array(
+        $form = $this->createForm(FacultyType::class, $entity, array(
             'action' => $this->generateUrl('faculty_create'),
             'method' => 'POST',
         ));
@@ -175,10 +174,11 @@ class FacultyController extends Controller
             throw $this->createNotFoundException('Unable to find Faculty entity.');
         }
 
-        return array(
+
+        return $this->render('AppBundle:Faculty:show.html.twig', array(
             'entity' => $entity,
             'section' => $section,
-        );
+        ));
     }
 
     /**
@@ -216,7 +216,7 @@ class FacultyController extends Controller
      */
     private function createEditForm(Faculty $entity)
     {
-        $form = $this->createForm(new FacultyType(), $entity, array(
+        $form = $this->createForm(FacultyType::class, $entity, array(
             'action' => $this->generateUrl('faculty_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

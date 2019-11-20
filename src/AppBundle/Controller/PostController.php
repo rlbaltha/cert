@@ -72,7 +72,7 @@ class PostController extends Controller
      */
     private function createCreateForm(Post $entity)
     {
-        $form = $this->createForm(new PostType(), $entity, array(
+        $form = $this->createForm(PostType::class, $entity, array(
             'action' => $this->generateUrl('post_create'),
             'method' => 'POST',
         ));
@@ -159,7 +159,7 @@ class PostController extends Controller
     */
     private function createEditForm(Post $entity)
     {
-        $form = $this->createForm(new PostType(), $entity, array(
+        $form = $this->createForm(PostType::class, $entity, array(
             'action' => $this->generateUrl('post_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

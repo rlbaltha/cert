@@ -77,7 +77,7 @@ class PartnerController extends Controller
      */
     private function createCreateForm(Partner $entity)
     {
-        $form = $this->createForm(new PartnerType(), $entity, array(
+        $form = $this->createForm(PartnerType::class, $entity, array(
             'action' => $this->generateUrl('partner_create'),
             'method' => 'POST',
         ));
@@ -169,7 +169,7 @@ class PartnerController extends Controller
     */
     private function createEditForm(Partner $entity)
     {
-        $form = $this->createForm(new PartnerType(), $entity, array(
+        $form = $this->createForm(PartnerType::class, $entity, array(
             'action' => $this->generateUrl('partner_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

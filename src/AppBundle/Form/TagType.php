@@ -22,7 +22,7 @@ class TagType extends AbstractType
             ->add('title', TextType::class, array('attr' => array('class' => 'text form-control'),))
             ->add('color', TextType::class, array('attr' => array('class' => 'text form-control'),))
             ->add('top', EntityType::class, array('class' => 'AppBundle\Entity\Tag',
-                'property' => 'title','required'=>false,'expanded'=>false,'multiple'=>false,'label'  => 'Super', 'attr' => array('class' =>
+                'choice_label' => 'title','required'=>false,'expanded'=>false,'multiple'=>false,'label'  => 'Super', 'attr' => array('class' =>
                     'form-control'),))
             ->add('sortorder', 'number', array('attr' => array('class' => 'text form-control'),))
             ->add('type', ChoiceType::class, array('choices' => array('resource' => 'resource', 'user' => 'user', 'content' => 'content'),

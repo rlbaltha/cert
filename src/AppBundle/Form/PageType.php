@@ -7,6 +7,9 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class PageType extends AbstractType
 {
@@ -22,7 +25,7 @@ class PageType extends AbstractType
             ->add('link',TextType::class, array('required' => false,'attr' => array('class' => 'text form-control'),))
             ->add('sortOrder',NumberType::class, array('required' => false,'attr' => array('class' => 'text form-control'),))
             ->add('section', EntityType::class, array('class' => 'AppBundle\Entity\Section',
-            'property' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Section', 'attr' => array('class' =>
+            'choice_label' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Section', 'attr' => array('class' =>
                 'form-control'),))
             ->add('access', ChoiceType::class, array(
                 'required' => true,

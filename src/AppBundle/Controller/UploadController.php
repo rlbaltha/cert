@@ -14,6 +14,7 @@ use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Upload controller.
@@ -87,12 +88,12 @@ class UploadController extends Controller
      */
     private function createCreateForm(Upload $entity)
     {
-        $form = $this->createForm(new UploadType(), $entity, array(
+        $form = $this->createForm(UploadType::class, $entity, array(
             'action' => $this->generateUrl('upload_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array(
+        $form->add('submit', SubmitType::class, array(
             'label' => 'Upload',
             'attr' =>
                 array('class' => 'btn btn-primary')
@@ -169,12 +170,12 @@ class UploadController extends Controller
      */
     private function createEditForm(Upload $entity)
     {
-        $form = $this->createForm(new UploadType(), $entity, array(
+        $form = $this->createForm(UploadType::class, $entity, array(
             'action' => $this->generateUrl('upload_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array(
+        $form->add('submit', SubmitType::class, array(
             'label' => 'Update',
             'attr' =>
                 array('class' => 'btn btn-primary')
@@ -259,7 +260,7 @@ class UploadController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('upload_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Delete',
                 'attr' =>
                     array('class' => 'btn btn-danger')

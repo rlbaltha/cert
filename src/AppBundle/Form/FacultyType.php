@@ -58,9 +58,9 @@ class FacultyType extends AbstractType
                         ->setParameter('status2', 'exception')
                         ->orderBy('c.name ');
                 },
-              'property' => 'name','expanded'=>true,'multiple'=>true,'label'  => 'Courses', 'label_attr'=> array('class' => 'checkbox-inline'),))
+              'choice_label' => 'name','expanded'=>true,'multiple'=>true,'label'  => 'Courses', 'label_attr'=> array('class' => 'checkbox-inline'),))
             ->add('tags', EntityType::class, array('class' => 'AppBundle\Entity\Tag',
-                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
+                'choice_label' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
                     'checkbox'),))
             ->add('user', EntityType::class, array('class' => 'AppBundle\Entity\User',
                 'query_builder' => function (EntityRepository $er) {
@@ -69,7 +69,7 @@ class FacultyType extends AbstractType
                         ->setParameter('lastname', '')
                         ->orderBy('u.lastname ');
                 },
-                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Account', 'required'=>false, 'attr' => array('class' =>
+                'choice_label' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Account', 'required'=>false, 'attr' => array('class' =>
                     'text form-control'),))
         ;
     }

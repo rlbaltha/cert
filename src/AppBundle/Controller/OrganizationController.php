@@ -72,7 +72,7 @@ class OrganizationController extends Controller
      */
     private function createCreateForm(Organization $entity)
     {
-        $form = $this->createForm(new OrganizationType(), $entity, array(
+        $form = $this->createForm(OrganizationType::class, $entity, array(
             'action' => $this->generateUrl('organization_create'),
             'method' => 'POST',
         ));
@@ -159,7 +159,7 @@ class OrganizationController extends Controller
     */
     private function createEditForm(Organization $entity)
     {
-        $form = $this->createForm(new OrganizationType(), $entity, array(
+        $form = $this->createForm(OrganizationType::class, $entity, array(
             'action' => $this->generateUrl('organization_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

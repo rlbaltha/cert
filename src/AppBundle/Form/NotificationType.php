@@ -20,7 +20,7 @@ class NotificationType extends AbstractType
     {
         $builder
             ->add('post', EntityType::class, array('class' => 'AppBundle\Entity\Post',
-                'property' => 'title','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'Post', 'attr' => array('class' =>
+                'choice_label' => 'title','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'Post', 'attr' => array('class' =>
                     'form-control'),))
             ->add('body', CkeditorType::class, array('config_name' => 'editor_default', 'label'  => 'Additional Text',))
             ->add('date', DatetimeType::class, array('pickerOptions' =>
@@ -51,10 +51,10 @@ class NotificationType extends AbstractType
                         ->setParameter('type', 'user')
                         ;
                 },
-                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'required'=>false, 'attr' => array('class' =>
+                'choice_label' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'required'=>false, 'attr' => array('class' =>
                     'checkbox'),))
             ->add('user', EntityType::class, array('class' => 'AppBundle\Entity\User',
-                'property' => 'name','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'User', 'attr' => array('class' =>
+                'choice_label' => 'name','required' => false,'expanded'=>false,'multiple'=>false,'label'  => 'User', 'attr' => array('class' =>
                     'form-control'),))
         ;
     }

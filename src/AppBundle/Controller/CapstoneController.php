@@ -258,7 +258,7 @@ class CapstoneController extends Controller
             ));
         }
         else {
-            $form = $this->createForm(new WorkplanType(), $entity, array(
+            $form = $this->createForm(WorkplanType::class, $entity, array(
                 'action' => $this->generateUrl('capstone_update', array('id' => $entity->getId(), 'part'=> $part)),
                 'method' => 'PUT',
             ));

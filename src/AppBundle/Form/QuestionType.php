@@ -23,7 +23,7 @@ class QuestionType extends AbstractType
             ->add('position', TextType::class, array('attr' => array('class' => 'text form-control'),))
             ->add('questionset')
             ->add('questionset', EntityType::class, array('class' => 'AppBundle\Entity\Questionset',
-                'property' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Question Set', 'attr' => array('class' =>
+                'choice_label' => 'title','expanded'=>false,'multiple'=>false,'label'  => 'Question Set', 'attr' => array('class' =>
                     'form-control'),))
         ;
     }
