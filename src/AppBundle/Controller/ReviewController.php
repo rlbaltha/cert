@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Review;
 use AppBundle\Form\ReviewType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Review controller.
@@ -84,12 +85,12 @@ class ReviewController extends Controller
      */
     private function createCreateForm(Review $entity)
     {
-        $form = $this->createForm(new ReviewType(), $entity, array(
+        $form = $this->createForm(ReviewType::class, $entity, array(
             'action' => $this->generateUrl('review_create', array('checkpointid' => $entity->getCheckpoint()->getId(), 'reviewerid' => $entity->getReviewer()->getId())),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -178,12 +179,12 @@ class ReviewController extends Controller
     */
     private function createEditForm(Review $entity)
     {
-        $form = $this->createForm(new ReviewType(), $entity, array(
+        $form = $this->createForm(ReviewType::class, $entity, array(
             'action' => $this->generateUrl('review_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -265,7 +266,7 @@ class ReviewController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('review_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

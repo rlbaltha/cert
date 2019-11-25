@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\User;
 use AppBundle\Form\AdminType;
 use AppBundle\Form\ProfileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 /**
@@ -335,19 +336,19 @@ class UserController extends Controller
     {
 
         if ($this->isGranted('ROLE_ADMIN')) {
-            $form = $this->createForm(new AdminType(), $entity, array(
+            $form = $this->createForm(AdminType::class, $entity, array(
                 'action' => $this->generateUrl('user_update', array('id' => $entity->getId(), 'return' => $return)),
                 'method' => 'PUT',
             ));
         } else {
-            $form = $this->createForm(new ProfileType(), $entity, array(
+            $form = $this->createForm(ProfileType::class, $entity, array(
                 'action' => $this->generateUrl('user_update', array('id' => $entity->getId(), 'return' => $return)),
                 'method' => 'PUT',
             ));
         }
 
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -657,7 +658,7 @@ class UserController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('user_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
             ->getForm();
     }
 }

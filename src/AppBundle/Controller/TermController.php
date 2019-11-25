@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Term;
 use AppBundle\Form\TermType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Term controller.
@@ -71,12 +72,12 @@ class TermController extends Controller
      */
     private function createCreateForm(Term $entity)
     {
-        $form = $this->createForm(new TermType(), $entity, array(
+        $form = $this->createForm(TermType::class, $entity, array(
             'action' => $this->generateUrl('term_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -184,12 +185,12 @@ class TermController extends Controller
     */
     private function createEditForm(Term $entity)
     {
-        $form = $this->createForm(new TermType(), $entity, array(
+        $form = $this->createForm(TermType::class, $entity, array(
             'action' => $this->generateUrl('term_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -318,7 +319,7 @@ class TermController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('term_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

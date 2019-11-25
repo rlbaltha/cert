@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\TagType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Tag controller.
@@ -70,12 +71,12 @@ class TagController extends Controller
      */
     private function createCreateForm(Tag $entity)
     {
-        $form = $this->createForm(new TagType(), $entity, array(
+        $form = $this->createForm(TagType::class, $entity, array(
             'action' => $this->generateUrl('tag_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -133,12 +134,12 @@ class TagController extends Controller
     */
     private function createEditForm(Tag $entity)
     {
-        $form = $this->createForm(new TagType(), $entity, array(
+        $form = $this->createForm(TagType::class, $entity, array(
             'action' => $this->generateUrl('tag_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -213,7 +214,7 @@ class TagController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('tag_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

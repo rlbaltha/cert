@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Questionset;
 use AppBundle\Form\QuestionsetType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Questionset controller.
@@ -70,12 +71,12 @@ class QuestionsetController extends Controller
      */
     private function createCreateForm(Questionset $entity)
     {
-        $form = $this->createForm(new QuestionsetType(), $entity, array(
+        $form = $this->createForm(QuestionsetType::class, $entity, array(
             'action' => $this->generateUrl('questionset_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -157,12 +158,12 @@ class QuestionsetController extends Controller
     */
     private function createEditForm(Questionset $entity)
     {
-        $form = $this->createForm(new QuestionsetType(), $entity, array(
+        $form = $this->createForm(QuestionsetType::class, $entity, array(
             'action' => $this->generateUrl('questionset_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -237,7 +238,7 @@ class QuestionsetController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('questionset_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

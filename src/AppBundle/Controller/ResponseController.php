@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Response;
 use AppBundle\Form\ResponseType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Response controller.
@@ -70,12 +71,12 @@ class ResponseController extends Controller
      */
     private function createCreateForm(Response $entity)
     {
-        $form = $this->createForm(new ResponseType(), $entity, array(
+        $form = $this->createForm(ResponseType::class, $entity, array(
             'action' => $this->generateUrl('response_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -157,12 +158,12 @@ class ResponseController extends Controller
     */
     private function createEditForm(Response $entity)
     {
-        $form = $this->createForm(new ResponseType(), $entity, array(
+        $form = $this->createForm(ResponseType::class, $entity, array(
             'action' => $this->generateUrl('response_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -237,7 +238,7 @@ class ResponseController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('response_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

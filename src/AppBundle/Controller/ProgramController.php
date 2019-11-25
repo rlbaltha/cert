@@ -90,7 +90,7 @@ class ProgramController extends Controller
      */
     private function createCreateForm(Program $entity)
     {
-        $form = $this->createForm(new ProgramType(), $entity, array(
+        $form = $this->createForm(ProgramType::class, $entity, array(
             'action' => $this->generateUrl('program_create'),
             'method' => 'POST',
         ));
@@ -157,7 +157,7 @@ class ProgramController extends Controller
      */
     private function createEditForm(Program $entity)
     {
-        $form = $this->createForm(new ProgramType(), $entity, array(
+        $form = $this->createForm(ProgramType::class, $entity, array(
             'action' => $this->generateUrl('program_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

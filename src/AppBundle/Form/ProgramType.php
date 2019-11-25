@@ -20,16 +20,16 @@ class ProgramType extends AbstractType
     {
         $builder
             ->add('school1', EntityType::class, array('required' => true,'class' => 'AppBundle\Entity\School',
-                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
+                'choice_label' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'School/College', 'attr' => array('class' =>
                     'form-control'),))
             ->add('major1', EntityType::class, array('required' => true,'class' => 'AppBundle\Entity\Major',
-                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Major/Degree Program', 'attr' => array('class' =>
+                'choice_label' => 'name','expanded'=>false,'multiple'=>false,'label'  => 'Major/Degree Program', 'attr' => array('class' =>
                     'form-control'),))
             ->add('school2', EntityType::class, array('required' => false,'class' => 'AppBundle\Entity\School',
-                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => '2nd School/College', 'attr' => array('class' =>
+                'choice_label' => 'name','expanded'=>false,'multiple'=>false,'label'  => '2nd School/College', 'attr' => array('class' =>
                     'form-control'),))
             ->add('major2', EntityType::class, array('required' => false,'class' => 'AppBundle\Entity\Major',
-                'property' => 'name','expanded'=>false,'multiple'=>false,'label'  => '2nd Major/Degree Program', 'attr' => array('class' =>
+                'choice_label' => 'name','expanded'=>false,'multiple'=>false,'label'  => '2nd Major/Degree Program', 'attr' => array('class' =>
                     'form-control'),))
             ->add('minors', TextType::class, array('label' => 'Minor(s) ', 'attr' => array('class' => 'form-control'),))
             ->add('ugaid', TextType::class, array('label' => 'UGA ID ', 'attr' => array('class' => 'form-control',

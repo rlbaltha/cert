@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Responseset;
 use AppBundle\Form\ResponsesetType;
 use AppBundle\Entity\Response;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 /**
@@ -46,12 +47,12 @@ class ResponsesetController extends Controller
      */
     private function createCreateForm(Responseset $entity)
     {
-        $form = $this->createForm(new ResponsesetType(), $entity, array(
+        $form = $this->createForm(ResponsesetType::class, $entity, array(
             'action' => $this->generateUrl('responseset_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -175,12 +176,12 @@ class ResponsesetController extends Controller
     */
     private function createEditForm(Responseset $entity)
     {
-        $form = $this->createForm(new ResponsesetType(), $entity, array(
+        $form = $this->createForm(ResponsesetType::class, $entity, array(
             'action' => $this->generateUrl('responseset_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -258,7 +259,7 @@ class ResponsesetController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('responseset_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +23,6 @@ class SectionController extends Controller
      *
      * @Route("/", name="section")
      * @Method("GET")
-     * @Template()
      */
     public function indexAction()
     {
@@ -30,9 +30,9 @@ class SectionController extends Controller
 
         $entities = $em->getRepository('AppBundle:Section')->findAll();
 
-        return array(
+        return $this->render('AppBundle:Section:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Section entity.
@@ -70,12 +70,12 @@ class SectionController extends Controller
      */
     private function createCreateForm(Section $entity)
     {
-        $form = $this->createForm(new SectionType(), $entity, array(
+        $form = $this->createForm(SectionType::class, $entity, array(
             'action' => $this->generateUrl('section_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Create','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -116,10 +116,10 @@ class SectionController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Section:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -157,12 +157,12 @@ class SectionController extends Controller
     */
     private function createEditForm(Section $entity)
     {
-        $form = $this->createForm(new SectionType(), $entity, array(
+        $form = $this->createForm(SectionType::class, $entity, array(
             'action' => $this->generateUrl('section_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -237,7 +237,7 @@ class SectionController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('section_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

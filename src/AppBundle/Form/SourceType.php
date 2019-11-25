@@ -39,7 +39,7 @@ class SourceType extends AbstractType
             ->add('contact', TextType::class, array('attr' => array('class' => 'text form-control'),'required' => false,))
             ->add('description', CkeditorType::class, array('config_name' => 'editor_default',))
             ->add('tags', EntityType::class, array('class' => 'AppBundle\Entity\Tag',
-                'property' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
+                'choice_label' => 'title','expanded'=>true,'multiple'=>true,'label'  => 'Tags', 'attr' => array('class' =>
                     'checkbox'),))
         ;
     }

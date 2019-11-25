@@ -4,8 +4,8 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Question;
 use AppBundle\Form\QuestionType;
 
@@ -54,12 +54,12 @@ class QuestionController extends Controller
      */
     private function createCreateForm(Question $entity)
     {
-        $form = $this->createForm(new QuestionType(), $entity, array(
+        $form = $this->createForm(QuestionType::class, $entity, array(
             'action' => $this->generateUrl('question_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -120,12 +120,12 @@ class QuestionController extends Controller
     */
     private function createEditForm(Question $entity)
     {
-        $form = $this->createForm(new QuestionType(), $entity, array(
+        $form = $this->createForm(QuestionType::class, $entity, array(
             'action' => $this->generateUrl('question_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -200,7 +200,7 @@ class QuestionController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('question_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

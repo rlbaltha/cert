@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\School;
 use AppBundle\Form\SchoolType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * School controller.
@@ -68,12 +69,12 @@ class SchoolController extends Controller
      */
     private function createCreateForm(School $entity)
     {
-        $form = $this->createForm(new SchoolType(), $entity, array(
+        $form = $this->createForm(SchoolType::class, $entity, array(
             'action' => $this->generateUrl('school_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -128,12 +129,12 @@ class SchoolController extends Controller
     */
     private function createEditForm(School $entity)
     {
-        $form = $this->createForm(new SchoolType(), $entity, array(
+        $form = $this->createForm(SchoolType::class, $entity, array(
             'action' => $this->generateUrl('school_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -244,7 +245,7 @@ class SchoolController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('school_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete','attr' => array('class' => 'btn btn-danger'),))
             ->getForm()
         ;
     }

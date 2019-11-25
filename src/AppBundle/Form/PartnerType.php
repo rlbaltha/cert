@@ -106,7 +106,7 @@ class PartnerType extends AbstractType
                         ->andWhere('c.id IS NOT NULL')
                         ->addOrderBy('u.lastname', 'ASC');
                 },
-                'required' => false, 'property' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Team Members', 'attr' => array('class' =>
+                'required' => false, 'choice_label' => 'name', 'expanded' => true, 'multiple' => true, 'label' => 'Team Members', 'attr' => array('class' =>
                     'checkbox'),))
         ;
     }

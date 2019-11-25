@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Source;
 use AppBundle\Form\SourceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Source controller.
@@ -32,11 +33,11 @@ class SourceController extends Controller
         $section = $em->getRepository('AppBundle:Section')->findOneByTitle($section);
         $tags = $em->getRepository('AppBundle:Tag')->findByType('resource');
 
-        return array(
+        return $this->render('AppBundle:Source:index.html.twig', array(
             'entities' => $entities,
             'section' => $section,
             'tags' => $tags,
-        );
+        ));
     }
 
     /**
@@ -100,19 +101,19 @@ class SourceController extends Controller
     private function createCreateForm(Source $entity, $type)
     {
         if ($type != 'content') {
-            $form = $this->createForm(new SourceType(), $entity, array(
+            $form = $this->createForm(SourceType::class, $entity, array(
                 'action' => $this->generateUrl('source_create', array('type' => 'default')),
                 'method' => 'POST',
             ));
         } else {
-            $form = $this->createForm(new SourceType(), $entity, array(
+            $form = $this->createForm(SourceType::class, $entity, array(
                 'action' => $this->generateUrl('source_create', array('type' => 'content')),
                 'method' => 'POST',
             ));
         }
 
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -154,14 +155,12 @@ class SourceController extends Controller
             throw $this->createNotFoundException('Unable to find Source entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Source:show.html.twig', array(
             'entity' => $entity,
             'section' => $section,
             'tags' => $tags,
-            'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -183,11 +182,11 @@ class SourceController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -199,12 +198,12 @@ class SourceController extends Controller
      */
     private function createEditForm(Source $entity)
     {
-        $form = $this->createForm(new SourceType(), $entity, array(
+        $form = $this->createForm(SourceType::class, $entity, array(
             'action' => $this->generateUrl('source_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
+        $form->add('submit', SubmitType::class, array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary'),));
 
         return $form;
     }
@@ -281,7 +280,7 @@ class SourceController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('source_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
+            ->add('submit', SubmitType::class, array('label' => 'Confirm Delete', 'attr' => array('class' => 'btn btn-danger'),))
             ->getForm();
     }
 }

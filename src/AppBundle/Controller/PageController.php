@@ -72,7 +72,7 @@ class PageController extends Controller
      */
     private function createCreateForm(Page $entity)
     {
-        $form = $this->createForm(new PageType(), $entity, array(
+        $form = $this->createForm(PageType::class, $entity, array(
             'action' => $this->generateUrl('page_create'),
             'method' => 'POST',
         ));
@@ -203,7 +203,7 @@ class PageController extends Controller
     */
     private function createEditForm(Page $entity)
     {
-        $form = $this->createForm(new PageType(), $entity, array(
+        $form = $this->createForm(PageType::class, $entity, array(
             'action' => $this->generateUrl('page_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

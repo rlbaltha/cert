@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Substitution;
 use AppBundle\Form\SubstitutionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Substitution controller.
@@ -77,12 +78,12 @@ class SubstitutionController extends Controller
      */
     private function createCreateForm(Substitution $entity)
     {
-        $form = $this->createForm(new SubstitutionType(), $entity, array(
+        $form = $this->createForm(SubstitutionType::class, $entity, array(
             'action' => $this->generateUrl('substitution_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -169,12 +170,12 @@ class SubstitutionController extends Controller
     */
     private function createEditForm(Substitution $entity)
     {
-        $form = $this->createForm(new SubstitutionType(), $entity, array(
+        $form = $this->createForm(SubstitutionType::class, $entity, array(
             'action' => $this->generateUrl('substitution_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -321,7 +322,7 @@ class SubstitutionController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('substitution_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }

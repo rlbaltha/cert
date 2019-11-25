@@ -111,13 +111,13 @@ class CheckpointController extends Controller
     private function createCreateForm(Checkpoint $entity)
     {
         if ($entity->getType()=='Admin') {
-            $form = $this->createForm(new CheckpointAdminType(), $entity, array(
+            $form = $this->createForm(CheckpointAdminType::class, $entity, array(
                 'action' => $this->generateUrl('checkpoint_create', array('id'=>$entity->getProject()->getId())),
                 'method' => 'POST',
             ));
         }
         else {
-            $form = $this->createForm(new CheckpointType(), $entity, array(
+            $form = $this->createForm(CheckpointType::class, $entity, array(
                 'action' => $this->generateUrl('checkpoint_create', array('id'=>$entity->getProject()->getId())),
                 'method' => 'POST',
             ));
@@ -221,13 +221,13 @@ class CheckpointController extends Controller
     private function createEditForm(Checkpoint $entity)
     {
         if ($entity->getType()=='Admin') {
-            $form = $this->createForm(new CheckpointAdminType(), $entity, array(
+            $form = $this->createForm(CheckpointAdminType::class, $entity, array(
                 'action' => $this->generateUrl('checkpoint_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             ));
         }
         else {
-            $form = $this->createForm(new CheckpointType(), $entity, array(
+            $form = $this->createForm(CheckpointType::class, $entity, array(
                 'action' => $this->generateUrl('checkpoint_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             ));
