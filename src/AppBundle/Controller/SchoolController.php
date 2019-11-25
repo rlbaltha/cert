@@ -4,8 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -23,9 +22,7 @@ class SchoolController extends Controller
     /**
      * Lists all School entities.
      *
-     * @Route("/", name="school")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="school", methods={"GET"})
      */
     public function indexAction()
     {
@@ -33,16 +30,14 @@ class SchoolController extends Controller
 
         $entities = $em->getRepository('AppBundle:School')->findAll();
 
-        return array(
+        return $this->render('AppBundle:School:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new School entity.
      *
-     * @Route("/", name="school_create")
-     * @Method("POST")
-
+     * @Route("/", name="school_create", methods={"GET"})
      */
     public function createAction(Request $request)
     {
@@ -86,9 +81,7 @@ class SchoolController extends Controller
     /**
      * Displays a form to create a new School entity.
      *
-     * @Route("/new", name="school_new")
-     * @Method("GET")
-     * * @Template("AppBundle:Shared:new.html.twig")
+     * @Route("/new", name="school_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -104,9 +97,7 @@ class SchoolController extends Controller
     /**
      * Displays a form to edit an existing School entity.
      *
-     * @Route("/{id}/edit", name="school_edit")
-     * @Method("GET")
-     * * @Template("AppBundle:Shared:edit.html.twig")
+     * @Route("/{id}/edit", name="school_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -149,9 +140,7 @@ class SchoolController extends Controller
     /**
      * Edits an existing School entity.
      *
-     * @Route("/{id}", name="school_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="school_update", methods={"POST"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -183,9 +172,7 @@ class SchoolController extends Controller
     /**
      * Finds and displays a School entity with report.
      *
-     * @Route("/show/{id}", name="school_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/show/{id}", name="school_show", methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function showAction($id)
@@ -206,7 +193,7 @@ class SchoolController extends Controller
             throw $this->createNotFoundException('Unable to find Capstone entity.');
         }
 
-        return array(
+        return $this->render('AppBundle:School:show.html.twig', array(
             'entity' => $school,
             'alumni' => $alumni,
             'active' => $active,
@@ -215,15 +202,15 @@ class SchoolController extends Controller
             'social' => $social,
             'economic' => $economic,
             'ecological' => $ecological,
-        );
+        ));
+
     }
 
 
     /**
      * Deletes a School entity.
      *
-     * @Route("/{id}", name="school_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="school_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

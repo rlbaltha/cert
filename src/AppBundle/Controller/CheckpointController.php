@@ -6,8 +6,7 @@ use AppBundle\Entity\Notification;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Checkpoint;
 use AppBundle\Form\CheckpointType;
@@ -25,8 +24,7 @@ class CheckpointController extends Controller
     /**
      * Lists all Checkpoint entities.
      *
-     * @Route("/", name="checkpoint")
-     * @Method("GET")
+     * @Route("/", name="checkpoint", methods={"GET"})
      * @Template()
      */
     public function indexAction()
@@ -42,9 +40,7 @@ class CheckpointController extends Controller
     /**
      * Creates a new Checkpoint entity.
      *
-     * @Route("/{id}/create", name="checkpoint_create")
-     * @Method("POST")
-
+     * @Route("/{id}/create", name="checkpoint_create", methods={"POST"})
      */
     public function createAction(Request $request, $id)
     {
@@ -82,9 +78,7 @@ class CheckpointController extends Controller
     /**
      * Mark an existing Checkpoint entity complete.
      *
-     * @Route("/{id}/complete", name="checkpoint_complete")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/complete", name="checkpoint_complete", methods={"GET"})
      */
     public function completeAction($id)
     {
@@ -137,8 +131,7 @@ class CheckpointController extends Controller
     /**
      * Displays a form to create a new Checkpoint entity.
      *
-     * @Route("/{id}/new", name="checkpoint_new")
-     * @Method("GET")
+     * @Route("/{id}/new", name="checkpoint_new", methods={"GET"})
      */
     public function newAction($id)
     {
@@ -173,9 +166,7 @@ class CheckpointController extends Controller
     /**
      * Finds and displays a Checkpoint entity.
      *
-     * @Route("/{id}", name="checkpoint_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="checkpoint_show", methods={"GET"})
      */
     public function showAction($id)
     {
@@ -198,8 +189,7 @@ class CheckpointController extends Controller
     /**
      * Displays a form to edit an existing Checkpoint entity.
      *
-     * @Route("/{id}/edit", name="checkpoint_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="checkpoint_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -250,9 +240,7 @@ class CheckpointController extends Controller
     /**
      * Edits an existing Checkpoint entity.
      *
-     * @Route("/{id}", name="checkpoint_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="checkpoint_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -289,8 +277,7 @@ class CheckpointController extends Controller
     /**
      * Deletes a Checkpoint entity.
      *
-     * @Route("/{id}", name="checkpoint_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="checkpoint_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

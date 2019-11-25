@@ -5,8 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Checklist;
@@ -23,9 +22,7 @@ class ChecklistController extends Controller
     /**
      * Finds and displays a Checklist entity.
      *
-     * @Route("/show/{id}", name="checklist_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/show/{id}", name="checklist_show", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
@@ -47,8 +44,7 @@ class ChecklistController extends Controller
     /**
      * Creates a new Checklist entity.
      *
-     * @Route("/", name="checklist_create")
-     * @Method("POST")
+     * @Route("/", name="checklist_create", methods={"POST"})
      * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
@@ -103,8 +99,7 @@ class ChecklistController extends Controller
     /**
      * Displays a form to create a new Checklist entity.
      *
-     * @Route("/new", name="checklist_new")
-     * @Method("GET")
+     * @Route("/new", name="checklist_new", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function newAction()
@@ -135,8 +130,7 @@ class ChecklistController extends Controller
     /**
      * Displays a form to edit an existing Checklist entity.
      *
-     * @Route("/{id}/edit", name="checklist_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="checklist_edit", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id)
@@ -182,8 +176,7 @@ class ChecklistController extends Controller
     /**
      * Edits an existing Checklist entity.
      *
-     * @Route("/{id}", name="checklist_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="checklist_update", methods={"PUT"})
      * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id)
@@ -218,8 +211,7 @@ class ChecklistController extends Controller
     /**
      * Edits an existing Checklist entity.
      *
-     * @Route("/{id}/portcomplete", name="checklist_portcomplete")
-     * @Method("GET")
+     * @Route("/{id}/portcomplete", name="checklist_portcomplete", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function portcompleteAction($id)
@@ -266,8 +258,7 @@ class ChecklistController extends Controller
     /**
      * Edits an existing Checklist entity.
      *
-     * @Route("/{id}/certcomplete", name="checklist_certcomplete")
-     * @Method("GET")
+     * @Route("/{id}/certcomplete", name="checklist_certcomplete", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function certcompleteAction($id)
@@ -320,8 +311,7 @@ class ChecklistController extends Controller
     /**
      * Edits an existing Checklist entity.
      *
-     * @Route("/{id}/graduate", name="checklist_graduate")
-     * @Method("GET")
+     * @Route("/{id}/graduate", name="checklist_graduate", methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function graduateAction($id)
@@ -351,8 +341,7 @@ class ChecklistController extends Controller
     /**
      * Deletes a Checklist entity.
      *
-     * @Route("/{id}", name="checklist_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="checklist_delete", methods={"DELETE"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)

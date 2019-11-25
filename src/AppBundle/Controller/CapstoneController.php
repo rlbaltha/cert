@@ -5,10 +5,9 @@ namespace AppBundle\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Capstone;
 use AppBundle\Form\CapstoneType;
@@ -29,8 +28,7 @@ class CapstoneController extends Controller
     /**
      * Lists all Page entities.
      *
-     * @Route("/list/{tag}", name="capstone")
-     * @Method("GET")
+     * @Route("/list/{tag}", name="capstone", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function indexAction($tag)
@@ -48,9 +46,7 @@ class CapstoneController extends Controller
     /**
      * Lists all Page entities.
      *
-     * @Route("/adminindex/{status}", name="capstone_admin", defaults = {"status" = "Current"})
-     * @Method("GET")
-     * @Template("AppBundle:Capstone:admin.html.twig")
+     * @Route("/adminindex/{status}", name="capstone_admin", defaults = {"status" = "Current"}, methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function adminindexAction($status)
@@ -75,8 +71,7 @@ class CapstoneController extends Controller
     /**
      * Creates a new Capstone entity.
      *
-     * @Route("/", name="capstone_create")
-     * @Method("POST")
+     * @Route("/", name="capstone_create", methods={"POST"})
      * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
@@ -196,9 +191,7 @@ class CapstoneController extends Controller
     /**
      * Displays a form to create a new Capstone entity.
      *
-     * @Route("/new", name="capstone_new")
-     * @Method("GET")
-
+     * @Route("/new", name="capstone_new", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function newAction()
@@ -217,8 +210,7 @@ class CapstoneController extends Controller
     /**
      * Displays a form to edit an existing Capstone entity.
      *
-     * @Route("/{id}/{part}/edit", name="capstone_edit")
-     * @Method("GET")
+     * @Route("/{id}/{part}/edit", name="capstone_edit", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id, $part)
@@ -271,8 +263,7 @@ class CapstoneController extends Controller
     /**
      * Edits an existing Capstone entity.
      *
-     * @Route("/{part}/{id}", name="capstone_update")
-     * @Method("PUT")
+     * @Route("/{part}/{id}", name="capstone_update", methods={"PUT"})
      * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id, $part)
@@ -307,8 +298,7 @@ class CapstoneController extends Controller
     /**
      * Finds and displays a Page entity.
      *
-     * @Route("/show/{id}", name="capstone_show")
-     * @Method("GET")
+     * @Route("/show/{id}", name="capstone_show", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
@@ -378,8 +368,7 @@ class CapstoneController extends Controller
     /**
      * Capstone Ready for review and send email.
      *
-     * @Route("/ready/{type}/{id}", name="capstone_ready")
-     * @Method("GET")
+     * @Route("/ready/{type}/{id}", name="capstone_ready", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function readyAction($id, $type)
@@ -451,8 +440,7 @@ class CapstoneController extends Controller
     /**
      * Approve Application and send email.
      *
-     * @Route("/approve/{id}", name="capstone_approve")
-     * @Method("GET")
+     * @Route("/approve/{id}", name="capstone_approve", methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function approveAction($id)
@@ -517,8 +505,7 @@ class CapstoneController extends Controller
     /**
      * Deletes a Capstone entity.
      *
-     * @Route("/{id}", name="capstone_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="capstone_delete", methods={"DELETE"})
      * @Security("has_role('ROLE_ADMIN)")
      */
     public function deleteAction(Request $request, $id)
