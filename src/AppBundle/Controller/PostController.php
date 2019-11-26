@@ -22,7 +22,6 @@ class PostController extends Controller
      * Lists all Post entities.
      *
      * @Route("/", name="post")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -85,7 +84,6 @@ class PostController extends Controller
      * Displays a form to create a new Post entity.
      *
      * @Route("/new", name="post_new")
-     * @Method("GET")
      */
     public function newAction()
     {
@@ -102,7 +100,6 @@ class PostController extends Controller
      * Finds and displays a Post entity.
      *
      * @Route("/{id}", name="post_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -127,7 +124,6 @@ class PostController extends Controller
      * Displays a form to edit an existing Post entity.
      *
      * @Route("/{id}/edit", name="post_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {

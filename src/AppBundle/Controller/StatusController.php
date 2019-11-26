@@ -22,7 +22,6 @@ class StatusController extends Controller
      * Lists all Status entities.
      *
      * @Route("/", name="status")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -85,7 +84,6 @@ class StatusController extends Controller
      * Displays a form to create a new Status entity.
      *
      * @Route("/new", name="status_new")
-     * @Method("GET")
      */
     public function newAction()
     {
@@ -102,7 +100,6 @@ class StatusController extends Controller
      * Finds and displays a Status entity.
      *
      * @Route("/{id}", name="status_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -127,7 +124,6 @@ class StatusController extends Controller
      * Displays a form to edit an existing Status entity.
      *
      * @Route("/{id}/edit", name="status_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {

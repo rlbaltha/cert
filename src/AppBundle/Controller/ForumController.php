@@ -20,8 +20,7 @@ class ForumController extends Controller
     /**
      * Lists all Forum entities.
      *
-     * @Route("/", name="forum")
-     * @Method("GET")
+     * @Route("/", name="forum", methods={"GET"})
      * @Template()
      */
     public function indexAction()
@@ -42,8 +41,7 @@ class ForumController extends Controller
     /**
      * Creates a new Forum entity.
      *
-     * @Route("/", name="forum_create")
-     * @Method("POST")
+     * @Route("/", name="forum_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -102,8 +100,7 @@ class ForumController extends Controller
     /**
      * Displays a form to create a new Forum entity.
      *
-     * @Route("/new/{id}", name="forum_new" , defaults={"id" = 1})
-     * @Method("GET")
+     * @Route("/new/{id}", name="forum_new" , defaults={"id" = 1}, methods={"GET"})
      */
     public function newAction($id)
     {
@@ -122,8 +119,7 @@ class ForumController extends Controller
     /**
      * Finds and displays a Forum entity.
      *
-     * @Route("/{id}", name="forum_show")
-     * @Method("GET")
+     * @Route("/{id}", name="forum_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -147,8 +143,7 @@ class ForumController extends Controller
     /**
      * Displays a form to edit an existing Forum entity.
      *
-     * @Route("/{id}/edit", name="forum_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="forum_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -191,9 +186,7 @@ class ForumController extends Controller
     /**
      * Edits an existing Forum entity.
      *
-     * @Route("/{id}", name="forum_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="forum_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -235,8 +228,7 @@ class ForumController extends Controller
     /**
      * Deletes a Forum entity.
      *
-     * @Route("/{id}", name="forum_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="forum_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

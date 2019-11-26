@@ -22,7 +22,6 @@ class ReviewController extends Controller
      * Lists all Review entities.
      *
      * @Route("/", name="review")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -99,7 +98,6 @@ class ReviewController extends Controller
      * Displays a form to create a new Review entity.
      *
      * @Route("/new/{checkpointid}/{reviewerid}", name="review_new", defaults = {"checkpointid" = 0, "reviewerid" = 0})
-     * @Method("GET")
      */
     public function newAction($checkpointid, $reviewerid)
     {
@@ -123,7 +121,6 @@ class ReviewController extends Controller
      * Finds and displays a Review entity.
      *
      * @Route("/{id}", name="review_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -148,7 +145,6 @@ class ReviewController extends Controller
      * Displays a form to edit an existing Review entity.
      *
      * @Route("/{id}/edit", name="review_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {

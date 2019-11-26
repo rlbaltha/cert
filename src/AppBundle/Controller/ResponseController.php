@@ -22,7 +22,6 @@ class ResponseController extends Controller
      * Lists all Response entities.
      *
      * @Route("/", name="response")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -85,7 +84,6 @@ class ResponseController extends Controller
      * Displays a form to create a new Response entity.
      *
      * @Route("/new", name="response_new")
-     * @Method("GET")
      */
     public function newAction()
     {
@@ -102,7 +100,6 @@ class ResponseController extends Controller
      * Finds and displays a Response entity.
      *
      * @Route("/{id}", name="response_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -127,7 +124,6 @@ class ResponseController extends Controller
      * Displays a form to edit an existing Response entity.
      *
      * @Route("/{id}/edit", name="response_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {

@@ -24,7 +24,6 @@ class ProgramController extends Controller
      * Finds and displays a Program entity.
      *
      * @Route("/show/{id}", name="program_show")
-     * @Method("GET")
      * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
@@ -104,7 +103,6 @@ class ProgramController extends Controller
      * Displays a form to create a new Program entity.
      *
      * @Route("/new", name="program_new")
-     * @Method("GET")
 
      * @Security("has_role('ROLE_USER')")
      */
@@ -125,7 +123,6 @@ class ProgramController extends Controller
      * Displays a form to edit an existing Program entity.
      *
      * @Route("/{id}/edit", name="program_edit")
-     * @Method("GET")
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id)
@@ -205,7 +202,6 @@ class ProgramController extends Controller
      * Application Ready for review and send email.
      *
      * @Route("/ready/{id}", name="program_ready")
-     * @Method("GET")
      * @Security("has_role('ROLE_USER')")
      */
     public function readyAction($id)
@@ -266,7 +262,6 @@ class ProgramController extends Controller
      * Approve Application and send email.
      *
      * @Route("/approve/{id}", name="program_approve")
-     * @Method("GET")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function approveAction($id)

@@ -22,7 +22,6 @@ class SourceController extends Controller
      * Lists all Source entities.
      *
      * @Route("/{section}/list", name="source", defaults={"section" = "capstone"})
-     * @Method("GET")
      * @Template()
      */
     public function indexAction($section)
@@ -44,7 +43,6 @@ class SourceController extends Controller
      * Lists Content Source entities.
      *
      * @Route("/content", name="content_source")
-     * @Method("GET")
      * @Template()
      */
     public function content_indexAction()
@@ -122,7 +120,6 @@ class SourceController extends Controller
      * Displays a form to create a new Source entity.
      *
      * @Route("/new/{type}", name="source_new", defaults={"type" = "default"})
-     * @Method("GET")
      */
     public function newAction($type)
     {
@@ -140,7 +137,6 @@ class SourceController extends Controller
      * Finds and displays a Source entity.
      *
      * @Route("/{section}/{id}/detail", name="source_show", defaults={"section" = "capstone"})
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id, $section)
@@ -167,7 +163,6 @@ class SourceController extends Controller
      * Displays a form to edit an existing Source entity.
      *
      * @Route("/{id}/edit", name="source_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {

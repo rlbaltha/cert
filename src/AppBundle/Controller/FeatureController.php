@@ -21,8 +21,7 @@ class FeatureController extends Controller
     /**
      * Lists all Feature entities.
      *
-     * @Route("/", name="feature")
-     * @Method("GET")
+     * @Route("/", name="feature", methods={"GET"})
      * @Template()
      */
     public function indexAction()
@@ -38,9 +37,7 @@ class FeatureController extends Controller
     /**
      * Creates a new Feature entity.
      *
-     * @Route("/", name="feature_create")
-     * @Method("POST")
-
+     * @Route("/", name="feature_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -84,8 +81,7 @@ class FeatureController extends Controller
     /**
      * Displays a form to create a new Feature entity.
      *
-     * @Route("/new", name="feature_new")
-     * @Method("GET")
+     * @Route("/new", name="feature_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -102,8 +98,7 @@ class FeatureController extends Controller
     /**
      * Displays a form to edit an existing Feature entity.
      *
-     * @Route("/{id}/edit", name="feature_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="feature_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -146,8 +141,7 @@ class FeatureController extends Controller
     /**
      * Edits an existing Feature entity.
      *
-     * @Route("/{id}", name="feature_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="feature_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -178,8 +172,7 @@ class FeatureController extends Controller
     /**
      * Deletes a Feature entity.
      *
-     * @Route("/{id}", name="feature_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="feature_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

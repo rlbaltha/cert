@@ -21,8 +21,7 @@ class NotificationController extends Controller
     /**
      * Lists all Notification entities.
      *
-     * @Route("/list/{status}", name="notification", defaults={"status" = "Shared"})
-     * @Method("GET")
+     * @Route("/list/{status}", name="notification", defaults={"status" = "Shared"}, methods={"GET"})
      * @Template()
      */
     public function indexAction($status)
@@ -41,9 +40,7 @@ class NotificationController extends Controller
     /**
      * Creates a new Notification entity.
      *
-     * @Route("/", name="notification_create")
-     * @Method("POST")
-
+     * @Route("/", name="notification_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -69,8 +66,7 @@ class NotificationController extends Controller
     /**
      * Creates a new Notification entity.
      *
-     * @Route("/post/{post_id}/{checkpoint_id}", name="checkpoint_notification_create")
-     * @Method("GET")
+     * @Route("/post/{post_id}/{checkpoint_id}", name="checkpoint_notification_create", methods={"GET"})
      */
     public function createFromProjectAction($post_id, $checkpoint_id)
     {
@@ -115,8 +111,7 @@ class NotificationController extends Controller
     /**
      * Displays a form to create a new Notification entity.
      *
-     * @Route("/new", name="notification_new")
-     * @Method("GET")
+     * @Route("/new", name="notification_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -137,8 +132,7 @@ class NotificationController extends Controller
     /**
      * Finds and displays a Notification entity.
      *
-     * @Route("/{id}", name="notification_show")
-     * @Method("GET")
+     * @Route("/{id}", name="notification_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -160,8 +154,7 @@ class NotificationController extends Controller
     /**
      * Displays a form to edit an existing Notification entity.
      *
-     * @Route("/{id}/{checkpoint_id}/edit", name="notification_edit", defaults={"checkpoint_id" = 0})
-     * @Method("GET")
+     * @Route("/{id}/{checkpoint_id}/edit", name="notification_edit", defaults={"checkpoint_id" = 0}, methods={"GET"})
      */
     public function editAction($id, $checkpoint_id)
     {
@@ -202,12 +195,11 @@ class NotificationController extends Controller
         return $form;
     }
 
-    /**
-     * Edits an existing Notification entity.
-     *
-     * @Route("/{id}/{checkpoint_id}", name="notification_update")
-     * @Method("PUT")
 
+     /**
+     * Dismiss an existing Notification entity.
+     *
+     * @Route("/{id}/{checkpoint_id}", name="notification_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id, $checkpoint_id)
     {
@@ -248,8 +240,7 @@ class NotificationController extends Controller
     /**
      * Dismiss an existing Notification entity.
      *
-     * @Route("/{id}/dismiss", name="notification_dismiss")
-     * @Method("GET")
+     * @Route("/{id}/dismiss", name="notification_dismiss", methods={"GET"})
      * @Template()
      */
     public function dismissAction($id)
@@ -269,8 +260,7 @@ class NotificationController extends Controller
     /**
      * Deletes a Notification entity.
      *
-     * @Route("/{id}/{checkpoint_id}", name="notification_delete", defaults={"checkpoint_id" = 0})
-     * @Method("DELETE")
+     * @Route("/{id}/{checkpoint_id}", name="notification_delete", defaults={"checkpoint_id" = 0}, methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id, $checkpoint_id)
     {

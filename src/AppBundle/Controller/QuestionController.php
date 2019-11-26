@@ -68,7 +68,6 @@ class QuestionController extends Controller
      * Displays a form to create a new Question entity.
      *
      * @Route("/new/{id}", name="question_new")
-     * @Method("GET")
      */
     public function newAction($id)
     {
@@ -89,7 +88,6 @@ class QuestionController extends Controller
      * Displays a form to edit an existing Question entity.
      *
      * @Route("/{id}/edit", name="question_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {

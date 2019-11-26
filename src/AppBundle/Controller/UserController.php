@@ -27,7 +27,6 @@ class UserController extends Controller
      * Finds and displays a User entity.
      *
      * @Route("/profile", name="user_profile")
-     * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
@@ -67,7 +66,6 @@ class UserController extends Controller
      * Lists all User entities.
      *
      * @Route("/list/{tag}/{term}/{date}/{view}", name="user", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
-     * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
@@ -108,7 +106,6 @@ class UserController extends Controller
      * Lists all User entities.
      *
      * @Route("/updateactive/{tag}/{term}/{date}/{view}", name="user_updateactive", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
-     * @Method("GET")
      * @Template("AppBundle:User:index.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -155,7 +152,6 @@ class UserController extends Controller
      * Lists all User entities.
      *
      * @Route("/toggle_grad/{id}/{term}/{date}", name="user_toggle_grad", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
-     * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
@@ -185,7 +181,6 @@ class UserController extends Controller
      * Lists all User entities.
      *
      * @Route("/table/{tag}", name="user_table", defaults={"tag" = "Checklist"})
-     * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -206,7 +201,6 @@ class UserController extends Controller
      * Lists  User entities.
      *
      * @Route("/list/{date}/{term}", name="user_graddate")
-     * @Method("GET")
      * @Template("AppBundle:User:index.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -228,7 +222,6 @@ class UserController extends Controller
      * Finds and displays a User entity.
      *
      * @Route("/show/{id}/{tag}/{term}/{date}", name="user_show", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
-     * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
@@ -301,7 +294,6 @@ class UserController extends Controller
      * Displays a form to edit an existing User entity.
      *
      * @Route("/{id}/{return}/edit", name="user_edit" , defaults={"return" = "show"})
-     * @Method("GET")
 
      * @Security("has_role('ROLE_USER')")
      */
@@ -403,7 +395,6 @@ class UserController extends Controller
      * Edits an existing User entity.
      *
      * @Route("/inactive/{id}", name="user_inactive")
-     * @Method("GET")
 
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -461,7 +452,6 @@ class UserController extends Controller
      * Application Ready for review and send email.
      *
      * @Route("/mentee/{id}", name="user_mentee")
-     * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
@@ -492,7 +482,6 @@ class UserController extends Controller
     /**
      *
      * @Route("/mentor/{id}", name="user_mentor")
-     * @Method("GET")
      * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
@@ -525,7 +514,6 @@ class UserController extends Controller
      * Edits an existing User entity.
      *
      * @Route("/pair/mentors", name="user_pairmentors")
-     * @Method("GET")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function pairMentorsAction()
@@ -552,7 +540,6 @@ class UserController extends Controller
      * Lists all User entities.
      *
      * @Route("/mapping/mentor", name="user_mentor_mapping")
-     * @Method("GET")
      * @Template("AppBundle:User:mentormapping.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -576,7 +563,6 @@ class UserController extends Controller
      * Add User Tags to Users
      *
      * @Route("/addtags/{type}/{tagid}", name="addtags")
-     * @Method("GET")
      * @Template("AppBundle:User:index.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */

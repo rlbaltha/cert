@@ -21,8 +21,7 @@ class PageController extends Controller
     /**
      * Lists all Page entities.
      *
-     * @Route("/", name="page")
-     * @Method("GET")
+     * @Route("/", name="page", methods={"GET"})
      * @Template()
      */
     public function indexAction()
@@ -39,9 +38,7 @@ class PageController extends Controller
     /**
      * Creates a new Page entity.
      *
-     * @Route("/", name="page_create")
-     * @Method("POST")
-
+     * @Route("/", name="page_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -85,8 +82,7 @@ class PageController extends Controller
     /**
      * Displays a form to create a new Page entity.
      *
-     * @Route("/new", name="page_new")
-     * @Method("GET")
+     * @Route("/new", name="page_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -102,8 +98,7 @@ class PageController extends Controller
 		/**
      * Finds and displays the current newsletter page.
      *
-     * @Route("/news", name="page_newsletter")
-     * @Method("GET")
+     * @Route("/news", name="page_newsletter", methods={"GET"})
      */
     public function newsletterAction()
     {
@@ -124,8 +119,7 @@ class PageController extends Controller
     /**
      * Finds and displays the default page by section.
      *
-     * @Route("/{section}", name="page_section")
-     * @Method("GET")
+     * @Route("/{section}", name="page_section", methods={"GET"})
      */
     public function sectionAction($section)
     {
@@ -146,8 +140,7 @@ class PageController extends Controller
     /**
      * Finds and displays a Page entity.
      *
-     * @Route("/{id}/show", name="page_show")
-     * @Method("GET")
+     * @Route("/{id}/show", name="page_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -171,8 +164,7 @@ class PageController extends Controller
     /**
      * Displays a form to edit an existing Page entity.
      *
-     * @Route("/{id}/edit", name="page_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="page_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -215,9 +207,7 @@ class PageController extends Controller
     /**
      * Edits an existing Page entity.
      *
-     * @Route("/{id}", name="page_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="page_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -248,8 +238,7 @@ class PageController extends Controller
     /**
      * Deletes a Page entity.
      *
-     * @Route("/{id}", name="page_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="page_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

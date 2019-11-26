@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class DataController extends Controller
 {
     /**
-     * @Route("/index", name="data_index")
+     * @Route("/index", name="data_index", methods={"GET"})
      */
     public function indexAction()
     {
@@ -30,8 +30,7 @@ class DataController extends Controller
     /**
      * Lists all School entities.
      *
-     * @Route("/school.json", name="data_school")
-     * @Method("GET")
+     * @Route("/school.json", name="data_school", methods={"GET"})
      */
     public function schoolAction()
     {
@@ -45,8 +44,7 @@ class DataController extends Controller
     /**
      * Lists all Major entities.
      *
-     * @Route("/major.json", name="data_major")
-     * @Method("GET")
+     * @Route("/major.json", name="data_major", methods={"GET"})
      */
     public function majorAction()
     {
@@ -60,8 +58,7 @@ class DataController extends Controller
     /**
      * Lists all Anchor entities.
      *
-     * @Route("/anchor.json", name="data_anchor")
-     * @Method("GET")
+     * @Route("/anchor.json", name="data_anchor", methods={"GET"})
      */
     public function anchorAction()
     {
@@ -75,8 +72,7 @@ class DataController extends Controller
     /**
      * Lists all Anchor entities.
      *
-     * @Route("/sphere1.json", name="data_sphere1")
-     * @Method("GET")
+     * @Route("/sphere1.json", name="data_sphere1", methods={"GET"})
      */
     public function sphere1Action()
     {
@@ -90,8 +86,7 @@ class DataController extends Controller
     /**
      * Lists all Anchor entities.
      *
-     * @Route("/sphere2.json", name="data_sphere2")
-     * @Method("GET")
+     * @Route("/sphere2.json", name="data_sphere2", methods={"GET"})
      */
     public function sphere2Action()
     {
@@ -105,8 +100,7 @@ class DataController extends Controller
     /**
      * Lists all Anchor entities.
      *
-     * @Route("/sphere3.json", name="data_sphere3")
-     * @Method("GET")
+     * @Route("/sphere3.json", name="data_sphere3", methods={"GET"})
      */
     public function sphere3Action()
     {
@@ -122,8 +116,7 @@ class DataController extends Controller
     /**
      * Lists all School entities.
      *
-     * @Route("/graddate.json", name="data_graddate")
-     * @Method("GET")
+     * @Route("/graddate.json", name="data_graddate", methods={"GET"})
      */
     public function graddateAction()
     {

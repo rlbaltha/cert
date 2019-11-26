@@ -23,8 +23,7 @@ class CourseController extends Controller
      * Lists all Course entities.
      *
      * @Route("/list/{level}/{pillar}/{status}", name="course", defaults={"pillar" = "all", "level" = "all", "status" =
-     *     "approved"})
-     * @Method("GET")
+     *     "approved"}, methods={"GET"})
      */
     public function indexAction($pillar, $level, $status)
     {
@@ -49,8 +48,7 @@ class CourseController extends Controller
     /**
      * Lists all Course entities.
      *
-     * @Route("/listbystatus/{status}", name="course_listbystatus")
-     * @Method("GET")
+     * @Route("/listbystatus/{status}", name="course_listbystatus", methods={"GET"})
      */
     public function listbystatusAction($status)
     {
@@ -69,8 +67,7 @@ class CourseController extends Controller
     /**
      * Lists all Course entities.
      *
-     * @Route("/listbylocation/{location}/{status}", name="course_listbylocation")
-     * @Method("GET")
+     * @Route("/listbylocation/{location}/{status}", name="course_listbylocation", methods={"GET"})
      */
     public function listbylocationAction($location, $status)
     {
@@ -90,8 +87,7 @@ class CourseController extends Controller
     /**
      * Lists all Course entities.
      *
-     * @Route("/listall", name="course_listall")
-     * @Method("GET")
+     * @Route("/listall", name="course_listall", methods={"GET"})
      */
     public function listallAction()
     {
@@ -110,8 +106,7 @@ class CourseController extends Controller
     /**
      * Creates a new Course entity.
      *
-     * @Route("/", name="course_create")
-     * @Method("POST")
+     * @Route("/", name="course_create", methods={"GET"})
      */
     public function createAction(Request $request)
     {
@@ -157,8 +152,7 @@ class CourseController extends Controller
     /**
      * Displays a form to create a new Course entity.
      *
-     * @Route("/new", name="course_new")
-     * @Method("GET")
+     * @Route("/new", name="course_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -174,8 +168,7 @@ class CourseController extends Controller
     /**
      * Finds and displays a Course entity.
      *
-     * @Route("/{id}", name="course_show")
-     * @Method("GET")
+     * @Route("/{id}", name="course_show", methods={"GET"})
      */
     public function showAction($id)
     {
@@ -201,8 +194,7 @@ class CourseController extends Controller
     /**
      * Displays a form to edit an existing Course entity.
      *
-     * @Route("/{id}/edit", name="course_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="course_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -246,8 +238,7 @@ class CourseController extends Controller
     /**
      * Edits an existing Course entity.
      *
-     * @Route("/{id}", name="course_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="course_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -279,8 +270,7 @@ class CourseController extends Controller
     /**
      * Deletes a Course entity.
      *
-     * @Route("/{id}", name="course_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="course_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -321,8 +311,7 @@ class CourseController extends Controller
     /**
      * Approve Application and send email.
      *
-     * @Route("/approval/{state}/{id}", name="course_approval")
-     * @Method("GET")
+     * @Route("/approval/{state}/{id}", name="course_approval", methods={"GET"})
      */
     public function approveAction($id, $state)
     {

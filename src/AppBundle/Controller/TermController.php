@@ -23,7 +23,6 @@ class TermController extends Controller
      * Lists all Term entities.
      *
      * @Route("/", name="term")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -86,7 +85,6 @@ class TermController extends Controller
      * Displays a form to create a new Term entity.
      *
      * @Route("/new", name="term_new")
-     * @Method("GET")
      */
     public function newAction()
     {
@@ -103,7 +101,6 @@ class TermController extends Controller
      * Finds and displays the current Term entity.
      *
      * @Route("/current", name="term_current")
-     * @Method("GET")
      * @Template("AppBundle:Term:show.html.twig")
      */
     public function currentAction()
@@ -128,7 +125,6 @@ class TermController extends Controller
      * Finds and displays a Term entity.
      *
      * @Route("/{id}", name="term_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -154,7 +150,6 @@ class TermController extends Controller
      * Displays a form to edit an existing Term entity.
      *
      * @Route("/{id}/edit", name="term_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {
@@ -232,7 +227,6 @@ class TermController extends Controller
      * Edits an existing Term entity.
      *
      * @Route("/{termid}/{courseid}/remove", name="term_removecourse")
-     * @Method("GET")
      * @Template("AppBundle:Term:show.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -258,7 +252,6 @@ class TermController extends Controller
      * Edits an existing Term entity.
      *
      * @Route("/{courseid}/add", name="term_addcourse")
-     * @Method("GET")
      * @Template("AppBundle:Term:show.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */

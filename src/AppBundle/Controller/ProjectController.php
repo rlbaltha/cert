@@ -23,7 +23,6 @@ class ProjectController extends Controller
      * Lists all Project entities.
      *
      * @Route("/{status}/list", name="project", defaults={"status" = "Active"})
-     * @Method("GET")
      */
     public function indexAction($status)
     {
@@ -72,7 +71,6 @@ class ProjectController extends Controller
      * Creates a new Project entity.
      *
      * @Route("/duplicate/{id}", name="project_duplicate")
-     * @Method("GET")
      */
     public function duplicateAction($id)
     {
@@ -107,7 +105,6 @@ class ProjectController extends Controller
      * Mark an existing Checkpoint entity complete.
      *
      * @Route("/{id}/complete", name="project_complete")
-     * @Method("GET")
      */
     public function completeAction($id)
     {
@@ -145,7 +142,6 @@ class ProjectController extends Controller
      * Displays a form to create a new Project entity.
      *
      * @Route("/new", name="project_new")
-     * @Method("GET")
      */
     public function newAction()
     {
@@ -162,7 +158,6 @@ class ProjectController extends Controller
      * Finds and displays a Project entity.
      *
      * @Route("/{id}", name="project_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -187,7 +182,6 @@ class ProjectController extends Controller
      * Displays a form to edit an existing Project entity.
      *
      * @Route("/{id}/edit", name="project_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {

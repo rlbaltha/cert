@@ -21,8 +21,7 @@ class MajorController extends Controller
     /**
      * Lists all Major entities.
      *
-     * @Route("/", name="major")
-     * @Method("GET")
+     * @Route("/", name="major", methods={"GET"})
      */
     public function indexAction()
     {
@@ -37,9 +36,7 @@ class MajorController extends Controller
     /**
      * Creates a new Major entity.
      *
-     * @Route("/", name="major_create")
-     * @Method("POST")
-
+     * @Route("/", name="major_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -83,9 +80,7 @@ class MajorController extends Controller
     /**
      * Displays a form to create a new Major entity.
      *
-     * @Route("/new", name="major_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new", name="major_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -101,9 +96,7 @@ class MajorController extends Controller
     /**
      * Finds and displays a Major entity.
      *
-     * @Route("/{id}", name="major_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="major_show", methods={"GET"})
      */
     public function showAction($id)
     {
@@ -126,8 +119,7 @@ class MajorController extends Controller
     /**
      * Displays a form to edit an existing Major entity.
      *
-     * @Route("/{id}/edit", name="major_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="major_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -170,9 +162,7 @@ class MajorController extends Controller
     /**
      * Edits an existing Major entity.
      *
-     * @Route("/{id}", name="major_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="major_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -203,8 +193,7 @@ class MajorController extends Controller
     /**
      * Deletes a Major entity.
      *
-     * @Route("/{id}", name="major_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="major_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

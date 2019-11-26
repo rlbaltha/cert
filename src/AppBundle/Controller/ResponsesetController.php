@@ -24,7 +24,6 @@ class ResponsesetController extends Controller
      * Lists all Responseset entities.
      *
      * @Route("/", name="responseset")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -61,7 +60,6 @@ class ResponsesetController extends Controller
      * Displays a form to create a new Responseset entity.
      *
      * @Route("/new/{id}/{questionsetid}", name="responseset_new")
-     * @Method("GET")
      */
     public function newAction($id, $questionsetid)
     {
@@ -119,7 +117,6 @@ class ResponsesetController extends Controller
      * Finds and displays a Responseset entity.
      *
      * @Route("/{id}", name="responseset_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -144,7 +141,6 @@ class ResponsesetController extends Controller
      * Displays a form to edit an existing Responseset entity.
      *
      * @Route("/{id}/edit", name="responseset_edit")
-     * @Method("GET")
      * @Template("AppBundle:Responseset:edit.html.twig")
      */
     public function editAction($id)

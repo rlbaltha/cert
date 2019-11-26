@@ -15,7 +15,6 @@ class DefaultController extends Controller
      * Displays the app homepage
      *
      * @Route("/", name="homepage")
-     * @Method("GET")
      * @Template(":default:index.html.twig")
      */
     public function indexAction(Request $request)

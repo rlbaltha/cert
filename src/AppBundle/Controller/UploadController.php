@@ -27,7 +27,6 @@ class UploadController extends Controller
      * Lists all Upload entities.
      *
      * @Route("/", name="upload")
-     * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -105,7 +104,6 @@ class UploadController extends Controller
      * Displays a form to create a new Upload entity.
      *
      * @Route("/new/{courseid}", name="upload_new" , defaults={"courseid" = 0}))
-     * @Method("GET")
 
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -134,7 +132,6 @@ class UploadController extends Controller
      * Displays a form to edit an existing Upload entity.
      *
      * @Route("/{id}/edit", name="upload_edit")
-     * @Method("GET")
 
      * @Security("has_role('ROLE_ADMIN')")
      */

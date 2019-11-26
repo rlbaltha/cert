@@ -23,8 +23,7 @@ class FacultyController extends Controller
     /**
      * Lists all Faculty entities.
      *
-     * @Route("/{section}/{status}/list", name="faculty", defaults={"section" = "faculty"})
-     * @Method("GET")
+     * @Route("/{section}/{status}/list", name="faculty", defaults={"section" = "faculty"}, methods={"GET"})
      * @Template()
      */
     public function indexAction($status, $section)
@@ -46,8 +45,7 @@ class FacultyController extends Controller
     /**
      * Creates a new Faculty entity.
      *
-     * @Route("/", name="faculty_create")
-     * @Method("POST")
+     * @Route("/", name="faculty_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -72,8 +70,7 @@ class FacultyController extends Controller
     /**
      * Finds and displays a Faculty entity.
      *
-     * @Route("/{id}/account", name="faculty_account")
-     * @Method("GET")
+     * @Route("/{id}/account", name="faculty_account", methods={"GET"})
      */
     public function accountAction($id)
     {
@@ -141,8 +138,7 @@ class FacultyController extends Controller
     /**
      * Displays a form to create a new Faculty entity.
      *
-     * @Route("/new", name="faculty_new")
-     * @Method("GET")
+     * @Route("/new", name="faculty_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -158,8 +154,7 @@ class FacultyController extends Controller
     /**
      * Finds and displays a Faculty entity.
      *
-     * @Route("/{section}/{id}/detail", name="faculty_show", defaults={"section" = "faculty"})
-     * @Method("GET")
+     * @Route("/{section}/{id}/detail", name="faculty_show", defaults={"section" = "faculty"}, methods={"GET"})
      * @Template()
      */
     public function showAction($id, $section)
@@ -183,8 +178,7 @@ class FacultyController extends Controller
     /**
      * Displays a form to edit an existing Faculty entity.
      *
-     * @Route("/{id}/edit", name="faculty_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="faculty_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -228,9 +222,7 @@ class FacultyController extends Controller
     /**
      * Edits an existing Faculty entity.
      *
-     * @Route("/{id}", name="faculty_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="faculty_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -262,8 +254,7 @@ class FacultyController extends Controller
     /**
      * Deletes a Faculty entity.
      *
-     * @Route("/{id}", name="faculty_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="faculty_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

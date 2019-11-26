@@ -22,7 +22,6 @@ class TagController extends Controller
      * Lists all Tag entities.
      *
      * @Route("/type/{type}", name="tag", defaults = {"type": "resource"})
-     * @Method("GET")
      * @Template()
      */
     public function indexAction($type)
@@ -85,7 +84,6 @@ class TagController extends Controller
      * Displays a form to create a new Tag entity.
      *
      * @Route("/new", name="tag_new")
-     * @Method("GET")
      */
     public function newAction()
     {
@@ -103,7 +101,6 @@ class TagController extends Controller
      * Displays a form to edit an existing Tag entity.
      *
      * @Route("/{id}/edit", name="tag_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {

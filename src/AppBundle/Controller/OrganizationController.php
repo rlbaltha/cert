@@ -21,8 +21,7 @@ class OrganizationController extends Controller
     /**
      * Lists all Organization entities.
      *
-     * @Route("/", name="organization")
-     * @Method("GET")
+     * @Route("/", name="organization", methods={"GET"})
      * @Template()
      */
     public function indexAction()
@@ -38,9 +37,7 @@ class OrganizationController extends Controller
     /**
      * Creates a new Organization entity.
      *
-     * @Route("/", name="organization_create")
-     * @Method("POST")
-
+     * @Route("/", name="organization_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -84,8 +81,7 @@ class OrganizationController extends Controller
     /**
      * Displays a form to create a new Organization entity.
      *
-     * @Route("/new", name="organization_new")
-     * @Method("GET")
+     * @Route("/new", name="organization_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -101,8 +97,7 @@ class OrganizationController extends Controller
     /**
      * Finds and displays a Organization entity.
      *
-     * @Route("/{id}", name="organization_show")
-     * @Method("GET")
+     * @Route("/{id}", name="organization_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -126,8 +121,7 @@ class OrganizationController extends Controller
     /**
      * Displays a form to edit an existing Organization entity.
      *
-     * @Route("/{id}/edit", name="organization_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="organization_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -170,9 +164,7 @@ class OrganizationController extends Controller
     /**
      * Edits an existing Organization entity.
      *
-     * @Route("/{id}", name="organization_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="organization_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -203,8 +195,7 @@ class OrganizationController extends Controller
     /**
      * Deletes a Organization entity.
      *
-     * @Route("/{id}", name="organization_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="organization_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

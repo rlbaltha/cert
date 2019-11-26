@@ -23,7 +23,6 @@ class PartnerController extends Controller
      * Lists all Partner entities.
      *
      * @Route("/{section}/{status}/list", name="partner", defaults={"status" = "current", "section" = "capstone"})
-     * @Method("GET")
      * @Template()
      */
     public function indexAction($status, $section)
@@ -90,7 +89,6 @@ class PartnerController extends Controller
      * Displays a form to create a new Partner entity.
      *
      * @Route("/new", name="partner_new")
-     * @Method("GET")
      */
     public function newAction()
     {
@@ -107,7 +105,6 @@ class PartnerController extends Controller
      * Finds and displays a Partner entity.
      *
      * @Route("/{section}/{id}/detail", name="partner_show", defaults={"section" = "capstone"})
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id, $section)
@@ -137,7 +134,6 @@ class PartnerController extends Controller
      * Displays a form to edit an existing Partner entity.
      *
      * @Route("/{id}/edit", name="partner_edit")
-     * @Method("GET")
      */
     public function editAction($id)
     {
@@ -215,7 +211,6 @@ class PartnerController extends Controller
      * Mark an existing Idea entity approved.
      *
      * @Route("/{id}/{status}", name="partner_status")
-     * @Method("GET")
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
