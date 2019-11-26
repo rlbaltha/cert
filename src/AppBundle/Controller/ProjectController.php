@@ -22,7 +22,7 @@ class ProjectController extends Controller
     /**
      * Lists all Project entities.
      *
-     * @Route("/{status}/list", name="project", defaults={"status" = "Active"})
+     * @Route("/{status}/list", name="project", defaults={"status" = "Active"}, methods={"GET"})
      */
     public function indexAction($status)
     {
@@ -37,9 +37,7 @@ class ProjectController extends Controller
     /**
      * Creates a new Project entity.
      *
-     * @Route("/", name="project_create")
-     * @Method("POST")
-
+     * @Route("/", name="project_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -70,7 +68,7 @@ class ProjectController extends Controller
     /**
      * Creates a new Project entity.
      *
-     * @Route("/duplicate/{id}", name="project_duplicate")
+     * @Route("/duplicate/{id}", name="project_duplicate", methods={"GET"})
      */
     public function duplicateAction($id)
     {
@@ -104,7 +102,7 @@ class ProjectController extends Controller
     /**
      * Mark an existing Checkpoint entity complete.
      *
-     * @Route("/{id}/complete", name="project_complete")
+     * @Route("/{id}/complete", name="project_complete", methods={"GET"})
      */
     public function completeAction($id)
     {
@@ -141,7 +139,7 @@ class ProjectController extends Controller
     /**
      * Displays a form to create a new Project entity.
      *
-     * @Route("/new", name="project_new")
+     * @Route("/new", name="project_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -157,7 +155,7 @@ class ProjectController extends Controller
     /**
      * Finds and displays a Project entity.
      *
-     * @Route("/{id}", name="project_show")
+     * @Route("/{id}", name="project_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -181,7 +179,7 @@ class ProjectController extends Controller
     /**
      * Displays a form to edit an existing Project entity.
      *
-     * @Route("/{id}/edit", name="project_edit")
+     * @Route("/{id}/edit", name="project_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -224,9 +222,7 @@ class ProjectController extends Controller
     /**
      * Edits an existing Project entity.
      *
-     * @Route("/{id}", name="project_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="project_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -257,8 +253,7 @@ class ProjectController extends Controller
     /**
      * Deletes a Project entity.
      *
-     * @Route("/{id}", name="project_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="project_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

@@ -22,7 +22,7 @@ class PartnerController extends Controller
     /**
      * Lists all Partner entities.
      *
-     * @Route("/{section}/{status}/list", name="partner", defaults={"status" = "current", "section" = "capstone"})
+     * @Route("/{section}/{status}/list", name="partner", defaults={"status" = "current", "section" = "capstone"}, methods={"GET"})
      * @Template()
      */
     public function indexAction($status, $section)
@@ -42,9 +42,7 @@ class PartnerController extends Controller
     /**
      * Creates a new Partner entity.
      *
-     * @Route("/", name="partner_create")
-     * @Method("POST")
-
+     * @Route("/", name="partner_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -88,7 +86,7 @@ class PartnerController extends Controller
     /**
      * Displays a form to create a new Partner entity.
      *
-     * @Route("/new", name="partner_new")
+     * @Route("/new", name="partner_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -104,7 +102,7 @@ class PartnerController extends Controller
     /**
      * Finds and displays a Partner entity.
      *
-     * @Route("/{section}/{id}/detail", name="partner_show", defaults={"section" = "capstone"})
+     * @Route("/{section}/{id}/detail", name="partner_show", defaults={"section" = "capstone"}, methods={"GET"})
      * @Template()
      */
     public function showAction($id, $section)
@@ -133,7 +131,7 @@ class PartnerController extends Controller
     /**
      * Displays a form to edit an existing Partner entity.
      *
-     * @Route("/{id}/edit", name="partner_edit")
+     * @Route("/{id}/edit", name="partner_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -176,9 +174,7 @@ class PartnerController extends Controller
     /**
      * Edits an existing Partner entity.
      *
-     * @Route("/{id}", name="partner_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="partner_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -210,7 +206,7 @@ class PartnerController extends Controller
     /**
      * Mark an existing Idea entity approved.
      *
-     * @Route("/{id}/{status}", name="partner_status")
+     * @Route("/{id}/{status}", name="partner_status", methods={"GET"})
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -231,8 +227,7 @@ class PartnerController extends Controller
     /**
      * Deletes a Partner entity.
      *
-     * @Route("/{id}", name="partner_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="partner_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

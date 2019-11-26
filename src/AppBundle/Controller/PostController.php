@@ -21,7 +21,7 @@ class PostController extends Controller
     /**
      * Lists all Post entities.
      *
-     * @Route("/", name="post")
+     * @Route("/", name="post", methods={"GET"})
      * @Template()
      */
     public function indexAction()
@@ -37,9 +37,7 @@ class PostController extends Controller
     /**
      * Creates a new Post entity.
      *
-     * @Route("/", name="post_create")
-     * @Method("POST")
-
+     * @Route("/", name="post_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -83,7 +81,7 @@ class PostController extends Controller
     /**
      * Displays a form to create a new Post entity.
      *
-     * @Route("/new", name="post_new")
+     * @Route("/new", name="post_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -99,7 +97,7 @@ class PostController extends Controller
     /**
      * Finds and displays a Post entity.
      *
-     * @Route("/{id}", name="post_show")
+     * @Route("/{id}", name="post_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -123,7 +121,7 @@ class PostController extends Controller
     /**
      * Displays a form to edit an existing Post entity.
      *
-     * @Route("/{id}/edit", name="post_edit")
+     * @Route("/{id}/edit", name="post_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -166,9 +164,7 @@ class PostController extends Controller
     /**
      * Edits an existing Post entity.
      *
-     * @Route("/{id}", name="post_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="post_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -199,8 +195,7 @@ class PostController extends Controller
     /**
      * Deletes a Post entity.
      *
-     * @Route("/{id}", name="post_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="post_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

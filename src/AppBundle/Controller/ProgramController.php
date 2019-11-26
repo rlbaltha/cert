@@ -23,7 +23,7 @@ class ProgramController extends Controller
     /**
      * Finds and displays a Program entity.
      *
-     * @Route("/show/{id}", name="program_show")
+     * @Route("/show/{id}", name="program_show", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function showAction($id)
@@ -46,8 +46,7 @@ class ProgramController extends Controller
     /**
      * Creates a new Program entity.
      *
-     * @Route("/", name="program_create")
-     * @Method("POST")
+     * @Route("/", name="program_create", methods={"POST"})
      * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
@@ -102,7 +101,7 @@ class ProgramController extends Controller
     /**
      * Displays a form to create a new Program entity.
      *
-     * @Route("/new", name="program_new")
+     * @Route("/new", name="program_new", methods={"GET"})
 
      * @Security("has_role('ROLE_USER')")
      */
@@ -122,7 +121,7 @@ class ProgramController extends Controller
     /**
      * Displays a form to edit an existing Program entity.
      *
-     * @Route("/{id}/edit", name="program_edit")
+     * @Route("/{id}/edit", name="program_edit", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id)
@@ -167,8 +166,7 @@ class ProgramController extends Controller
     /**
      * Edits an existing Program entity.
      *
-     * @Route("/{id}", name="program_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="program_update", methods={"PUT"})
      * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id)
@@ -201,7 +199,7 @@ class ProgramController extends Controller
     /**
      * Application Ready for review and send email.
      *
-     * @Route("/ready/{id}", name="program_ready")
+     * @Route("/ready/{id}", name="program_ready", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function readyAction($id)
@@ -261,7 +259,7 @@ class ProgramController extends Controller
     /**
      * Approve Application and send email.
      *
-     * @Route("/approve/{id}", name="program_approve")
+     * @Route("/approve/{id}", name="program_approve", methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function approveAction($id)
@@ -370,8 +368,7 @@ class ProgramController extends Controller
     /**
      * Deletes a Program entity.
      *
-     * @Route("/{id}", name="program_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="program_delete", methods={"DELETE"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
