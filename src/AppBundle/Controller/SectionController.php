@@ -21,8 +21,7 @@ class SectionController extends Controller
     /**
      * Lists all Section entities.
      *
-     * @Route("/", name="section")
-     * @Method("GET")
+     * @Route("/", name="section", methods={"GET"})
      */
     public function indexAction()
     {
@@ -37,9 +36,7 @@ class SectionController extends Controller
     /**
      * Creates a new Section entity.
      *
-     * @Route("/", name="section_create")
-     * @Method("POST")
-
+     * @Route("/", name="section_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -83,8 +80,7 @@ class SectionController extends Controller
     /**
      * Displays a form to create a new Section entity.
      *
-     * @Route("/new", name="section_new")
-     * @Method("GET")
+     * @Route("/new", name="section_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -100,8 +96,7 @@ class SectionController extends Controller
     /**
      * Finds and displays a Section entity.
      *
-     * @Route("/{id}", name="section_show")
-     * @Method("GET")
+     * @Route("/{id}", name="section_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -125,8 +120,7 @@ class SectionController extends Controller
     /**
      * Displays a form to edit an existing Section entity.
      *
-     * @Route("/{id}/edit", name="section_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="section_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -169,9 +163,7 @@ class SectionController extends Controller
     /**
      * Edits an existing Section entity.
      *
-     * @Route("/{id}", name="section_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="section_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -202,8 +194,7 @@ class SectionController extends Controller
     /**
      * Deletes a Section entity.
      *
-     * @Route("/{id}", name="section_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="section_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

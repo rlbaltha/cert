@@ -21,8 +21,7 @@ class ResponseController extends Controller
     /**
      * Lists all Response entities.
      *
-     * @Route("/", name="response")
-     * @Template()
+     * @Route("/", name="response", methods={"GET"})
      */
     public function indexAction()
     {
@@ -37,9 +36,7 @@ class ResponseController extends Controller
     /**
      * Creates a new Response entity.
      *
-     * @Route("/", name="response_create")
-     * @Method("POST")
-
+     * @Route("/", name="response_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -83,7 +80,7 @@ class ResponseController extends Controller
     /**
      * Displays a form to create a new Response entity.
      *
-     * @Route("/new", name="response_new")
+     * @Route("/new", name="response_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -99,8 +96,7 @@ class ResponseController extends Controller
     /**
      * Finds and displays a Response entity.
      *
-     * @Route("/{id}", name="response_show")
-     * @Template()
+     * @Route("/{id}", name="response_show", methods={"GET"})
      */
     public function showAction($id)
     {
@@ -123,7 +119,7 @@ class ResponseController extends Controller
     /**
      * Displays a form to edit an existing Response entity.
      *
-     * @Route("/{id}/edit", name="response_edit")
+     * @Route("/{id}/edit", name="response_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -166,9 +162,7 @@ class ResponseController extends Controller
     /**
      * Edits an existing Response entity.
      *
-     * @Route("/{id}", name="response_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="response_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -199,8 +193,7 @@ class ResponseController extends Controller
     /**
      * Deletes a Response entity.
      *
-     * @Route("/{id}", name="response_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="response_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

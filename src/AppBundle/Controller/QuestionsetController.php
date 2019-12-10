@@ -21,9 +21,7 @@ class QuestionsetController extends Controller
     /**
      * Lists all Questionset entities.
      *
-     * @Route("/", name="questionset")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="questionset", methods={"GET"})
      */
     public function indexAction()
     {
@@ -38,9 +36,7 @@ class QuestionsetController extends Controller
     /**
      * Creates a new Questionset entity.
      *
-     * @Route("/", name="questionset_create")
-     * @Method("POST")
-
+     * @Route("/", name="questionset_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -84,8 +80,7 @@ class QuestionsetController extends Controller
     /**
      * Displays a form to create a new Questionset entity.
      *
-     * @Route("/new", name="questionset_new")
-     * @Method("GET")
+     * @Route("/new", name="questionset_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -101,9 +96,7 @@ class QuestionsetController extends Controller
     /**
      * Finds and displays a Questionset entity.
      *
-     * @Route("/{id}", name="questionset_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="questionset_show", methods={"GET"})
      */
     public function showAction($id)
     {
@@ -126,8 +119,7 @@ class QuestionsetController extends Controller
     /**
      * Displays a form to edit an existing Questionset entity.
      *
-     * @Route("/{id}/edit", name="questionset_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="questionset_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -170,9 +162,7 @@ class QuestionsetController extends Controller
     /**
      * Edits an existing Questionset entity.
      *
-     * @Route("/{id}", name="questionset_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="questionset_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -203,8 +193,7 @@ class QuestionsetController extends Controller
     /**
      * Deletes a Questionset entity.
      *
-     * @Route("/{id}", name="questionset_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="questionset_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

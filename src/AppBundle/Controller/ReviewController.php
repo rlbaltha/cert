@@ -21,8 +21,7 @@ class ReviewController extends Controller
     /**
      * Lists all Review entities.
      *
-     * @Route("/", name="review")
-     * @Template()
+     * @Route("/", name="review", methods={"GET"})
      */
     public function indexAction()
     {
@@ -37,9 +36,7 @@ class ReviewController extends Controller
     /**
      * Creates a new Review entity.
      *
-     * @Route("/{checkpointid}/{reviewerid}", name="review_create")
-     * @Method("POST")
-
+     * @Route("/{checkpointid}/{reviewerid}", name="review_create", methods={"POST"})
      */
     public function createAction(Request $request, $checkpointid, $reviewerid)
     {
@@ -97,7 +94,7 @@ class ReviewController extends Controller
     /**
      * Displays a form to create a new Review entity.
      *
-     * @Route("/new/{checkpointid}/{reviewerid}", name="review_new", defaults = {"checkpointid" = 0, "reviewerid" = 0})
+     * @Route("/new/{checkpointid}/{reviewerid}", name="review_new", defaults = {"checkpointid" = 0, "reviewerid" = 0}, methods={"GET"})
      */
     public function newAction($checkpointid, $reviewerid)
     {
@@ -120,8 +117,7 @@ class ReviewController extends Controller
     /**
      * Finds and displays a Review entity.
      *
-     * @Route("/{id}", name="review_show")
-     * @Template()
+     * @Route("/{id}", name="review_show", methods={"GET"})
      */
     public function showAction($id)
     {
@@ -144,7 +140,7 @@ class ReviewController extends Controller
     /**
      * Displays a form to edit an existing Review entity.
      *
-     * @Route("/{id}/edit", name="review_edit")
+     * @Route("/{id}/edit", name="review_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -187,9 +183,7 @@ class ReviewController extends Controller
     /**
      * Edits an existing Review entity.
      *
-     * @Route("/{id}", name="review_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="review_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -226,8 +220,7 @@ class ReviewController extends Controller
     /**
      * Deletes a Review entity.
      *
-     * @Route("/{id}", name="review_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="review_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

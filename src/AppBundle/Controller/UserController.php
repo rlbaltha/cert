@@ -26,7 +26,7 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/profile", name="user_profile")
+     * @Route("/profile", name="user_profile", methods={"GET"})
      * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
@@ -65,7 +65,7 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/list/{tag}/{term}/{date}/{view}", name="user", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
+     * @Route("/list/{tag}/{term}/{date}/{view}", name="user", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"}, methods={"GET"})
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
@@ -105,7 +105,7 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/updateactive/{tag}/{term}/{date}/{view}", name="user_updateactive", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
+     * @Route("/updateactive/{tag}/{term}/{date}/{view}", name="user_updateactive", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"}, methods={"GET"})
      * @Template("AppBundle:User:index.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -151,7 +151,7 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/toggle_grad/{id}/{term}/{date}", name="user_toggle_grad", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
+     * @Route("/toggle_grad/{id}/{term}/{date}", name="user_toggle_grad", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"}, methods={"GET"})
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
@@ -180,7 +180,7 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/table/{tag}", name="user_table", defaults={"tag" = "Checklist"})
+     * @Route("/table/{tag}", name="user_table", defaults={"tag" = "Checklist"}, methods={"GET"})
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -200,7 +200,7 @@ class UserController extends Controller
     /**
      * Lists  User entities.
      *
-     * @Route("/list/{date}/{term}", name="user_graddate")
+     * @Route("/list/{date}/{term}", name="user_graddate", methods={"GET"})
      * @Template("AppBundle:User:index.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -221,7 +221,7 @@ class UserController extends Controller
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/show/{id}/{tag}/{term}/{date}", name="user_show", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"})
+     * @Route("/show/{id}/{tag}/{term}/{date}", name="user_show", defaults={"tag" = "students", "term" = "All", "date" = "All", "view" = "index"}, methods={"GET"})
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
@@ -260,7 +260,7 @@ class UserController extends Controller
     /**
      * Creates a pdf of users work
      *
-     * @Route("/{id}/pdf", name="pdf")
+     * @Route("/{id}/pdf", name="pdf", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function createPdfAction($id)
@@ -293,7 +293,7 @@ class UserController extends Controller
     /**
      * Displays a form to edit an existing User entity.
      *
-     * @Route("/{id}/{return}/edit", name="user_edit" , defaults={"return" = "show"})
+     * @Route("/{id}/{return}/edit", name="user_edit" , defaults={"return" = "show"}, methods={"GET"})
 
      * @Security("has_role('ROLE_USER')")
      */
@@ -310,11 +310,11 @@ class UserController extends Controller
         $editForm = $this->createEditForm($entity, $return);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -348,9 +348,7 @@ class UserController extends Controller
     /**
      * Edits an existing User entity.
      *
-     * @Route("/{id}/{return}", name="user_update")
-     * @Method("PUT")
-
+     * @Route("/{id}/{return}", name="user_update", methods={"PUt"})
      * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id, $return)
@@ -394,7 +392,7 @@ class UserController extends Controller
     /**
      * Edits an existing User entity.
      *
-     * @Route("/inactive/{id}", name="user_inactive")
+     * @Route("/inactive/{id}", name="user_inactive", methods={"GET"})
 
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -451,7 +449,7 @@ class UserController extends Controller
     /**
      * Application Ready for review and send email.
      *
-     * @Route("/mentee/{id}", name="user_mentee")
+     * @Route("/mentee/{id}", name="user_mentee", methods={"GET"})
      * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
@@ -481,7 +479,7 @@ class UserController extends Controller
 
     /**
      *
-     * @Route("/mentor/{id}", name="user_mentor")
+     * @Route("/mentor/{id}", name="user_mentor", methods={"GET"})
      * @Template("AppBundle:User:show.html.twig")
      * @Security("has_role('ROLE_USER')")
      */
@@ -513,7 +511,7 @@ class UserController extends Controller
     /**
      * Edits an existing User entity.
      *
-     * @Route("/pair/mentors", name="user_pairmentors")
+     * @Route("/pair/mentors", name="user_pairmentors", methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function pairMentorsAction()
@@ -539,7 +537,7 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/mapping/mentor", name="user_mentor_mapping")
+     * @Route("/mapping/mentor", name="user_mentor_mapping", methods={"GET"})
      * @Template("AppBundle:User:mentormapping.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -562,7 +560,7 @@ class UserController extends Controller
     /**
      * Add User Tags to Users
      *
-     * @Route("/addtags/{type}/{tagid}", name="addtags")
+     * @Route("/addtags/{type}/{tagid}", name="addtags", methods={"GET"})
      * @Template("AppBundle:User:index.html.twig")
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -608,8 +606,7 @@ class UserController extends Controller
     /**
      * Deletes a User entity.
      *
-     * @Route("/{id}", name="user_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="user_delete", methods={"DELETE"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)

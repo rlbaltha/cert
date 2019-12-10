@@ -26,7 +26,7 @@ class UploadController extends Controller
     /**
      * Lists all Upload entities.
      *
-     * @Route("/", name="upload")
+     * @Route("/", name="upload", methods={"GET"})
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -44,9 +44,7 @@ class UploadController extends Controller
     /**
      * Creates a new Upload entity.
      *
-     * @Route("/", name="upload_create")
-     * @Method("POST")
-
+     * @Route("/", name="upload_create", methods={"POST"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function createAction(Request $request)
@@ -103,8 +101,7 @@ class UploadController extends Controller
     /**
      * Displays a form to create a new Upload entity.
      *
-     * @Route("/new/{courseid}", name="upload_new" , defaults={"courseid" = 0}))
-
+     * @Route("/new/{courseid}", name="upload_new" , defaults={"courseid" = 0}, methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction($courseid)
@@ -131,7 +128,7 @@ class UploadController extends Controller
     /**
      * Displays a form to edit an existing Upload entity.
      *
-     * @Route("/{id}/edit", name="upload_edit")
+     * @Route("/{id}/edit", name="upload_edit", methods={"GET"})
 
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -183,9 +180,7 @@ class UploadController extends Controller
     /**
      * Edits an existing Upload entity.
      *
-     * @Route("/{id}", name="upload_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="upload_update", methods={"PUt"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function updateAction(Request $request, $id)
@@ -220,8 +215,7 @@ class UploadController extends Controller
     /**
      * Deletes a Upload entity.
      *
-     * @Route("/{id}", name="upload_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="upload_delete", methods={"DELETE"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $id)
@@ -267,7 +261,7 @@ class UploadController extends Controller
     /**
      * Finds and displays a File.
      *
-     * @Route("/{id}/get", name="upload_get")
+     * @Route("/{id}/get", name="upload_get", methods={"GET"})
      *
      */
     public function getAction($id) {
@@ -363,7 +357,7 @@ class UploadController extends Controller
      * Import  from csv
      * using https://github.com/ddeboer/data-import
      *
-     * @Route("/import/{filetype}/{entity}/{id}", name="import_upload")
+     * @Route("/import/{filetype}/{entity}/{id}", name="import_upload", methods={"GET"})
      */
     public function importAction($id, $filetype, $entity) {
         $em = $this->getDoctrine()->getManager();

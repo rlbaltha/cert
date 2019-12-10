@@ -21,7 +21,7 @@ class TagController extends Controller
     /**
      * Lists all Tag entities.
      *
-     * @Route("/type/{type}", name="tag", defaults = {"type": "resource"})
+     * @Route("/type/{type}", name="tag", defaults = {"type": "resource"}, methods={"GET"})
      * @Template()
      */
     public function indexAction($type)
@@ -37,9 +37,7 @@ class TagController extends Controller
     /**
      * Creates a new Tag entity.
      *
-     * @Route("/", name="tag_create")
-     * @Method("POST")
-
+     * @Route("/", name="tag_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -83,7 +81,7 @@ class TagController extends Controller
     /**
      * Displays a form to create a new Tag entity.
      *
-     * @Route("/new", name="tag_new")
+     * @Route("/new", name="tag_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -100,7 +98,7 @@ class TagController extends Controller
     /**
      * Displays a form to edit an existing Tag entity.
      *
-     * @Route("/{id}/edit", name="tag_edit")
+     * @Route("/{id}/edit", name="tag_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -143,9 +141,7 @@ class TagController extends Controller
     /**
      * Edits an existing Tag entity.
      *
-     * @Route("/{id}", name="tag_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="tag_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -176,8 +172,7 @@ class TagController extends Controller
     /**
      * Deletes a Tag entity.
      *
-     * @Route("/{id}", name="tag_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="tag_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

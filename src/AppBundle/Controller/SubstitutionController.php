@@ -22,8 +22,7 @@ class SubstitutionController extends Controller
     /**
      * Lists all Substitution entities.
      *
-     * @Route("/index/{status}", name="substitution", defaults={"status" = "Created"})
-     * @Method("GET")
+     * @Route("/index/{status}", name="substitution", defaults={"status" = "Created"}, methods={"GET"})
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
@@ -40,9 +39,7 @@ class SubstitutionController extends Controller
     /**
      * Creates a new Substitution entity.
      *
-     * @Route("/", name="substitution_create")
-     * @Method("POST")
-
+     * @Route("/", name="substitution_create", methods={"POST"})
      * @Security("has_role('ROLE_USER')")
      */
     public function createAction(Request $request)
@@ -91,9 +88,7 @@ class SubstitutionController extends Controller
     /**
      * Displays a form to create a new Substitution entity.
      *
-     * @Route("/new", name="substitution_new")
-     * @Method("GET")
-
+     * @Route("/new", name="substitution_new", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function newAction()
@@ -110,8 +105,7 @@ class SubstitutionController extends Controller
     /**
      * Finds and displays a Substitution entity.
      *
-     * @Route("/{id}", name="substitution_show")
-     * @Method("GET")
+     * @Route("/{id}", name="substitution_show", methods={"GET"})
      * @Template()
      * @Security("has_role('ROLE_USER')")
      */
@@ -136,9 +130,7 @@ class SubstitutionController extends Controller
     /**
      * Displays a form to edit an existing Substitution entity.
      *
-     * @Route("/{id}/edit", name="substitution_edit")
-     * @Method("GET")
-
+     * @Route("/{id}/edit", name="substitution_edit", methods={"GET"})
      * @Security("has_role('ROLE_USER')")
      */
     public function editAction($id)
@@ -182,9 +174,7 @@ class SubstitutionController extends Controller
     /**
      * Edits an existing Substitution entity.
      *
-     * @Route("/{id}", name="substitution_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="substitution_update", methods={"PUT"})
      * @Security("has_role('ROLE_USER')")
      */
     public function updateAction(Request $request, $id)
@@ -219,9 +209,7 @@ class SubstitutionController extends Controller
     /**
      * Edits an existing Substitution entity.
      *
-     * @Route("/approve/{id}", name="substitution_approve")
-     * @Method("GET")
-
+     * @Route("/approve/{id}", name="substitution_approve", methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function approveAction(Request $request, $id)
@@ -263,9 +251,7 @@ class SubstitutionController extends Controller
     /**
      * Edits an existing Substitution entity.
      *
-     * @Route("/deny/{id}", name="substitution_deny")
-     * @Method("GET")
-
+     * @Route("/deny/{id}", name="substitution_deny", methods={"GET"})
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function denyAction(Request $request, $id)
@@ -285,8 +271,7 @@ class SubstitutionController extends Controller
     /**
      * Deletes a Substitution entity.
      *
-     * @Route("/{id}", name="substitution_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="substitution_delete", methods={"DELETE"})
      * @Security("has_role('ROLE_USER')")
      */
     public function deleteAction(Request $request, $id)

@@ -13,6 +13,9 @@ services:
     fos_user.doctrine_registry:
         alias: doctrine
 
+sensio_framework_extra:
+  router:
+    annotations: false
 
 framework:
     #esi:             ~
@@ -30,7 +33,6 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
     session:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
@@ -105,8 +107,8 @@ vich_uploader:
 
     mappings:
         upload:
-            uri_prefix:         %kernel.root_dir%/../uploads
-            upload_destination: %kernel.root_dir%/../uploads
+            uri_prefix:         "%kernel.root_dir%/../uploads"
+            upload_destination: "%kernel.root_dir%/../uploads"
             delete_on_remove: true # determines whether to delete file upon removal of entity
             inject_on_load: true # determines whether to inject a File instance upon load
 

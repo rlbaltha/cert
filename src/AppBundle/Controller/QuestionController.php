@@ -21,9 +21,7 @@ class QuestionController extends Controller
     /**
      * Creates a new Question entity.
      *
-     * @Route("/", name="question_create")
-     * @Method("POST")
-
+     * @Route("/", name="question_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -67,7 +65,7 @@ class QuestionController extends Controller
     /**
      * Displays a form to create a new Question entity.
      *
-     * @Route("/new/{id}", name="question_new")
+     * @Route("/new/{id}", name="question_new", methods={"POST"})
      */
     public function newAction($id)
     {
@@ -87,7 +85,7 @@ class QuestionController extends Controller
     /**
      * Displays a form to edit an existing Question entity.
      *
-     * @Route("/{id}/edit", name="question_edit")
+     * @Route("/{id}/edit", name="question_edit", methods={"POST"})
      */
     public function editAction($id)
     {
@@ -130,9 +128,7 @@ class QuestionController extends Controller
     /**
      * Edits an existing Question entity.
      *
-     * @Route("/{id}", name="question_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="question_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -163,8 +159,7 @@ class QuestionController extends Controller
     /**
      * Deletes a Question entity.
      *
-     * @Route("/{id}", name="question_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="question_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

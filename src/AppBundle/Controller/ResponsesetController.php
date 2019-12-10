@@ -23,8 +23,7 @@ class ResponsesetController extends Controller
     /**
      * Lists all Responseset entities.
      *
-     * @Route("/", name="responseset")
-     * @Template()
+     * @Route("/", name="responseset", methods={"GET"})
      */
     public function indexAction()
     {
@@ -59,7 +58,7 @@ class ResponsesetController extends Controller
     /**
      * Displays a form to create a new Responseset entity.
      *
-     * @Route("/new/{id}/{questionsetid}", name="responseset_new")
+     * @Route("/new/{id}/{questionsetid}", name="responseset_new", methods={"GET"})
      */
     public function newAction($id, $questionsetid)
     {
@@ -116,8 +115,7 @@ class ResponsesetController extends Controller
     /**
      * Finds and displays a Responseset entity.
      *
-     * @Route("/{id}", name="responseset_show")
-     * @Template()
+     * @Route("/{id}", name="responseset_show", methods={"GET"})
      */
     public function showAction($id)
     {
@@ -140,8 +138,7 @@ class ResponsesetController extends Controller
     /**
      * Displays a form to edit an existing Responseset entity.
      *
-     * @Route("/{id}/edit", name="responseset_edit")
-     * @Template("AppBundle:Responseset:edit.html.twig")
+     * @Route("/{id}/edit", name="responseset_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -184,8 +181,7 @@ class ResponsesetController extends Controller
     /**
      * Edits an existing Responseset entity.
      *
-     * @Route("/{id}", name="responseset_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="responseset_update", methods={"PUT"})
      * @Template("AppBundle:Responseset:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -218,8 +214,7 @@ class ResponsesetController extends Controller
     /**
      * Deletes a Responseset entity.
      *
-     * @Route("/{id}", name="responseset_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="responseset_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

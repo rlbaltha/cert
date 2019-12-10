@@ -21,8 +21,7 @@ class SourceController extends Controller
     /**
      * Lists all Source entities.
      *
-     * @Route("/{section}/list", name="source", defaults={"section" = "capstone"})
-     * @Template()
+     * @Route("/{section}/list", name="source", defaults={"section" = "capstone"}, methods={"GET"})
      */
     public function indexAction($section)
     {
@@ -42,7 +41,7 @@ class SourceController extends Controller
     /**
      * Lists Content Source entities.
      *
-     * @Route("/content", name="content_source")
+     * @Route("/content", name="content_source", methods={"GET"})
      * @Template()
      */
     public function content_indexAction()
@@ -61,9 +60,7 @@ class SourceController extends Controller
     /**
      * Creates a new Source entity.
      *
-     * @Route("/create/{type}", name="source_create")
-     * @Method("POST")
-
+     * @Route("/create/{type}", name="source_create", methods={"POST"})
      */
     public function createAction(Request $request, $type)
     {
@@ -119,7 +116,7 @@ class SourceController extends Controller
     /**
      * Displays a form to create a new Source entity.
      *
-     * @Route("/new/{type}", name="source_new", defaults={"type" = "default"})
+     * @Route("/new/{type}", name="source_new", defaults={"type" = "default"}, methods={"GET"})
      */
     public function newAction($type)
     {
@@ -136,7 +133,7 @@ class SourceController extends Controller
     /**
      * Finds and displays a Source entity.
      *
-     * @Route("/{section}/{id}/detail", name="source_show", defaults={"section" = "capstone"})
+     * @Route("/{section}/{id}/detail", name="source_show", defaults={"section" = "capstone"}, methods={"GET"})
      * @Template()
      */
     public function showAction($id, $section)
@@ -162,7 +159,7 @@ class SourceController extends Controller
     /**
      * Displays a form to edit an existing Source entity.
      *
-     * @Route("/{id}/edit", name="source_edit")
+     * @Route("/{id}/edit", name="source_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -206,9 +203,7 @@ class SourceController extends Controller
     /**
      * Edits an existing Source entity.
      *
-     * @Route("/{id}", name="source_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="source_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -240,8 +235,7 @@ class SourceController extends Controller
     /**
      * Deletes a Source entity.
      *
-     * @Route("/{id}", name="source_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="source_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

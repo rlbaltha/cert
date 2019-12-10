@@ -21,7 +21,7 @@ class StatusController extends Controller
     /**
      * Lists all Status entities.
      *
-     * @Route("/", name="status")
+     * @Route("/", name="status", methods={"GET"})
      * @Template()
      */
     public function indexAction()
@@ -37,9 +37,7 @@ class StatusController extends Controller
     /**
      * Creates a new Status entity.
      *
-     * @Route("/", name="status_create")
-     * @Method("POST")
-
+     * @Route("/", name="status_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
@@ -83,7 +81,7 @@ class StatusController extends Controller
     /**
      * Displays a form to create a new Status entity.
      *
-     * @Route("/new", name="status_new")
+     * @Route("/new", name="status_new", methods={"GET"})
      */
     public function newAction()
     {
@@ -99,7 +97,7 @@ class StatusController extends Controller
     /**
      * Finds and displays a Status entity.
      *
-     * @Route("/{id}", name="status_show")
+     * @Route("/{id}", name="status_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -123,7 +121,7 @@ class StatusController extends Controller
     /**
      * Displays a form to edit an existing Status entity.
      *
-     * @Route("/{id}/edit", name="status_edit")
+     * @Route("/{id}/edit", name="status_edit", methods={"GET"})
      */
     public function editAction($id)
     {
@@ -166,9 +164,7 @@ class StatusController extends Controller
     /**
      * Edits an existing Status entity.
      *
-     * @Route("/{id}", name="status_update")
-     * @Method("PUT")
-
+     * @Route("/{id}", name="status_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -199,8 +195,7 @@ class StatusController extends Controller
     /**
      * Deletes a Status entity.
      *
-     * @Route("/{id}", name="status_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="status_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
