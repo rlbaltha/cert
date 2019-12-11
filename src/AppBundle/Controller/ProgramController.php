@@ -284,10 +284,8 @@ class ProgramController extends Controller
         //add and remove tags
         $tag0 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Ready for Review");
         $tag1 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Application Approved");
-        $tag2 = $em->getRepository('AppBundle:Tag')->findOneByTitle("Checklist Created");
 
         $user_entity->addTag($tag1);
-        $user_entity->addTag($tag2);
         $user_entity->removeTag($tag0);
         $default_term = $em->getRepository('AppBundle:Term')->findDefault();
 
