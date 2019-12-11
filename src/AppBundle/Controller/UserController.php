@@ -180,7 +180,7 @@ class UserController extends Controller
     /**
      * Lists all User entities.
      *
-     * @Route("/table/{tag}", name="user_table", defaults={"tag" = "Checklist"}, methods={"GET"})
+     * @Route("/table/{tag}", name="user_table", defaults={"tag" = "Active"}, methods={"GET"})
      * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */

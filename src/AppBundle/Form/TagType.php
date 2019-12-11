@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,7 +25,7 @@ class TagType extends AbstractType
             ->add('top', EntityType::class, array('class' => 'AppBundle\Entity\Tag',
                 'choice_label' => 'title','required'=>false,'expanded'=>false,'multiple'=>false,'label'  => 'Super', 'attr' => array('class' =>
                     'form-control'),))
-            ->add('sortorder', 'number', array('attr' => array('class' => 'text form-control'),))
+            ->add('sortorder', NumberType::class, array('attr' => array('class' => 'text form-control'),))
             ->add('type', ChoiceType::class, array('choices' => array('resource' => 'resource', 'user' => 'user', 'content' => 'content'),
                 'required' => true,
                 'expanded' => true,

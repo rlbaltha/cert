@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -74,7 +75,7 @@ class WorkplanType extends AbstractType
             )
             ->add(
                 'timeframe',
-                'text',
+                TextType::class,
                 array(
                     'required' => false,
                     'label' => 'Expected completion date',

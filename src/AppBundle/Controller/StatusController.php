@@ -30,9 +30,9 @@ class StatusController extends Controller
 
         $entities = $em->getRepository('AppBundle:Status')->findAllSorted();
 
-        return array(
+        return $this->render('AppBundle:Status:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Status entity.
@@ -98,7 +98,6 @@ class StatusController extends Controller
      * Finds and displays a Status entity.
      *
      * @Route("/{id}", name="status_show", methods={"GET"})
-     * @Template()
      */
     public function showAction($id)
     {
@@ -112,10 +111,10 @@ class StatusController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Tag:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**

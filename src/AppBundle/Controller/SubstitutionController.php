@@ -32,9 +32,9 @@ class SubstitutionController extends Controller
 
         $entities = $em->getRepository('AppBundle:Substitution')->findByStatus($status);
 
-        return array(
+        return $this->render('AppBundle:Substitution:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Substitution entity.
@@ -119,12 +119,10 @@ class SubstitutionController extends Controller
             throw $this->createNotFoundSubstitution('Unable to find Substitution entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Substitution:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**

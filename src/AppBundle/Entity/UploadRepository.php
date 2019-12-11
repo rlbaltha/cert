@@ -25,4 +25,17 @@ class UploadRepository extends EntityRepository
             ->getResult();
         return $ics_sources;
     }
+
+    /**
+     * Find all uploaded ics files
+     *
+     * @return Upload
+     */
+    public function findSorted() {
+        $files = $this->createQueryBuilder('u')
+            ->orderBy('u.created', 'DESC')
+            ->getQuery()
+            ->getResult();
+        return $files;
+    }
 }

@@ -30,9 +30,9 @@ class TagController extends Controller
 
         $entities = $em->getRepository('AppBundle:Tag')->findByType($type);
 
-        return array(
+        return $this->render('AppBundle:Tag:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Tag entity.

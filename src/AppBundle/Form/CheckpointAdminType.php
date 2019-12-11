@@ -7,10 +7,10 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
-use SC\DatetimepickerBundle\Form\Type\DatetimeType;
 
 class CheckpointAdminType extends AbstractType
 {
@@ -24,10 +24,7 @@ class CheckpointAdminType extends AbstractType
         $builder
             ->add('name', TextType::class, array('attr' => array('class' => 'text form-control'),))
             ->add('description', CKEditorType::class, array('config_name' => 'editor_simple',))
-            ->add('deadline', DatetimeType::class, array('pickerOptions' =>
-                array('todayBtn' => true, 'format' => 'dd MM yyyy - HH:ii P', 'showMeridian' => true,
-                ),
-                'attr' => array('class' => 'form-control'),))
+            ->add('deadline', DatetimeType::class, array('label' => 'Deadline', 'attr' => array('class' => 'text'),))
             ->add('status', ChoiceType::class, array('choices' => array('Opened' => 'Open', 'Complete' => 'Complete'),
                 'required' => true,
                 'expanded' => true,

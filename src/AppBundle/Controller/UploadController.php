@@ -27,18 +27,17 @@ class UploadController extends Controller
      * Lists all Upload entities.
      *
      * @Route("/", name="upload", methods={"GET"})
-     * @Template()
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Upload')->findAll();
+        $entities = $em->getRepository('AppBundle:Upload')->findSorted();
 
-        return array(
+        return $this->render('AppBundle:Upload:index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
@@ -68,11 +67,11 @@ class UploadController extends Controller
 
         }
 
-        return array(
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'headerText' => $headerText,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -117,11 +116,12 @@ class UploadController extends Controller
         $form = $this->createCreateForm($entity);
         $headerText = 'Upload New';
 
-        return array(
+
+        return $this->render('AppBundle:Shared:new.html.twig', array(
             'entity' => $entity,
             'headerText' => $headerText,
             'form' => $form->createView(),
-        );
+        ));
     }
 
 
@@ -146,12 +146,12 @@ class UploadController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'headerText' => $headerText,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -204,12 +204,13 @@ class UploadController extends Controller
             return $this->redirect($this->generateUrl('upload_edit', array('id' => $id)));
         }
 
-        return array(
+
+        return $this->render('AppBundle:Shared:edit.html.twig', array(
             'entity' => $entity,
             'headerText' => $headerText,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
