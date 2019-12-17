@@ -1,94 +1,93 @@
 # app/config/security.yml
 security:
+  # dev security settings
+  #    providers:
+  #        chain_provider:
+  #            chain:
+  #                providers: [fos_userbundle]
+  #
+  #        fos_userbundle:
+  #            id: fos_user.user_provider.username
+  #
+  #    encoders:
+  #        FOS\UserBundle\Model\UserInterface: bcrypt
+  #
+  #    firewalls:
+  #        main:
+  #            provider: chain_provider
+  #            pattern: ^/
+  #            form_login:
+  #                csrf_token_generator: security.csrf.token_manager
+  #                default_target_path: /user/home
+  #            logout:
+  #                path:   /logout
+  #                target: /home
+  #            anonymous:    true
+  #            switch_user: true
+  #            logout_on_user_change: true
 
-# dev security settings
-#    providers:
-#        chain_provider:
-#            chain:
-#                providers: [fos_userbundle]
-#
-#        fos_userbundle:
-#            id: fos_user.user_provider.username
-#
-#    encoders:
-#        FOS\UserBundle\Model\UserInterface: bcrypt
-#
-#    firewalls:
-#        main:
-#            provider: chain_provider
-#            pattern: ^/
-#            form_login:
-#                csrf_token_generator: security.csrf.token_manager
-#                default_target_path: /user/home
-#            logout:
-#                path:   /logout
-#                target: /home
-#            anonymous:    true
-#            switch_user: true
-#            logout_on_user_change: true
+  #    firewalls:
+  main:
+    pattern: ^/
+    trusted_sso:
+      manager: admin_sso
+      create_users: true
+      created_users_roles: [ 'ROLE_USER' ]
+      login_action: false
+      logout_action: false
+      login_path: /login
+      check_path: /login
+      failure_path: /
+    provider: fos_userbundle
+    anonymous:    true
+    switch_user: true
+    logout:
+      path:   /logout
+      target: /
+    logout_on_user_change: true
 
-#    firewalls:
-        main:
-            pattern: ^/
-            trusted_sso:
-                manager: admin_sso
-                create_users: true
-                created_users_roles: [ 'ROLE_USER' ]
-                login_action: false
-                logout_action: false
-                login_path: /login
-                check_path: /login
-                failure_path: /
-            provider: fos_userbundle
-            anonymous:    true
-            switch_user: true
-            logout:
-              path:   /logout
-              target: /
-            logout_on_user_change: true
+  providers:
+    chain_provider:
+      chain:
+        providers: [fos_userbundle]
+    fos_userbundle:
+      id: sso_user_provider
+  encoders:
+    FOS\UserBundle\Model\UserInterface: bcrypt
 
-        providers:
-            chain_provider:
-                chain:
-                    providers: [fos_userbundle]
-            fos_userbundle:
-                id: sso_user_provider
-        encoders:
-            FOS\UserBundle\Model\UserInterface: bcrypt
+  role_hierarchy:
+    ROLE_ADMIN:       ROLE_USER
+    ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+  access_control:
 
-    access_control:
-
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/user/, role: ROLE_USER }
-        - { path: ^/program/, role: ROLE_USER }
-        - { path: ^/checklist/, role: ROLE_USER }
-        - { path: ^/capstone/, role: ROLE_USER }
-        - { path: ^/question/, role: ROLE_USER }
-        - { path: ^/questionset/, role: ROLE_USER }
-        - { path: ^/response/, role: ROLE_USER }
-        - { path: ^/responseset/, role: ROLE_USER }
-        - { path: ^/forum/, role: ROLE_USER }
-        - { path: ^/project/, role: ROLE_USER }
-        - { path: ^/checkpoint/, role: ROLE_USER }
-        - { path: edit$, role: ROLE_ADMIN }
-        - { path: new$, role: ROLE_ADMIN }
-        - { path: delete$, role: ROLE_ADMIN }
-        - { path: create$, role: ROLE_ADMIN }
-        - { path: update$, role: ROLE_ADMIN }
-        - { path: approve$, role: ROLE_ADMIN }
-        - { path: ^/status/, role: ROLE_ADMIN }
-        - { path: ^/major/, role: ROLE_ADMIN }
-        - { path: ^/school/, role: ROLE_ADMIN }
-        - { path: ^/term/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
-        - { path: ^/course/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
-        - { path: ^/page/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
-        - { path: ^/section/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
-        - { path: ^/faculty/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
-        - { path: ^/event/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
-        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+    - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+    - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+    - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+    - { path: ^/user/, role: ROLE_USER }
+    - { path: ^/program/, role: ROLE_USER }
+    - { path: ^/checklist/, role: ROLE_USER }
+    - { path: ^/capstone/, role: ROLE_USER }
+    - { path: ^/question/, role: ROLE_USER }
+    - { path: ^/questionset/, role: ROLE_USER }
+    - { path: ^/response/, role: ROLE_USER }
+    - { path: ^/responseset/, role: ROLE_USER }
+    - { path: ^/forum/, role: ROLE_USER }
+    - { path: ^/project/, role: ROLE_USER }
+    - { path: ^/checkpoint/, role: ROLE_USER }
+    - { path: edit$, role: ROLE_ADMIN }
+    - { path: new$, role: ROLE_ADMIN }
+    - { path: delete$, role: ROLE_ADMIN }
+    - { path: create$, role: ROLE_ADMIN }
+    - { path: update$, role: ROLE_ADMIN }
+    - { path: approve$, role: ROLE_ADMIN }
+    - { path: ^/status/, role: ROLE_ADMIN }
+    - { path: ^/major/, role: ROLE_ADMIN }
+    - { path: ^/school/, role: ROLE_ADMIN }
+    - { path: ^/term/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
+    - { path: ^/course/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
+    - { path: ^/page/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
+    - { path: ^/section/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
+    - { path: ^/faculty/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
+    - { path: ^/event/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
+    - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
