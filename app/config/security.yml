@@ -47,16 +47,14 @@ security:
               target: /
             logout_on_user_change: true
 
-    providers:
-        chain_provider:
-            chain:
-                providers: [fos_userbundle]
-
-        fos_userbundle:
-            id: sso_user_provider
-
-    encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
+        providers:
+            chain_provider:
+                chain:
+                    providers: [fos_userbundle]
+            fos_userbundle:
+                id: sso_user_provider
+        encoders:
+            FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
