@@ -15,26 +15,3 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-/app/bootstrap.php.cache
-/app/cache/*
-!app/cache/.gitkeep
-/app/logs/*
-!app/logs/.gitkeep
-/app/phpunit.xml
-/bin/
-/composer.phar
-.idea
-/uploads/
-
-###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/public/bundles/
-/var/
-/vendor/
-###< symfony/framework-bundle ###
-
-###> symfony/web-server-bundle ###
-/.web-server-pid
-###< symfony/web-server-bundle ###
