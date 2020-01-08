@@ -106,10 +106,10 @@ class CapstoneController extends Controller
             $checkpoint1 = new Checkpoint();
             $checkpoint1->setProject($project);
             $checkpoint1->setType('Capstone');
-            $checkpoint1->setName('Design Process');
+            $checkpoint1->setName('Project Description and Workplan');
             $checkpoint1->setDescription('<p></p>
                                             <ul>
-                                            <li>Completed work plan including checkpoints</li>
+                                            <li>Complete project description and work plan</li>
                                             <li>Enrolled in a capstone course</li>
                                             </ul>');
             $em->persist($checkpoint1);
@@ -117,34 +117,22 @@ class CapstoneController extends Controller
             $checkpoint2 = new Checkpoint();
             $checkpoint2->setProject($project);
             $checkpoint2->setType('Capstone');
-            $checkpoint2->setName('Mentor Check-in:  Approval of Work Plan and Timeline');
+            $checkpoint2->setName('Workplan Timeline');
             $checkpoint2->setDescription('<ul>
-                                            <li>Review completed work plan with mentor</li>
+                                            <li>Complete work plan and timeline</li>
+                                            <li>Review with sustainability rep and faculty mentor</li>
                                             <li>Revise as needed</li>
-                                            <li>Complete Capstone Progress Report form, sign and have mentor sign</li>
-                                            <li>Turn in form to Certificate Director</li>
                                             </ul>');
             $em->persist($checkpoint2);
 
             $checkpoint3 = new Checkpoint();
             $checkpoint3->setProject($project);
             $checkpoint3->setType('Capstone');
-            $checkpoint3->setName('Mentor Check-in:  Midpoint Progress Report');
+            $checkpoint3->setName('Team Role Contract');
             $checkpoint3->setDescription('<ul>
-                                            <li>Complete Capstone Progress Report form, sign and have mentor sign</li>
-                                            <li>Turn in form to Certificate Director</li>
+                                            <li>Complete Team Role contract</li>
                                             </ul>');
             $em->persist($checkpoint3);
-
-            $checkpoint5 = new Checkpoint();
-            $checkpoint5->setProject($project);
-            $checkpoint5->setType('Capstone');
-            $checkpoint5->setName('Mentor Check-in:  Final Progress Report');
-            $checkpoint5->setDescription('<ul>
-                                            <li>Complete Capstone Progress Report form, sign and have mentor sign</li>
-                                            <li>Turn in form to Certificate Director</li>
-                                            </ul>');
-            $em->persist($checkpoint5);
 
             $checkpoint4 = new Checkpoint();
             $checkpoint4->setProject($project);
@@ -154,7 +142,6 @@ class CapstoneController extends Controller
                                             <li>Capstone project is complete</li>
                                             <li>Reflection is complete</li>
                                             <li>Presentation is complete or scheduled</li>
-                                            <li>Portfolio is complete</li>
                                             </ul>');
             $em->persist($checkpoint4);
 
