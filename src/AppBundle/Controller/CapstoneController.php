@@ -103,25 +103,53 @@ class CapstoneController extends Controller
             $project->setDescription('Please offer a desccription of your project.');
             $em->persist($project);
 
+            $checkpoint1a = new Checkpoint();
+            $checkpoint1a->setProject($project);
+            $checkpoint1a->setType('Capstone');
+            $checkpoint1a->setName('Contact Project Partner');
+            $checkpoint1a->setDescription('<p></p>
+                                            <ul>
+                                            <li>Using the boilerplate offered, make initial contact with project partner(s).</li>
+                                            </ul>');
+            $em->persist($checkpoint1a);
+
+            $checkpoint1b = new Checkpoint();
+            $checkpoint1b->setProject($project);
+            $checkpoint1b->setType('Capstone');
+            $checkpoint1b->setName('Meet with Project Partner');
+            $checkpoint1b->setDescription('<p></p>
+                                            <ul>
+                                            <li>Meet with project partner to continue planning and develop the project.</li>
+                                            </ul>');
+            $em->persist($checkpoint1b);
+
+            $checkpoint1c = new Checkpoint();
+            $checkpoint1c->setProject($project);
+            $checkpoint1c->setType('Capstone');
+            $checkpoint1c->setName('Identify Faculty Mentor');
+            $checkpoint1c->setDescription('<p></p>
+                                            <ul>
+                                            <li>Identify and contact possible faculty mentor(s).</li>
+                                            </ul>');
+            $em->persist($checkpoint1c);
+
             $checkpoint1 = new Checkpoint();
             $checkpoint1->setProject($project);
             $checkpoint1->setType('Capstone');
-            $checkpoint1->setName('Project Description and Workplan');
+            $checkpoint1->setName('Project Workplan and Timeline draft');
             $checkpoint1->setDescription('<p></p>
                                             <ul>
-                                            <li>Complete project description and work plan</li>
-                                            <li>Enrolled in a capstone course</li>
+                                            <li>Complete project description and work plan, including specific tasks with due dates.</li>
                                             </ul>');
             $em->persist($checkpoint1);
 
             $checkpoint2 = new Checkpoint();
             $checkpoint2->setProject($project);
             $checkpoint2->setType('Capstone');
-            $checkpoint2->setName('Workplan Timeline');
+            $checkpoint2->setName('Project Workplan and Timeline final');
             $checkpoint2->setDescription('<ul>
-                                            <li>Complete work plan and timeline</li>
-                                            <li>Review with sustainability rep and faculty mentor</li>
-                                            <li>Revise as needed</li>
+                                            <li>Complete work plan and timeline.</li>
+                                            <li>Review with sustainability rep and faculty mentor and revise as needed.</li>
                                             </ul>');
             $em->persist($checkpoint2);
 
@@ -137,13 +165,40 @@ class CapstoneController extends Controller
             $checkpoint4 = new Checkpoint();
             $checkpoint4->setProject($project);
             $checkpoint4->setType('Capstone');
-            $checkpoint4->setName('Capstone Completion');
+            $checkpoint4->setName('Team Project Update Presentation');
             $checkpoint4->setDescription('<ul>
+                                            <li>Prepare a 5 minute presentation with progress, output or deliverables, and any challenges or celebration</li>
+                                            </ul>');
+            $em->persist($checkpoint4);
+
+            $checkpoint5 = new Checkpoint();
+            $checkpoint5->setProject($project);
+            $checkpoint5->setType('Capstone');
+            $checkpoint5->setName('Practice Final Team Project Presentation');
+            $checkpoint5->setDescription('<ul>
+                                            <li>Be ready to practice the final presentation for the seminar</li>
+                                            </ul>');
+            $em->persist($checkpoint5);
+
+            $checkpoint7 = new Checkpoint();
+            $checkpoint7->setProject($project);
+            $checkpoint7->setType('Capstone');
+            $checkpoint7->setName('Present Team Project to Seminar');
+            $checkpoint7->setDescription('<ul>
+                                            <li>Be ready to offer your final presentation</li>
+                                            </ul>');
+            $em->persist($checkpoint7);
+
+            $checkpoint6 = new Checkpoint();
+            $checkpoint6->setProject($project);
+            $checkpoint6->setType('Capstone');
+            $checkpoint6->setName('Capstone Completion');
+            $checkpoint6->setDescription('<ul>
                                             <li>Capstone project is complete</li>
                                             <li>Reflection is complete</li>
                                             <li>Presentation is complete or scheduled</li>
                                             </ul>');
-            $em->persist($checkpoint4);
+            $em->persist($checkpoint6);
 
             $em->flush();
 
