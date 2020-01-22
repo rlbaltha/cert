@@ -203,18 +203,10 @@ class CheckpointController extends Controller
     */
     private function createEditForm(Checkpoint $entity)
     {
-        if ($entity->getType()=='Admin') {
-            $form = $this->createForm(CheckpointAdminType::class, $entity, array(
+        $form = $this->createForm(CheckpointType::class, $entity, array(
                 'action' => $this->generateUrl('checkpoint_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
             ));
-        }
-        else {
-            $form = $this->createForm(CheckpointType::class, $entity, array(
-                'action' => $this->generateUrl('checkpoint_update', array('id' => $entity->getId())),
-                'method' => 'PUT',
-            ));
-        }
 
         $form->add('submit', SubmitType::class, array('label' => 'Update','attr' => array('class' => 'btn btn-primary'),));
 
@@ -243,12 +235,8 @@ class CheckpointController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            if ($entity->getProject()->getCapstone()) {
-                return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
-            }
-            else {
-                return $this->redirect($this->generateUrl('project_show', array('id' => $entity->getProject()->getId())));
-            }
+            return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
+
         }
 
         return $this->render('AppBundle:Shared:edit.html.twig', array(
