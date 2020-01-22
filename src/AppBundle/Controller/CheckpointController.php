@@ -59,13 +59,7 @@ class CheckpointController extends Controller
 
             $em->persist($entity);
             $em->flush();
-
-            if ($project->getCapstone()) {
-                return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
-            }
-            else {
-                return $this->redirect($this->generateUrl('project_show', array('id' => $id)));
-            }
+            return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
 
         }
 
@@ -92,12 +86,8 @@ class CheckpointController extends Controller
         $em->persist($checkpoint);
         $em->flush();
 
-        if ($checkpoint->getProject()->getCapstone()) {
-            return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
-        }
-        else {
-            return $this->redirect($this->generateUrl('project_show', array('id' => $checkpoint->getProject()->getId())));
-        }
+        return $this->redirect($this->generateUrl('capstone_show', array('id' => $user->getId())));
+
 
     }
 
@@ -110,18 +100,11 @@ class CheckpointController extends Controller
      */
     private function createCreateForm(Checkpoint $entity)
     {
-        if ($entity->getType()=='Admin') {
-            $form = $this->createForm(CheckpointAdminType::class, $entity, array(
-                'action' => $this->generateUrl('checkpoint_create', array('id'=>$entity->getProject()->getId())),
-                'method' => 'POST',
-            ));
-        }
-        else {
+
             $form = $this->createForm(CheckpointType::class, $entity, array(
                 'action' => $this->generateUrl('checkpoint_create', array('id'=>$entity->getProject()->getId())),
                 'method' => 'POST',
             ));
-        }
 
         $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
