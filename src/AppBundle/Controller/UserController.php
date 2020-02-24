@@ -86,7 +86,11 @@ class UserController extends Controller
 
         if ($view == 'index') {
             $template = 'AppBundle:User:index.html.twig';
-        } else {
+        }
+        elseif ($view == 'data') {
+            $template = 'AppBundle:User:data.html.twig';
+        }
+        else {
             $template = 'AppBundle:User:grad.html.twig';
         }
 
