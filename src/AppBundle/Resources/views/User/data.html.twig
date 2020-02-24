@@ -1,0 +1,110 @@
+{% extends 'AppBundle:User:layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script language="javascript">
+        $(document).ready(function () {
+            $.tablesorter.themes.bootstrap = {
+                table: 'table table-bordered table-striped',
+                caption: 'caption',
+                header: 'bootstrap-header',
+                iconSortNone: 'bootstrap-icon-unsorted',
+                iconSortAsc: 'glyphicon glyphicon-chevron-up',
+                iconSortDesc: 'glyphicon glyphicon-chevron-down',
+            };
+            $("table").tablesorter({
+                theme: "bootstrap",
+                widthFixed: true,
+                headerTemplate: '{content} {icon}',
+                widgets: ["uitheme", "filter", "zebra"],
+                widgetOptions: {
+                    zebra: ["even", "odd"],
+                    filter_reset: ".reset",
+                    filter_cssFilter: "form-control",
+                },
+                headers: {
+                    6: {sorter: false, filter: false},
+                }
+            });
+//            $('.tag_filter').click(function (event) {
+//                var row_selector = 'div.tag' + event.target.id;
+//                $('.user_row').hide();
+//                $('.user_email').hide();
+//                $(row_selector).parent().parent().show();
+//                $('#email_list').empty().append($('tr:visible td.email').text() );
+//                var rowCount = $('tbody tr:visible').length;
+//                $( "span.count" ).html( '(' + rowCount  + ')' );
+//                $(window).scrollTop(0);
+//            });
+            var rowCount = $('tbody tr:visible').length;
+            $("span.count").html('(' + rowCount + ')');
+        });
+    </script>
+{% endblock %}
+
+{% block body -%}
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        {{ parent() }}
+    {% endif %}
+    {% if view=='index' %}{% set view = 'grad' %}{% else %}{% set view = 'index' %}{% endif %}
+    <div class="col-sm-12">
+        <h1 class="inline">Certificate Accounts <span class="count"></span></h1>
+        <a class="btn btn-primary"
+           href="{{ path('user', {'tag': app.request.get("tag"), 'term': app.request.get('term'), 'date': app.request.get('date'),'view':view}) }}">Toggle
+            View</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Home Address</th>
+                <th class="hidden-sm-down">Graduation Term</th>
+                <th class="hidden-sm-down">Program</th>
+                <th class=" hidden-sm-down">Placement</th>
+                <th class=" hidden-sm-down">Portfolio</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr class=" user_row" id="{{ entity.id }}">
+                    <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.lastname }}
+                            , {{ entity.firstname }}</a>
+                    </td>
+                    <td class="email">{{ entity.email }};</td>
+                    <td class="email">{{ entity.program.address }} {{ entity.program.cityst }} {{ entity.program.country }}</td>
+                    <td class="hidden-sm-down">
+                        <div class="btn btn-primary btn-sm tag{{ entity.graddate }}{{ entity.gradterm }}"
+                             style="background-color: #20773b">{{ entity.graddate }} {{ entity.gradterm }}</div>
+                    </td>
+                    <td class="hidden-sm-down">
+                        {% if entity.program %}
+                            {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
+                            {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
+                            {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
+                            {% if entity.program.major2 %}:: {{ entity.program.major2.name }}{% endif %}<br/>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if entity.placement != '' %}{{ entity.placement }}{% endif %}
+                    </td>
+                    <td>
+                        {% if entity.checklist %}{{ entity.checklist.presentation }}{% endif %}
+                    </td>
+                    <td>
+                        <a target="_blank" href="{{ entity.checklist.portfolio }}">{{ entity.checklist.portfolio }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p>Email
+            list: <span
+                    id="email_list">{% for entity in entities %}{{ entity.email }}; {% endfor %}</span>
+        </p>
+        <p>Alt Email
+            list: <span
+                    id="email_list">{% for entity in entities if entity.altemail!='' %}{{ entity.altemail }}; {% endfor %}</span>
+        </p>
+    </div>
+
+{% endblock %}
