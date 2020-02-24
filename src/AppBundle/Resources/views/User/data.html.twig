@@ -58,7 +58,6 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Home Address</th>
-                <th class="hidden-sm-down">Graduation Term</th>
                 <th class="hidden-sm-down">Program</th>
                 <th class=" hidden-sm-down">Placement</th>
                 <th class=" hidden-sm-down">Portfolio</th>
@@ -75,8 +74,6 @@
                     <td class="hidden-sm-down">
                         <div class="btn btn-primary btn-sm tag{{ entity.graddate }}{{ entity.gradterm }}"
                              style="background-color: #20773b">{{ entity.graddate }} {{ entity.gradterm }}</div>
-                    </td>
-                    <td class="hidden-sm-down">
                         {% if entity.program %}
                             {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
                             {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
@@ -86,9 +83,6 @@
                     </td>
                     <td>
                         {% if entity.placement != '' %}{{ entity.placement }}{% endif %}
-                    </td>
-                    <td>
-                        {% if entity.checklist %}{{ entity.checklist.presentation }}{% endif %}
                     </td>
                     <td>
                         <a target="_blank" href="{{ entity.checklist.portfolio }}">{{ entity.checklist.portfolio }}</a>
