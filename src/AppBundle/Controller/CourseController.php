@@ -106,7 +106,7 @@ class CourseController extends Controller
     /**
      * Creates a new Course entity.
      *
-     * @Route("/", name="course_create", methods={"GET"})
+     * @Route("/", name="course_create", methods={"POST"})
      */
     public function createAction(Request $request)
     {
