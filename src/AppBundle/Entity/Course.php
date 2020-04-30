@@ -166,10 +166,6 @@ class Course
      */
     protected $uploads;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Term", mappedBy="courses")
-     */
-    protected $terms;
 
     /**
      * Get id
@@ -553,40 +549,6 @@ class Course
         return $this->uploads;
     }
 
-
-    /**
-     * Add term
-     *
-     * @param \AppBundle\Entity\Term $term
-     *
-     * @return Course
-     */
-    public function addTerm(\AppBundle\Entity\Term $term)
-    {
-        $this->terms[] = $term;
-
-        return $this;
-    }
-
-    /**
-     * Remove term
-     *
-     * @param \AppBundle\Entity\Term $term
-     */
-    public function removeTerm(\AppBundle\Entity\Term $term)
-    {
-        $this->terms->removeElement($term);
-    }
-
-    /**
-     * Get terms
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTerms()
-    {
-        return $this->terms;
-    }
 
     /**
      * Get level

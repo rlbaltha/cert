@@ -51,19 +51,10 @@ class Tag
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Partner", mappedBy="tags")
-     */
-    protected $partners;
-
-    /**
      * @ORM\ManyToMany(targetEntity="Capstone", mappedBy="tags")
      */
     protected $capstones;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Source", mappedBy="tags")
-     */
-    protected $sources;
 
     /**
      * @ORM\ManyToMany(targetEntity="Faculty", mappedBy="tags")
@@ -157,40 +148,6 @@ class Tag
         $this->sources = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
-    /**
-     * Add source
-     *
-     * @param \AppBundle\Entity\Source $source
-     *
-     * @return Tag
-     */
-    public function addSource(\AppBundle\Entity\Source $source)
-    {
-        $this->sources[] = $source;
-
-        return $this;
-    }
-
-    /**
-     * Remove source
-     *
-     * @param \AppBundle\Entity\Source $source
-     */
-    public function removeSource(\AppBundle\Entity\Source $source)
-    {
-        $this->sources->removeElement($source);
-    }
-
-    /**
-     * Get sources
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSources()
-    {
-        return $this->sources;
-    }
 
     /**
      * Add sub
@@ -403,39 +360,6 @@ class Tag
         return $this->users;
     }
 
-    /**
-     * Add partner
-     *
-     * @param \AppBundle\Entity\Partner $partner
-     *
-     * @return Tag
-     */
-    public function addPartner(\AppBundle\Entity\Partner $partner)
-    {
-        $this->partners[] = $partner;
-
-        return $this;
-    }
-
-    /**
-     * Remove partner
-     *
-     * @param \AppBundle\Entity\Partner $partner
-     */
-    public function removePartner(\AppBundle\Entity\Partner $partner)
-    {
-        $this->partners->removeElement($partner);
-    }
-
-    /**
-     * Get partners
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPartners()
-    {
-        return $this->partners;
-    }
 
     /**
      * Add notification
