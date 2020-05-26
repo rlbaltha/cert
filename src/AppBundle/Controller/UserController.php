@@ -428,8 +428,7 @@ class UserController extends Controller
         <p>The Sustainability Certificate Staff</p>
         <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>';
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Sustainability Certificate')
+        $message = (new \Swift_Message('Sustainability Certificate'))
             ->setFrom('scdirector@uga.edu')
             ->setTo($email)
             ->setBcc('scdirector@uga.edu')

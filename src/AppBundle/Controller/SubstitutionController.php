@@ -226,8 +226,9 @@ class SubstitutionController extends Controller
         <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>
         <p>The Cert Staff</p>';
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Sustainability Certificate Substitution')
+
+
+        $message = (new \Swift_Message('Sustainability Certificate Substitution'))
             ->setFrom('scdirector@uga.edu')
             ->setTo($email)
             ->setBcc('scdirector@uga.edu')

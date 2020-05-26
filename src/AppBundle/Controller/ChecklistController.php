@@ -227,8 +227,7 @@ class ChecklistController extends Controller
         $user_entity = $em->getRepository('AppBundle:User')->find($user);
         $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
         $text = $name. ' has completed her or his portfolio.';
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Portfolio Complete')
+        $message = (new \Swift_Message('Portfolio Complete'))
             ->setFrom('scdirector@uga.edu')
             ->setTo('scdirector@uga.edu')
             ->setBody(
@@ -274,8 +273,7 @@ class ChecklistController extends Controller
         $user_entity = $em->getRepository('AppBundle:User')->find($user);
         $name = $user_entity->getFirstname() . ' ' . $user_entity->getLastname();
         $text = $name. ' has completed her or his certificate. Please review for graduation.';
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Certificate Complete')
+        $message = (new \Swift_Message('Certificate Complete'))
             ->setFrom('scdirector@uga.edu')
             ->setTo('scdirector@uga.edu')
             ->setBody(

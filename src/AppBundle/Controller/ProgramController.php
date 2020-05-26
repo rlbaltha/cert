@@ -236,8 +236,7 @@ class ProgramController extends Controller
         $email = 'scdirector@uga.edu';
         $text = $name . ' has submitted an application that is ready for review.';
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Certificate Application Ready for Review')
+        $message = (new \Swift_Message('Certificate Application Ready for Review'))
             ->setFrom('scdirector@uga.edu')
             ->setTo($email)
             ->setBody(
@@ -321,8 +320,7 @@ class ProgramController extends Controller
                  <p>The Cert Staff</p>
                  <p><a href="https://www.sustain.uga.edu" target="_blank">https://www.sustain.uga.edu</a></p>';
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Certificate Application Approved')
+        $message = (new \Swift_Message('Certificate Application Approved'))
             ->setFrom('scdirector@uga.edu')
             ->setTo($email)
             ->setBcc('scdirector@uga.edu')
@@ -338,8 +336,7 @@ class ProgramController extends Controller
 
         $text2 = '<p>Please create a Sustainability Certificate portfolio account for ' . $name . ' ' . $email . ' </p>
         <p>Many thanks.</p><p>The Cert Bot</p>';
-        $message2 = \Swift_Message::newInstance()
-            ->setSubject('Certificate Application Approved')
+        $message2 = (new \Swift_Message('Certificate Application Approved'))
             ->setFrom('scdirector@uga.edu')
             ->setTo('ameya.sawadkar@uga.edu')
             ->setBcc('scdirector@uga.edu')
