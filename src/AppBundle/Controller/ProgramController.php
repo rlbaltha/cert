@@ -286,15 +286,16 @@ class ProgramController extends Controller
 
         $user_entity->addTag($tag1);
         $user_entity->removeTag($tag0);
-        $default_term = $em->getRepository('AppBundle:Term')->findDefault();
+
+        $year = date('Y', strtotime('+2 years'));
 
         if (!$user_entity->getChecklist()) {
             $checklist = new Checklist();
             $checklist->setUser($user_entity);
-            $checklist->setCapstonedate($default_term->getYear());
-            $checklist->setCapstoneterm($default_term->getTerm());
-            $checklist->setGraddate($default_term->getYear());
-            $checklist->setGradterm($default_term->getTerm());
+            $checklist->setCapstonedate($year);
+            $checklist->setCapstoneterm('Spring');
+            $checklist->setGraddate($year);
+            $checklist->setGradterm('Spring');
             $checklist->setAppliedtograd('No');
             $em->persist($checklist);
         }
