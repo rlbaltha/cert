@@ -24,30 +24,43 @@
 {% block body %}
     <div class="col-sm-12">
         {% if is_granted('ROLE_SUPER_ADMIN') %}
-            {% for tag in tags if tag.subs|length > 0 %}
-                <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
-                   id="{{ tag.id }}"
-                   class="btn btn-primary btn-sm"
-                   style="background-color: {{ tag.color }}">{{ tag.title }}</a>
-                {% for tag in tag.subs %}
-                    <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
-                       id="{{ tag.id }}"
-                       class="btn btn-primary btn-sm"
-                       style="background-color: {{ tag.color }}">{{ tag.title }}</a>
-                {% endfor %}
-            {% endfor %}
-            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}
-                <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"
-                   id="{{ tag.id }}"
-                   class="btn btn-primary btn-sm"
-                   style="background-color: {{ tag.color }}">{{ tag.title }}</a>
-            {% endfor %}
+            <a href="{{ path('user', { 'tag': 'Administration', 'term': 'All', 'date': 'All','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: red">Administration</a>
+            <a href="{{ path('user', { 'tag': 'Ready for Review', 'term': 'All', 'date': 'All','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: DarkSlateGray">App Ready for Review</a>
+            <a href="{{ path('user', { 'tag': 'Active', 'term': 'All', 'date': 'All','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: darkred">Active</a>
+            <a href="{{ path('user', { 'tag': 'Inactive', 'term': 'All', 'date': 'All','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: black">Inactive</a>
+            <a href="{{ path('user', { 'tag': 'all', 'term': 'All', 'date': 'All','view':'index' }) }}"
+               class="btn btn-primary btn-sm"
+               style="background-color: blue">All</a>
+
+
+{#            {% for tag in tags if tag.subs|length > 0 %}#}
+{#                <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"#}
+{#                   id="{{ tag.id }}"#}
+{#                   class="btn btn-primary btn-sm"#}
+{#                   style="background-color: {{ tag.color }}">{{ tag.title }}</a>#}
+{#                {% for tag in tag.subs %}#}
+{#                    <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"#}
+{#                       id="{{ tag.id }}"#}
+{#                       class="btn btn-primary btn-sm"#}
+{#                       style="background-color: {{ tag.color }}">{{ tag.title }}</a>#}
+{#                {% endfor %}#}
+{#            {% endfor %}#}
+{#            {% for tag in tags if tag.top|length == 0 and tag.subs|length == 0 %}#}
+{#                <a href="{{ path('user', { 'tag': tag.title, 'term': 'All', 'date': 'All','view':'index' }) }}"#}
+{#                   id="{{ tag.id }}"#}
+{#                   class="btn btn-primary btn-sm"#}
+{#                   style="background-color: {{ tag.color }}">{{ tag.title }}</a>#}
+{#            {% endfor %}#}
             <br/>
             Graduation Term:
-
-            <a href="{{ path('user', { 'tag': 'term', 'term': 'Spring', 'date': '2020','view':'index' }) }}"
-               class="btn btn-primary btn-sm"
-               style="background-color: green">2020 Spring</a>
             <a href="{{ path('user', { 'tag': 'term', 'term': 'Fall', 'date': '2020','view':'index' }) }}"
                class="btn btn-primary btn-sm"
                style="background-color: green">2020 Fall</a>
