@@ -66,7 +66,7 @@
                 <th class="hidden-sm-down">Graduation</th>
                 <th class="hidden-sm-down">Capstone</th>
                 <th class="hidden-sm-down">Program (Minor)/Placement</th>
-                <th>Progress</th>
+{#                <th>Progress</th>#}
             </tr>
             </thead>
             <tbody>
@@ -96,12 +96,12 @@
                         {% endif %}
                         {% if entity.placement != '' %}<br/>Placement: {{ entity.placement }}{% endif %}
                     </td>
-                    <td>
-                        {% for tag in entity.tags %}
-                            <div class="btn btn-primary btn-sm tag{{ tag.id }}"
-                                 style="background-color: {{ tag.color }}">{{ tag.title }}</div>
-                        {% endfor %}
-                    </td>
+{#                    <td>#}
+{#                        {% for tag in entity.tags %}#}
+{#                            <div class="btn btn-primary btn-sm tag{{ tag.id }}"#}
+{#                                 style="background-color: {{ tag.color }}">{{ tag.title }}</div>#}
+{#                        {% endfor %}#}
+{#                    </td>#}
                 </tr>
             {% endfor %}
             </tbody>
