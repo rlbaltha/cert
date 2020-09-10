@@ -91,7 +91,7 @@
                     </td>
                     <td class="hidden-sm-down">
                         {% if entity.program %}
-                        {% if entity.program.level=='Grad' %}<span style="font-weight: bold"></span> Graduate  {% endif %}
+                        {% if entity.program.level=='Grad' %}<span style="font-weight: bold">(Graduate)</span>  {% endif %}
                             {% if entity.program.school1 %}{{ entity.program.school1.name }}{% else %}{{ entity.program.school }}{% endif %}
                             {% if entity.program.major1 %}:: {{ entity.program.major1.name }}{% else %}{{ entity.program.program }}{% endif %}
                             {% if entity.program.school2 %}{{ entity.program.school2.name }}{% endif %}
