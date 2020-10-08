@@ -19,10 +19,11 @@ class SchoolRepository extends \Doctrine\ORM\EntityRepository
             ->join('s.program1', 'pr')
             ->join('pr.user', 'u')
             ->join('u.progress', 'p')
-            ->andWhere("p.name != 'Inactive' and p.name != 'Administration' and p.name != 'Faculty' and p.name != 'Graduated'  and p.name != 'Account Created'")
+            ->andWhere(':tag MEMBER OF u.tags')
             ->select('s.name AS area', 'count(s.id) AS value')
             ->groupBy('s.name')
             ->orderBy("value", "DESC")
+            ->setParameter('tag', 116)
             ->getQuery()
             ->getResult();
         return $data;
