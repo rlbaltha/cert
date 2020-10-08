@@ -39,115 +39,115 @@
     <script language="javascript">
         $(document).ready(function () {
 
-            function schools() {
-                var svg = d3.select("svg#schools"),
-                    margin = {top: 20, right: 20, bottom: 30, left: 80},
-                    width = +svg.attr("width") - margin.left - margin.right,
-                    height = +svg.attr("height") - margin.top - margin.bottom;
+            {#function schools() {#}
+            {#    var svg = d3.select("svg#schools"),#}
+            {#        margin = {top: 20, right: 20, bottom: 30, left: 80},#}
+            {#        width = +svg.attr("width") - margin.left - margin.right,#}
+            {#        height = +svg.attr("height") - margin.top - margin.bottom;#}
 
-                var x = d3.scaleLinear().range([0, width]);
-                var y = d3.scaleBand().range([height, 0]);
+            {#    var x = d3.scaleLinear().range([0, width]);#}
+            {#    var y = d3.scaleBand().range([height, 0]);#}
 
-                var g = svg.append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            {#    var g = svg.append("g")#}
+            {#        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");#}
 
-                // load the external data
-                d3.json("{{ path('data_school') }}", function (error, data) {
-                    if (error) throw error;
+            {#    // load the external data#}
+            {#    d3.json("{{ path('data_school') }}", function (error, data) {#}
+            {#        if (error) throw error;#}
 
-                    data.sort(function (a, b) {
-                        return a.value - b.value;
-                    });
+            {#        data.sort(function (a, b) {#}
+            {#            return a.value - b.value;#}
+            {#        });#}
 
-                    x.domain([0, d3.max(data, function (d) {
-                        return parseInt(d.value);
-                    })]);
-                    y.domain(data.map(function (d) {
-                        return d.area;
-                    })).padding(0.1);
+            {#        x.domain([0, d3.max(data, function (d) {#}
+            {#            return parseInt(d.value);#}
+            {#        })]);#}
+            {#        y.domain(data.map(function (d) {#}
+            {#            return d.area;#}
+            {#        })).padding(0.1);#}
 
-                    g.append("g")
-                        .attr("class", "x axis")
-                        .attr("transform", "translate(0," + height + ")")
-                        .call(d3.axisBottom(x).ticks(5).tickFormat(function (d) {
-                            return d;
-                        }).tickSizeInner([-height]));
+            {#        g.append("g")#}
+            {#            .attr("class", "x axis")#}
+            {#            .attr("transform", "translate(0," + height + ")")#}
+            {#            .call(d3.axisBottom(x).ticks(5).tickFormat(function (d) {#}
+            {#                return d;#}
+            {#            }).tickSizeInner([-height]));#}
 
-                    g.append("g")
-                        .attr("class", "y axis")
-                        .call(d3.axisLeft(y));
+            {#        g.append("g")#}
+            {#            .attr("class", "y axis")#}
+            {#            .call(d3.axisLeft(y));#}
 
-                    g.selectAll(".bar")
-                        .data(data)
-                        .enter().append("rect")
-                        .attr("class", "bar")
-                        .attr("x", 0)
-                        .attr("height", y.bandwidth())
-                        .attr("y", function (d) {
-                            return y(d.area);
-                        })
-                        .attr("width", function (d) {
-                            return x(d.value);
-                        })
-                });
-            }
+            {#        g.selectAll(".bar")#}
+            {#            .data(data)#}
+            {#            .enter().append("rect")#}
+            {#            .attr("class", "bar")#}
+            {#            .attr("x", 0)#}
+            {#            .attr("height", y.bandwidth())#}
+            {#            .attr("y", function (d) {#}
+            {#                return y(d.area);#}
+            {#            })#}
+            {#            .attr("width", function (d) {#}
+            {#                return x(d.value);#}
+            {#            })#}
+            {#    });#}
+            {#}#}
 
-            schools();
+            {#schools();#}
 
-            function majors() {
-                var svg = d3.select("svg#majors"),
-                    margin = {top: 20, right: 20, bottom: 30, left: 80},
-                    width = +svg.attr("width") - margin.left - margin.right,
-                    height = +svg.attr("height") - margin.top - margin.bottom;
+            {#function majors() {#}
+            {#    var svg = d3.select("svg#majors"),#}
+            {#        margin = {top: 20, right: 20, bottom: 30, left: 80},#}
+            {#        width = +svg.attr("width") - margin.left - margin.right,#}
+            {#        height = +svg.attr("height") - margin.top - margin.bottom;#}
 
-                var x = d3.scaleLinear().range([0, width]);
-                var y = d3.scaleBand().range([height, 0]);
+            {#    var x = d3.scaleLinear().range([0, width]);#}
+            {#    var y = d3.scaleBand().range([height, 0]);#}
 
-                var g = svg.append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            {#    var g = svg.append("g")#}
+            {#        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");#}
 
-                // load the external data
-                d3.json("{{ path('data_major') }}", function (error, data) {
-                    if (error) throw error;
+            {#    // load the external data#}
+            {#    d3.json("{{ path('data_major') }}", function (error, data) {#}
+            {#        if (error) throw error;#}
 
-                    data.sort(function (a, b) {
-                        return a.value - b.value;
-                    });
+            {#        data.sort(function (a, b) {#}
+            {#            return a.value - b.value;#}
+            {#        });#}
 
-                    x.domain([0, d3.max(data, function (d) {
-                        return parseInt(d.value);
-                    })]);
-                    y.domain(data.map(function (d) {
-                        return d.area;
-                    })).padding(0.1);
+            {#        x.domain([0, d3.max(data, function (d) {#}
+            {#            return parseInt(d.value);#}
+            {#        })]);#}
+            {#        y.domain(data.map(function (d) {#}
+            {#            return d.area;#}
+            {#        })).padding(0.1);#}
 
-                    g.append("g")
-                        .attr("class", "x axis")
-                        .attr("transform", "translate(0," + height + ")")
-                        .call(d3.axisBottom(x).ticks(5).tickFormat(function (d) {
-                            return d;
-                        }).tickSizeInner([-height]));
+            {#        g.append("g")#}
+            {#            .attr("class", "x axis")#}
+            {#            .attr("transform", "translate(0," + height + ")")#}
+            {#            .call(d3.axisBottom(x).ticks(5).tickFormat(function (d) {#}
+            {#                return d;#}
+            {#            }).tickSizeInner([-height]));#}
 
-                    g.append("g")
-                        .attr("class", "y axis")
-                        .call(d3.axisLeft(y));
+            {#        g.append("g")#}
+            {#            .attr("class", "y axis")#}
+            {#            .call(d3.axisLeft(y));#}
 
-                    g.selectAll(".bar")
-                        .data(data)
-                        .enter().append("rect")
-                        .attr("class", "bar")
-                        .attr("x", 0)
-                        .attr("height", y.bandwidth())
-                        .attr("y", function (d) {
-                            return y(d.area);
-                        })
-                        .attr("width", function (d) {
-                            return x(d.value);
-                        })
-                });
-            }
+            {#        g.selectAll(".bar")#}
+            {#            .data(data)#}
+            {#            .enter().append("rect")#}
+            {#            .attr("class", "bar")#}
+            {#            .attr("x", 0)#}
+            {#            .attr("height", y.bandwidth())#}
+            {#            .attr("y", function (d) {#}
+            {#                return y(d.area);#}
+            {#            })#}
+            {#            .attr("width", function (d) {#}
+            {#                return x(d.value);#}
+            {#            })#}
+            {#    });#}
+            {#}#}
 
-            majors();
+            {#majors();#}
 
             function graddate() {
                 // set the dimensions and margins of the graph
@@ -437,32 +437,32 @@
 
             sphere3();
 
-            $.getJSON("{{ path('data_school') }}",
-                function (json) {
-                    var tr;
-                    var total = 0;
-                    for (var i = 0; i < json.length; i++) {
-                        total = total + parseInt(json[i].value);
-                        tr = $('<tr/>');
-                        tr.append("<td>" + json[i].area + "</td>");
-                        tr.append("<td>" + json[i].value + "</td>");
-                        $('table#schoolsDataTable').append(tr);
-                    }
-                    $('table#schoolsDataTable').append("<td>Total:</td><td>" + total + "</td>");
-                });
-            $.getJSON("{{ path('data_major') }}",
-                function (json) {
-                    var tr;
-                    var total = 0;
-                    for (var i = 0; i < json.length; i++) {
-                        total = total + parseInt(json[i].value);
-                        tr = $('<tr/>');
-                        tr.append("<td>" + json[i].area + "</td>");
-                        tr.append("<td>" + json[i].value + "</td>");
-                        $('table#majorsDataTable').append(tr);
-                    }
-                    $('table#majorsDataTable').append("<td>Total:</td><td>" + total + "</td>");
-                });
+            {#$.getJSON("{{ path('data_school') }}",#}
+            {#    function (json) {#}
+            {#        var tr;#}
+            {#        var total = 0;#}
+            {#        for (var i = 0; i < json.length; i++) {#}
+            {#            total = total + parseInt(json[i].value);#}
+            {#            tr = $('<tr/>');#}
+            {#            tr.append("<td>" + json[i].area + "</td>");#}
+            {#            tr.append("<td>" + json[i].value + "</td>");#}
+            {#            $('table#schoolsDataTable').append(tr);#}
+            {#        }#}
+            {#        $('table#schoolsDataTable').append("<td>Total:</td><td>" + total + "</td>");#}
+            {#    });#}
+            {#$.getJSON("{{ path('data_major') }}",#}
+            {#    function (json) {#}
+            {#        var tr;#}
+            {#        var total = 0;#}
+            {#        for (var i = 0; i < json.length; i++) {#}
+            {#            total = total + parseInt(json[i].value);#}
+            {#            tr = $('<tr/>');#}
+            {#            tr.append("<td>" + json[i].area + "</td>");#}
+            {#            tr.append("<td>" + json[i].value + "</td>");#}
+            {#            $('table#majorsDataTable').append(tr);#}
+            {#        }#}
+            {#        $('table#majorsDataTable').append("<td>Total:</td><td>" + total + "</td>");#}
+            {#    });#}
             $.getJSON("{{ path('data_graddate') }}",
                 function (json) {
                     var tr;
@@ -548,12 +548,11 @@
                 <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                     <div class="card-block">
                         <div class="col-sm-2">
-                            Unavailable at this time.
-{#                            <table id="schoolsDataTable" border="1">#}
-{#                            </table>#}
+                            <table id="schoolsDataTable" border="1">
+                            </table>
                         </div>
                         <div class="col-sm-8 offset-sm-1">
-{#                            <svg id="schools" width="800" height="700"></svg>#}
+                            <svg id="schools" width="800" height="700"></svg>
                         </div>
                     </div>
                 </div>
@@ -570,12 +569,11 @@
                 <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="card-block">
                         <div class="col-sm-2">
-                            Unavailable at this time.
-{#                            <table id="majorsDataTable" border="1">#}
-{#                            </table>#}
+                            <table id="majorsDataTable" border="1">
+                            </table>
                         </div>
                         <div class="col-sm-8 offset-sm-1">
-{#                            <svg id="majors" width="800" height="700"></svg>#}
+                            <svg id="majors" width="800" height="700"></svg>
                         </div>
                     </div>
                 </div>
