@@ -54,9 +54,9 @@ class CourseType extends AbstractType
             ->add('description', CKEditorType::class, array('config_name' => 'editor_default',))
             ->add('syllabus', CKEditorType::class, array('config_name' => 'editor_default',))
             ->add('notes', CKEditorType::class, array('config_name' => 'editor_default',))
-            ->add('contact', TextType::class, array('required' =>false, 'attr' => array('label' => 'Contact', 'class' => 'text
+            ->add('contact', TextType::class, array('required' =>true, 'attr' => array('label' => 'Contact', 'class' => 'text
             form-control'),))
-            ->add('contact_email', TextType::class, array('required' =>false, 'attr' => array('label' => 'Contact Email', 'class' => 'text
+            ->add('contact_email', TextType::class, array('required' =>true, 'attr' => array('label' => 'Contact Email', 'class' => 'text
             form-control'),));
     }
 

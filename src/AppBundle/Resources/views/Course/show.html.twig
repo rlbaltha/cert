@@ -22,9 +22,6 @@
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
-                            <li class="nav-item"><a
-                                        href="{{ path('term_current') }}">Courses Offered Next Term</a>
-                            </li>
                             <li class="nav-item">Anchor:
                                 <a href="{{ path('course', { 'pillar':'anchor', 'level':'undergrad' }) }}">undergrad</a>
                                 /
@@ -90,8 +87,8 @@
         <div class="col-sm-8">
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <div class="btn-group float-sm-right" role="group" aria-label="Course Actions">
-                    <a class="btn btn-primary"
-                       href="{{ path('upload_new', { 'courseid': entity.id }) }}">Upload Syllabus</a>
+{#                    <a class="btn btn-primary"#}
+{#                       href="{{ path('upload_new', { 'courseid': entity.id }) }}">Upload Syllabus</a>#}
                     <a class="btn btn-primary"
                        href="{{ path('course_edit', { 'id': entity.id }) }}">Edit</a>
                     {% if entity.status=='pending' %}
@@ -100,8 +97,6 @@
                         <a class="btn btn-primary"
                            href="{{ path('course_approval', { 'state':'denied', 'id': entity.id }) }}">Deny</a>
                     {% endif %}
-                    <a class="btn btn-primary" href="{{ path('term_addcourse', { 'courseid': entity.id }) }}">Add
-                        to Current Term</a>
                 </div>
             {% endif %}
             <h1>{{ entity.name }}</h1>

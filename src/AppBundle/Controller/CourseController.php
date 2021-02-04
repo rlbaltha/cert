@@ -96,7 +96,7 @@ class CourseController extends Controller
 
         $entities = $em->getRepository('AppBundle:Course')->findAllSorted();
 
-        return $this->render('AppBundle:Course:all.html.twig', array(
+        return $this->render('AppBundle:Course:index.html.twig', array(
             'entities' => $entities,
             'section' => $section,
         ));
